@@ -6,10 +6,6 @@
         "recipes": {
             "input": [
                 "acid_dumping",
-                "acid_storage",
-                "acid_storage_2",
-                "acid_storage_3",
-                "acid_storage_4",
                 "copper_purification_acid",
                 "fluoride_leaching",
                 "glass_mix_mixing_2",
@@ -26,11 +22,7 @@
                 "uranium_leaching"
             ],
             "output": [
-                "acid_mixing",
-                "acid_storage",
-                "acid_storage_2",
-                "acid_storage_3",
-                "acid_storage_4"
+                "acid_mixing"
             ]
         },
         "machines": {
@@ -105,20 +97,12 @@
             "input": [
                 "ammonia_disposal",
                 "ammonia_electrolysis",
-                "ammonia_storage",
-                "ammonia_storage_2",
-                "ammonia_storage_3",
-                "ammonia_storage_4",
                 "anesthetics_production",
                 "antibiotics",
                 "fertilizer_synthesis",
                 "fertilizer_synthesis_2"
             ],
             "output": [
-                "ammonia_storage",
-                "ammonia_storage_2",
-                "ammonia_storage_3",
-                "ammonia_storage_4",
                 "ammonia_synthesis",
                 "ammonia_synthesis_2",
                 "sour_water_stripping_recovery"
@@ -153,21 +137,11 @@
         "icon": "Anesthetics.png",
         "recipes": {
             "input": [
-                "anesthetics_storage",
-                "anesthetics_storage_2",
-                "anesthetics_storage_3",
-                "anesthetics_storage_4",
-                "anesthetics_storage_5",
                 "medical_supplies_iii_assembly_t1",
                 "medical_supplies_iii_assembly_t2"
             ],
             "output": [
-                "anesthetics_production",
-                "anesthetics_storage",
-                "anesthetics_storage_2",
-                "anesthetics_storage_3",
-                "anesthetics_storage_4",
-                "anesthetics_storage_5"
+                "anesthetics_production"
             ]
         },
         "machines": {
@@ -196,10 +170,6 @@
         "icon": "AnimalFeed.png",
         "recipes": {
             "input": [
-                "animal_feed_storage",
-                "animal_feed_storage_2",
-                "animal_feed_storage_3",
-                "animal_feed_storage_4",
                 "burning_3",
                 "composing",
                 "steam_generation_3"
@@ -209,10 +179,6 @@
                 "animal_feed_production_2",
                 "animal_feed_production_3",
                 "animal_feed_production_4",
-                "animal_feed_storage",
-                "animal_feed_storage_2",
-                "animal_feed_storage_3",
-                "animal_feed_storage_4",
                 "canola_milling",
                 "corn_milling_wet",
                 "soybean_milling",
@@ -247,21 +213,11 @@
         "icon": "Antibiotics.png",
         "recipes": {
             "input": [
-                "antibiotics_storage",
-                "antibiotics_storage_2",
-                "antibiotics_storage_3",
-                "antibiotics_storage_4",
-                "antibiotics_storage_5",
                 "medical_supplies_assembly_t1_2",
                 "medical_supplies_assembly_t2_2"
             ],
             "output": [
-                "antibiotics",
-                "antibiotics_storage",
-                "antibiotics_storage_2",
-                "antibiotics_storage_3",
-                "antibiotics_storage_4",
-                "antibiotics_storage_5"
+                "antibiotics"
             ]
         },
         "machines": {
@@ -290,19 +246,11 @@
         "icon": "Biomass.png",
         "recipes": {
             "input": [
-                "biomass_storage",
-                "biomass_storage_2",
-                "biomass_storage_3",
-                "biomass_storage_4",
                 "burning_2",
                 "composing_2",
                 "steam_generation_2"
             ],
             "output": [
-                "biomass_storage",
-                "biomass_storage_2",
-                "biomass_storage_3",
-                "biomass_storage_4",
                 "snack_production",
                 "snack_production_2",
                 "sugar_refining_cane"
@@ -333,21 +281,11 @@
         "icon": "Bread.png",
         "recipes": {
             "input": [
-                "bread_storage",
-                "bread_storage_2",
-                "bread_storage_3",
-                "bread_storage_4",
-                "bread_storage_5",
                 "food_pack_assembly_eggs",
                 "food_pack_assembly_meat"
             ],
             "output": [
-                "bread_making",
-                "bread_storage",
-                "bread_storage_2",
-                "bread_storage_3",
-                "bread_storage_4",
-                "bread_storage_5"
+                "bread_making"
             ]
         },
         "machines": {
@@ -377,10 +315,6 @@
             "input": [
                 "brine_dumping",
                 "brine_electrolysis",
-                "brine_storage",
-                "brine_storage_2",
-                "brine_storage_3",
-                "brine_storage_4",
                 "salt_making_2",
                 "salt_making_4",
                 "toxic_slurry_treatment"
@@ -389,10 +323,6 @@
                 "brine_making",
                 "brine_making_2",
                 "brine_production",
-                "brine_storage",
-                "brine_storage_2",
-                "brine_storage_3",
-                "brine_storage_4",
                 "thermal_desalination",
                 "thermal_desalination_2",
                 "thermal_desalination_3",
@@ -430,19 +360,11 @@
         "icon": "BrokenGlass.png",
         "recipes": {
             "input": [
-                "broken_glass_storage",
-                "broken_glass_storage_2",
-                "broken_glass_storage_3",
-                "broken_glass_storage_4",
                 "glass_broken_smelting",
                 "glass_broken_smelting_2",
                 "glass_smelting_4"
             ],
             "output": [
-                "broken_glass_storage",
-                "broken_glass_storage_2",
-                "broken_glass_storage_3",
-                "broken_glass_storage_4",
                 "wastesortingplant"
             ]
         },
@@ -470,20 +392,9 @@
         "name": "Cake",
         "icon": "Cake.png",
         "recipes": {
-            "input": [
-                "cake_storage",
-                "cake_storage_2",
-                "cake_storage_3",
-                "cake_storage_4",
-                "cake_storage_5"
-            ],
+            "input": [],
             "output": [
-                "cake_production",
-                "cake_storage",
-                "cake_storage_2",
-                "cake_storage_3",
-                "cake_storage_4",
-                "cake_storage_5"
+                "cake_production"
             ]
         },
         "machines": {
@@ -510,18 +421,9 @@
         "icon": "Canola.png",
         "recipes": {
             "input": [
-                "canola_milling",
-                "canola_storage",
-                "canola_storage_2",
-                "canola_storage_3",
-                "canola_storage_4"
+                "canola_milling"
             ],
-            "output": [
-                "canola_storage",
-                "canola_storage_2",
-                "canola_storage_3",
-                "canola_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -545,10 +447,6 @@
         "icon": "CarbonDioxide.png",
         "recipes": {
             "input": [
-                "carbon_dioxide_storage",
-                "carbon_dioxide_storage_2",
-                "carbon_dioxide_storage_3",
-                "carbon_dioxide_storage_4",
                 "co2_injection",
                 "fuelgas_synthesis",
                 "graphite_production_2",
@@ -557,10 +455,6 @@
             ],
             "output": [
                 "antibiotics",
-                "carbon_dioxide_storage",
-                "carbon_dioxide_storage_2",
-                "carbon_dioxide_storage_3",
-                "carbon_dioxide_storage_4",
                 "ethanol_making_corn",
                 "ethanol_making_sugar",
                 "exhaust_filtering",
@@ -600,11 +494,6 @@
         "icon": "Cement.png",
         "recipes": {
             "input": [
-                "cement_storage",
-                "cement_storage_2",
-                "cement_storage_3",
-                "cement_storage_4",
-                "cement_storage_5",
                 "concrete_mixing",
                 "concrete_mixing_2",
                 "concrete_mixing_3",
@@ -617,12 +506,7 @@
             "output": [
                 "cement_production",
                 "cement_production_2",
-                "cement_production_3",
-                "cement_storage",
-                "cement_storage_2",
-                "cement_storage_3",
-                "cement_storage_4",
-                "cement_storage_5"
+                "cement_production_3"
             ]
         },
         "machines": {
@@ -654,20 +538,9 @@
         "recipes": {
             "input": [
                 "burning_5",
-                "chicken_carcass_storage",
-                "chicken_carcass_storage_2",
-                "chicken_carcass_storage_3",
-                "chicken_carcass_storage_4",
-                "chicken_carcass_storage_5",
                 "meat_processing"
             ],
-            "output": [
-                "chicken_carcass_storage",
-                "chicken_carcass_storage_2",
-                "chicken_carcass_storage_3",
-                "chicken_carcass_storage_4",
-                "chicken_carcass_storage_5"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -694,17 +567,9 @@
         "icon": "ChilledWater.png",
         "recipes": {
             "input": [
-                "chilled_water_storage",
-                "chilled_water_storage_2",
-                "chilled_water_storage_3",
-                "chilled_water_storage_4",
                 "create_computing_power"
             ],
             "output": [
-                "chilled_water_storage",
-                "chilled_water_storage_2",
-                "chilled_water_storage_3",
-                "chilled_water_storage_4",
                 "water_cooling"
             ]
         },
@@ -731,10 +596,6 @@
         "icon": "Chlorine.png",
         "recipes": {
             "input": [
-                "chlorine_storage",
-                "chlorine_storage_2",
-                "chlorine_storage_3",
-                "chlorine_storage_4",
                 "graphite_production",
                 "plastic_making",
                 "plastic_making_2",
@@ -742,11 +603,7 @@
                 "water_treatment_advanced"
             ],
             "output": [
-                "brine_electrolysis",
-                "chlorine_storage",
-                "chlorine_storage_2",
-                "chlorine_storage_3",
-                "chlorine_storage_4"
+                "brine_electrolysis"
             ]
         },
         "machines": {
@@ -775,10 +632,6 @@
         "recipes": {
             "input": [
                 "cement_production",
-                "coal_storage",
-                "coal_storage_2",
-                "coal_storage_3",
-                "coal_storage_4",
                 "copper_scrap_smelting",
                 "copper_scrap_smelting_2",
                 "copper_smelting",
@@ -803,11 +656,7 @@
             ],
             "output": [
                 "charcoal_making",
-                "coal_mining",
-                "coal_storage",
-                "coal_storage_2",
-                "coal_storage_3",
-                "coal_storage_4"
+                "coal_mining"
             ]
         },
         "machines": {
@@ -843,20 +692,12 @@
         "icon": "Compost.png",
         "recipes": {
             "input": [
-                "compost_storage",
-                "compost_storage_2",
-                "compost_storage_3",
-                "compost_storage_4",
                 "fertilizer_mixing"
             ],
             "output": [
                 "composing",
                 "composing_2",
                 "composing_3",
-                "compost_storage",
-                "compost_storage_2",
-                "compost_storage_3",
-                "compost_storage_4",
                 "digestion",
                 "digestion_2",
                 "digestion_3",
@@ -887,11 +728,6 @@
         "icon": "ConcreteSlab.png",
         "recipes": {
             "input": [
-                "concrete_slab_storage",
-                "concrete_slab_storage_2",
-                "concrete_slab_storage_3",
-                "concrete_slab_storage_4",
-                "concrete_slab_storage_5",
                 "cp_assembly_t1",
                 "cp_assembly_t2",
                 "cp_assembly_t3",
@@ -905,12 +741,7 @@
                 "concrete_mixing_5",
                 "concrete_mixing_6",
                 "concrete_mixing_7",
-                "concrete_mixing_8",
-                "concrete_slab_storage",
-                "concrete_slab_storage_2",
-                "concrete_slab_storage_3",
-                "concrete_slab_storage_4",
-                "concrete_slab_storage_5"
+                "concrete_mixing_8"
             ]
         },
         "machines": {
@@ -943,22 +774,12 @@
         "icon": "ConstructionParts.png",
         "recipes": {
             "input": [
-                "construction_parts_storage",
-                "construction_parts_storage_2",
-                "construction_parts_storage_3",
-                "construction_parts_storage_4",
-                "construction_parts_storage_5",
                 "cp2_assembly_t1",
                 "cp2_assembly_t1_2",
                 "cp2_assembly_t2",
                 "cp2_assembly_t3"
             ],
             "output": [
-                "construction_parts_storage",
-                "construction_parts_storage_2",
-                "construction_parts_storage_3",
-                "construction_parts_storage_4",
-                "construction_parts_storage_5",
                 "cp_assembly_t1",
                 "cp_assembly_t2",
                 "cp_assembly_t3",
@@ -996,21 +817,11 @@
         "icon": "ConstructionParts2.png",
         "recipes": {
             "input": [
-                "construction_parts_ii_storage",
-                "construction_parts_ii_storage_2",
-                "construction_parts_ii_storage_3",
-                "construction_parts_ii_storage_4",
-                "construction_parts_ii_storage_5",
                 "cp3_assembly_t1",
                 "cp3_assembly_t2",
                 "cp3_assembly_t3"
             ],
             "output": [
-                "construction_parts_ii_storage",
-                "construction_parts_ii_storage_2",
-                "construction_parts_ii_storage_3",
-                "construction_parts_ii_storage_4",
-                "construction_parts_ii_storage_5",
                 "cp2_assembly_t1",
                 "cp2_assembly_t1_2",
                 "cp2_assembly_t2",
@@ -1047,20 +858,10 @@
         "icon": "ConstructionParts3.png",
         "recipes": {
             "input": [
-                "construction_parts_iii_storage",
-                "construction_parts_iii_storage_2",
-                "construction_parts_iii_storage_3",
-                "construction_parts_iii_storage_4",
-                "construction_parts_iii_storage_5",
                 "cp4_assembly_t1",
                 "cp4_assembly_t2"
             ],
             "output": [
-                "construction_parts_iii_storage",
-                "construction_parts_iii_storage_2",
-                "construction_parts_iii_storage_3",
-                "construction_parts_iii_storage_4",
-                "construction_parts_iii_storage_5",
                 "cp3_assembly_t1",
                 "cp3_assembly_t2",
                 "cp3_assembly_t3"
@@ -1093,19 +894,8 @@
         "name": "Construction Parts IV",
         "icon": "ConstructionParts4.png",
         "recipes": {
-            "input": [
-                "construction_parts_iv_storage",
-                "construction_parts_iv_storage_2",
-                "construction_parts_iv_storage_3",
-                "construction_parts_iv_storage_4",
-                "construction_parts_iv_storage_5"
-            ],
+            "input": [],
             "output": [
-                "construction_parts_iv_storage",
-                "construction_parts_iv_storage_2",
-                "construction_parts_iv_storage_3",
-                "construction_parts_iv_storage_4",
-                "construction_parts_iv_storage_5",
                 "cp4_assembly_t1",
                 "cp4_assembly_t2"
             ]
@@ -1134,20 +924,9 @@
         "name": "Consumer Electronics",
         "icon": "ConsumerElectronics.png",
         "recipes": {
-            "input": [
-                "consumer_electronics_storage",
-                "consumer_electronics_storage_2",
-                "consumer_electronics_storage_3",
-                "consumer_electronics_storage_4",
-                "consumer_electronics_storage_5"
-            ],
+            "input": [],
             "output": [
-                "consumer_electronics_assembly_t1",
-                "consumer_electronics_storage",
-                "consumer_electronics_storage_2",
-                "consumer_electronics_storage_3",
-                "consumer_electronics_storage_4",
-                "consumer_electronics_storage_5"
+                "consumer_electronics_assembly_t1"
             ]
         },
         "machines": {
@@ -1175,10 +954,6 @@
         "recipes": {
             "input": [
                 "cake_production",
-                "cooking_oil_storage",
-                "cooking_oil_storage_2",
-                "cooking_oil_storage_3",
-                "cooking_oil_storage_4",
                 "fuel_transesterification",
                 "fuel_transesterification_2",
                 "snack_production",
@@ -1186,10 +961,6 @@
             ],
             "output": [
                 "canola_milling",
-                "cooking_oil_storage",
-                "cooking_oil_storage_2",
-                "cooking_oil_storage_3",
-                "cooking_oil_storage_4",
                 "soybean_milling"
             ]
         },
@@ -1219,11 +990,6 @@
         "icon": "Copper.png",
         "recipes": {
             "input": [
-                "copper_storage",
-                "copper_storage_2",
-                "copper_storage_3",
-                "copper_storage_4",
-                "copper_storage_5",
                 "electronics_assembly_t1",
                 "electronics_assembly_t2",
                 "electronics_assembly_t3",
@@ -1243,12 +1009,7 @@
             ],
             "output": [
                 "copper_purification_acid",
-                "copper_purification_water",
-                "copper_storage",
-                "copper_storage_2",
-                "copper_storage_3",
-                "copper_storage_4",
-                "copper_storage_5"
+                "copper_purification_water"
             ]
         },
         "machines": {
@@ -1283,18 +1044,10 @@
         "recipes": {
             "input": [
                 "copper_ore_crushing",
-                "copper_ore_storage",
-                "copper_ore_storage_2",
-                "copper_ore_storage_3",
-                "copper_ore_storage_4",
                 "copper_smelting"
             ],
             "output": [
-                "copper_mining",
-                "copper_ore_storage",
-                "copper_ore_storage_2",
-                "copper_ore_storage_3",
-                "copper_ore_storage_4"
+                "copper_mining"
             ]
         },
         "machines": {
@@ -1321,18 +1074,10 @@
         "icon": "CopperOreCrushed.png",
         "recipes": {
             "input": [
-                "copper_ore_crushed_storage",
-                "copper_ore_crushed_storage_2",
-                "copper_ore_crushed_storage_3",
-                "copper_ore_crushed_storage_4",
                 "copper_smelting_arc",
                 "copper_smelting_sand"
             ],
             "output": [
-                "copper_ore_crushed_storage",
-                "copper_ore_crushed_storage_2",
-                "copper_ore_crushed_storage_3",
-                "copper_ore_crushed_storage_4",
                 "copper_ore_crushing"
             ]
         },
@@ -1362,17 +1107,9 @@
             "input": [
                 "copper_scrap_smelting",
                 "copper_scrap_smelting_2",
-                "copper_scrap_smelting_arc",
-                "copper_scrap_storage",
-                "copper_scrap_storage_2",
-                "copper_scrap_storage_3",
-                "copper_scrap_storage_4"
+                "copper_scrap_smelting_arc"
             ],
             "output": [
-                "copper_scrap_storage",
-                "copper_scrap_storage_2",
-                "copper_scrap_storage_3",
-                "copper_scrap_storage_4",
                 "wastesortingplant"
             ]
         },
@@ -1403,18 +1140,9 @@
             "input": [
                 "animal_feed_production_3",
                 "corn_milling_wet",
-                "corn_storage",
-                "corn_storage_2",
-                "corn_storage_3",
-                "corn_storage_4",
                 "snack_production_2"
             ],
-            "output": [
-                "corn_storage",
-                "corn_storage_2",
-                "corn_storage_3",
-                "corn_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -1440,17 +1168,9 @@
         "icon": "CornMash.png",
         "recipes": {
             "input": [
-                "corn_mash_storage",
-                "corn_mash_storage_2",
-                "corn_mash_storage_3",
-                "corn_mash_storage_4",
                 "ethanol_making_corn"
             ],
             "output": [
-                "corn_mash_storage",
-                "corn_mash_storage_2",
-                "corn_mash_storage_3",
-                "corn_mash_storage_4",
                 "corn_milling_wet"
             ]
         },
@@ -1478,17 +1198,9 @@
         "recipes": {
             "input": [
                 "crude_oil_refining",
-                "crude_oil_storage",
-                "crude_oil_storage_2",
-                "crude_oil_storage_3",
-                "crude_oil_storage_4",
                 "diesel_distillation_basic"
             ],
             "output": [
-                "crude_oil_storage",
-                "crude_oil_storage_2",
-                "crude_oil_storage_3",
-                "crude_oil_storage_4",
                 "oil_pumping"
             ]
         },
@@ -1518,10 +1230,6 @@
             "input": [
                 "diesel_disposal",
                 "diesel_reforming",
-                "diesel_storage",
-                "diesel_storage_2",
-                "diesel_storage_3",
-                "diesel_storage_4",
                 "dieselgenerator",
                 "rubber_production_alt",
                 "rubber_production_coal_alt"
@@ -1529,10 +1237,6 @@
             "output": [
                 "crude_oil_refining_2",
                 "diesel_distillation_basic",
-                "diesel_storage",
-                "diesel_storage_2",
-                "diesel_storage_3",
-                "diesel_storage_4",
                 "fuel_transesterification",
                 "fuel_transesterification_2",
                 "fuelgas_reforming",
@@ -1569,18 +1273,9 @@
         "name": "Dirt",
         "icon": "Dirt.png",
         "recipes": {
-            "input": [
-                "dirt_storage",
-                "dirt_storage_2",
-                "dirt_storage_3",
-                "dirt_storage_4"
-            ],
+            "input": [],
             "output": [
-                "dirt_mining",
-                "dirt_storage",
-                "dirt_storage_2",
-                "dirt_storage_3",
-                "dirt_storage_4"
+                "dirt_mining"
             ]
         },
         "machines": {
@@ -1605,22 +1300,12 @@
         "icon": "Disinfectant.png",
         "recipes": {
             "input": [
-                "disinfectant_storage",
-                "disinfectant_storage_2",
-                "disinfectant_storage_3",
-                "disinfectant_storage_4",
-                "disinfectant_storage_5",
                 "medical_supplies_assembly_t1",
                 "medical_supplies_assembly_t2"
             ],
             "output": [
                 "disinfectant_production",
-                "disinfectant_production_2",
-                "disinfectant_storage",
-                "disinfectant_storage_2",
-                "disinfectant_storage_3",
-                "disinfectant_storage_4",
-                "disinfectant_storage_5"
+                "disinfectant_production_2"
             ]
         },
         "machines": {
@@ -1651,20 +1336,9 @@
         "recipes": {
             "input": [
                 "cake_production",
-                "eggs_storage",
-                "eggs_storage_2",
-                "eggs_storage_3",
-                "eggs_storage_4",
-                "eggs_storage_5",
                 "food_pack_assembly_eggs"
             ],
-            "output": [
-                "eggs_storage",
-                "eggs_storage_2",
-                "eggs_storage_3",
-                "eggs_storage_4",
-                "eggs_storage_5"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -1719,11 +1393,6 @@
                 "electronics_2_assembly_t1",
                 "electronics_2_assembly_t2",
                 "electronics_2_assembly_t3",
-                "electronics_storage",
-                "electronics_storage_2",
-                "electronics_storage_3",
-                "electronics_storage_4",
-                "electronics_storage_5",
                 "household_appliances_assembly_t1",
                 "household_appliances_assembly_t2",
                 "household_appliances_assembly_t3",
@@ -1746,12 +1415,7 @@
                 "electronics_assembly_t2",
                 "electronics_assembly_t3",
                 "electronics_assembly_t4",
-                "electronics_assembly_t5",
-                "electronics_storage",
-                "electronics_storage_2",
-                "electronics_storage_3",
-                "electronics_storage_4",
-                "electronics_storage_5"
+                "electronics_assembly_t5"
             ]
         },
         "machines": {
@@ -1794,11 +1458,6 @@
                 "electronics_3_assembly_t1",
                 "electronics_3_assembly_t2",
                 "electronics_3_assembly_t3",
-                "electronics_ii_storage",
-                "electronics_ii_storage_2",
-                "electronics_ii_storage_3",
-                "electronics_ii_storage_4",
-                "electronics_ii_storage_5",
                 "household_appliances_assembly_t1",
                 "household_appliances_assembly_t2",
                 "household_appliances_assembly_t3",
@@ -1814,12 +1473,7 @@
             "output": [
                 "electronics_2_assembly_t1",
                 "electronics_2_assembly_t2",
-                "electronics_2_assembly_t3",
-                "electronics_ii_storage",
-                "electronics_ii_storage_2",
-                "electronics_ii_storage_3",
-                "electronics_ii_storage_4",
-                "electronics_ii_storage_5"
+                "electronics_2_assembly_t3"
             ]
         },
         "machines": {
@@ -1853,11 +1507,6 @@
         "recipes": {
             "input": [
                 "consumer_electronics_assembly_t1",
-                "electronics_iii_storage",
-                "electronics_iii_storage_2",
-                "electronics_iii_storage_3",
-                "electronics_iii_storage_4",
-                "electronics_iii_storage_5",
                 "maintenance_iii",
                 "maintenance_iii_2",
                 "maintenance_iii_3",
@@ -1869,12 +1518,7 @@
             "output": [
                 "electronics_3_assembly_t1",
                 "electronics_3_assembly_t2",
-                "electronics_3_assembly_t3",
-                "electronics_iii_storage",
-                "electronics_iii_storage_2",
-                "electronics_iii_storage_3",
-                "electronics_iii_storage_4",
-                "electronics_iii_storage_5"
+                "electronics_3_assembly_t3"
             ]
         },
         "machines": {
@@ -1910,10 +1554,6 @@
                 "disinfectant_production",
                 "disinfectant_production_2",
                 "ethanol_disposal",
-                "ethanol_storage",
-                "ethanol_storage_2",
-                "ethanol_storage_3",
-                "ethanol_storage_4",
                 "fuel_transesterification",
                 "fuel_transesterification_2",
                 "plastic_making_2",
@@ -1922,11 +1562,7 @@
             ],
             "output": [
                 "ethanol_making_corn",
-                "ethanol_making_sugar",
-                "ethanol_storage",
-                "ethanol_storage_2",
-                "ethanol_storage_3",
-                "ethanol_storage_4"
+                "ethanol_making_sugar"
             ]
         },
         "machines": {
@@ -1958,10 +1594,6 @@
         "recipes": {
             "input": [
                 "exhaust_filtering",
-                "exhaust_storage",
-                "exhaust_storage_2",
-                "exhaust_storage_3",
-                "exhaust_storage_4",
                 "product_disposal_13",
                 "product_disposal_6"
             ],
@@ -1977,10 +1609,6 @@
                 "copper_smelting_arc",
                 "copper_smelting_sand",
                 "diesel_distillation_basic",
-                "exhaust_storage",
-                "exhaust_storage_2",
-                "exhaust_storage_3",
-                "exhaust_storage_4",
                 "glass_broken_smelting",
                 "glass_broken_smelting_2",
                 "glass_smelting",
@@ -2049,17 +1677,9 @@
         "icon": "Fertilizer1.png",
         "recipes": {
             "input": [
-                "fertilizer_i_storage",
-                "fertilizer_i_storage_2",
-                "fertilizer_i_storage_3",
-                "fertilizer_i_storage_4",
                 "fertilizer_ii_synthesis"
             ],
             "output": [
-                "fertilizer_i_storage",
-                "fertilizer_i_storage_2",
-                "fertilizer_i_storage_3",
-                "fertilizer_i_storage_4",
                 "fertilizer_synthesis",
                 "fertilizer_synthesis_2"
             ]
@@ -2087,17 +1707,8 @@
         "name": "Fertilizer II",
         "icon": "Fertilizer2.png",
         "recipes": {
-            "input": [
-                "fertilizer_ii_storage",
-                "fertilizer_ii_storage_2",
-                "fertilizer_ii_storage_3",
-                "fertilizer_ii_storage_4"
-            ],
+            "input": [],
             "output": [
-                "fertilizer_ii_storage",
-                "fertilizer_ii_storage_2",
-                "fertilizer_ii_storage_3",
-                "fertilizer_ii_storage_4",
                 "fertilizer_ii_synthesis"
             ]
         },
@@ -2122,18 +1733,9 @@
         "name": "Fertilizer (Organic)",
         "icon": "FertilizerOrganic.png",
         "recipes": {
-            "input": [
-                "fertilizer_organic_storage",
-                "fertilizer_organic_storage_2",
-                "fertilizer_organic_storage_3",
-                "fertilizer_organic_storage_4"
-            ],
+            "input": [],
             "output": [
-                "fertilizer_mixing",
-                "fertilizer_organic_storage",
-                "fertilizer_organic_storage_2",
-                "fertilizer_organic_storage_3",
-                "fertilizer_organic_storage_4"
+                "fertilizer_mixing"
             ]
         },
         "machines": {
@@ -2158,19 +1760,11 @@
         "icon": "FilterMedia.png",
         "recipes": {
             "input": [
-                "filter_media_storage",
-                "filter_media_storage_2",
-                "filter_media_storage_3",
-                "filter_media_storage_4",
                 "toxic_slurry_treatment",
                 "water_treatment_advanced"
             ],
             "output": [
-                "filter_media_mixing",
-                "filter_media_storage",
-                "filter_media_storage_2",
-                "filter_media_storage_3",
-                "filter_media_storage_4"
+                "filter_media_mixing"
             ]
         },
         "machines": {
@@ -2198,19 +1792,9 @@
             "input": [
                 "bread_making",
                 "cake_production",
-                "flour_storage",
-                "flour_storage_2",
-                "flour_storage_3",
-                "flour_storage_4",
-                "flour_storage_5",
                 "sausage_processing"
             ],
             "output": [
-                "flour_storage",
-                "flour_storage_2",
-                "flour_storage_3",
-                "flour_storage_4",
-                "flour_storage_5",
                 "wheat_milling"
             ]
         },
@@ -2239,20 +1823,8 @@
         "name": "Flowers",
         "icon": "Flowers.png",
         "recipes": {
-            "input": [
-                "flowers_storage",
-                "flowers_storage_2",
-                "flowers_storage_3",
-                "flowers_storage_4",
-                "flowers_storage_5"
-            ],
-            "output": [
-                "flowers_storage",
-                "flowers_storage_2",
-                "flowers_storage_3",
-                "flowers_storage_4",
-                "flowers_storage_5"
-            ]
+            "input": [],
+            "output": []
         },
         "machines": {
             "input": [
@@ -2276,21 +1848,10 @@
         "name": "Food Pack",
         "icon": "FoodPack.png",
         "recipes": {
-            "input": [
-                "food_pack_storage",
-                "food_pack_storage_2",
-                "food_pack_storage_3",
-                "food_pack_storage_4",
-                "food_pack_storage_5"
-            ],
+            "input": [],
             "output": [
                 "food_pack_assembly_eggs",
-                "food_pack_assembly_meat",
-                "food_pack_storage",
-                "food_pack_storage_2",
-                "food_pack_storage_3",
-                "food_pack_storage_4",
-                "food_pack_storage_5"
+                "food_pack_assembly_meat"
             ]
         },
         "machines": {
@@ -2317,20 +1878,9 @@
         "icon": "Fruit.png",
         "recipes": {
             "input": [
-                "cake_production",
-                "fruit_storage",
-                "fruit_storage_2",
-                "fruit_storage_3",
-                "fruit_storage_4",
-                "fruit_storage_5"
+                "cake_production"
             ],
-            "output": [
-                "fruit_storage",
-                "fruit_storage_2",
-                "fruit_storage_3",
-                "fruit_storage_4",
-                "fruit_storage_5"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -2358,10 +1908,6 @@
             "input": [
                 "cement_production_2",
                 "fuel_gas_disposal",
-                "fuel_gas_storage",
-                "fuel_gas_storage_2",
-                "fuel_gas_storage_3",
-                "fuel_gas_storage_4",
                 "fuelgas_reforming",
                 "hydrogen_reforming",
                 "steam_generation_9"
@@ -2371,10 +1917,6 @@
                 "digestion_2",
                 "digestion_3",
                 "digestion_4",
-                "fuel_gas_storage",
-                "fuel_gas_storage_2",
-                "fuel_gas_storage_3",
-                "fuel_gas_storage_4",
                 "fuelgas_synthesis",
                 "heavy_distillate_refining",
                 "heavyoil_cracking",
@@ -2413,11 +1955,6 @@
         "icon": "Glass.png",
         "recipes": {
             "input": [
-                "glass_storage",
-                "glass_storage_2",
-                "glass_storage_3",
-                "glass_storage_4",
-                "glass_storage_5",
                 "household_goods_assembly_t1",
                 "household_goods_assembly_t2",
                 "household_goods_assembly_t3",
@@ -2436,12 +1973,7 @@
             ],
             "output": [
                 "glass_casting",
-                "glass_casting_2",
-                "glass_storage",
-                "glass_storage_2",
-                "glass_storage_3",
-                "glass_storage_4",
-                "glass_storage_5"
+                "glass_casting_2"
             ]
         },
         "machines": {
@@ -2474,21 +2006,13 @@
         "icon": "GlassMix.png",
         "recipes": {
             "input": [
-                "glass_mix_storage",
-                "glass_mix_storage_2",
-                "glass_mix_storage_3",
-                "glass_mix_storage_4",
                 "glass_smelting",
                 "glass_smelting_2",
                 "glass_smelting_3"
             ],
             "output": [
                 "glass_mix_mixing",
-                "glass_mix_mixing_2",
-                "glass_mix_storage",
-                "glass_mix_storage_2",
-                "glass_mix_storage_3",
-                "glass_mix_storage_4"
+                "glass_mix_mixing_2"
             ]
         },
         "machines": {
@@ -2516,11 +2040,6 @@
         "icon": "Gold.png",
         "recipes": {
             "input": [
-                "gold_storage",
-                "gold_storage_2",
-                "gold_storage_3",
-                "gold_storage_4",
-                "gold_storage_5",
                 "microchip_manufacturing_final_stage",
                 "microchip_manufacturing_final_stage_2",
                 "microchip_manufacturing_stage_3a",
@@ -2532,12 +2051,7 @@
             ],
             "output": [
                 "gold_smelting",
-                "gold_smelting_2",
-                "gold_storage",
-                "gold_storage_2",
-                "gold_storage_3",
-                "gold_storage_4",
-                "gold_storage_5"
+                "gold_smelting_2"
             ]
         },
         "machines": {
@@ -2566,18 +2080,10 @@
         "icon": "GoldOre.png",
         "recipes": {
             "input": [
-                "gold_ore_crushing",
-                "gold_ore_storage",
-                "gold_ore_storage_2",
-                "gold_ore_storage_3",
-                "gold_ore_storage_4"
+                "gold_ore_crushing"
             ],
             "output": [
-                "gold_mining",
-                "gold_ore_storage",
-                "gold_ore_storage_2",
-                "gold_ore_storage_3",
-                "gold_ore_storage_4"
+                "gold_mining"
             ]
         },
         "machines": {
@@ -2603,17 +2109,9 @@
         "icon": "GoldOreConcentrate.png",
         "recipes": {
             "input": [
-                "gold_ore_concentrate_storage",
-                "gold_ore_concentrate_storage_2",
-                "gold_ore_concentrate_storage_3",
-                "gold_ore_concentrate_storage_4",
                 "gold_smelting"
             ],
             "output": [
-                "gold_ore_concentrate_storage",
-                "gold_ore_concentrate_storage_2",
-                "gold_ore_concentrate_storage_3",
-                "gold_ore_concentrate_storage_4",
                 "gold_settling"
             ]
         },
@@ -2640,17 +2138,9 @@
         "icon": "GoldOreCrushed.png",
         "recipes": {
             "input": [
-                "gold_ore_crushed_storage",
-                "gold_ore_crushed_storage_2",
-                "gold_ore_crushed_storage_3",
-                "gold_ore_crushed_storage_4",
                 "gold_ore_milling"
             ],
             "output": [
-                "gold_ore_crushed_storage",
-                "gold_ore_crushed_storage_2",
-                "gold_ore_crushed_storage_3",
-                "gold_ore_crushed_storage_4",
                 "gold_ore_crushing"
             ]
         },
@@ -2677,18 +2167,10 @@
         "icon": "GoldOrePowder.png",
         "recipes": {
             "input": [
-                "gold_ore_powder_storage",
-                "gold_ore_powder_storage_2",
-                "gold_ore_powder_storage_3",
-                "gold_ore_powder_storage_4",
                 "gold_settling"
             ],
             "output": [
-                "gold_ore_milling",
-                "gold_ore_powder_storage",
-                "gold_ore_powder_storage_2",
-                "gold_ore_powder_storage_3",
-                "gold_ore_powder_storage_4"
+                "gold_ore_milling"
             ]
         },
         "machines": {
@@ -2714,17 +2196,9 @@
         "icon": "GoldScrap.png",
         "recipes": {
             "input": [
-                "gold_scrap_storage",
-                "gold_scrap_storage_2",
-                "gold_scrap_storage_3",
-                "gold_scrap_storage_4",
                 "gold_smelting_2"
             ],
             "output": [
-                "gold_scrap_storage",
-                "gold_scrap_storage_2",
-                "gold_scrap_storage_3",
-                "gold_scrap_storage_4",
                 "wastesortingplant"
             ]
         },
@@ -2755,11 +2229,6 @@
                 "copper_smelting_arc",
                 "glass_smelting_3",
                 "glass_smelting_4",
-                "graphite_storage",
-                "graphite_storage_2",
-                "graphite_storage_3",
-                "graphite_storage_4",
-                "graphite_storage_5",
                 "iron_scrap_smelting_arc",
                 "iron_smelting_arc",
                 "silicon_smelting_arc",
@@ -2767,12 +2236,7 @@
             ],
             "output": [
                 "graphite_production",
-                "graphite_production_2",
-                "graphite_storage",
-                "graphite_storage_2",
-                "graphite_storage_3",
-                "graphite_storage_4",
-                "graphite_storage_5"
+                "graphite_production_2"
             ]
         },
         "machines": {
@@ -2806,18 +2270,10 @@
                 "concrete_mixing_6",
                 "concrete_mixing_8",
                 "filter_media_mixing",
-                "gravel_crushing",
-                "gravel_storage",
-                "gravel_storage_2",
-                "gravel_storage_3",
-                "gravel_storage_4"
+                "gravel_crushing"
             ],
             "output": [
                 "gravel_mining",
-                "gravel_storage",
-                "gravel_storage_2",
-                "gravel_storage_3",
-                "gravel_storage_4",
                 "rock_crushing"
             ]
         },
@@ -2850,20 +2306,12 @@
         "recipes": {
             "input": [
                 "heavy_oil_disposal",
-                "heavy_oil_storage",
-                "heavy_oil_storage_2",
-                "heavy_oil_storage_3",
-                "heavy_oil_storage_4",
                 "heavyoil_cracking",
                 "heavyoil_cracking_2",
                 "steam_generation_4"
             ],
             "output": [
-                "crude_oil_refining",
-                "heavy_oil_storage",
-                "heavy_oil_storage_2",
-                "heavy_oil_storage_3",
-                "heavy_oil_storage_4"
+                "crude_oil_refining"
             ]
         },
         "machines": {
@@ -2890,22 +2338,11 @@
         "name": "Household Appliances",
         "icon": "HouseholdAppliances.png",
         "recipes": {
-            "input": [
-                "household_appliances_storage",
-                "household_appliances_storage_2",
-                "household_appliances_storage_3",
-                "household_appliances_storage_4",
-                "household_appliances_storage_5"
-            ],
+            "input": [],
             "output": [
                 "household_appliances_assembly_t1",
                 "household_appliances_assembly_t2",
-                "household_appliances_assembly_t3",
-                "household_appliances_storage",
-                "household_appliances_storage_2",
-                "household_appliances_storage_3",
-                "household_appliances_storage_4",
-                "household_appliances_storage_5"
+                "household_appliances_assembly_t3"
             ]
         },
         "machines": {
@@ -2933,22 +2370,11 @@
         "name": "Household Goods",
         "icon": "HouseholdGoods.png",
         "recipes": {
-            "input": [
-                "household_goods_storage",
-                "household_goods_storage_2",
-                "household_goods_storage_3",
-                "household_goods_storage_4",
-                "household_goods_storage_5"
-            ],
+            "input": [],
             "output": [
                 "household_goods_assembly_t1",
                 "household_goods_assembly_t2",
-                "household_goods_assembly_t3",
-                "household_goods_storage",
-                "household_goods_storage_2",
-                "household_goods_storage_3",
-                "household_goods_storage_4",
-                "household_goods_storage_5"
+                "household_goods_assembly_t3"
             ]
         },
         "machines": {
@@ -2984,10 +2410,6 @@
                 "heavyoil_cracking",
                 "heavyoil_cracking_2",
                 "hydrogen_disposal",
-                "hydrogen_storage",
-                "hydrogen_storage_2",
-                "hydrogen_storage_3",
-                "hydrogen_storage_4",
                 "naphtha_reforming",
                 "silicon_treatment",
                 "steam_generation_10"
@@ -2995,10 +2417,6 @@
             "output": [
                 "ammonia_electrolysis",
                 "hydrogen_reforming",
-                "hydrogen_storage",
-                "hydrogen_storage_2",
-                "hydrogen_storage_3",
-                "hydrogen_storage_4",
                 "water_electrolysis"
             ]
         },
@@ -3033,18 +2451,10 @@
         "recipes": {
             "input": [
                 "anesthetics_production",
-                "hydrogen_fluoride_storage",
-                "hydrogen_fluoride_storage_2",
-                "hydrogen_fluoride_storage_3",
-                "hydrogen_fluoride_storage_4",
                 "uranium_enrichment"
             ],
             "output": [
-                "fluoride_leaching",
-                "hydrogen_fluoride_storage",
-                "hydrogen_fluoride_storage_2",
-                "hydrogen_fluoride_storage_3",
-                "hydrogen_fluoride_storage_4"
+                "fluoride_leaching"
             ]
         },
         "machines": {
@@ -3072,21 +2482,11 @@
         "recipes": {
             "input": [
                 "copper_purification_acid",
-                "copper_purification_water",
-                "impure_copper_storage",
-                "impure_copper_storage_2",
-                "impure_copper_storage_3",
-                "impure_copper_storage_4",
-                "impure_copper_storage_5"
+                "copper_purification_water"
             ],
             "output": [
                 "copper_casting",
-                "copper_casting_2",
-                "impure_copper_storage",
-                "impure_copper_storage_2",
-                "impure_copper_storage_3",
-                "impure_copper_storage_4",
-                "impure_copper_storage_5"
+                "copper_casting_2"
             ]
         },
         "machines": {
@@ -3119,11 +2519,6 @@
                 "cp_assembly_t2",
                 "cp_assembly_t3",
                 "cp_assembly_t3_2",
-                "iron_storage",
-                "iron_storage_2",
-                "iron_storage_3",
-                "iron_storage_4",
-                "iron_storage_5",
                 "mech._parts_assembly_t1",
                 "mech._parts_assembly_t2",
                 "mech._parts_assembly_t3-1",
@@ -3134,12 +2529,7 @@
             ],
             "output": [
                 "iron_casting",
-                "iron_casting_2",
-                "iron_storage",
-                "iron_storage_2",
-                "iron_storage_3",
-                "iron_storage_4",
-                "iron_storage_5"
+                "iron_casting_2"
             ]
         },
         "machines": {
@@ -3172,18 +2562,10 @@
         "recipes": {
             "input": [
                 "iron_ore_crushing",
-                "iron_ore_storage",
-                "iron_ore_storage_2",
-                "iron_ore_storage_3",
-                "iron_ore_storage_4",
                 "iron_smelting"
             ],
             "output": [
-                "iron_mining",
-                "iron_ore_storage",
-                "iron_ore_storage_2",
-                "iron_ore_storage_3",
-                "iron_ore_storage_4"
+                "iron_mining"
             ]
         },
         "machines": {
@@ -3210,18 +2592,10 @@
         "icon": "IronOreCrushed.png",
         "recipes": {
             "input": [
-                "iron_ore_crushed_storage",
-                "iron_ore_crushed_storage_2",
-                "iron_ore_crushed_storage_3",
-                "iron_ore_crushed_storage_4",
                 "iron_smelting_arc",
                 "iron_smelting_lime"
             ],
             "output": [
-                "iron_ore_crushed_storage",
-                "iron_ore_crushed_storage_2",
-                "iron_ore_crushed_storage_3",
-                "iron_ore_crushed_storage_4",
                 "iron_ore_crushing"
             ]
         },
@@ -3251,17 +2625,9 @@
             "input": [
                 "iron_scrap_smelting",
                 "iron_scrap_smelting_2",
-                "iron_scrap_smelting_arc",
-                "iron_scrap_storage",
-                "iron_scrap_storage_2",
-                "iron_scrap_storage_3",
-                "iron_scrap_storage_4"
+                "iron_scrap_smelting_arc"
             ],
             "output": [
-                "iron_scrap_storage",
-                "iron_scrap_storage_2",
-                "iron_scrap_storage_3",
-                "iron_scrap_storage_4",
                 "wastesortingplant"
             ]
         },
@@ -3292,22 +2658,12 @@
             "input": [
                 "lab_equipment_assembly_t1_2",
                 "lab_equipment_assembly_t2_2",
-                "lab_equipment_storage",
-                "lab_equipment_storage_2",
-                "lab_equipment_storage_3",
-                "lab_equipment_storage_4",
-                "lab_equipment_storage_5",
                 "research_lab_ii"
             ],
             "output": [
                 "lab_equipment_assembly_t1",
                 "lab_equipment_assembly_t2",
-                "lab_equipment_assembly_t3",
-                "lab_equipment_storage",
-                "lab_equipment_storage_2",
-                "lab_equipment_storage_3",
-                "lab_equipment_storage_4",
-                "lab_equipment_storage_5"
+                "lab_equipment_assembly_t3"
             ]
         },
         "machines": {
@@ -3341,21 +2697,11 @@
             "input": [
                 "lab_equipment_2_assembly_t2",
                 "lab_equipment_2_assembly_t3",
-                "lab_equipment_ii_storage",
-                "lab_equipment_ii_storage_2",
-                "lab_equipment_ii_storage_3",
-                "lab_equipment_ii_storage_4",
-                "lab_equipment_ii_storage_5",
                 "research_lab_iii"
             ],
             "output": [
                 "lab_equipment_assembly_t1_2",
-                "lab_equipment_assembly_t2_2",
-                "lab_equipment_ii_storage",
-                "lab_equipment_ii_storage_2",
-                "lab_equipment_ii_storage_3",
-                "lab_equipment_ii_storage_4",
-                "lab_equipment_ii_storage_5"
+                "lab_equipment_assembly_t2_2"
             ]
         },
         "machines": {
@@ -3388,21 +2734,11 @@
             "input": [
                 "lab_equipment_4_assembly_t2",
                 "lab_equipment_4_assembly_t3",
-                "lab_equipment_iii_storage",
-                "lab_equipment_iii_storage_2",
-                "lab_equipment_iii_storage_3",
-                "lab_equipment_iii_storage_4",
-                "lab_equipment_iii_storage_5",
                 "research_lab_iv"
             ],
             "output": [
                 "lab_equipment_2_assembly_t2",
-                "lab_equipment_2_assembly_t3",
-                "lab_equipment_iii_storage",
-                "lab_equipment_iii_storage_2",
-                "lab_equipment_iii_storage_3",
-                "lab_equipment_iii_storage_4",
-                "lab_equipment_iii_storage_5"
+                "lab_equipment_2_assembly_t3"
             ]
         },
         "machines": {
@@ -3433,21 +2769,11 @@
         "icon": "LabEquipment4.png",
         "recipes": {
             "input": [
-                "lab_equipment_iv_storage",
-                "lab_equipment_iv_storage_2",
-                "lab_equipment_iv_storage_3",
-                "lab_equipment_iv_storage_4",
-                "lab_equipment_iv_storage_5",
                 "research_lab_v"
             ],
             "output": [
                 "lab_equipment_4_assembly_t2",
-                "lab_equipment_4_assembly_t3",
-                "lab_equipment_iv_storage",
-                "lab_equipment_iv_storage_2",
-                "lab_equipment_iv_storage_3",
-                "lab_equipment_iv_storage_4",
-                "lab_equipment_iv_storage_5"
+                "lab_equipment_4_assembly_t3"
             ]
         },
         "machines": {
@@ -3478,18 +2804,10 @@
             "input": [
                 "heavy_distillate_refining",
                 "light_oil_disposal",
-                "light_oil_storage",
-                "light_oil_storage_2",
-                "light_oil_storage_3",
-                "light_oil_storage_4",
                 "steam_generation_6"
             ],
             "output": [
-                "crude_oil_refining_2",
-                "light_oil_storage",
-                "light_oil_storage_2",
-                "light_oil_storage_3",
-                "light_oil_storage_4"
+                "crude_oil_refining_2"
             ]
         },
         "machines": {
@@ -3525,19 +2843,11 @@
                 "glass_mix_mixing_2",
                 "iron_smelting_arc",
                 "iron_smelting_lime",
-                "limestone_storage",
-                "limestone_storage_2",
-                "limestone_storage_3",
-                "limestone_storage_4",
                 "sulfur_neutralization",
                 "tofu_making"
             ],
             "output": [
-                "limestone_mining",
-                "limestone_storage",
-                "limestone_storage_2",
-                "limestone_storage_3",
-                "limestone_storage_4"
+                "limestone_mining"
             ]
         },
         "machines": {
@@ -3569,21 +2879,11 @@
         "recipes": {
             "input": [
                 "lab_equipment_assembly_t1_2",
-                "lab_equipment_assembly_t2_2",
-                "liquid_nitrogen_storage",
-                "liquid_nitrogen_storage_2",
-                "liquid_nitrogen_storage_3",
-                "liquid_nitrogen_storage_4",
-                "liquid_nitrogen_storage_5"
+                "lab_equipment_assembly_t2_2"
             ],
             "output": [
                 "liquid_nitrogen_production",
-                "liquid_nitrogen_production_2",
-                "liquid_nitrogen_storage",
-                "liquid_nitrogen_storage_2",
-                "liquid_nitrogen_storage_3",
-                "liquid_nitrogen_storage_4",
-                "liquid_nitrogen_storage_5"
+                "liquid_nitrogen_production_2"
             ]
         },
         "machines": {
@@ -3676,20 +2976,10 @@
         "icon": "Meat.png",
         "recipes": {
             "input": [
-                "food_pack_assembly_meat",
-                "meat_storage",
-                "meat_storage_2",
-                "meat_storage_3",
-                "meat_storage_4",
-                "meat_storage_5"
+                "food_pack_assembly_meat"
             ],
             "output": [
-                "meat_processing",
-                "meat_storage",
-                "meat_storage_2",
-                "meat_storage_3",
-                "meat_storage_4",
-                "meat_storage_5"
+                "meat_processing"
             ]
         },
         "machines": {
@@ -3720,18 +3010,10 @@
                 "burning_4",
                 "composing_3",
                 "digestion_4",
-                "meat_trimmings_storage",
-                "meat_trimmings_storage_2",
-                "meat_trimmings_storage_3",
-                "meat_trimmings_storage_4",
                 "sausage_processing"
             ],
             "output": [
-                "meat_processing",
-                "meat_trimmings_storage",
-                "meat_trimmings_storage_2",
-                "meat_trimmings_storage_3",
-                "meat_trimmings_storage_4"
+                "meat_processing"
             ]
         },
         "machines": {
@@ -3777,11 +3059,6 @@
                 "maintenance_iii_2",
                 "maintenance_iii_3",
                 "maintenance_iii_4",
-                "mechanical_parts_storage",
-                "mechanical_parts_storage_2",
-                "mechanical_parts_storage_3",
-                "mechanical_parts_storage_4",
-                "mechanical_parts_storage_5",
                 "vehicle_parts_assembly_t1",
                 "vehicle_parts_assembly_t2",
                 "vehicle_parts_assembly_t3",
@@ -3792,12 +3069,7 @@
                 "mech._parts_assembly_t2",
                 "mech._parts_assembly_t3-1",
                 "mech._parts_assembly_t3-2",
-                "mech._parts_assembly_t4",
-                "mechanical_parts_storage",
-                "mechanical_parts_storage_2",
-                "mechanical_parts_storage_3",
-                "mechanical_parts_storage_4",
-                "mechanical_parts_storage_5"
+                "mech._parts_assembly_t4"
             ]
         },
         "machines": {
@@ -3864,22 +3136,12 @@
         "icon": "MedicalEquipment.png",
         "recipes": {
             "input": [
-                "medical_equipment_storage",
-                "medical_equipment_storage_2",
-                "medical_equipment_storage_3",
-                "medical_equipment_storage_4",
-                "medical_equipment_storage_5",
                 "medical_supplies_assembly_t1",
                 "medical_supplies_assembly_t2"
             ],
             "output": [
                 "medical_equipment_assembly_t1",
-                "medical_equipment_assembly_t2",
-                "medical_equipment_storage",
-                "medical_equipment_storage_2",
-                "medical_equipment_storage_3",
-                "medical_equipment_storage_4",
-                "medical_equipment_storage_5"
+                "medical_equipment_assembly_t2"
             ]
         },
         "machines": {
@@ -3910,21 +3172,11 @@
         "recipes": {
             "input": [
                 "medical_supplies_assembly_t1_2",
-                "medical_supplies_assembly_t2_2",
-                "medical_supplies_storage",
-                "medical_supplies_storage_2",
-                "medical_supplies_storage_3",
-                "medical_supplies_storage_4",
-                "medical_supplies_storage_5"
+                "medical_supplies_assembly_t2_2"
             ],
             "output": [
                 "medical_supplies_assembly_t1",
-                "medical_supplies_assembly_t2",
-                "medical_supplies_storage",
-                "medical_supplies_storage_2",
-                "medical_supplies_storage_3",
-                "medical_supplies_storage_4",
-                "medical_supplies_storage_5"
+                "medical_supplies_assembly_t2"
             ]
         },
         "machines": {
@@ -3954,22 +3206,12 @@
         "icon": "MedicalSupplies2.png",
         "recipes": {
             "input": [
-                "medical_supplies_ii_storage",
-                "medical_supplies_ii_storage_2",
-                "medical_supplies_ii_storage_3",
-                "medical_supplies_ii_storage_4",
-                "medical_supplies_ii_storage_5",
                 "medical_supplies_iii_assembly_t1",
                 "medical_supplies_iii_assembly_t2"
             ],
             "output": [
                 "medical_supplies_assembly_t1_2",
-                "medical_supplies_assembly_t2_2",
-                "medical_supplies_ii_storage",
-                "medical_supplies_ii_storage_2",
-                "medical_supplies_ii_storage_3",
-                "medical_supplies_ii_storage_4",
-                "medical_supplies_ii_storage_5"
+                "medical_supplies_assembly_t2_2"
             ]
         },
         "machines": {
@@ -3998,21 +3240,10 @@
         "name": "Medical Supplies III",
         "icon": "MedicalSupplies3.png",
         "recipes": {
-            "input": [
-                "medical_supplies_iii_storage",
-                "medical_supplies_iii_storage_2",
-                "medical_supplies_iii_storage_3",
-                "medical_supplies_iii_storage_4",
-                "medical_supplies_iii_storage_5"
-            ],
+            "input": [],
             "output": [
                 "medical_supplies_iii_assembly_t1",
-                "medical_supplies_iii_assembly_t2",
-                "medical_supplies_iii_storage",
-                "medical_supplies_iii_storage_2",
-                "medical_supplies_iii_storage_3",
-                "medical_supplies_iii_storage_4",
-                "medical_supplies_iii_storage_5"
+                "medical_supplies_iii_assembly_t2"
             ]
         },
         "machines": {
@@ -4041,18 +3272,10 @@
         "recipes": {
             "input": [
                 "crude_oil_refining_2",
-                "medium_oil_storage",
-                "medium_oil_storage_2",
-                "medium_oil_storage_3",
-                "medium_oil_storage_4",
                 "steam_generation_5"
             ],
             "output": [
-                "crude_oil_refining",
-                "medium_oil_storage",
-                "medium_oil_storage_2",
-                "medium_oil_storage_3",
-                "medium_oil_storage_4"
+                "crude_oil_refining"
             ]
         },
         "machines": {
@@ -4081,21 +3304,11 @@
             "input": [
                 "electronics_3_assembly_t1",
                 "electronics_3_assembly_t2",
-                "electronics_3_assembly_t3",
-                "microchips_storage",
-                "microchips_storage_2",
-                "microchips_storage_3",
-                "microchips_storage_4",
-                "microchips_storage_5"
+                "electronics_3_assembly_t3"
             ],
             "output": [
                 "microchip_manufacturing_final_stage",
-                "microchip_manufacturing_final_stage_2",
-                "microchips_storage",
-                "microchips_storage_2",
-                "microchips_storage_3",
-                "microchips_storage_4",
-                "microchips_storage_5"
+                "microchip_manufacturing_final_stage_2"
             ]
         },
         "machines": {
@@ -4127,21 +3340,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_2a",
-                "microchip_manufacturing_stage_2a_2",
-                "microchips_stage_1_a_storage",
-                "microchips_stage_1_a_storage_2",
-                "microchips_stage_1_a_storage_3",
-                "microchips_stage_1_a_storage_4",
-                "microchips_stage_1_a_storage_5"
+                "microchip_manufacturing_stage_2a_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_1a",
-                "microchip_manufacturing_stage_1a_2",
-                "microchips_stage_1_a_storage",
-                "microchips_stage_1_a_storage_2",
-                "microchips_stage_1_a_storage_3",
-                "microchips_stage_1_a_storage_4",
-                "microchips_stage_1_a_storage_5"
+                "microchip_manufacturing_stage_1a_2"
             ]
         },
         "machines": {
@@ -4172,21 +3375,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_3a",
-                "microchip_manufacturing_stage_3a_2",
-                "microchips_stage_1_b_storage",
-                "microchips_stage_1_b_storage_2",
-                "microchips_stage_1_b_storage_3",
-                "microchips_stage_1_b_storage_4",
-                "microchips_stage_1_b_storage_5"
+                "microchip_manufacturing_stage_3a_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_2a",
-                "microchip_manufacturing_stage_2a_2",
-                "microchips_stage_1_b_storage",
-                "microchips_stage_1_b_storage_2",
-                "microchips_stage_1_b_storage_3",
-                "microchips_stage_1_b_storage_4",
-                "microchips_stage_1_b_storage_5"
+                "microchip_manufacturing_stage_2a_2"
             ]
         },
         "machines": {
@@ -4217,21 +3410,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_1b",
-                "microchip_manufacturing_stage_1b_2",
-                "microchips_stage_1_c_storage",
-                "microchips_stage_1_c_storage_2",
-                "microchips_stage_1_c_storage_3",
-                "microchips_stage_1_c_storage_4",
-                "microchips_stage_1_c_storage_5"
+                "microchip_manufacturing_stage_1b_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_3a",
-                "microchip_manufacturing_stage_3a_2",
-                "microchips_stage_1_c_storage",
-                "microchips_stage_1_c_storage_2",
-                "microchips_stage_1_c_storage_3",
-                "microchips_stage_1_c_storage_4",
-                "microchips_stage_1_c_storage_5"
+                "microchip_manufacturing_stage_3a_2"
             ]
         },
         "machines": {
@@ -4262,21 +3445,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_2b",
-                "microchip_manufacturing_stage_2b_2",
-                "microchips_stage_2_a_storage",
-                "microchips_stage_2_a_storage_2",
-                "microchips_stage_2_a_storage_3",
-                "microchips_stage_2_a_storage_4",
-                "microchips_stage_2_a_storage_5"
+                "microchip_manufacturing_stage_2b_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_1b",
-                "microchip_manufacturing_stage_1b_2",
-                "microchips_stage_2_a_storage",
-                "microchips_stage_2_a_storage_2",
-                "microchips_stage_2_a_storage_3",
-                "microchips_stage_2_a_storage_4",
-                "microchips_stage_2_a_storage_5"
+                "microchip_manufacturing_stage_1b_2"
             ]
         },
         "machines": {
@@ -4307,21 +3480,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_3b",
-                "microchip_manufacturing_stage_3b_2",
-                "microchips_stage_2_b_storage",
-                "microchips_stage_2_b_storage_2",
-                "microchips_stage_2_b_storage_3",
-                "microchips_stage_2_b_storage_4",
-                "microchips_stage_2_b_storage_5"
+                "microchip_manufacturing_stage_3b_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_2b",
-                "microchip_manufacturing_stage_2b_2",
-                "microchips_stage_2_b_storage",
-                "microchips_stage_2_b_storage_2",
-                "microchips_stage_2_b_storage_3",
-                "microchips_stage_2_b_storage_4",
-                "microchips_stage_2_b_storage_5"
+                "microchip_manufacturing_stage_2b_2"
             ]
         },
         "machines": {
@@ -4352,21 +3515,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_1c",
-                "microchip_manufacturing_stage_1c_2",
-                "microchips_stage_2_c_storage",
-                "microchips_stage_2_c_storage_2",
-                "microchips_stage_2_c_storage_3",
-                "microchips_stage_2_c_storage_4",
-                "microchips_stage_2_c_storage_5"
+                "microchip_manufacturing_stage_1c_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_3b",
-                "microchip_manufacturing_stage_3b_2",
-                "microchips_stage_2_c_storage",
-                "microchips_stage_2_c_storage_2",
-                "microchips_stage_2_c_storage_3",
-                "microchips_stage_2_c_storage_4",
-                "microchips_stage_2_c_storage_5"
+                "microchip_manufacturing_stage_3b_2"
             ]
         },
         "machines": {
@@ -4397,21 +3550,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_2c",
-                "microchip_manufacturing_stage_2c_2",
-                "microchips_stage_3_a_storage",
-                "microchips_stage_3_a_storage_2",
-                "microchips_stage_3_a_storage_3",
-                "microchips_stage_3_a_storage_4",
-                "microchips_stage_3_a_storage_5"
+                "microchip_manufacturing_stage_2c_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_1c",
-                "microchip_manufacturing_stage_1c_2",
-                "microchips_stage_3_a_storage",
-                "microchips_stage_3_a_storage_2",
-                "microchips_stage_3_a_storage_3",
-                "microchips_stage_3_a_storage_4",
-                "microchips_stage_3_a_storage_5"
+                "microchip_manufacturing_stage_1c_2"
             ]
         },
         "machines": {
@@ -4442,21 +3585,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_3c",
-                "microchip_manufacturing_stage_3c_2",
-                "microchips_stage_3_b_storage",
-                "microchips_stage_3_b_storage_2",
-                "microchips_stage_3_b_storage_3",
-                "microchips_stage_3_b_storage_4",
-                "microchips_stage_3_b_storage_5"
+                "microchip_manufacturing_stage_3c_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_2c",
-                "microchip_manufacturing_stage_2c_2",
-                "microchips_stage_3_b_storage",
-                "microchips_stage_3_b_storage_2",
-                "microchips_stage_3_b_storage_3",
-                "microchips_stage_3_b_storage_4",
-                "microchips_stage_3_b_storage_5"
+                "microchip_manufacturing_stage_2c_2"
             ]
         },
         "machines": {
@@ -4487,21 +3620,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_1d",
-                "microchip_manufacturing_stage_1d_2",
-                "microchips_stage_3_c_storage",
-                "microchips_stage_3_c_storage_2",
-                "microchips_stage_3_c_storage_3",
-                "microchips_stage_3_c_storage_4",
-                "microchips_stage_3_c_storage_5"
+                "microchip_manufacturing_stage_1d_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_3c",
-                "microchip_manufacturing_stage_3c_2",
-                "microchips_stage_3_c_storage",
-                "microchips_stage_3_c_storage_2",
-                "microchips_stage_3_c_storage_3",
-                "microchips_stage_3_c_storage_4",
-                "microchips_stage_3_c_storage_5"
+                "microchip_manufacturing_stage_3c_2"
             ]
         },
         "machines": {
@@ -4532,21 +3655,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_stage_2d",
-                "microchip_manufacturing_stage_2d_2",
-                "microchips_stage_4_a_storage",
-                "microchips_stage_4_a_storage_2",
-                "microchips_stage_4_a_storage_3",
-                "microchips_stage_4_a_storage_4",
-                "microchips_stage_4_a_storage_5"
+                "microchip_manufacturing_stage_2d_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_1d",
-                "microchip_manufacturing_stage_1d_2",
-                "microchips_stage_4_a_storage",
-                "microchips_stage_4_a_storage_2",
-                "microchips_stage_4_a_storage_3",
-                "microchips_stage_4_a_storage_4",
-                "microchips_stage_4_a_storage_5"
+                "microchip_manufacturing_stage_1d_2"
             ]
         },
         "machines": {
@@ -4577,21 +3690,11 @@
         "recipes": {
             "input": [
                 "microchip_manufacturing_final_stage",
-                "microchip_manufacturing_final_stage_2",
-                "microchips_stage_4_b_storage",
-                "microchips_stage_4_b_storage_2",
-                "microchips_stage_4_b_storage_3",
-                "microchips_stage_4_b_storage_4",
-                "microchips_stage_4_b_storage_5"
+                "microchip_manufacturing_final_stage_2"
             ],
             "output": [
                 "microchip_manufacturing_stage_2d",
-                "microchip_manufacturing_stage_2d_2",
-                "microchips_stage_4_b_storage",
-                "microchips_stage_4_b_storage_2",
-                "microchips_stage_4_b_storage_3",
-                "microchips_stage_4_b_storage_4",
-                "microchips_stage_4_b_storage_5"
+                "microchip_manufacturing_stage_2d_2"
             ]
         },
         "machines": {
@@ -4764,20 +3867,10 @@
         "recipes": {
             "input": [
                 "medical_supplies_iii_assembly_t1",
-                "medical_supplies_iii_assembly_t2",
-                "morphine_storage",
-                "morphine_storage_2",
-                "morphine_storage_3",
-                "morphine_storage_4",
-                "morphine_storage_5"
+                "medical_supplies_iii_assembly_t2"
             ],
             "output": [
-                "morphine_production",
-                "morphine_storage",
-                "morphine_storage_2",
-                "morphine_storage_3",
-                "morphine_storage_4",
-                "morphine_storage_5"
+                "morphine_production"
             ]
         },
         "machines": {
@@ -4809,10 +3902,6 @@
                 "naphtha_disposal",
                 "naphtha_reforming",
                 "naphtha_reforming_2",
-                "naphtha_storage",
-                "naphtha_storage_2",
-                "naphtha_storage_3",
-                "naphtha_storage_4",
                 "plastic_making",
                 "rubber_production",
                 "rubber_production_coal",
@@ -4821,11 +3910,7 @@
             "output": [
                 "diesel_reforming",
                 "heavy_distillate_refining",
-                "heavyoil_cracking_2",
-                "naphtha_storage",
-                "naphtha_storage_2",
-                "naphtha_storage_3",
-                "naphtha_storage_4"
+                "heavyoil_cracking_2"
             ]
         },
         "machines": {
@@ -4862,20 +3947,12 @@
                 "fertilizer_synthesis_2",
                 "liquid_nitrogen_production",
                 "liquid_nitrogen_production_2",
-                "nitrogen_storage",
-                "nitrogen_storage_2",
-                "nitrogen_storage_3",
-                "nitrogen_storage_4",
                 "product_disposal_12",
                 "product_disposal_5"
             ],
             "output": [
                 "air_separation",
-                "ammonia_electrolysis",
-                "nitrogen_storage",
-                "nitrogen_storage_2",
-                "nitrogen_storage_3",
-                "nitrogen_storage_4"
+                "ammonia_electrolysis"
             ]
         },
         "machines": {
@@ -4909,10 +3986,6 @@
                 "ethanol_making_corn",
                 "ethanol_making_sugar",
                 "fuelgas_reforming",
-                "oxygen_storage",
-                "oxygen_storage_2",
-                "oxygen_storage_3",
-                "oxygen_storage_4",
                 "product_disposal_11",
                 "product_disposal_4",
                 "steel_smelting",
@@ -4920,10 +3993,6 @@
             ],
             "output": [
                 "air_separation",
-                "oxygen_storage",
-                "oxygen_storage_2",
-                "oxygen_storage_3",
-                "oxygen_storage_4",
                 "water_electrolysis"
             ]
         },
@@ -4958,22 +4027,12 @@
             "input": [
                 "electronics_2_assembly_t1",
                 "electronics_2_assembly_t2",
-                "electronics_2_assembly_t3",
-                "pcb_storage",
-                "pcb_storage_2",
-                "pcb_storage_3",
-                "pcb_storage_4",
-                "pcb_storage_5"
+                "electronics_2_assembly_t3"
             ],
             "output": [
                 "pcb_assembly_t1",
                 "pcb_assembly_t2",
-                "pcb_assembly_t3",
-                "pcb_storage",
-                "pcb_storage_2",
-                "pcb_storage_3",
-                "pcb_storage_4",
-                "pcb_storage_5"
+                "pcb_assembly_t3"
             ]
         },
         "machines": {
@@ -5021,22 +4080,12 @@
                 "pcb_assembly_t1",
                 "pcb_assembly_t2",
                 "pcb_assembly_t3",
-                "plastic_storage",
-                "plastic_storage_2",
-                "plastic_storage_3",
-                "plastic_storage_4",
-                "plastic_storage_5",
                 "snack_production",
                 "snack_production_2"
             ],
             "output": [
                 "plastic_making",
-                "plastic_making_2",
-                "plastic_storage",
-                "plastic_storage_2",
-                "plastic_storage_3",
-                "plastic_storage_4",
-                "plastic_storage_5"
+                "plastic_making_2"
             ]
         },
         "machines": {
@@ -5071,18 +4120,9 @@
         "icon": "Poppy.png",
         "recipes": {
             "input": [
-                "morphine_production",
-                "poppy_storage",
-                "poppy_storage_2",
-                "poppy_storage_3",
-                "poppy_storage_4"
+                "morphine_production"
             ],
-            "output": [
-                "poppy_storage",
-                "poppy_storage_2",
-                "poppy_storage_3",
-                "poppy_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -5108,18 +4148,9 @@
             "input": [
                 "animal_feed_production",
                 "digestion_2",
-                "potato_storage",
-                "potato_storage_2",
-                "potato_storage_3",
-                "potato_storage_4",
                 "snack_production"
             ],
-            "output": [
-                "potato_storage",
-                "potato_storage_2",
-                "potato_storage_3",
-                "potato_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -5145,19 +4176,10 @@
         "icon": "Quartz.png",
         "recipes": {
             "input": [
-                "quartz_storage",
-                "quartz_storage_2",
-                "quartz_storage_3",
-                "quartz_storage_4",
                 "silicon_smelting_arc",
                 "silicon_smelting_arc_ii"
             ],
-            "output": [
-                "quartz_storage",
-                "quartz_storage_2",
-                "quartz_storage_3",
-                "quartz_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -5182,10 +4204,6 @@
         "icon": "Recyclables.png",
         "recipes": {
             "input": [
-                "recyclables_storage",
-                "recyclables_storage_2",
-                "recyclables_storage_3",
-                "recyclables_storage_4",
                 "wastesortingplant"
             ],
             "output": [
@@ -5195,10 +4213,6 @@
                 "maintenance_ii_4",
                 "maintenance_iii_2",
                 "maintenance_iii_4",
-                "recyclables_storage",
-                "recyclables_storage_2",
-                "recyclables_storage_3",
-                "recyclables_storage_4",
                 "research_lab_ii",
                 "research_lab_iii",
                 "research_lab_iv",
@@ -5235,18 +4249,10 @@
         "recipes": {
             "input": [
                 "fluoride_leaching",
-                "rock_crushing",
-                "rock_storage",
-                "rock_storage_2",
-                "rock_storage_3",
-                "rock_storage_4"
+                "rock_crushing"
             ],
             "output": [
-                "rock_mining",
-                "rock_storage",
-                "rock_storage_2",
-                "rock_storage_3",
-                "rock_storage_4"
+                "rock_mining"
             ]
         },
         "machines": {
@@ -5277,24 +4283,14 @@
                 "electronics_assembly_t2",
                 "electronics_assembly_t3",
                 "electronics_assembly_t4",
-                "electronics_assembly_t5",
-                "rubber_storage",
-                "rubber_storage_2",
-                "rubber_storage_3",
-                "rubber_storage_4",
-                "rubber_storage_5"
+                "electronics_assembly_t5"
             ],
             "output": [
                 "rubber_production",
                 "rubber_production_alt",
                 "rubber_production_coal",
                 "rubber_production_coal_alt",
-                "rubber_production_ethanol",
-                "rubber_storage",
-                "rubber_storage_2",
-                "rubber_storage_3",
-                "rubber_storage_4",
-                "rubber_storage_5"
+                "rubber_production_ethanol"
             ]
         },
         "machines": {
@@ -5330,10 +4326,6 @@
                 "glass_mix_mixing",
                 "glass_mix_mixing_2",
                 "meat_processing",
-                "salt_storage",
-                "salt_storage_2",
-                "salt_storage_3",
-                "salt_storage_4",
                 "sausage_processing",
                 "snack_production",
                 "snack_production_2"
@@ -5342,11 +4334,7 @@
                 "salt_making",
                 "salt_making_2",
                 "salt_making_3",
-                "salt_making_4",
-                "salt_storage",
-                "salt_storage_2",
-                "salt_storage_3",
-                "salt_storage_4"
+                "salt_making_4"
             ]
         },
         "machines": {
@@ -5386,19 +4374,11 @@
                 "glass_mix_mixing",
                 "glass_mix_mixing_2",
                 "gold_smelting",
-                "sand_storage",
-                "sand_storage_2",
-                "sand_storage_3",
-                "sand_storage_4",
                 "water_treatment"
             ],
             "output": [
                 "gravel_crushing",
-                "sand_mining",
-                "sand_storage",
-                "sand_storage_2",
-                "sand_storage_3",
-                "sand_storage_4"
+                "sand_mining"
             ]
         },
         "machines": {
@@ -5431,20 +4411,9 @@
         "name": "Sausage",
         "icon": "Sausage.png",
         "recipes": {
-            "input": [
-                "sausage_storage",
-                "sausage_storage_2",
-                "sausage_storage_3",
-                "sausage_storage_4",
-                "sausage_storage_5"
-            ],
+            "input": [],
             "output": [
-                "sausage_processing",
-                "sausage_storage",
-                "sausage_storage_2",
-                "sausage_storage_3",
-                "sausage_storage_4",
-                "sausage_storage_5"
+                "sausage_processing"
             ]
         },
         "machines": {
@@ -5477,10 +4446,6 @@
                 "salt_making",
                 "salt_making_3",
                 "seawater_dumping",
-                "seawater_storage",
-                "seawater_storage_2",
-                "seawater_storage_3",
-                "seawater_storage_4",
                 "thermal_desalination",
                 "thermal_desalination_2",
                 "thermal_desalination_3",
@@ -5488,11 +4453,7 @@
             ],
             "output": [
                 "ocean_water_pumping",
-                "ocean_water_pumping_ii",
-                "seawater_storage",
-                "seawater_storage_2",
-                "seawater_storage_3",
-                "seawater_storage_4"
+                "ocean_water_pumping_ii"
             ]
         },
         "machines": {
@@ -5523,22 +4484,11 @@
         "name": "Server",
         "icon": "Server.png",
         "recipes": {
-            "input": [
-                "server_storage",
-                "server_storage_2",
-                "server_storage_3",
-                "server_storage_4",
-                "server_storage_5"
-            ],
+            "input": [],
             "output": [
                 "server_assembly_t1",
                 "server_assembly_t2",
-                "server_assembly_t3",
-                "server_storage",
-                "server_storage_2",
-                "server_storage_3",
-                "server_storage_4",
-                "server_storage_5"
+                "server_assembly_t3"
             ]
         },
         "machines": {
@@ -5571,21 +4521,11 @@
                 "electronics_2_assembly_t2",
                 "electronics_2_assembly_t3",
                 "silicon_crystallization",
-                "silicon_poly_storage",
-                "silicon_poly_storage_2",
-                "silicon_poly_storage_3",
-                "silicon_poly_storage_4",
-                "silicon_poly_storage_5",
                 "solar_cell_assembly",
                 "solar_cell_assembly_2",
                 "solar_cell_assembly_3"
             ],
             "output": [
-                "silicon_poly_storage",
-                "silicon_poly_storage_2",
-                "silicon_poly_storage_3",
-                "silicon_poly_storage_4",
-                "silicon_poly_storage_5",
                 "silicon_treatment"
             ]
         },
@@ -5619,20 +4559,10 @@
             "input": [
                 "microchip_manufacturing_stage_1a",
                 "microchip_manufacturing_stage_1a_2",
-                "silicon_wafer_storage",
-                "silicon_wafer_storage_2",
-                "silicon_wafer_storage_3",
-                "silicon_wafer_storage_4",
-                "silicon_wafer_storage_5",
                 "solar_cell_assembly_4"
             ],
             "output": [
-                "silicon_crystallization",
-                "silicon_wafer_storage",
-                "silicon_wafer_storage_2",
-                "silicon_wafer_storage_3",
-                "silicon_wafer_storage_4",
-                "silicon_wafer_storage_5"
+                "silicon_crystallization"
             ]
         },
         "machines": {
@@ -5662,11 +4592,7 @@
         "icon": "Slag.png",
         "recipes": {
             "input": [
-                "slag_crushing",
-                "slag_storage",
-                "slag_storage_2",
-                "slag_storage_3",
-                "slag_storage_4"
+                "slag_crushing"
             ],
             "output": [
                 "copper_smelting",
@@ -5683,10 +4609,6 @@
                 "silicon_smelting_arc",
                 "silicon_smelting_arc_ii",
                 "slag_mining",
-                "slag_storage",
-                "slag_storage_2",
-                "slag_storage_3",
-                "slag_storage_4",
                 "sulfur_neutralization",
                 "toxic_slurry_treatment"
             ]
@@ -5725,18 +4647,10 @@
                 "concrete_mixing",
                 "concrete_mixing_3",
                 "concrete_mixing_5",
-                "concrete_mixing_7",
-                "slag_crushed_storage",
-                "slag_crushed_storage_2",
-                "slag_crushed_storage_3",
-                "slag_crushed_storage_4"
+                "concrete_mixing_7"
             ],
             "output": [
                 "slag_crushed_mining",
-                "slag_crushed_storage",
-                "slag_crushed_storage_2",
-                "slag_crushed_storage_3",
-                "slag_crushed_storage_4",
                 "slag_crushing"
             ]
         },
@@ -5767,17 +4681,9 @@
         "recipes": {
             "input": [
                 "burning_7",
-                "digestion",
-                "sludge_storage",
-                "sludge_storage_2",
-                "sludge_storage_3",
-                "sludge_storage_4"
+                "digestion"
             ],
             "output": [
-                "sludge_storage",
-                "sludge_storage_2",
-                "sludge_storage_3",
-                "sludge_storage_4",
                 "water_treatment",
                 "water_treatment_advanced"
             ]
@@ -5807,21 +4713,11 @@
         "recipes": {
             "input": [
                 "food_pack_assembly_eggs",
-                "food_pack_assembly_meat",
-                "snack_storage",
-                "snack_storage_2",
-                "snack_storage_3",
-                "snack_storage_4",
-                "snack_storage_5"
+                "food_pack_assembly_meat"
             ],
             "output": [
                 "snack_production",
-                "snack_production_2",
-                "snack_storage",
-                "snack_storage_2",
-                "snack_storage_3",
-                "snack_storage_4",
-                "snack_storage_5"
+                "snack_production_2"
             ]
         },
         "machines": {
@@ -5848,22 +4744,11 @@
         "name": "Solar Cell",
         "icon": "SolarCell.png",
         "recipes": {
-            "input": [
-                "solar_cell_storage",
-                "solar_cell_storage_2",
-                "solar_cell_storage_3",
-                "solar_cell_storage_4",
-                "solar_cell_storage_5"
-            ],
+            "input": [],
             "output": [
                 "solar_cell_assembly",
                 "solar_cell_assembly_2",
-                "solar_cell_assembly_3",
-                "solar_cell_storage",
-                "solar_cell_storage_2",
-                "solar_cell_storage_3",
-                "solar_cell_storage_4",
-                "solar_cell_storage_5"
+                "solar_cell_assembly_3"
             ]
         },
         "machines": {
@@ -5891,20 +4776,9 @@
         "name": "Solar Cell Mono",
         "icon": "SolarCellMono.png",
         "recipes": {
-            "input": [
-                "solar_cell_mono_storage",
-                "solar_cell_mono_storage_2",
-                "solar_cell_mono_storage_3",
-                "solar_cell_mono_storage_4",
-                "solar_cell_mono_storage_5"
-            ],
+            "input": [],
             "output": [
-                "solar_cell_assembly_4",
-                "solar_cell_mono_storage",
-                "solar_cell_mono_storage_2",
-                "solar_cell_mono_storage_3",
-                "solar_cell_mono_storage_4",
-                "solar_cell_mono_storage_5"
+                "solar_cell_assembly_4"
             ]
         },
         "machines": {
@@ -5932,21 +4806,13 @@
         "recipes": {
             "input": [
                 "sour_water_dumping",
-                "sour_water_storage",
-                "sour_water_storage_2",
-                "sour_water_storage_3",
-                "sour_water_storage_4",
                 "sour_water_stripping_recovery"
             ],
             "output": [
                 "crude_oil_refining",
                 "diesel_reforming",
                 "graphite_production",
-                "naphtha_reforming_2",
-                "sour_water_storage",
-                "sour_water_storage_2",
-                "sour_water_storage_3",
-                "sour_water_storage_4"
+                "naphtha_reforming_2"
             ]
         },
         "machines": {
@@ -5977,18 +4843,9 @@
             "input": [
                 "animal_feed_production_4",
                 "soybean_milling",
-                "soybean_storage",
-                "soybean_storage_2",
-                "soybean_storage_3",
-                "soybean_storage_4",
                 "tofu_making"
             ],
-            "output": [
-                "soybean_storage",
-                "soybean_storage_2",
-                "soybean_storage_3",
-                "soybean_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -6013,20 +4870,9 @@
         "name": "Spent Fuel",
         "icon": "SpentFuel.png",
         "recipes": {
-            "input": [
-                "spent_fuel_storage",
-                "spent_fuel_storage_2",
-                "spent_fuel_storage_3",
-                "spent_fuel_storage_4",
-                "spent_fuel_storage_5"
-            ],
+            "input": [],
             "output": [
-                "nuclearreactor",
-                "spent_fuel_storage",
-                "spent_fuel_storage_2",
-                "spent_fuel_storage_3",
-                "spent_fuel_storage_4",
-                "spent_fuel_storage_5"
+                "nuclearreactor"
             ]
         },
         "machines": {
@@ -6057,17 +4903,9 @@
                 "depleted_steam_condensation_2",
                 "product_disposal",
                 "product_disposal_8",
-                "steam_depleted_storage",
-                "steam_depleted_storage_2",
-                "steam_depleted_storage_3",
-                "steam_depleted_storage_4",
                 "thermal_desalination_3"
             ],
             "output": [
-                "steam_depleted_storage",
-                "steam_depleted_storage_2",
-                "steam_depleted_storage_3",
-                "steam_depleted_storage_4",
                 "steam_generation_10",
                 "turbinelowpress",
                 "turbinelowpresst2"
@@ -6113,10 +4951,6 @@
                 "product_disposal_2",
                 "product_disposal_9",
                 "sour_water_stripping_recovery",
-                "steam_hi_storage",
-                "steam_hi_storage_2",
-                "steam_hi_storage_3",
-                "steam_hi_storage_4",
                 "thermal_desalination",
                 "turbinehighpress",
                 "turbinehighpresst2"
@@ -6134,11 +4968,7 @@
                 "steam_generation_6",
                 "steam_generation_7",
                 "steam_generation_8",
-                "steam_generation_9",
-                "steam_hi_storage",
-                "steam_hi_storage_2",
-                "steam_hi_storage_3",
-                "steam_hi_storage_4"
+                "steam_generation_9"
             ]
         },
         "machines": {
@@ -6184,10 +5014,6 @@
                 "lo-press_steam_condensation_2",
                 "product_disposal_10",
                 "product_disposal_3",
-                "steam_lo_storage",
-                "steam_lo_storage_2",
-                "steam_lo_storage_3",
-                "steam_lo_storage_4",
                 "thermal_desalination_2",
                 "turbinelowpress",
                 "turbinelowpresst2"
@@ -6200,10 +5026,6 @@
                 "glass_smelting_4",
                 "iron_scrap_smelting_arc",
                 "iron_smelting_arc",
-                "steam_lo_storage",
-                "steam_lo_storage_2",
-                "steam_lo_storage_3",
-                "steam_lo_storage_4",
                 "turbinehighpress",
                 "turbinehighpresst2"
             ]
@@ -6264,23 +5086,13 @@
                 "solar_cell_assembly_2",
                 "solar_cell_assembly_3",
                 "solar_cell_assembly_4",
-                "steel_storage",
-                "steel_storage_2",
-                "steel_storage_3",
-                "steel_storage_4",
-                "steel_storage_5",
                 "uranium_rods_t1",
                 "vehicle_parts_2_assembly_t1",
                 "vehicle_parts_2_assembly_t2"
             ],
             "output": [
                 "steel_casting_cooled",
-                "steel_casting_cooled_2",
-                "steel_storage",
-                "steel_storage_2",
-                "steel_storage_3",
-                "steel_storage_4",
-                "steel_storage_5"
+                "steel_casting_cooled_2"
             ]
         },
         "machines": {
@@ -6316,18 +5128,10 @@
             "input": [
                 "antibiotics",
                 "cake_production",
-                "ethanol_making_sugar",
-                "sugar_storage",
-                "sugar_storage_2",
-                "sugar_storage_3",
-                "sugar_storage_4"
+                "ethanol_making_sugar"
             ],
             "output": [
-                "sugar_refining_cane",
-                "sugar_storage",
-                "sugar_storage_2",
-                "sugar_storage_3",
-                "sugar_storage_4"
+                "sugar_refining_cane"
             ]
         },
         "machines": {
@@ -6354,18 +5158,9 @@
         "icon": "SugarCane.png",
         "recipes": {
             "input": [
-                "sugar_cane_storage",
-                "sugar_cane_storage_2",
-                "sugar_cane_storage_3",
-                "sugar_cane_storage_4",
                 "sugar_refining_cane"
             ],
-            "output": [
-                "sugar_cane_storage",
-                "sugar_cane_storage_2",
-                "sugar_cane_storage_3",
-                "sugar_cane_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -6396,19 +5191,11 @@
                 "rubber_production_alt",
                 "rubber_production_ethanol",
                 "sulfur_neutralization",
-                "sulfur_storage",
-                "sulfur_storage_2",
-                "sulfur_storage_3",
-                "sulfur_storage_4",
                 "tofu_making"
             ],
             "output": [
                 "exhaust_filtering",
-                "sour_water_stripping_recovery",
-                "sulfur_storage",
-                "sulfur_storage_2",
-                "sulfur_storage_3",
-                "sulfur_storage_4"
+                "sour_water_stripping_recovery"
             ]
         },
         "machines": {
@@ -6437,20 +5224,9 @@
         "name": "Tofu",
         "icon": "Tofu.png",
         "recipes": {
-            "input": [
-                "tofu_storage",
-                "tofu_storage_2",
-                "tofu_storage_3",
-                "tofu_storage_4",
-                "tofu_storage_5"
-            ],
+            "input": [],
             "output": [
-                "tofu_making",
-                "tofu_storage",
-                "tofu_storage_2",
-                "tofu_storage_3",
-                "tofu_storage_4",
-                "tofu_storage_5"
+                "tofu_making"
             ]
         },
         "machines": {
@@ -6478,18 +5254,10 @@
         "recipes": {
             "input": [
                 "toxic_slurry_dumping",
-                "toxic_slurry_storage",
-                "toxic_slurry_storage_2",
-                "toxic_slurry_storage_3",
-                "toxic_slurry_storage_4",
                 "toxic_slurry_treatment"
             ],
             "output": [
                 "gold_settling",
-                "toxic_slurry_storage",
-                "toxic_slurry_storage_2",
-                "toxic_slurry_storage_3",
-                "toxic_slurry_storage_4",
                 "uranium_leaching"
             ]
         },
@@ -6517,18 +5285,9 @@
         "icon": "UraniumOre.png",
         "recipes": {
             "input": [
-                "uranium_crushing",
-                "uranium_ore_storage",
-                "uranium_ore_storage_2",
-                "uranium_ore_storage_3",
-                "uranium_ore_storage_4"
+                "uranium_crushing"
             ],
-            "output": [
-                "uranium_ore_storage",
-                "uranium_ore_storage_2",
-                "uranium_ore_storage_3",
-                "uranium_ore_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -6552,18 +5311,10 @@
         "icon": "UraniumOreCrushed.png",
         "recipes": {
             "input": [
-                "uranium_leaching",
-                "uranium_ore_crushed_storage",
-                "uranium_ore_crushed_storage_2",
-                "uranium_ore_crushed_storage_3",
-                "uranium_ore_crushed_storage_4"
+                "uranium_leaching"
             ],
             "output": [
-                "uranium_crushing",
-                "uranium_ore_crushed_storage",
-                "uranium_ore_crushed_storage_2",
-                "uranium_ore_crushed_storage_3",
-                "uranium_ore_crushed_storage_4"
+                "uranium_crushing"
             ]
         },
         "machines": {
@@ -6589,20 +5340,10 @@
         "icon": "UraniumPellets.png",
         "recipes": {
             "input": [
-                "uranium_pellets_storage",
-                "uranium_pellets_storage_2",
-                "uranium_pellets_storage_3",
-                "uranium_pellets_storage_4",
-                "uranium_pellets_storage_5",
                 "uranium_rods_t1"
             ],
             "output": [
-                "uranium_enrichment",
-                "uranium_pellets_storage",
-                "uranium_pellets_storage_2",
-                "uranium_pellets_storage_3",
-                "uranium_pellets_storage_4",
-                "uranium_pellets_storage_5"
+                "uranium_enrichment"
             ]
         },
         "machines": {
@@ -6630,19 +5371,9 @@
         "icon": "UraniumRod.png",
         "recipes": {
             "input": [
-                "nuclearreactor",
-                "uranium_rod_storage",
-                "uranium_rod_storage_2",
-                "uranium_rod_storage_3",
-                "uranium_rod_storage_4",
-                "uranium_rod_storage_5"
+                "nuclearreactor"
             ],
             "output": [
-                "uranium_rod_storage",
-                "uranium_rod_storage_2",
-                "uranium_rod_storage_3",
-                "uranium_rod_storage_4",
-                "uranium_rod_storage_5",
                 "uranium_rods_t1"
             ]
         },
@@ -6670,20 +5401,8 @@
         "name": "Vegetables",
         "icon": "Vegetables.png",
         "recipes": {
-            "input": [
-                "vegetables_storage",
-                "vegetables_storage_2",
-                "vegetables_storage_3",
-                "vegetables_storage_4",
-                "vegetables_storage_5"
-            ],
-            "output": [
-                "vegetables_storage",
-                "vegetables_storage_2",
-                "vegetables_storage_3",
-                "vegetables_storage_4",
-                "vegetables_storage_5"
-            ]
+            "input": [],
+            "output": []
         },
         "machines": {
             "input": [
@@ -6709,23 +5428,13 @@
         "recipes": {
             "input": [
                 "vehicle_parts_2_assembly_t1",
-                "vehicle_parts_2_assembly_t2",
-                "vehicle_parts_storage",
-                "vehicle_parts_storage_2",
-                "vehicle_parts_storage_3",
-                "vehicle_parts_storage_4",
-                "vehicle_parts_storage_5"
+                "vehicle_parts_2_assembly_t2"
             ],
             "output": [
                 "vehicle_parts_assembly_t1",
                 "vehicle_parts_assembly_t2",
                 "vehicle_parts_assembly_t3",
-                "vehicle_parts_assembly_t4",
-                "vehicle_parts_storage",
-                "vehicle_parts_storage_2",
-                "vehicle_parts_storage_3",
-                "vehicle_parts_storage_4",
-                "vehicle_parts_storage_5"
+                "vehicle_parts_assembly_t4"
             ]
         },
         "machines": {
@@ -6758,21 +5467,11 @@
         "recipes": {
             "input": [
                 "vehicle_parts_3_assembly_t1",
-                "vehicle_parts_3_assembly_t2",
-                "vehicle_parts_ii_storage",
-                "vehicle_parts_ii_storage_2",
-                "vehicle_parts_ii_storage_3",
-                "vehicle_parts_ii_storage_4",
-                "vehicle_parts_ii_storage_5"
+                "vehicle_parts_3_assembly_t2"
             ],
             "output": [
                 "vehicle_parts_2_assembly_t1",
-                "vehicle_parts_2_assembly_t2",
-                "vehicle_parts_ii_storage",
-                "vehicle_parts_ii_storage_2",
-                "vehicle_parts_ii_storage_3",
-                "vehicle_parts_ii_storage_4",
-                "vehicle_parts_ii_storage_5"
+                "vehicle_parts_2_assembly_t2"
             ]
         },
         "machines": {
@@ -6801,21 +5500,10 @@
         "name": "Vehicle Parts III",
         "icon": "VehicleParts3.png",
         "recipes": {
-            "input": [
-                "vehicle_parts_iii_storage",
-                "vehicle_parts_iii_storage_2",
-                "vehicle_parts_iii_storage_3",
-                "vehicle_parts_iii_storage_4",
-                "vehicle_parts_iii_storage_5"
-            ],
+            "input": [],
             "output": [
                 "vehicle_parts_3_assembly_t1",
-                "vehicle_parts_3_assembly_t2",
-                "vehicle_parts_iii_storage",
-                "vehicle_parts_iii_storage_2",
-                "vehicle_parts_iii_storage_3",
-                "vehicle_parts_iii_storage_4",
-                "vehicle_parts_iii_storage_5"
+                "vehicle_parts_3_assembly_t2"
             ]
         },
         "machines": {
@@ -6843,18 +5531,10 @@
         "icon": "Waste.png",
         "recipes": {
             "input": [
-                "burning",
-                "waste_storage",
-                "waste_storage_2",
-                "waste_storage_3",
-                "waste_storage_4"
+                "burning"
             ],
             "output": [
-                "waste_mining",
-                "waste_storage",
-                "waste_storage_2",
-                "waste_storage_3",
-                "waste_storage_4"
+                "waste_mining"
             ]
         },
         "machines": {
@@ -6881,21 +5561,13 @@
         "recipes": {
             "input": [
                 "waste_water_dumping",
-                "waste_water_storage",
-                "waste_water_storage_2",
-                "waste_water_storage_3",
-                "waste_water_storage_4",
                 "water_treatment",
                 "water_treatment_advanced"
             ],
             "output": [
                 "diesel_distillation_basic",
                 "rubber_production_coal",
-                "rubber_production_coal_alt",
-                "waste_water_storage",
-                "waste_water_storage_2",
-                "waste_water_storage_3",
-                "waste_water_storage_4"
+                "rubber_production_coal_alt"
             ]
         },
         "machines": {
@@ -6975,11 +5647,7 @@
                 "tofu_making",
                 "water_cooling",
                 "water_dumping",
-                "water_electrolysis",
-                "water_storage",
-                "water_storage_2",
-                "water_storage_3",
-                "water_storage_4"
+                "water_electrolysis"
             ],
             "output": [
                 "create_computing_power",
@@ -6996,10 +5664,6 @@
                 "toxic_slurry_treatment",
                 "water_desalination_basic",
                 "water_pumping",
-                "water_storage",
-                "water_storage_2",
-                "water_storage_3",
-                "water_storage_4",
                 "water_treatment",
                 "water_treatment_advanced"
             ]
@@ -7079,18 +5743,9 @@
             "input": [
                 "animal_feed_production_2",
                 "digestion_3",
-                "wheat_milling",
-                "wheat_storage",
-                "wheat_storage_2",
-                "wheat_storage_3",
-                "wheat_storage_4"
+                "wheat_milling"
             ],
-            "output": [
-                "wheat_storage",
-                "wheat_storage_2",
-                "wheat_storage_3",
-                "wheat_storage_4"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -7123,20 +5778,9 @@
                 "cp_assembly_t3_2",
                 "household_goods_assembly_t1",
                 "household_goods_assembly_t2",
-                "household_goods_assembly_t3",
-                "wood_storage",
-                "wood_storage_2",
-                "wood_storage_3",
-                "wood_storage_4",
-                "wood_storage_5"
+                "household_goods_assembly_t3"
             ],
-            "output": [
-                "wood_storage",
-                "wood_storage_2",
-                "wood_storage_3",
-                "wood_storage_4",
-                "wood_storage_5"
-            ]
+            "output": []
         },
         "machines": {
             "input": [
@@ -7166,18 +5810,10 @@
         "icon": "YellowCake.png",
         "recipes": {
             "input": [
-                "uranium_enrichment",
-                "yellow_cake_storage",
-                "yellow_cake_storage_2",
-                "yellow_cake_storage_3",
-                "yellow_cake_storage_4"
+                "uranium_enrichment"
             ],
             "output": [
-                "uranium_leaching",
-                "yellow_cake_storage",
-                "yellow_cake_storage_2",
-                "yellow_cake_storage_3",
-                "yellow_cake_storage_4"
+                "uranium_leaching"
             ]
         },
         "machines": {
