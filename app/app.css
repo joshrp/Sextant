@@ -13,3 +13,29 @@ body {
     color-scheme: dark;
   }
 }
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50
+}
+
+.recipe-row td {
+  @apply my-2 p-1 border-y-1 border-transparent;
+}
+
+.recipe-row:hover td {
+  @apply bg-gray-100 dark:bg-gray-700;
+  @apply border-blue-900
+}
+
+.recipe-row td:first-child {
+  border-radius: 0.5rem 0 0 0.5rem;
+  @apply border-l-1;
+}
+.recipe-row td:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+  @apply border-r-1;
+}

@@ -1,4 +1,4 @@
-import { ClockIcon } from "@heroicons/react/24/solid";
+import { ClockIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { loadMachineData, loadProductData, loadRecipeData, type ProductId, type Recipe, type RecipeId } from "./graph/loadJsonData";
 
 const productData = loadProductData();
@@ -32,62 +32,77 @@ export default function RecipePicker({
     return <div className="text-gray-500">No recipes available for {product.name} {productIs !== "any" ? `as an ${productIs}` : ""}</div>;
   }
 
-  return (<>
+  const maxInputs = Math.max(...recipes.map(recipe => recipe.inputs.length));
+  const maxOutputs = Math.max(...recipes.map(recipe => recipe.outputs.length));
+
+  // Number of columns per recipe:
+  // + 1 for machine
+  // + maxInputs for inputs 
+  // + 1 for duration
+  // + maxOutputs for outputs
+  // + 1 each for the + between inputs and outputs
+  // (maxInputs + maxOutputs) * 2 - 2 + 2
+
+  const maxOutputCells = Math.max((maxOutputs * 2) - 1, 0);
+  const maxInputCells = Math.max((maxInputs * 2) - 1, 0);
+  const cols = (maxOutputCells + maxInputCells) + 2; 
+
+  console.log("maxInputs", maxInputs, "maxOutputs", maxOutputs, "cols", cols);
+
+  return (<table className="recipe-list w-full border-spacing-y-1 border-separate text-sm">
     {recipes.map(recipe => {
       const machine = machineData[recipe.machine];
+      const outputCells = Math.max((recipe.outputs.length * 2) - 1, 0);
+      const inputCells = Math.max((recipe.inputs.length * 2) - 1, 0);
 
-      const inputs = recipe.inputs.map((input, index) => {
+      // prefix the inputs with empty divs to fill the grid
+      const inputs = Array(maxInputCells - inputCells).fill(<td/>).concat(recipe.inputs.map((input, index) => {
         const product = productData[input.id];
-        return (<>
-          {index > 0 && (<div className="flex-1 p-1 self-center-safe">+</div>)}
-          <div key={input.id} className="flex-1 ">
+        return (<>   
+          {index !== 0 && <td className="w-12"><PlusIcon/></td>}       
+          <td key={input.id} className="has-tooltip">
+            <span className='tooltip rounded shadow-lg p-1 border-1 bg-gray-900 -mt-8 -ml-8 text-nowrap'>{product.name}</span>
             <img src={'/assets/products/' + product.icon} alt={product.name} className="block mb-2 mx-auto max-w-[60px]" />
-            {product.name} <br />
-            x {input.quantity}
-          </div>
+            {input.quantity}
+          </td>
         </>);
-      });
-
+      }));
+      
+      // append the outputs with empty divs to fill the grid
       const outputs = recipe.outputs.map((output, index) => {
         const product = productData[output.id];
         return (<>
-          {index > 0 && (<div className="flex-1 p-1 self-center-safe">+</div>)}
-          <div key={output.id} className="flex-1 justify-self-end-safe">
-            <img src={'/assets/products/' + product.icon} alt={product.name} className="block mb-2 mx-auto max-w-[60px]" />
-            {product.name}<br />
-            x {output.quantity.toPrecision(2)}
-          </div>
-        </>);
-      });
+          {index !== 0 && <td className="w-12"><PlusIcon/></td>}       
 
-      return (
-        <div key={recipe.id} className="flex flex-row p-2 flex-nowrap gap-1 justify-between cursor-pointer rounded text-xs hover:bg-blue-500 " onClick={() => selectRecipe(recipe.id)}>
-          {/* Building */}
-          <div className="flex-1 max-w-40 items-center-safe">
+          <td key={output.id} className="has-tooltip">
+            <span className='tooltip rounded shadow-lg p-1 border-1 bg-gray-900 -mt-8 -ml-8 text-nowrap'>{product.name}</span>
+            <img src={'/assets/products/' + product.icon} alt={product.name} className="block mb-2 mx-auto max-w-[60px]" />
+            {output.quantity.toPrecision(2)}
+          </td>
+        </>);
+      }).concat(Array(maxOutputCells - outputCells).fill(<td/>));
+
+      return (<tr className="recipe-row cursor-pointer" onClick={() => selectRecipe(recipe.id)} key={recipe.id}>
+          <td className="recipe-machine max-w-30">
             <div className="flex gap-1 items-center-safe">
               <div className="flex-3">
                 <img src={'/assets/buildings/' + machine.icon} alt={machine.name} className="block" />
                 {machine.name}
               </div>
-              <div className="flex-1">&rarr;</div>
+              <div className="flex-1 w-4">&rarr;</div>
             </div>
-          </div>
+          </td>
           {/* Inputs, Duration, Outputs */}
-          <div className={"flex-" + inputs.length + " flex flex-row gap-1 justify-items-end-safe"}>
-            {inputs}
-          </div>
-          <div className="flex-1 self-center-safe text-center align-middle">
+          {inputs}
+          <td className="recipe-duration min-w-10">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-6 inline" viewBox="0 0 10 20" fill="currentColor">
               <path fillRule="evenodd" d="m -8 5 L 11 5 L 11 3 L 14 6 L 11 9 V 7 H -8 Z" clipRule="evenodd" />
             </svg><br/>
 
             {recipe.duration} <ClockIcon className="inline w-4 pb-1  text-gray-500" />
-          </div>
-          <div className={"flex-" + outputs.length + " flex flex-row gap-1 justify-items-end-safe"}>
-            {outputs}
-          </div>
-        </div>
-      )
+          </td>
+          {outputs}
+      </tr>)
     })}
-  </>);
+  </table>);
 }
