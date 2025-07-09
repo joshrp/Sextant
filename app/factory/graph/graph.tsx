@@ -3,7 +3,7 @@ import {
   Controls,
   MiniMap,
   ReactFlow,
-  ReactFlowProps,
+  type ReactFlowProps,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
