@@ -19,7 +19,7 @@ import RecipePicker from "./RecipePicker";
 import { useShallow } from "zustand/shallow";
 import FactorySummary from "./summary";
 import type { Highs } from "highs";
-import type { FactorySettings } from "./FactoryProvider";
+import { useFactory, type FactorySettings } from "./FactoryProvider";
 
 let id = 1;
 const getId = () => id++;
@@ -40,15 +40,19 @@ const formatProductData = (key: ProductId) => {
 }
 
 export type FactoryProps = {
-  settings: FactorySettings;
+
 }
 
-export function Factory({ settings }: FactoryProps) {
+export function Factory({ }: FactoryProps) {
   const { highs, loading: loadingHighs } = useHighs();
   let solver: Solver | null = null;
   if (!loadingHighs) {
     solver = new Solver(highs);
   }
+
+  const factory = useFactory();
+  const factorySettings = factory.settings;
+
   const addNode = useStore(state => state.addNode);
   useStore(state => state.rebuildConstraintsAction)();
 
@@ -66,9 +70,9 @@ export function Factory({ settings }: FactoryProps) {
     setRecipeSelectorProduct(null);
     setAddingNewProduct(true);
   }, []);
-    
+
   const addProductToGraph = useCallback((id: RecipeId) => {
-    setRecipeSelectorProduct(null);
+    if (!recipeSelectorProductId) return;
     
     const newId = getId();
     const newNode = {
@@ -82,48 +86,62 @@ export function Factory({ settings }: FactoryProps) {
     };
 
     addNode(newNode);
+
+    factory.updateSettings({
+      desiredOutputs: factorySettings.desiredOutputs.concat([{
+        id: recipeSelectorProductId,
+        qty: 100,
+        priority: 0
+      }])
+    });
+
+    setRecipeSelectorProduct(null);
   }, [recipeData]);
+
+  const blankRecipeSelectorProduct = (bool: boolean) => {
+    setRecipeSelectorProduct(null);
+  }
 
   return (
     <div className="h-[90vh] flex flex-row w-full" >
       <div className="h-full w-[30vw] resize-x overflow-x-hidden w-max-[50vw]">
-        <Sidebar selectAProduct={selectAProduct} outputs={settings?.desiredOutputs}/>
+        <Sidebar selectAProduct={selectAProduct} outputs={factorySettings.desiredOutputs} />
       </div>
       <div className="flex-1 flex flex-col items-center gap-3 h-full">
         <Graph />
       </div>
-        {addingNewProduct ? (
-          <SelectorDialog title={"Select Product to make"} isOpen={addingNewProduct} setIsOpen={setAddingNewProduct}>
+      {addingNewProduct ? (
+        <SelectorDialog title={"Select Product to make"} isOpen={addingNewProduct} setIsOpen={setAddingNewProduct}>
 
-              <div className="grid grid-cols-[repeat(auto-fit,minmax(50px,4fr))] gap-2 overflow-y-auto">
-                {(Object.keys(productData) as ProductId[]).map((key) => {
-                  const item = productData[key];
-                  return (<div key={item.id} className="">
-                    <div id={"tooltip-" + item.id} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
-                      {item.name}
-                      <div className="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                    <button
-                      data-tooltip-target={"tooltip-" + item.id}
-                      className="bg-transparent hover:bg-gray-500 hover:border hover:border-black-500 rounded block"
-                      onClick={() => chooseRecipe(item.id)}
-                    ><img src={'/assets/products/' + item.icon} alt={item.name} className="inline-block p-2" />
-                    </button>
-                  </div>)
-                })}
-              </div>
-          </SelectorDialog>
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(50px,4fr))] gap-2 overflow-y-auto">
+            {(Object.keys(productData) as ProductId[]).map((key) => {
+              const item = productData[key];
+              return (<div key={item.id} className="">
+                <div id={"tooltip-" + item.id} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
+                  {item.name}
+                  <div className="tooltip-arrow" data-popper-arrow></div>
+                </div>
+                <button
+                  data-tooltip-target={"tooltip-" + item.id}
+                  className="bg-transparent hover:bg-gray-500 hover:border hover:border-black-500 rounded block"
+                  onClick={() => chooseRecipe(item.id)}
+                ><img src={'/assets/products/' + item.icon} alt={item.name} className="inline-block p-2" />
+                </button>
+              </div>)
+            })}
+          </div>
+        </SelectorDialog>
 
-        ):("")}
-        {recipeSelectorProductId ? (
-      <SelectorDialog title={recipeSelectorProduct?.name} isOpen={recipeSelectorProduct !== null} setIsOpen={()=>setRecipeSelectorProduct}>
+      ) : ("")}
+      {recipeSelectorProductId ? (
+        <SelectorDialog title={recipeSelectorProduct?.name} isOpen={recipeSelectorProduct !== null} setIsOpen={blankRecipeSelectorProduct}>
 
           <RecipePicker
             productId={recipeSelectorProductId}
             selectRecipe={addProductToGraph}
             productIs="output" />
-      </SelectorDialog>
-        ) : ("")}
+        </SelectorDialog>
+      ) : ("")}
     </div>);
 }
 

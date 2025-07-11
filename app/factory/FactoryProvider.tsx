@@ -1,21 +1,11 @@
 import React, { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { ProductId } from "./graph/loadJsonData";
-var localStorage : any;
-if (typeof window === 'undefined') {
-  localStorage = {
-    getItem: (a: string) => null,
-    setItem: (a: string, b: any) => {},
-    removeItem: (a: string) => {},
-  };
-} else {
-  localStorage = window.localStorage;
-}
+import { LocalStorageProvider } from "./LocalStorageProvider";
 
 export type FactorySettings = {
   id: string; // Unique identifier for the factory
   name: string;
   icon?: string;
-  order: number;
   desiredOutputs: {
     id: ProductId,
     qty: number,
@@ -27,64 +17,37 @@ export type FactorySettings = {
   }[],  
 }
 
-type ProductionMatrixSettings = {
-  factories: {
-    [id: string]: FactorySettings
-  };
+const DEFAULT_SETTINGS: FactorySettings = {
+  id: "default-factory",
+  name: "Default",
+  desiredOutputs: [],
+  fixedInputs: [],
+}
+
+type FactoryContextType =  LocalStorageProvider<FactorySettings> & {
+
 };
 
-const DEFAULT_SETTINGS: ProductionMatrixSettings = {
-  factories: {
-    "default-factory": {
-      id: "default-factory",
-      name: "Default Factory",
-      order: 0,
-      desiredOutputs: [],
-      fixedInputs: [],
-    },
-  },
-};
+const FactoryContext = createContext<FactoryContextType | undefined>(undefined);
 
-type ProductionMatrixContextType = {
-  settings: ProductionMatrixSettings;
-  updateSettings: (updates: Partial<ProductionMatrixSettings>) => void;
-  resetSettings: () => void;
-};
+const localstoragePrefix = "Factory_settings_" ;
 
-const ProductionMatrixContext = createContext<ProductionMatrixContextType | undefined>(undefined);
-
-const LOCAL_STORAGE_KEY = "ProductionMatrix_settings";
-
-export const ProductionMatrixProvider = ({ children }: { children: ReactNode }) => {
-  console.log("ProductionMatrixProvider initialized");
-  const [settings, setSettings] = useState<ProductionMatrixSettings>(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return stored ? JSON.parse(stored) : DEFAULT_SETTINGS;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
-  }, [settings]);
-
-  const updateSettings = (updates: Partial<ProductionMatrixSettings>) => {
-    setSettings((prev) => ({ ...prev, ...updates }));
-  };
-
-  const resetSettings = () => {
-    setSettings(DEFAULT_SETTINGS);
-  };
+export const FactoryProvider = ({ children, id = "default-factory" }: { children: ReactNode, id: string }) => {
+  console.log("FactoryProvider initialized for", id);
+  
+  const {settings, updateSettings, resetSettings} = LocalStorageProvider(localstoragePrefix + id, DEFAULT_SETTINGS);
 
   return (
-    <ProductionMatrixContext.Provider value={{ settings, updateSettings, resetSettings }}>
+    <FactoryContext.Provider value={{ settings, updateSettings, resetSettings }}>
       {children}
-    </ProductionMatrixContext.Provider>
+    </FactoryContext.Provider>
   );
 };
 
-export const useProductionMatrix = () => {
-  const context = useContext(ProductionMatrixContext);
+export const useFactory = () => {
+  const context = useContext(FactoryContext);
   if (!context) {
-    throw new Error("useProductionMatrix must be used within a ProductionMatrixProvider");
+    throw new Error("useFactory must be used within a FactoryProvider");
   }
   return context;
 };

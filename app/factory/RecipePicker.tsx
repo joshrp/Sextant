@@ -45,18 +45,17 @@ export default function RecipePicker({
 
   const maxOutputCells = Math.max((maxOutputs * 2) - 1, 0);
   const maxInputCells = Math.max((maxInputs * 2) - 1, 0);
-  const cols = (maxOutputCells + maxInputCells) + 2; 
-
-  console.log("maxInputs", maxInputs, "maxOutputs", maxOutputs, "cols", cols);
 
   return (<table className="recipe-list w-full border-spacing-y-1 border-separate text-sm"><tbody>
     {recipes.map(recipe => {
       const machine = machineData[recipe.machine];
       const outputCells = Math.max((recipe.outputs.length * 2) - 1, 0);
       const inputCells = Math.max((recipe.inputs.length * 2) - 1, 0);
+      const prefixInputCells = Array(maxInputCells - inputCells).fill(<td/>);
+      const suffixOutputCells = Array(maxOutputCells - outputCells).fill(<td/>);
 
       // prefix the inputs with empty divs to fill the grid
-      const inputs = Array(maxInputCells - inputCells).fill(<td/>).concat(recipe.inputs.map((input, index) => {
+      const inputs = prefixInputCells.concat(recipe.inputs.map((input, index) => {
         const product = productData[input.id];
         return (<>   
           {index !== 0 && <td className="w-12"><PlusIcon/></td>}       
@@ -80,7 +79,7 @@ export default function RecipePicker({
             {output.quantity.toPrecision(2)}
           </td>
         </>);
-      }).concat(Array(maxOutputCells - outputCells).fill(<td/>));
+      }).concat(suffixOutputCells);
 
       return (<tr className="recipe-row cursor-pointer" onClick={() => selectRecipe(recipe.id)} key={recipe.id}>
           <td className="recipe-machine max-w-30">
