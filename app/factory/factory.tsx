@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { CloseButton, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 
 
@@ -21,23 +21,9 @@ import FactorySummary from "./summary";
 import type { Highs } from "highs";
 import { useFactory, type FactorySettings } from "./FactoryProvider";
 
-let id = 1;
-const getId = () => id++;
-
 const recipeData = loadRecipeData();
 const machineData = loadMachineData();
 const productData = loadProductData();
-
-const formatRecipeData = (key: RecipeId) => {
-  const machine = machineData[recipeData[key].machine];
-  return `${machine.name} - ${recipeData[key].name}`;
-}
-
-const formatProductData = (key: ProductId) => {
-  const product = productData[key];
-  const recipes = product.recipes.output.length;
-  return `${product.name} (${recipes})`;
-}
 
 export type FactoryProps = {
 
@@ -45,16 +31,22 @@ export type FactoryProps = {
 
 export function Factory({ }: FactoryProps) {
   const { highs, loading: loadingHighs } = useHighs();
-  let solver: Solver | null = null;
-  if (!loadingHighs) {
-    solver = new Solver(highs);
-  }
 
   const factory = useFactory();
   const factorySettings = factory.settings;
 
   const addNode = useStore(state => state.addNode);
-  useStore(state => state.rebuildConstraintsAction)();
+
+  const constraints = useStore(state => state.constraints);
+  useEffect(() => {
+    // useStore(state => state.rebuildConstraintsAction)();
+    console.log('constraints changed', constraints);
+    let solver: Solver | null = null;
+    if (!loadingHighs) {
+      solver = new Solver(highs);
+      console.log(highs.solve(constraints.lpp));
+    }
+  }, [constraints]);
 
   // const [isOpen, setIsOpen] = useState(false);
   const [addingNewProduct, setAddingNewProduct] = useState(false);
@@ -71,32 +63,30 @@ export function Factory({ }: FactoryProps) {
     setAddingNewProduct(true);
   }, []);
 
-  const addProductToGraph = useCallback((id: RecipeId) => {
-    if (!recipeSelectorProductId) return;
+  const addProductToGraph = useCallback((id: RecipeId, productId: ProductId) => {
+    if (!productId) return;
     
-    const newId = getId();
     const newNode = {
-      id: newId + "",
-      position: { x: newId * 100, y: newId * 100 },
+      id: id + "_" + (new Date().getTime()),
+      // TODO:: Positioning new nodes. ELK?
+      position: { x: 100, y: 100 },
       type: "recipe-node",
       data: {
-        label: formatRecipeData(id),
         recipeId: id,
       },
     };
 
     addNode(newNode);
-
     factory.updateSettings({
       desiredOutputs: factorySettings.desiredOutputs.concat([{
-        id: recipeSelectorProductId,
+        id: productId,
         qty: 100,
         priority: 0
       }])
     });
 
     setRecipeSelectorProduct(null);
-  }, [recipeData]);
+  }, [recipeData, factorySettings]);
 
   const blankRecipeSelectorProduct = (bool: boolean) => {
     setRecipeSelectorProduct(null);
@@ -134,11 +124,13 @@ export function Factory({ }: FactoryProps) {
 
       ) : ("")}
       {recipeSelectorProductId ? (
-        <SelectorDialog title={recipeSelectorProduct?.name} isOpen={recipeSelectorProduct !== null} setIsOpen={blankRecipeSelectorProduct}>
+        <SelectorDialog title={recipeSelectorProduct?.name} isOpen={recipeSelectorProductId !== null} setIsOpen={blankRecipeSelectorProduct}>
 
           <RecipePicker
             productId={recipeSelectorProductId}
-            selectRecipe={addProductToGraph}
+            selectRecipe={(recipeId) => {
+              addProductToGraph(recipeId, recipeSelectorProductId)
+            }}
             productIs="output" />
         </SelectorDialog>
       ) : ("")}

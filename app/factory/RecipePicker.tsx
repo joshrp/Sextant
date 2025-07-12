@@ -81,7 +81,9 @@ export default function RecipePicker({
         </>);
       }).concat(suffixOutputCells);
 
-      return (<tr className="recipe-row cursor-pointer" onClick={() => selectRecipe(recipe.id)} key={recipe.id}>
+    return (<tr className="recipe-row cursor-pointer" onClick={() => {
+      selectRecipe(recipe.id);
+    }} key={recipe.id}>
           <td className="recipe-machine max-w-30">
             <div className="flex gap-1 items-center-safe">
               <div className="flex-3">

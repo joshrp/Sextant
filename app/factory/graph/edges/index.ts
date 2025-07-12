@@ -3,15 +3,15 @@ import type { BuiltInEdge, Edge, EdgeTypes } from "@xyflow/react";
 import ButtonEdge, { type ButtonEdge as ButtonEdgeType } from "./ButtonEdge";
 
 export const initialEdges = [
-  { id: "a->c", 
-    source: "fuelgas_reforming_1", 
-    sourceHandle: "carbon_dioxide", 
-    target: "fuelgas_synthesis_1", 
-    targetHandle: "carbon_dioxide",
+  { id: "filtering->condensing", 
+    source: "exhaust_filtering_1", 
+    sourceHandle: "steam_lo", 
+    target: "lo-press_steam_condensation", 
+    targetHandle: "steam_lo",
     animated: true ,
     type: "button-edge"
   },
-  { id: "b->d", 
+  { id: "filtering->acid_sulfur", 
     source: "exhaust_filtering_1", 
     target: "acid_mixing_1", 
     sourceHandle: "sulfur",
@@ -19,19 +19,31 @@ export const initialEdges = [
     type: "button-edge" 
   },
   { 
-    id: "c->d", 
-    target: "fuelgas_synthesis_1", 
-    source: "exhaust_filtering_1", 
-    sourceHandle: "carbon_dioxide",
-    targetHandle: "carbon_dioxide",
-    animated: true 
+    id: "condensing->filtering", 
+    target: "exhaust_filtering_1", 
+    source: "lo-press_steam_condensation", 
+    sourceHandle: "water",
+    targetHandle: "water",
+    animated: true,
+    type: "button-edge" 
+
   },
   { 
-    id: "d->a", 
-    source: "fuelgas_synthesis_1", 
-    target: "fuelgas_reforming_1",
-    sourceHandle: "fuel_gas",
-    targetHandle: "fuel_gas",
+    id: "condensing->acid", 
+    target: "acid_mixing_1", 
+    source: "lo-press_steam_condensation", 
+    sourceHandle: "water",
+    targetHandle: "water",
+    animated: true,
+    type: "button-edge" 
+
+  },
+  { 
+    id: "turbine->condensing", 
+    source: "turbinehighpress", 
+    target: "lo-press_steam_condensation",
+    sourceHandle: "steam_lo",
+    targetHandle: "steam_lo",
     animated: true,
     type: "button-edge"
   },
@@ -43,4 +55,4 @@ export const edgeTypes = {
 } satisfies EdgeTypes;
 
 // Append the types of you custom edges to the BuiltInEdge type
-export type CustomEdgeType = BuiltInEdge | ButtonEdgeType;
+export type CustomEdgeType = ButtonEdgeType;

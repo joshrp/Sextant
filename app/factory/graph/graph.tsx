@@ -40,6 +40,7 @@ export default function Graph(props: GraphProps) {
       edgeTypes={edgeTypes}
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
+      
       colorMode="dark"
     >
       <Background />

@@ -25,7 +25,6 @@ const DEFAULT_SETTINGS: FactorySettings = {
 }
 
 type FactoryContextType =  LocalStorageProvider<FactorySettings> & {
-
 };
 
 const FactoryContext = createContext<FactoryContextType | undefined>(undefined);
@@ -34,7 +33,7 @@ const localstoragePrefix = "Factory_settings_" ;
 
 export const FactoryProvider = ({ children, id = "default-factory" }: { children: ReactNode, id: string }) => {
   console.log("FactoryProvider initialized for", id);
-  
+
   const {settings, updateSettings, resetSettings} = LocalStorageProvider(localstoragePrefix + id, DEFAULT_SETTINGS);
 
   return (

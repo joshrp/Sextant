@@ -46,6 +46,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
                 position={Position.Right}
                 id={output.id}
                 style={handleStyle}
+                
                 className="flex-1 max-w-8 align-middle text-center">
 
                 <div className="text-xs pointer-events-none min-w-4 p-2 bg-blue-950 hover:bg-blue-700">{output.quantity}</div>

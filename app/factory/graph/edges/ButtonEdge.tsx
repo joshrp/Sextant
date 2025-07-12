@@ -6,6 +6,7 @@ import {
   getBezierPath,
   useReactFlow,
 } from "@xyflow/react";
+import type { ProductId } from "../loadJsonData";
 
 const buttonStyle = {
   width: 20,
@@ -20,7 +21,10 @@ const buttonStyle = {
 
 type ButtonEdgeData = {};
 
-export type ButtonEdge = Edge<ButtonEdgeData>;
+export type ButtonEdge = Edge<ButtonEdgeData> & {
+  sourceHandle: ProductId,
+  targetHandle: ProductId
+};
 
 export default function ButtonEdge({
   id,

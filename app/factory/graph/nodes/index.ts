@@ -1,33 +1,30 @@
-import type { BuiltInNode, Node, NodeTypes } from "@xyflow/react";
-import PositionLoggerNode, {
-  type PositionLoggerNode as PositionLoggerNodeType,
-} from "./PositionLoggerNode";
+import type { NodeTypes } from "@xyflow/react";
 import RecipeNode, { type RecipeNode as RecipeNodeType} from "../RecipeNode";
 
 export const initialNodes = [
   { 
-    id: "fuelgas_reforming_1", 
+    id: "lo-press_steam_condensation", 
     type: "recipe-node", 
-    position: { x: 0, y: 0 }, 
-    data: { recipeId: "fuelgas_reforming" } 
+    position: { x: -250, y: -300 }, 
+    data: { recipeId: "lo-press_steam_condensation" } 
   },
   {
     id: "acid_mixing_1", 
     type: "recipe-node",
-    position: { x: -200, y: 200 },
+    position: { x: 50, y: 0 },
     data: { recipeId: "acid_mixing" },
   },
   { 
     id: "exhaust_filtering_1",  
     type: "recipe-node", 
-    position: { x: -500, y: 250 }, 
-    data: { label: "your ideas", recipeId: "exhaust_filtering" } 
+    position: { x: -300, y: 0 }, 
+    data: { recipeId: "exhaust_filtering" } 
   },
   {
-    id: "fuelgas_synthesis_1", 
+    id: "turbinehighpress", 
     type: "recipe-node",
-    position: { x: 50, y: 450 },
-    data: { label: "with React Flow", recipeId: "fuelgas_synthesis" },
+    position: { x: -550, y: -350 },
+    data: { recipeId: "turbinehighpress" },
   },
 ] satisfies RecipeNodeType[];
 
