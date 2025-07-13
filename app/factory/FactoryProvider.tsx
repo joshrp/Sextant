@@ -2,6 +2,10 @@ import React, { createContext, useContext, useEffect, useState, type ReactNode }
 import type { ProductId } from "./graph/loadJsonData";
 import { LocalStorageProvider } from "./LocalStorageProvider";
 
+import { initialNodes, type CustomNodeType } from "./graph/nodes";
+import { initialEdges, type CustomEdgeType } from "./graph/edges";
+import useStore, { type FactoryStore } from "./store";
+
 export type FactorySettings = {
   id: string; // Unique identifier for the factory
   name: string;
@@ -25,6 +29,7 @@ const DEFAULT_SETTINGS: FactorySettings = {
 }
 
 type FactoryContextType =  LocalStorageProvider<FactorySettings> & {
+  useStore: FactoryStore;
 };
 
 const FactoryContext = createContext<FactoryContextType | undefined>(undefined);
@@ -36,8 +41,11 @@ export const FactoryProvider = ({ children, id = "default-factory" }: { children
 
   const {settings, updateSettings, resetSettings} = LocalStorageProvider(localstoragePrefix + id, DEFAULT_SETTINGS);
 
+  // Init store with factory data
+  const store = useStore({initialEdges, initialNodes});
+
   return (
-    <FactoryContext.Provider value={{ settings, updateSettings, resetSettings }}>
+    <FactoryContext.Provider value={{ settings, updateSettings, resetSettings, useStore: store }}>
       {children}
     </FactoryContext.Provider>
   );

@@ -10,8 +10,9 @@ import "@xyflow/react/dist/style.css";
 
 import { nodeTypes, type CustomNodeType } from "./nodes";
 import { edgeTypes, type CustomEdgeType } from "./edges";
-import useStore, { type GraphStore } from "../store";
+import { type GraphStore } from "../store";
 import { useShallow } from "zustand/shallow";
+import { useFactory } from "../FactoryProvider";
 
 export interface GraphProps extends ReactFlowProps<CustomNodeType, CustomEdgeType> {
 
@@ -28,6 +29,8 @@ const selector = (state: GraphStore) => ({
 });
 
 export default function Graph(props: GraphProps) {
+  const useStore = useFactory().useStore;
+
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
     useShallow(selector),
   );

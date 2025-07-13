@@ -3,7 +3,7 @@ import { CloseButton, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@
 
 import Sidebar from "./graph/sidebar";
 import Graph from "./graph/graph";
-import useStore from "./store";
+import { type FactoryStore, type GraphStore } from "./store";
 import Solver, { buildLpp, useHighs } from "./solver/index";
 
 import {
@@ -17,14 +17,12 @@ import {
 import RecipePicker from "./RecipePicker";
 import FactorySummary from "./summary";
 import { useFactory, type FactorySettings } from "./FactoryProvider";
-import type { GenericHighsSolution, Highs, HighsSolution } from "highs";
 
 const recipeData = loadRecipeData();
 const machineData = loadMachineData();
 const productData = loadProductData();
 
 export type FactoryProps = {
-
 }
 
 export function Factory({ }: FactoryProps) {
@@ -33,14 +31,15 @@ export function Factory({ }: FactoryProps) {
 
   const factory = useFactory();
   const factorySettings = factory.settings;
+  const useStore = factory.useStore;
 
   const addNode = useStore(state => state.addNode);
+  const updated = useStore(state => state.throttledNodeUpdate);
 
   const nodeConnections = useStore(state => state.nodeConnections);
   useEffect(() => {
-    // useStore(state => state.rebuildnodeConnectionsAction)();
     console.log('nodeConnections changed', nodeConnections);
-    let solver: Solver | null = null;
+    // let solver: Solver | null = null;
     if (!loadingHighs && nodeConnections) {
       const lpp = buildLpp(nodeConnections, {acid:{qty:48}, carbon_dioxide:{qty:100}, brine:{qty:24}});
       // solver = new Solver(highs);
@@ -50,7 +49,7 @@ export function Factory({ }: FactoryProps) {
       
       const simpleResults: {[k: string]: number} = {};
       Object.keys(res.Columns).forEach(k => {simpleResults[k] = res.Columns[k].Primal})
-      
+
       const calc = {
         status: res.Status,
         items: simpleResults,

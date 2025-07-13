@@ -11,8 +11,7 @@ test("solver runs", () => {
   const exp = `
 minimize
   obj: exhaust+steam_hi
-subject to
-    
+subject to 
       \\c0: steam_lo
       c0: -24 n_0 +24 n_1 +24 n_2 = 0
     

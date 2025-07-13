@@ -242,7 +242,6 @@ Bounds ${openInputs.map(o => `
   0 <= ${o}`).join('')}
   ${Object.keys(goals).map(g => `${g} >= ${goals[g as ProductId]?.qty}`).join("\n")}
 end`;
-  console.log('LPP found: ', lpp)
 
   return { constraints, openOutputs, openInputs, lpp };
 }

@@ -1,20 +1,26 @@
-import { create } from "zustand";
-import { loadMachineData, loadProductData, loadRecipeData, type ProductId, type Recipe, type RecipeData, type RecipeProduct } from "./graph/loadJsonData";
+import { create, type StoreApi, type UseBoundStore } from "zustand";
+import { type ProductId } from "./graph/loadJsonData";
 
-import { applyEdgeChanges, applyNodeChanges, getOutgoers, type Edge, type OnEdgesChange, type OnNodesChange } from "@xyflow/react";
+import { applyEdgeChanges, applyNodeChanges, type OnEdgesChange, type OnNodesChange } from "@xyflow/react";
 import {
   addEdge,
   type OnConnect,
 } from "@xyflow/react";
 
-import { initialNodes, type CustomNodeType } from "./graph/nodes";
-import { initialEdges, type CustomEdgeType } from "./graph/edges";
 import { buildNodeConnections, type NodeConnections } from "./solver";
+import type { CustomNodeType, } from "./graph/nodes";
+import type { CustomEdgeType } from "./graph/edges";
 
 export interface GraphStore {
   nodes: CustomNodeType[];
   edges: CustomEdgeType[];
   nodeConnections: NodeConnections | null;
+  throttledNodeUpdate: {
+    nodes: CustomNodeType[],
+    edges: CustomEdgeType[],
+    updateTime: number,
+    throttle: number,
+  };
   constraints: {
     lpp: string;
     openOutputs: ProductId[];
@@ -29,7 +35,14 @@ export interface GraphStore {
   loadingHighs: boolean;
 }
 
-const useStore = create<GraphStore>((set, get) => ({
+export type FactoryStore = UseBoundStore<StoreApi<GraphStore>>;
+
+export type GraphStoreProps = {
+  initialNodes: CustomNodeType[],
+  initialEdges: CustomEdgeType[],
+};
+
+const useStore = ({initialNodes, initialEdges}: GraphStoreProps) => create<GraphStore>((set, get) => ({
   loadingHighs: true,
   nodes: initialNodes,
   edges: initialEdges,
@@ -39,12 +52,28 @@ const useStore = create<GraphStore>((set, get) => ({
     openOutputs: [],
     openInputs: [],
   },
+  throttledNodeUpdate: {
+    nodes: initialNodes,
+    edges: initialEdges,
+    updateTime: (new Date().getTime()),
+    throttle: 1000,
+  },
   addNode: (node) => set((state) => ({ nodes: state.nodes.concat(node) })),
   addEdge: (connection) => set((state) => ({ edges: addEdge(connection, state.edges) })),
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes),
     });
+    const nowTime = new Date().getTime();
+    if (nowTime - get().throttledNodeUpdate.updateTime > get().throttledNodeUpdate.throttle)
+      set({
+        throttledNodeUpdate: {
+          nodes: get().nodes,
+          edges: get().edges,
+          updateTime: nowTime,
+          throttle: 1000
+        }
+      });
   },
   onEdgesChange: (changes) => {
     set({

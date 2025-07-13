@@ -18,6 +18,7 @@ type props = {
 function SideBar({ selectAProduct, outputs, calcResults }: props) {
   // const transform = useStore(transformSelector);
   const factory = useFactory().settings;
+  const useStore = useFactory().useStore;
   const constraints = useStore(state => state.constraints);
   const recalc = useStore(state => state.graphChangeAction);
 
