@@ -24,7 +24,7 @@ test("solver runs", async () => {
   },{
     dir: "output",
     productId: "air_pollution",
-    qty: 50,
+    qty: 48,
     type: "gt"
   }])
 

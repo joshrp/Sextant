@@ -210,7 +210,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
     return terms;
   }
 
-  const metaConstraints: {
+  const itemConstraints: {
     [k in ProductId]?: Constraint      
   } = {};
 
@@ -221,7 +221,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
    * i.e. Global Inputs / outputs, goal products, and multi use items 
    */
   const addMetaConstraint = (productId: ProductId, isInput: boolean, parentConstraintId: string) => {
-    (metaConstraints[productId] ||= {
+    (itemConstraints[productId] ||= {
       terms: [],
       id: productId + "_sink",
       productId: productId
@@ -235,10 +235,11 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
     const constraintId = `c${constraintIdInc++}`;
 
     const terms = walkConnections(nodeId, productId, isInput, constraintId);
-    if (terms.length) {      
+    if (terms.length) {  
+      // These terms are opposite so the sink can balance out the ins/outs of this constraint    
       terms.push({
         id: constraintId + "_sink",
-        term: "+"
+        term: isInput ? "+" : "-"
       });      
 
       constraints.push({
@@ -271,8 +272,8 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
     }
   }
 
-  getKeysTyped(metaConstraints).forEach(productId => {
-    const constraint = metaConstraints[productId];
+  getKeysTyped(itemConstraints).forEach(productId => {
+    const constraint = itemConstraints[productId];
 
     if (constraint !== undefined) {
       // if (constraint.terms.length > 1) {
@@ -286,7 +287,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
     }
   })
 
-  const objective = getKeysTyped(openConnections.inputs).map(i => metaConstraints[i]?.id).join('+')
+  const objective = getKeysTyped(openConnections.inputs).map(i => itemConstraints[i]?.id).join('+')
   const constraintsMap = new Map<string, Constraint>;
   const constraintsList = constraints.map(con => {
     constraintsMap.set(con.id, con);
@@ -295,8 +296,8 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
       ${con.id}: ${con.terms.map(t => `${t.term} ${t.id}`).join(' ')} = 0`;
   }).join('');
 
-  let boundsList = getKeysTyped(metaConstraints).map(c =>
-    metaConstraints[c]?.terms.map(t => {
+  let boundsList = getKeysTyped(itemConstraints).map(c =>
+    itemConstraints[c]?.terms.map(t => {
       return `  ${t.id} free`
     }).join('\n')
   ).join('\n');
@@ -306,7 +307,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
   boundsList += "\n" + goals.map(g => {
     // The LT and GT here are flipped because the sinks are negated. Must be less than 20 == must be greater than -20
     return `
-    ${metaConstraints[g.productId]?.id} ${g.type == "lt" ? ">=" : g.type == "gt" ? "<=" : "="} -${g.qty}`
+    ${itemConstraints[g.productId]?.id} ${g.type == "lt" ? ">=" : g.type == "gt" ? "<=" : "="} ${g.qty}`
   }).join("\n");
 
   let lpp = `
