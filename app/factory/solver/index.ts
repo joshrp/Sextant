@@ -108,8 +108,6 @@ export const buildNodeConnections = (nodes: CustomNodeType[], edges: CustomEdgeT
     };
   });
 
-  console.log('open connections after nodes', JSON.stringify(openConnections,null,2) )
-
   edges.forEach(edge => {
     const productId = edge.targetHandle as ProductId;
 
@@ -149,6 +147,11 @@ export type FactoryGoal = {
   type: "eq" | "lt" | "gt",
   dir: "input" | "output"
 };
+const debugLog = false;
+const debug = (...args: any[]) => {
+  if (debugLog)
+    console.debug(...args);
+}
 
 export const buildLpp = (nodeConnections: NodeConnections, openConnections: OpenConnections, goals: FactoryGoal[]) => {
   // To build a constrain for an item we need to know all the usages that are linked together. 
@@ -167,7 +170,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
       term: string
     })[],
   };
-  const constraints: Constraint[] = [];
+  const constraints: Map<string, Constraint> = new Map();
 
   // Which edges ends (vertices) have already appeared in constraints (via walking)
   const vertexInConstraints: Record<string, string> = {};
@@ -211,24 +214,41 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
   }
 
   const itemConstraints: {
-    [k in ProductId]?: Constraint      
+    [k in ProductId]?: string      
   } = {};
+  
+  const openConstraintSinks: string[] = []; 
+  const closedConstraintSinks: string[] = [];
 
-  const bounds: string[] = [];
   /**
-   * Meta Constraints contrast recipe constraints. 
-   * Some things must be balanced across the whole graph, not just between many-many recipe relationships
-   * i.e. Global Inputs / outputs, goal products, and multi use items 
+   * Open items in the graph need a meta constraint that binds all their inputs / outputs into one final variable.
+   * This is build over time and stored in itemConstraints for reference later
    */
-  const addMetaConstraint = (productId: ProductId, isInput: boolean, parentConstraintId: string) => {
-    (itemConstraints[productId] ||= {
-      terms: [],
-      id: productId + "_sink",
-      productId: productId
-    }).terms.push({
+  const addItemConstraint = (productId: ProductId, isInput: boolean, parentConstraintId: string) => {
+    const itemConstraintId = productId + "_sink";
+    
+    if (!constraints.has(itemConstraintId)) {
+      itemConstraints[productId] = itemConstraintId;
+      constraints.set(itemConstraintId, {
+        terms: [],
+        id: productId + "_sink",
+        productId: productId
+      })  
+      constraints.get(itemConstraintId)?.terms.push({
+        id: productId + "_sink",
+        term: "-"
+      });
+      debug('Added new item constraint for',productId, constraints.get(itemConstraintId))
+      // If this product isn't a goal, it's free to vary 
+      if (goals.findIndex(g => g.productId == productId) == -1) 
+        openConstraintSinks.push(productId + "_sink");
+    }
+
+    constraints.get(itemConstraintId)?.terms.push({
       id: parentConstraintId + "_sink",
       term: isInput ? "-" : "+"
-    })    
+    })
+    openConstraintSinks.push(parentConstraintId + "_sink");
   }
 
   const newConstraint = (nodeId: string, productId: ProductId, isInput: boolean) => {
@@ -242,7 +262,7 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
         term: isInput ? "+" : "-"
       });      
 
-      constraints.push({
+      constraints.set(constraintId, {
         id: constraintId,
         productId,
         terms
@@ -251,13 +271,16 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
       // If it's an open connection (nothing attached), 
       // it needs a meta constraint adding, for tracking across multiple nodes
       // if not, it needs bounding to 0 until we WANT it to be free
-      if (openConnections.inputs[productId] !== undefined) 
-        addMetaConstraint(productId, true, constraintId)
-      else if (openConnections.outputs[productId] !== undefined) 
-        addMetaConstraint(productId, false, constraintId)
-      else bounds.push(constraintId + "_sink");
+      const ioString = isInput ? "inputs" : "outputs";
+      const connections = nodeConnections[nodeId]?.[ioString][productId];
+      debug('Checking', nodeId,'for',productId,'as',ioString, nodeConnections[nodeId][ioString][productId]);
+        
+      if (connections && connections.length == 0) 
+          addItemConstraint(productId, isInput, constraintId)
+      else 
+        closedConstraintSinks.push(constraintId);
     }
-    console.log("Constraint", constraintId, constraints[constraints.length - 1]);
+    debug("Constraint", constraintId, constraints.get(constraintId));
   }
 
   // Loop all the inputs and outputs found in nodeConnections 
@@ -272,46 +295,36 @@ export const buildLpp = (nodeConnections: NodeConnections, openConnections: Open
     }
   }
 
-  getKeysTyped(itemConstraints).forEach(productId => {
-    const constraint = itemConstraints[productId];
-
-    if (constraint !== undefined) {
-      // if (constraint.terms.length > 1) {
-        constraint.terms.push({
-          id: constraint.id,
-          term: "-"
-        });
-        constraints.push(constraint)
-      // }
-      
-    }
-  })
-
-  const objective = getKeysTyped(openConnections.inputs).map(i => itemConstraints[i]?.id).join('+')
-  const constraintsMap = new Map<string, Constraint>;
-  const constraintsList = constraints.map(con => {
-    constraintsMap.set(con.id, con);
-
-    return `
+  const objective = getKeysTyped(openConnections.inputs).map(i => itemConstraints[i]).join('+')
+  let constraintsList = '';
+  for (const con of constraints.values()) {
+    constraintsList += `
       ${con.id}: ${con.terms.map(t => `${t.term} ${t.id}`).join(' ')} = 0`;
-  }).join('');
+  };
 
-  let boundsList = getKeysTyped(itemConstraints).map(c =>
-    itemConstraints[c]?.terms.map(t => {
-      return `  ${t.id} free`
-    }).join('\n')
-  ).join('\n');
+  let boundsList = openConstraintSinks.map(c => `${c} free`).join('\n');
 
-  boundsList += "\n" + bounds.map(b => `${b} = 0`).join('\n');
+  // let boundsList = getKeysTyped(itemConstraints).map(id => {
+  //   if (itemConstraints[id] === undefined) return;
+  //   const constraint = constraints.get(itemConstraints[id]);
+  //   return constraint?.terms.map(t => {
+  //     return `  ${t.id} free`
+  //   }).join('\n')
+  // }).join('\n');
 
+  boundsList += "\n" + closedConstraintSinks.map(b => `${b}_sink = 0`).join('\n');
+
+  const missedGoals: string[] = [];
   boundsList += "\n" + goals.map(g => {
-    // The LT and GT here are flipped because the sinks are negated. Must be less than 20 == must be greater than -20
-    return `
-    ${itemConstraints[g.productId]?.id} ${g.type == "lt" ? ">=" : g.type == "gt" ? "<=" : "="} ${g.qty}`
+    if (itemConstraints[g.productId] === undefined) {
+      missedGoals.push(g.productId);
+      return
+    }    
+    return `${itemConstraints[g.productId]} ${g.type == "lt" ? "<=" : g.type == "gt" ? ">=" : "="} ${g.qty}`
   }).join("\n");
 
   let lpp = `
-minimize
+max
   obj: ${objective}
 subject to 
   ${constraintsList}
@@ -319,10 +332,9 @@ Bounds
   ${boundsList}
 end`;
 
-  return { constraints, lpp, nodeIdToLabels, constraintsMap };
+  return { constraints, lpp, nodeIdToLabels, closedConstraintSinks, missedGoals };
 }
 
-
-  function getKeysTyped<T extends {}>(obj: T): (keyof T)[] {
-    return Object.keys(obj) as (keyof typeof obj)[];
-  }
+function getKeysTyped<T extends {}>(obj: T): (keyof T)[] {
+  return Object.keys(obj) as (keyof typeof obj)[];
+}

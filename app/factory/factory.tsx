@@ -38,13 +38,18 @@ export function Factory({ }: FactoryProps) {
   const goals = useStore(state => state.constraints);
 
   useEffect(() => {
-    console.log('nodeConnections changed', nodeConnections, goals);
     // let solver: Solver | null = null;
     if (!loadingHighs && nodeConnections && openConnections) {
+      console.log('Running Builder');
+      console.log({
+        nodeConnections,
+        openConnections,
+        goals
+      });
       const lpp = buildLpp(nodeConnections, openConnections, goals);
-      // solver = new Solver(highs);
       if (lpp) {
-        console.log('Solving:', lpp.lpp, lpp.constraintsMap, lpp.nodeIdToLabels)
+        console.log('Running Solver:', lpp)
+        console.log('LPP:',lpp.lpp)
         const res = highs.solve(lpp.lpp) as any; // No idea how to do the typing on this one
 
         const simpleResults: { [k: string]: number } = {};
