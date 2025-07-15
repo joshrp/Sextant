@@ -3,9 +3,9 @@ import productData from "data/products.json"
 import recipeData from "data/recipes.json"
 import categoryData from "data/categories.json"
 
-export type MachineId = keyof typeof machineData;
-export type RecipeId = keyof typeof recipeData;
-export type ProductId = keyof typeof productData;
+export type MachineId = string // keyof typeof machineData;
+export type RecipeId = string; // keyof typeof recipeData;
+export type ProductId = string; // keyof typeof productData; // This was killing performance, it's used everywhere and is too large
 export type CategoryId = keyof typeof categoryData;
 
 export type BuildCost = {

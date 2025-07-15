@@ -40,9 +40,9 @@ export default function Graph(props: GraphProps) {
   
   const { fitBounds } = useReactFlow();
   useEffect(()=> {fitBounds(getNodesBounds(nodes), {
-    padding: 20,
+    padding: 0.4,
     duration: 200
-  }); return;}, [useStore]);
+  }); return;}, [fitBounds]);
 
   return (
     <ReactFlow<CustomNodeType, CustomEdgeType>

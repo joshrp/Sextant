@@ -1,7 +1,7 @@
-import { useShallow } from "zustand/shallow";
-import useStore, { type GraphStore } from "./store";
-import { getOutgoers, type EdgeChange, type EdgeTypes } from "@xyflow/react";
-import { useState } from "react";
+// import { useShallow } from "zustand/shallow";
+// import useStore, { type GraphStore } from "./store";
+// import { getOutgoers, type EdgeChange, type EdgeTypes } from "@xyflow/react";
+// import { useState } from "react";
 
 // const selector = (state: GraphStore) => ({
 //   nodes: state.nodes,
@@ -12,12 +12,12 @@ import { useState } from "react";
 // });
 
 export default function FactorySummary() {
-  const constraints = useStore((state) => state.constraints);
+  // const constraints = useStore(state => state.constraints);
 
   return (
     <div>
 
-      <p>{JSON.stringify(constraints)}</p>
+      {/* <p>{JSON.stringify(constraints)}</p> */}
     </div>
   );
 }

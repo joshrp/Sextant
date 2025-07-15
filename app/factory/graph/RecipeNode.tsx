@@ -1,13 +1,23 @@
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { loadProductData, loadRecipeData, type RecipeId } from './loadJsonData';
 import { useFactory } from '../FactoryProvider';
+
+let LANG = "en-GB";
+
+console.log('LANG', LANG)
 
 const recipeData = loadRecipeData();
 const productData = loadProductData();
 
 export type RecipeNodeData = {
-  label?: string;
+  solution?: {
+    solved: true,
+    // Mult for the recipe
+    runCount: number,
+  } | {
+    solved: false
+  },
   recipeId: RecipeId; // Unique identifier for the recipe
 };
 
@@ -17,10 +27,25 @@ export type RecipeNode = Node<RecipeNodeData>;
 
 function RecipeNode(props: NodeProps<RecipeNode>) {
   const recipe = recipeData[props.data.recipeId];
+  
+  useEffect(() => {
+    if (typeof window !== undefined)
+      LANG = window.navigator.language;
+  }, []);
+
+  const solution = props.data.solution;
+  let mult = 1;
+  if (solution?.solved && solution.runCount !== undefined) {
+    
+    mult = solution.runCount;
+  }
+  const getQuantityDisplay = (qty: number) => {
+    return (qty * mult).toLocaleString(LANG, { maximumFractionDigits: 1 });
+  }
   const removeNode = useFactory().useStore(state => state.removeNode);
   return (
     <div className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
-      <div className="">{recipe.name}<button onClick={()=>removeNode(props.id)}>Del</button></div>
+      <div className="">{recipe.name}<button onClick={() => removeNode(props.id)}>Del</button></div>
 
       <div className="products flex flex-row justify-between mt-4">
         <div className="recipe-inputs flex-2 items-start relative -left-8">
@@ -29,10 +54,11 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
 
             return (<div className="recipe-input flex gap-1 mb-4" key={input.id} >
               <Handle type="target" position={Position.Left} id={input.id} style={handleStyle} className="flex-1 max-w-8 align-middle text-center">
-                <div className="text-xs pointer-events-none min-w-4 p-2 bg-blue-950 hover:bg-blue-700">{input.quantity}</div>
-
+                <img src={'/assets/products/' + product.icon} alt={product.name} className="pointer-events-none inline max-w-8" />
               </Handle>
-              <img src={'/assets/products/' + product.icon} alt={product.name} className="inline max-w-8" />
+              <div className="text-xs min-w-4 p-2 bg-blue-950 hover:bg-blue-700">
+                {getQuantityDisplay(input.quantity)}
+              </div>
             </div>);
           })}
         </div>
@@ -41,16 +67,16 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
             const product = productData[output.id];
 
             return (<div className="recipe-output flex gap-1 mb-4" key={output.id} >
-              <img src={'/assets/products/' + product.icon} alt={product.name} className="flex-1 max-w-8" />
+
+              <div className="text-xsmin-w-4 p-2 bg-blue-950 hover:bg-blue-700">{getQuantityDisplay(output.quantity)}</div>
               <Handle
                 type="source"
                 position={Position.Right}
                 id={output.id}
                 style={handleStyle}
-                
-                className="flex-1 max-w-8 align-middle text-center">
 
-                <div className="text-xs pointer-events-none min-w-4 p-2 bg-blue-950 hover:bg-blue-700">{output.quantity}</div>
+                className="flex-1 max-w-8 align-middle text-center">
+                <img src={'/assets/products/' + product.icon} alt={product.name} className="pointer-events-none flex-1 max-w-8" />
               </Handle>
             </div>);
           })}

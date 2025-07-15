@@ -12,6 +12,7 @@ import { buildNodeConnections, type OpenConnections, type FactoryGoal, type Node
 import type { CustomNodeType, } from "./graph/nodes";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge } from "./graph/edges/ButtonEdge";
+import type { RecipeNodeData } from "./graph/RecipeNode";
 
 export interface GraphStore {
   nodes: CustomNodeType[];
@@ -31,6 +32,7 @@ export interface GraphStore {
   addEdge: (edge: CustomEdgeType) => void;
   onNodesChange: OnNodesChange<CustomNodeType>;
   onEdgesChange: OnEdgesChange;
+  setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => void,
   onConnect: OnConnect;
   loadingHighs: boolean;
 }
@@ -118,6 +120,14 @@ const useStore = ({ id, nodes, edges, constraints }: GraphStoreProps) => create<
           openConnections
         });
       },
+      setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => {
+        console.log('setting data for',nodeId,data)
+        set({nodes: get().nodes.map(node => {
+          if (node.id === nodeId) 
+            return {...node, data: {...node.data, ...data}};
+          return node;
+        })})
+      }
     })
   ),
   {

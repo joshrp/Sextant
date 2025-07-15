@@ -5,7 +5,7 @@ import { use } from "react";
 import FactorySummary from "~/factory/summary";
 import { FactoryProvider, useFactory } from "~/factory/FactoryProvider";
 
-export function meta({ }: Route.MetaArgs) {
+export function meta() {
   return [
     { title: "New React Router App" },
     { name: "description", content: "Welcome to React Router!" },
