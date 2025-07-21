@@ -13,7 +13,7 @@ import { nodeTypes, type CustomNodeType } from "./nodes";
 import { edgeTypes, type CustomEdgeType } from "./edges";
 import { type GraphStore } from "../store";
 import { useShallow } from "zustand/shallow";
-import { useFactory } from "../FactoryProvider";
+import useFactory from "../FactoryContext";
 import { useEffect } from "react";
 
 const selector = (state: GraphStore) => ({
@@ -54,7 +54,6 @@ export default function Graph() {
       minZoom={0.1}
       colorMode="dark"
       snapGrid={[20,20]}
-      
       snapToGrid={true}
     >
       <Background />

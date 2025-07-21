@@ -12,7 +12,7 @@ import {
 } from "./graph/loadJsonData";
 
 import { ReactFlowProvider } from "@xyflow/react";
-import { useFactory } from "./FactoryProvider";
+import useFactory from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
 import { FactorySwitches } from "./switches";
 

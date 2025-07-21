@@ -1,33 +1,35 @@
 import { type JSX } from "react";
-import { useFactory } from "./FactoryProvider";
+import useFactory from "./FactoryContext";
 import { loadProductData, type ProductId } from "./graph/loadJsonData";
+import { useStore } from "zustand";
+import { useShallow } from "zustand/shallow";
 
 
 export function FactorySwitches() {
   const factory = useFactory();
   const factoryStore = factory.useStore;
-  // const forceSetNodesEdges = factoryStore().forceSetNodesEdges;
-  // const temporal = factoryStore.temporal.getState();
+  const forceSetNodesEdges = factoryStore().forceSetNodesEdges;
+  const temporal = factoryStore.temporal.getState();
 
-  // const { past, future } = useStore(factoryStore.temporal, useShallow(state => ({
-  //   past: state.pastStates,
-  //   future: state.futureStates
-  // })));
+  const { past, future } = useStore(factoryStore.temporal, useShallow(state => ({
+    past: state.pastStates,
+    future: state.futureStates
+  })));
 
-  // // const [pastStates, setPastStates] = useState<Partial<GraphStore>[]>([])
-  // // const {past, future} = useStore.temporal.subscribe(state => ({past: state.pastStates, future: state.futureStates}))
-  // const clear = () => {
-  //   temporal.clear();
-  //   forceSetNodesEdges();
-  // }
-  // const undo = () => {
-  //   temporal.undo();
-  //   forceSetNodesEdges();
-  // }
-  // const redo = () => {
-  //   temporal.redo();
-  //   forceSetNodesEdges();
-  // }
+  // const [pastStates, setPastStates] = useState<Partial<GraphStore>[]>([])
+  // const {past, future} = useStore.temporal.subscribe(state => ({past: state.pastStates, future: state.futureStates}))
+  const clear = () => {
+    temporal.clear();
+    forceSetNodesEdges();
+  }
+  const undo = () => {
+    temporal.undo();
+    forceSetNodesEdges();
+  }
+  const redo = () => {
+    temporal.redo();
+    forceSetNodesEdges();
+  }
 
   const solution = factoryStore(state => state.solution);
 
@@ -37,11 +39,11 @@ export function FactorySwitches() {
   }
   return <div>No Solution
     {statusBar}
-    {/* <div>
+    <div>
       <button className="mx-2 p-2 bg-blue-800 cursor-pointer" onClick={clear}>Clear</button>
       <button className="mx-2 p-2 bg-blue-800 cursor-pointer" onClick={undo}>Undo ({past.length})</button>
       <button className="mx-2 p-2 bg-blue-800 cursor-pointer" onClick={redo}>Redo ({future.length})</button>
-    </div> */}
+    </div>
   </div>
 }
 
@@ -88,15 +90,15 @@ function ConstraintsSwitcher() {
       for (const o of products.outputs.values()) {
         outputs.push(product(o));
       }
-    
-      return <div className="constraintLinks flex-1 " key="switches">
+      
+      return <div className="constraintLinks flex-1 " key={"switches-"+k}>
         {/* <button className="h-10 cursor-pointer border-2 border-gray-600" onClick={()=>toggleConstraint(constraint)}>
           {product(constraint.productId)} 
         </button> */}
           {/* <span>{Object.values(constraint.edges).length}</span> */}
-        {/* {inputs.map(i => i)}
+        {/* {/* {inputs.map(i => i)} */}
         {"->"}
-        {outputs.map(i => i)} */}
+        {/* {outputs.map(i => i)} */}
       </div>
 
     })}

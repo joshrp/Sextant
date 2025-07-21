@@ -10,7 +10,7 @@ import {
 
 import type { CustomNodeType, } from "./graph/nodes";
 import type { CustomEdgeType } from "./graph/edges";
-import type { ButtonEdge } from "./graph/edges/ButtonEdge";
+import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
 import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraph, solve, type GraphModel } from "./solver/solver";
 import type { FactoryGoal, Solution } from "./solver/types";
@@ -40,6 +40,7 @@ export interface GraphStore {
   onNodesChange: OnNodesChange<CustomNodeType>;
   onEdgesChange: OnEdgesChange;
   setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => void,
+  setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => void,
   onConnect: OnConnect;
   forceSetNodesEdges: () => void,
 }
@@ -70,7 +71,8 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
             throttle: 1000,
           },
           addNode: (node) => {
-            set(state => ({ nodes: state.nodes.concat(node) }));
+            console.log("Add node", node, get().nodes);
+            set({nodes: get().nodes.concat(node)});
             get().graphUpdateAction();
           },
           addEdge: (connection) => {
@@ -168,6 +170,15 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
               })
             })
           },
+          setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
+            set({
+              edges: get().edges.map(edge => {
+                if (edge.id === edgeId)
+                  return { ...edge, data: { ...edge.data, ...data } };
+                return edge;
+              })
+            })
+          },
           // Sometimes ReactFlow just needs a kick
           forceSetNodesEdges: () => {
             console.log('Forcing set nodes and edges', get().nodes.length, get().edges.length);
@@ -237,6 +248,7 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
 
             return (state) => state && myDebouncedFunction(state, true);
           },
+          limit: 1000,
 
         }
       )

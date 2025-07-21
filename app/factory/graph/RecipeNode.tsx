@@ -1,7 +1,7 @@
 import { Handle, Position, type Node, type NodeProps } from '@xyflow/react';
 import { memo, useEffect } from 'react';
 import { loadProductData, loadRecipeData, type RecipeId } from './loadJsonData';
-import { useFactory } from '../FactoryProvider';
+import useFactory from '../FactoryContext';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
 let LANG = "en-GB";

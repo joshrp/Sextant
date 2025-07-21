@@ -4,14 +4,14 @@ import {
   EdgeLabelRenderer,
   type EdgeProps,
   getBezierPath,
-  useReactFlow,
+  useReactFlow
 } from "@xyflow/react";
 import type { ProductId } from "../loadJsonData";
 
 const buttonStyle = {
   width: 20,
   height: 20,
-  background: "#eee",
+  background: "#000",
   border: "1px solid #fff",
   cursor: "pointer",
   borderRadius: "50%",
@@ -19,8 +19,12 @@ const buttonStyle = {
   lineHeight: 1,
 };
 
-type ButtonEdgeData = {
+export type ManifoldState = "Under" | "Neutral" | "Over"
+
+export type ButtonEdgeData = {
   isManifold?: boolean
+  manifoldState?: ManifoldState | null,
+  highlight?: boolean,
 };
 
 export type ButtonEdge = Edge<ButtonEdgeData> & {
@@ -38,6 +42,7 @@ export default function ButtonEdge({
   targetPosition,
   style = {},
   markerEnd,
+  data,
 }: EdgeProps<ButtonEdge>) {
   const { setEdges } = useReactFlow();
   const [edgePath, labelX, labelY] = getBezierPath({
@@ -53,9 +58,17 @@ export default function ButtonEdge({
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   };
 
+  if (data?.highlight) {
+    style.stroke = "yellow";
+    style.strokeWidth = 8;
+  } else if (data?.manifoldState == "Neutral") {
+    style.stroke = "green";
+    style.strokeWidth = 4;
+  }
+
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
+      <BaseEdge path={edgePath} markerEnd={markerEnd} style={style}/>
       <EdgeLabelRenderer>
         <div
           style={{

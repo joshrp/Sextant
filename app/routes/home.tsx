@@ -1,7 +1,9 @@
 import { Factory } from "../factory/factory";
-import { useProductionMatrix } from "~/factory/MatrixProvider";
-import { FactoryProvider, useFactory } from "~/factory/FactoryProvider";
+import useProductionMatrix from "~/factory/MatrixContext";
+import useFactory from "~/factory/FactoryContext";
+import { FactoryProvider } from "~/factory/FactoryProvider";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function meta() {
   return [
     { title: "New React Router App" },
@@ -20,7 +22,7 @@ export default function Home() {
         <Factory />
       </div>
     </main>
-  </FactoryProvider>
+  </FactoryProvider> 
 }
 
 function Header() {

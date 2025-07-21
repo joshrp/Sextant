@@ -1,12 +1,13 @@
-import { Button, Checkbox, Field, Fieldset, Input, Label, Menu, MenuButton, MenuItem, MenuItems, Radio, RadioGroup } from '@headlessui/react';
+import { Button, Field, Fieldset, Input, Label, Menu, MenuButton, MenuItem, MenuItems, Radio, RadioGroup } from '@headlessui/react';
 import { ClockIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { SelectorDialog } from 'app/components/Dialog';
-import { useFactory } from 'app/factory/FactoryProvider';
+import useFactory from '~/factory/FactoryContext';
 import type { FactoryGoal } from '../solver/types';
 import { loadProductData, type Product, type ProductId } from './loadJsonData';
+import Manifold from './Manifold';
 
 // const transformSelector = (state: any) => state.transform;
 const productData = loadProductData();
@@ -16,8 +17,6 @@ type props = {
   addNewRecipe: (productId: ProductId) => void
 };
 
-
-
 const icons = {
   "gt": "\u2265",
   "lt": "\u2264",
@@ -25,17 +24,13 @@ const icons = {
 }
 
 function SideBar({ addNewRecipe }: props) {
-  // const transform = useStore(transformSelector);
   const useStore = useFactory().useStore;
 
-  const recalc = useStore().graphUpdateAction;
-  const resolve = useStore().solutionUpdateAction;
+  const graphUpdateAction = useStore().graphUpdateAction;
+  const solutionUpdateAction = useStore().solutionUpdateAction;
   const solution = useStore(state => state.solution);
   const goals = useStore(state => state.goals);
   const model = useStore(state => state.graph);
-  const edges = useStore(state => state.edges);
-  const solutionUpdateAction = useStore().solutionUpdateAction;
-  const freedState = useStore(state=>state.freeConstraints);
 
   const [editGoal, setEditGoal] = useState<FactoryGoal | null>(null);
   const addGoal = useCallback((goal: FactoryGoal): void => {
@@ -47,10 +42,10 @@ function SideBar({ addNewRecipe }: props) {
         state.goals.push(goal);
       return state;
     });
-    resolve();
+    solutionUpdateAction();
+
     setEditGoal(null);
     setSelectProductDialog(false);
-
   }, [goals, useStore]);
 
   const editGoalFor = (product: Product) => {
@@ -83,48 +78,6 @@ function SideBar({ addNewRecipe }: props) {
     onClick: <T extends { productId: string }>(input: T) => () => addNewRecipe(input.productId),
   }];
 
-  const freed = new Set(freedState);
-  const manifolds = model?.manifolds.map(m => {
-    const constraint = model?.constraints[m];
-    const amount = solution?.manifolds?.[m];
-
-    if (!constraint) {
-      console.error('Constraint not found for manifold', m);
-    }
-
-    const inputs: Set<Product> = new Set();
-    const outputs: Set<Product> = new Set();
-
-    Object.keys(constraint.edges).forEach(e => {
-      const edge = edges.find(x => x.id == e);
-      if (!edge) return
-      model.graph[edge.source].recipe.inputs.map(p => inputs.add(productData[p.id]));
-      model.graph[edge.target].recipe.outputs.map(p => outputs.add(productData[p.id]));
-    })
-    if (inputs.size == 0 || inputs.size == 0) return;
-
-
-    return {
-      amount,
-      flexible: freed.has(m),
-      ...productData[constraint.productId],
-      inputs,
-      outputs,
-      constraintId: m,
-    }
-  });
-
-  const toggleFreed = (id: string) => {
-    if (freed.has(id)) 
-      useStore.setState(state=>({
-        freeConstraints: state.freeConstraints.filter(x => x != id)
-      }));
-    else
-      useStore.setState(state=>({
-        freeConstraints: [...state.freeConstraints, id]
-      }));
-    solutionUpdateAction();
-  }
 
   return (<>
     <div className='sidebar flex flex-col h-full p-2 border-r-2 border-dotted border-gray-300 dark:border-gray-700'>
@@ -224,43 +177,14 @@ function SideBar({ addNewRecipe }: props) {
       </div>
       <div className="subtitle justify-self-end-safe">Manifolds</div>
       <div className="bg-gray-800 flex-1 p-1 items-end-safe justify-self-end-safe justify-end-safe">
-        {manifolds?.map(m => {
+        {model?.manifolds?.map((m, i) => {
           if (!m) return;
 
-          return <div key={"manifold-"+m.id} className="cursor-pointer my-1 border-2 rounded-sm border-gray-700 p-1" onClick={()=>toggleFreed(m.constraintId)}>
-            <div className="flex flex-row gap-1 align-middle justify-between">
-              <div className="w-[40%] flex flex-wrap gap-1">
-                {Array.from(m.inputs).map(i => <div key={"manifold-input-"+i.id}>
-                  <img className="w-4" src={'/assets/products/' + i.icon} title={i.name} />
-                </div>
-                )}
-              </div>
-              <div className="flex w-[20%] text-center align-middle justify-center-safe">
-                <img className="h-8" src={'/assets/products/' + m.icon} title={m.name} />
-              </div>
-              <div className="flex w-[40%] flex-wrap gap-1 justify-end-safe">
-                {Array.from(m.outputs).map(i => <div key={"manifold-output-"+i.id}>
-                  <img className="w-4" src={'/assets/products/' + i.icon} title={i.name} />
-                </div>
-                )}
-              </div>
-            </div>
-            {m.flexible == false ? "" : (
-              <div className="flex text-xs">
-                <Field className="flex-1 text-right">
-                  <Checkbox name="flexible" />
-                  <Label className="">Flexible</Label>
-                </Field>
-                <span className="flex-1 justify-self-end text-right">{m.amount}</span>
-              </div>
-            )}
-          </div>
+          return <Manifold key={"manifold-"+i} manifoldId={m}/>
         })}
 
       </div>
-
-
-      <button className="h-10 py-1 w-20 mx-auto my-4 block bg-blue-500 cursor-pointer" onClick={recalc}><ArrowPathIcon className="mx-auto h-full" /></button>
+      <button className="h-10 py-1 w-20 mx-auto my-4 block bg-blue-500 cursor-pointer" onClick={graphUpdateAction}><ArrowPathIcon className="mx-auto h-full" /></button>
     </div>
     {selectProductDialog ? (
       <SelectorDialog title={"Select Product to make"} isOpen={selectProductDialog} setIsOpen={setSelectProductDialog}>
@@ -305,10 +229,9 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
     if (!prop) return;
     setGoalData(d => ({ ...d, [prop]: (e.target.value) }));
   }
+  
   return <>
     <Fieldset className="w-full min-h-50 flex flex-col gap-4">
-
-      {/* <RadioGroup className="flex justify-stretch w-full gap-2"> */}
       <RadioGroup name="type" value={goalData.type} onChange={v => setGoalData(d => ({ ...d, type: v }))} className="flex justify-stretch w-full gap-2">
         {[["Minimum of", "gt"], ["Exactly", "eq"], ["Maximum of", "lt"]].map(r => (
           <Field className="flex-1 justify-around gap-2" key={"goal-type-"+r[1]}>
@@ -317,7 +240,6 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
             </Radio>
           </Field>
         ))}
-
       </RadioGroup>
       <Field className="flex gap-2 justify-center align-middle">
         <Label className="p-1">Amount</Label>

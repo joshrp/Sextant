@@ -1,18 +1,6 @@
-import React, { createContext, useContext, type ReactNode } from "react";
-
-import useStore, { type FactoryStore } from "./store";
-
-export type FactorySettings = {
-  id: string; // Unique identifier for the factory
-  name: string;
-  icon?: string;
-}
-
-type FactoryContextType = {
-  useStore: FactoryStore;
-};
-
-const FactoryContext = createContext<FactoryContextType | undefined>(undefined);
+import { type ReactNode } from "react";
+import {FactoryContext} from "./FactoryContext";
+import useStore from "./store";
 
 export const FactoryProvider = ({ children, id = "default-factory" }: { children: ReactNode, id: string }) => {
   console.log("FactoryProvider initialized for", id);
@@ -30,12 +18,4 @@ export const FactoryProvider = ({ children, id = "default-factory" }: { children
       {children}
     </FactoryContext.Provider>
   );
-};
-
-export const useFactory = () => {
-  const context = useContext(FactoryContext);
-  if (!context) {
-    throw new Error("useFactory must be used within a FactoryProvider");
-  }
-  return context;
 };
