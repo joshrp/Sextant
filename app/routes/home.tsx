@@ -2,6 +2,7 @@ import { Factory } from "../factory/factory";
 import useProductionMatrix from "~/factory/MatrixContext";
 import useFactory from "~/factory/FactoryContext";
 import { FactoryProvider } from "~/factory/FactoryProvider";
+import { useStore } from "zustand";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function meta() {
@@ -26,7 +27,8 @@ export default function Home() {
 }
 
 function Header() {
-  const name = useFactory().useStore(state => state.name);
+  const store = useFactory().store;
+  const name = useStore(store, state => state.name);
   
   return <header className="flex flex-col items-center gap-3 h-[10vh]">
     <div className="max-w-[100vw] p-4">

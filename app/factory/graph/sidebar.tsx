@@ -8,6 +8,8 @@ import useFactory from '~/factory/FactoryContext';
 import type { FactoryGoal } from '../solver/types';
 import { loadProductData, type Product, type ProductId } from './loadJsonData';
 import Manifold from './Manifold';
+import { useStore } from 'zustand';
+import { useShallow } from 'zustand/shallow';
 
 // const transformSelector = (state: any) => state.transform;
 const productData = loadProductData();
@@ -24,18 +26,20 @@ const icons = {
 }
 
 function SideBar({ addNewRecipe }: props) {
-  const useStore = useFactory().useStore;
+  
+  const store = useFactory().store;
 
-  const graphUpdateAction = useStore().graphUpdateAction;
-  const solutionUpdateAction = useStore().solutionUpdateAction;
-  const solution = useStore(state => state.solution);
-  const goals = useStore(state => state.goals);
-  const model = useStore(state => state.graph);
+  const solution = useStore(store, useShallow(state => state.solution));
+  const goals = useStore(store, useShallow(state => state.goals));
+  const model = useStore(store, useShallow(state => state.graph));
+  const graphUpdateAction = useStore(store, state => state.graphUpdateAction);
+  const solutionUpdateAction = useStore(store, state => state.solutionUpdateAction);
 
   const [editGoal, setEditGoal] = useState<FactoryGoal | null>(null);
+  
   const addGoal = useCallback((goal: FactoryGoal): void => {
     const exists = goals.findIndex(g => goal.productId == g.productId);
-    useStore.setState(state => {
+    store.setState(state => {
       if (exists !== -1)
         state.goals[exists] = goal;
       else
@@ -46,7 +50,7 @@ function SideBar({ addNewRecipe }: props) {
 
     setEditGoal(null);
     setSelectProductDialog(false);
-  }, [goals, useStore]);
+  }, [goals, store]);
 
   const editGoalFor = (product: Product) => {
     setEditGoal({
@@ -65,7 +69,7 @@ function SideBar({ addNewRecipe }: props) {
     label: "Remove",
     onClick: (goal: FactoryGoal) => () => {
       // Filter for only constraints that don't match this product
-      useStore.setState(state => ({
+      store.setState(state => ({
         goals: state.goals.filter(c => c.productId !== goal.productId || c.dir !== goal.dir)
       }));
     }
@@ -81,6 +85,15 @@ function SideBar({ addNewRecipe }: props) {
 
   return (<>
     <div className='sidebar flex flex-col h-full p-2 border-r-2 border-dotted border-gray-300 dark:border-gray-700'>
+      <div
+        data-solved={solution?.status == "Solved" || null}
+        data-blocked={solution?.status != "Solved" || null}
+        className="w-full p-1 text-bold text-xl text-center 
+        border-zinc-400 border-2 rounded  content-center-safe
+        data-solved:bg-green-600 data-blocked:bg-red-600
+        ">
+        {solution?.status}
+      </div>
       <div className="title">Goals</div>
       <div className="bg-gray-900 flex-1 p-1">
         {goals.map((goal, i) => {
@@ -96,7 +109,7 @@ function SideBar({ addNewRecipe }: props) {
               fulfilled = goal.qty <= resultCount;
           }
 
-          return <Menu key={"goal-"+i}>
+          return <Menu key={"goal-" + i}>
             <MenuButton key={"goal-" + i} as="div" className={`output-goal w-full gap-2 p-2 flex my-1
                                   hover:bg-gray-900
                                     rounded cursor-pointer 
@@ -113,9 +126,9 @@ function SideBar({ addNewRecipe }: props) {
                 {resultCount || ''}
               </div>
             </MenuButton>
-            <MenuItems anchor="bottom start" className="bg-gray-800 border-1 border-gray-600 rounded-sm shadow-lg">
+            <MenuItems anchor="bottom" className="bg-gray-800 border-2 border- border-gray-500 rounded-sm shadow-lg -mt-2">
               {goalsMenuOptions.map(m =>
-                <MenuItem key={"goal-item-"+m.label}onClick={m.onClick(goal)} as="button" className="p-2 px-4 w-full block text-left border-b-1 border-gray-600 cursor-pointer data-focus:bg-blue-900">
+                <MenuItem key={"goal-item-" + m.label} onClick={m.onClick(goal)} as="button" className="p-2 px-4 w-full block text-left border-b-1 border-gray-500 border-dotted cursor-pointer data-focus:bg-blue-900">
                   {m.label}
                 </MenuItem>
               )}
@@ -132,7 +145,7 @@ function SideBar({ addNewRecipe }: props) {
       <div className="subtitle">By Products</div>
 
       <div className="bg-gray-800 p-1 flex-1">
-        {solution?.products?.outputs.map((output,i) => {
+        {solution?.products?.outputs.map((output, i) => {
           const goal = goals.find(g => g.productId === output.productId && g.dir == "output");
           let amount = output.amount;
           let isSurplus = false;
@@ -142,11 +155,11 @@ function SideBar({ addNewRecipe }: props) {
           }
           if (amount <= 0) return;
 
-          return <div key={"output-"+i} className={`"output-goal w-full p-2 flex h-10 my-1
+          return <div key={"output-" + i} className={`"output-goal w-full p-2 flex h-10 my-1
                                 bg-gray-700 hover:bg-gray-900
                                 rounded cursor-pointer 
                                 border-1 border-gray-500 ${isSurplus ? "bg-green-900" : ""}`}>
-            <img className="flex-1 h-full justify-self-start" src={'/assets/products/' + productData[output.productId].icon} />
+            <img className="h-full justify-self-start" src={'/assets/products/' + productData[output.productId].icon} />
             <span className="flex-8 justify-self-end-safe text-right">{amount} {isSurplus ? "extra" : ""}</span>
           </div>
         })}
@@ -162,12 +175,12 @@ function SideBar({ addNewRecipe }: props) {
                                 rounded cursor-pointer 
                                 border-1 border-gray-500 `}
             >
-              <img className="flex-1 h-full justify-self-start" src={'/assets/products/' + productData[input.productId].icon} />
+              <img className="h-full justify-self-start" src={'/assets/products/' + productData[input.productId].icon} />
               <span className="flex-8 justify-self-end-safe text-right">{amount}</span>
             </MenuButton>
             <MenuItems anchor="bottom start" className="bg-gray-800 border-1 border-gray-600 rounded-sm shadow-xl">
               {inputsMenuOptions.map(m =>
-                <MenuItem key={"input-menu-"+m.label} onClick={m.onClick(input)} as="button" className="p-2 px-4 w-full text-center block border-b-1 border-gray-600 cursor-pointer data-focus:bg-blue-900">
+                <MenuItem key={"input-menu-" + m.label} onClick={m.onClick(input)} as="button" className="p-2 px-4 w-full text-center block border-b-1 border-gray-600 cursor-pointer data-focus:bg-blue-900">
                   {m.label}
                 </MenuItem>
               )}
@@ -180,7 +193,7 @@ function SideBar({ addNewRecipe }: props) {
         {model?.manifolds?.map((m, i) => {
           if (!m) return;
 
-          return <Manifold key={"manifold-"+i} manifoldId={m}/>
+          return <Manifold key={"manifold-" + i} manifoldId={m} />
         })}
 
       </div>
@@ -229,12 +242,12 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
     if (!prop) return;
     setGoalData(d => ({ ...d, [prop]: (e.target.value) }));
   }
-  
+
   return <>
     <Fieldset className="w-full min-h-50 flex flex-col gap-4">
       <RadioGroup name="type" value={goalData.type} onChange={v => setGoalData(d => ({ ...d, type: v }))} className="flex justify-stretch w-full gap-2">
         {[["Minimum of", "gt"], ["Exactly", "eq"], ["Maximum of", "lt"]].map(r => (
-          <Field className="flex-1 justify-around gap-2" key={"goal-type-"+r[1]}>
+          <Field className="flex-1 justify-around gap-2" key={"goal-type-" + r[1]}>
             <Radio key={r[1]} value={r[1]} className="group block rounded border-1 data-checked:border-2 border-gray-700 data-checked:bg-teal-900 w-full h-full">
               <Label >{r[0] + " " + goalData.qty}</Label>
             </Radio>

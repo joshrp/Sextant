@@ -20265,6 +20265,26 @@
             }
         ]
     },
+    "virtualBuffer": {
+        "id": "virtualBuffer",
+        "name": "virtualBuffer",
+        "machine": "fluid_storage_iv",
+        "duration": 60,
+        "inputs": [
+            {
+                "id": "graphite",
+                "name": "Graphite",
+                "quantity": 1
+            }
+        ],
+        "outputs": [
+            {
+                "id": "graphite",
+                "name": "Graphite",
+                "quantity": 1
+            }
+        ]
+    },
     "turbinehighpresst2": {
         "id": "turbinehighpresst2",
         "name": "TurbineHighPressT2",

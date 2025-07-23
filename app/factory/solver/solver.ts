@@ -3,7 +3,7 @@ import { loadRecipeData, type ProductId, type Recipe } from "../graph/loadJsonDa
 
 import type { CustomNodeType } from '../graph/nodes';
 import type { CustomEdgeType } from '../graph/edges';
-import type { Constraint, EqualityTypes, FactoryGoal, NodeConnection, NodeConnections, OpenConnections, Solution } from "./types";
+import type { Constraint, EqualityTypes, FactoryGoal, ManifoldOptions, NodeConnection, NodeConnections, OpenConnections, Solution } from "./types";
 
 const recipeData = loadRecipeData();
 let highsProm: Promise<Highs>;
@@ -52,6 +52,8 @@ export type GraphModel = {
   };
   nodeIdToLabels: Record<string, string>;
   manifolds: string[],
+  nodes: CustomNodeType[],
+  edges: CustomEdgeType[],
 }
 
 export function createGraph(nodes: CustomNodeType[], edges: CustomEdgeType[]): GraphModel {
@@ -60,7 +62,7 @@ export function createGraph(nodes: CustomNodeType[], edges: CustomEdgeType[]): G
   return solver.toGraphModel()
 }
 
-export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraints: Set<string>): string {
+export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraints: Set<string | null>): string {
   const objectives = Object.values(graph.nodeIdToLabels);
   const boundsList = [];
   const constraintsList = [];
@@ -98,15 +100,21 @@ end`;
 
 }
 
-export async function solve(graph: GraphModel, goals: FactoryGoal[], freeConstraintsArr: string[] = []): Promise<Solution> {
-  const freeConstraints = new Set(freeConstraintsArr)
+/**
+ * TODO:: Mark constraints belonging to a group
+ * Use those to figure out which group actually helps solve an infeasible siolution
+ * Loop through, disable whole group, then individuals along with it. Start wide, then shrink. Use objective value to order them
+ *  */ 
+
+export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: ManifoldOptions[] = []): Promise<Solution> {
+  const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null));
   const lpp = buildLpp(graph, goals, freeConstraints);
   debug(lpp);
 
   const highs = await highsProm;
   let res: ReturnType<typeof highs.solve> | null = null;
   try {
-    res = highs.solve(lpp); // No idea how to do the typing on this one
+    res = highs.solve(lpp); 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error('Error solving LPP');
@@ -180,11 +188,15 @@ export default class Solver {
   public manifolds: Set<string> = new Set();
   
   public nodeIdToLabels: Record<string, string> = {};
+  private nodes: CustomNodeType[];
+  private edges: CustomEdgeType[];
   public itemConstraints: {
     [k in ProductId]?: string
   } = {};
 
   constructor(nodes: CustomNodeType[], edges: CustomEdgeType[]) {
+    this.nodes = nodes;
+    this.edges = edges;
     this.graph = buildGraph(nodes, edges);
     this.fillConstraints();
   }
@@ -195,7 +207,9 @@ export default class Solver {
       nodeIdToLabels: this.nodeIdToLabels,
       graph: this.graph,
       itemConstraints: this.itemConstraints,
-      manifolds: Array.from(this.manifolds)
+      manifolds: Array.from(this.manifolds),
+      nodes: this.nodes,
+      edges: this.edges,
     }
   }
 
@@ -240,6 +254,7 @@ export default class Solver {
         // Default to equality, this is overridden when required
         type: "eq",
         unconnected: false,
+        children: [],
       };
 
       // Add a default sink for this constraint, always negative so the end result
@@ -250,7 +265,7 @@ export default class Solver {
       });
 
       this.constraints[id] = constraint;
-      debug('Added new item constraint for', productId, constraint)
+      debug('Added new constraint for', productId, constraint)
     }
 
     return constraint;
@@ -341,6 +356,8 @@ export default class Solver {
 
     // If there's a larger constraint this one should be variable
     if (groupConstraintId) {
+      myConstraint.parent = groupConstraintId;
+      groupConstraint?.children.push(myConstraint.id)
       myConstraint.type = isInput ? "gt" : "lt";
     }
 

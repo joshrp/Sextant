@@ -15,6 +15,7 @@ import { type GraphStore } from "../store";
 import { useShallow } from "zustand/shallow";
 import useFactory from "../FactoryContext";
 import { useEffect } from "react";
+import { useStore } from "zustand";
 
 const selector = (state: GraphStore) => ({
   nodes: state.nodes,
@@ -27,9 +28,10 @@ const selector = (state: GraphStore) => ({
 });
 
 export default function Graph() {
-  const useStore = useFactory().useStore;
+  const store = useFactory().store;
 
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
+    store,
     useShallow(selector),
   );
 
@@ -53,8 +55,8 @@ export default function Graph() {
       onConnect={onConnect}
       minZoom={0.1}
       colorMode="dark"
-      snapGrid={[20,20]}
-      snapToGrid={true}
+      // snapGrid={[20,20]}
+      // snapToGrid={true}
     >
       <Background />
       <MiniMap />

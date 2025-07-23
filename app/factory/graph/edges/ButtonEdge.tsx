@@ -7,6 +7,8 @@ import {
   useReactFlow
 } from "@xyflow/react";
 import type { ProductId } from "../loadJsonData";
+import useFactory from "~/factory/FactoryContext";
+import { useStore } from "zustand";
 
 const buttonStyle = {
   width: 20,
@@ -45,6 +47,8 @@ export default function ButtonEdge({
   data,
 }: EdgeProps<ButtonEdge>) {
   const { setEdges } = useReactFlow();
+
+  const manifoldOptions = useStore(useFactory().store, state => state.manifoldOptions);
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -57,11 +61,14 @@ export default function ButtonEdge({
   const onEdgeClick = () => {
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   };
+  const free = manifoldOptions.find(man => {
+    return new Set(Object.keys(man.edges)).has(id)
+  })?.free === true
 
   if (data?.highlight) {
     style.stroke = "yellow";
     style.strokeWidth = 8;
-  } else if (data?.manifoldState == "Neutral") {
+  } else if (free) {
     style.stroke = "green";
     style.strokeWidth = 4;
   }

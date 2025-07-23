@@ -1,12 +1,12 @@
 import { type ReactNode } from "react";
 import {FactoryContext} from "./FactoryContext";
-import useStore from "./store";
+import Store from "./store";
 
 export const FactoryProvider = ({ children, id = "default-factory" }: { children: ReactNode, id: string }) => {
   console.log("FactoryProvider initialized for", id);
-
+  
   // Init store with factory data
-  const store = useStore({
+  const store = Store({
     id: id,
     edges: [], 
     nodes: [], 
@@ -14,7 +14,7 @@ export const FactoryProvider = ({ children, id = "default-factory" }: { children
   });
 
   return (
-    <FactoryContext.Provider value={{ useStore: store }}>
+    <FactoryContext.Provider value={{ store }}>
       {children}
     </FactoryContext.Provider>
   );

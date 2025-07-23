@@ -1,7 +1,9 @@
-import { ExclamationTriangleIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/solid";
+import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/solid";
+import {ExclamationTriangleIcon} from  "@heroicons/react/24/solid";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import useFactory from "../FactoryContext";
 import { loadProductData, type Product } from "./loadJsonData";
+import { useStore } from "zustand";
 
 type ManifoldProps = {
   manifoldId: string
@@ -21,39 +23,16 @@ const productData = loadProductData();
 
 export default function Manifold(props: ManifoldProps) {
   const m = props.manifoldId;
-  const useStore = useFactory().useStore;
+  const store = useFactory().store;
 
-  const model = useStore(state => state.graph);
-  const edges = useStore().edges;
-  const solutionUpdateAction = useStore().solutionUpdateAction;
-  const freedState = useStore(state => state.freeConstraints);
-  const solution = useStore(state => state.solution);
-  const setEdgeData = useStore().setEdgeData;
-
-  const freed = new Set(freedState);
+  const model = useStore(store, state => state.graph);
+  const solution = useStore(store, state => state.solution);
+  const manifoldOptions = useStore(store, state => state.manifoldOptions);
+  const toggleManifoldFree = useStore(store, state => state.toggleManifold);
+  const setEdgeData = useStore(store, state => state.setEdgeData);
 
   const constraint = model?.constraints[m];
   const amount = solution?.manifolds?.[m];
-
-  const toggleFreed = (id: string) => {
-    if (freed.has(id)) {
-      useStore.setState(state => ({
-        freeConstraints: state.freeConstraints.filter(x => x != id)
-      }));
-      edgesList.forEach(e => setEdgeData(e, {
-        manifoldState: null
-      }));
-    } else {
-      useStore.setState(state => ({
-        freeConstraints: [...state.freeConstraints, id]
-      }));
-      edgesList.forEach(e => setEdgeData(e, {
-                manifoldState: "Neutral"
-
-      }));
-    }
-    solutionUpdateAction();
-  }
 
   if (!constraint) {
     console.error('Constraint not found for manifold', m);
@@ -64,7 +43,7 @@ export default function Manifold(props: ManifoldProps) {
   const outputs: Set<Product> = new Set();
   const edgesList: Set<string> = new Set();
   Object.keys(constraint.edges).forEach(e => {
-    const edge = edges.find(x => x.id == e);
+    const edge = model.edges.find(x => x.id == e);
     if (!edge) return
     edgesList.add(e);
     model.graph[edge.source].recipe.inputs.map(p => inputs.add(productData[p.id]));
@@ -72,10 +51,11 @@ export default function Manifold(props: ManifoldProps) {
   });
 
   if (inputs.size == 0 || inputs.size == 0) return;
-
+  
+  const freed = manifoldOptions.find(man => man.constraintId == m)?.free === true;
   const mani: ManifoldRender = {
     amount: amount,
-    flexible: freed.has(m),
+    flexible: freed,
     ...productData[constraint.productId],
     inputs,
     outputs,
@@ -93,27 +73,28 @@ export default function Manifold(props: ManifoldProps) {
     }));
   }
 
-  const isOver = mani.amount !== undefined && mani.amount > 0;
-  const isUnder = mani.amount !== undefined && mani.amount < 0;
+  const isOver = mani.flexible && mani.amount !== undefined && mani.amount > 0;
+  const isUnder =mani.flexible && mani.amount !== undefined && mani.amount < 0;
   return <div
     onMouseEnter={mouseEnter}
     onMouseLeave={mouseLeave}
     key={"manifold-" + mani.id}
     data-isOver={isOver || null}
     data-isUnder={isUnder || null}
-    className="cursor-pointer my-1 border-2 rounded-sm border-gray-700 p-1 data-isOver:bg-green-800 data-isUnder:bg-amber-800"
-    onClick={() => toggleFreed(mani.constraintId)}
+    className="cursor-pointer flex flex-col my-1 gap-1 border-2 rounded-sm border-gray-700 p-1 data-isOver:bg-green-800 data-isUnder:bg-amber-900"
+    onClick={() => toggleManifoldFree(constraint, !freed)}
   >
-    <div className="flex flex-row h-8 mb-1">
-      <div className="flex-1">
-        <img className="h-full" src={'/assets/products/' + mani.icon} title={mani.name} />
+    <div className="flex flex-row h-8 pb-1 border-b-1 border-gray-700">
+      <div className="flex-1 flex gap-1 content-center-safe align-middle items-center-safe">
+        <img className="h-full " src={'/assets/products/' + mani.icon} title={mani.name} />
+        {(isOver || isUnder) ? <ExclamationTriangleIcon className="inline-block h-[70%] text-rose-400"/> : ''}
+
       </div>
-      <div className="flex-1 text-xs text-center">
-        <span className="flex-1 justify-self-end text-right">{mani.flexible ? mani.amount : ''}</span>
+      <div className="flex-1 text-sm text-center content-center-safe">
+        <span className="">{mani.flexible ? mani.amount : ''}</span>
 
       </div>
       <div className="flex-1 h-5 justify-self-end-safe text-right">
-        {(isOver || isUnder) ? <ExclamationTriangleIcon className="h-full text-red-500 inline mt-0.5 mr-1"/> : ''}
         {mani.flexible ? <LockOpenIcon className="h-full text-green-500 inline" /> : <LockClosedIcon className="inline h-full text-gray-500" />}
       </div>
     </div>

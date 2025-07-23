@@ -38,6 +38,8 @@ export type Constraint = {
     id: string,
     term: string,
   })[],
+  parent?: string,
+  children: string[]
 };
 
 export type Solution = {
@@ -53,4 +55,10 @@ export type Solution = {
   },
   nodeCounts?: { nodeId: string, count: number }[]
   manifolds?: {[constraintId: string]: number}
+}
+
+export type ManifoldOptions = {
+  constraintId: string,
+  edges: Constraint["edges"],
+  free: boolean
 }

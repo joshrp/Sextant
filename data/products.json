@@ -2236,7 +2236,8 @@
             ],
             "output": [
                 "graphite_production",
-                "graphite_production_2"
+                "graphite_production_2",
+                "virtualBuffer"
             ]
         },
         "machines": {

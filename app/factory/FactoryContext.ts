@@ -9,7 +9,7 @@ export type FactorySettings = {
 }
 
 type FactoryContextType = {
-  useStore: FactoryStore;
+  store: FactoryStore;
 };
 
 export const FactoryContext = createContext<FactoryContextType | undefined>(undefined);

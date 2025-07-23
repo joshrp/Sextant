@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { createStore } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import debounce from "just-debounce-it";
 
@@ -13,7 +13,7 @@ import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
 import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraph, solve, type GraphModel } from "./solver/solver";
-import type { FactoryGoal, Solution } from "./solver/types";
+import type { Constraint, FactoryGoal, ManifoldOptions, Solution } from "./solver/types";
 import { temporal, type TemporalState } from "zundo";
 import equal from "fast-deep-equal";
 import type { StorageValue } from "zustand/middleware";
@@ -30,7 +30,7 @@ export interface GraphStore {
   };
   graph?: GraphModel,
   goals: FactoryGoal[];
-  freeConstraints: string[],
+  manifoldOptions: ManifoldOptions[],
   solution?: Solution;
   graphUpdateAction: () => void;
   solutionUpdateAction: () => void;
@@ -43,16 +43,18 @@ export interface GraphStore {
   setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => void,
   onConnect: OnConnect;
   forceSetNodesEdges: () => void,
+  validateManifolds: () => void,
+  toggleManifold: (constraint: Constraint, on: boolean) => void;
 }
 
 // export type FactoryStore = UseBoundStore<StoreApi<GraphStore>>;
-export type FactoryStore = ReturnType<typeof useStore>;
+export type FactoryStore = ReturnType<typeof Store>;
 
 export type GraphStoreProps = Pick<GraphStore, "nodes" | "edges" | "goals"> & {
   id: string
 };
 
-const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphStore>()(
+const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<GraphStore>()(
   persist(
     devtools(
       temporal(
@@ -61,7 +63,7 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
           nodes,
           edges,
           goals,
-          freeConstraints: [],
+          manifoldOptions: [],
           graph: undefined,
           solution: undefined,
           throttledNodeUpdate: {
@@ -71,8 +73,8 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
             throttle: 1000,
           },
           addNode: (node) => {
-            console.log("Add node", node, get().nodes);
-            set({nodes: get().nodes.concat(node)});
+            // console.log("Add node", node, get().nodes.concat(node));
+            set({ nodes: [...get().nodes.concat(node)] });
             get().graphUpdateAction();
           },
           addEdge: (connection) => {
@@ -134,32 +136,87 @@ const useStore = ({ id, nodes, edges, goals }: GraphStoreProps) => create<GraphS
           },
           graphUpdateAction: () => {
             try {
-              set({ 
-                graph: createGraph(get().nodes, get().edges) ,
-                freeConstraints: [],
+              console.log('graph update', get().nodes);
+              set({
+                graph: createGraph(get().nodes, get().edges),
               });
+              get().validateManifolds();
             } catch (e) {
               console.error("Error in solver", e);
               return;
             }
-            
+
             get().solutionUpdateAction();
           },
           solutionUpdateAction: async () => {
             const graph = get().graph
             if (!graph) return
 
-            const solution = await solve(graph, get().goals, get().freeConstraints);
-            
-            set({ solution: solution })
-            const setNode = get().setNodeData;
-            const solved = solution.status == "Solved"
-            solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
-              solution: {
-                solved,
-                runCount: solved ? res.count : 0
+            const solution = await solve(graph, get().goals, get().manifoldOptions);
+
+            if (solution.status == "Solved") {
+              set({ solution: solution })
+              const setNode = get().setNodeData;
+              const solved = solution.status == "Solved"
+              solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
+                solution: {
+                  solved: true,
+                  runCount: solved ? res.count : 0
+                }
+              }));
+            } else if (solution.status == "Error") {
+              console.log("Solution Error", solution);
+            } else {
+              console.log("Infeasible", solution);
+              const current = get().solution
+              if (current) {
+                set({
+                  solution: {...current, status: solution.status}
+                })
               }
-            }));
+            } 
+          },
+          validateManifolds: () => {
+            set({
+              manifoldOptions: get().manifoldOptions.map(man => {
+                if (man.free == false) return false;
+                const constraint = get().graph?.constraints[man.constraintId]
+                if (constraint === undefined) return false;
+                const constraintEdges = new Set(Object.keys(constraint.edges));
+                const manifoldEdges = new Set(Object.keys(man.edges))
+                if (constraintEdges.symmetricDifference(manifoldEdges).size === 0) return man;
+
+                // Have a search across the other manifolds and see if we can find a match.
+                const otherMatch = get().graph?.manifolds.find(id => {
+                  const edges = get().graph?.constraints[id].edges;
+                  return edges && new Set(Object.keys(edges)).symmetricDifference(manifoldEdges).size == 0
+                });
+                if (otherMatch) {
+                  return {
+                    constraintId: otherMatch,
+                    edges: man.edges,
+                    free: man.free
+                  }
+                }
+                return false;
+              }).filter(x=>x!==false)
+            })
+          },
+          toggleManifold: (constraint: Constraint, on: boolean) => {
+            if (on) {
+              set({
+                manifoldOptions: [...get().manifoldOptions, {
+                  constraintId: constraint.id,
+                  edges: constraint.edges,
+                  free: true
+                }]
+              })
+            } else {
+              set({
+                manifoldOptions: get().manifoldOptions.filter(m => m.constraintId != constraint.id)
+              });
+            }
+            get().solutionUpdateAction();
           },
           setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => {
             set({
@@ -291,4 +348,4 @@ const hydration = {
     }
   }
 }
-export default useStore;
+export default Store;
