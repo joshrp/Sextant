@@ -12,8 +12,8 @@ import type { CustomNodeType, } from "./graph/nodes";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
 import type { RecipeNodeData } from "./graph/RecipeNode";
-import { createGraph, solve, type GraphModel } from "./solver/solver";
-import type { Constraint, FactoryGoal, ManifoldOptions, Solution } from "./solver/types";
+import { createGraph, solve } from "./solver/solver";
+import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution } from "./solver/types";
 import { temporal, type TemporalState } from "zundo";
 import equal from "fast-deep-equal";
 import type { StorageValue } from "zustand/middleware";
@@ -44,7 +44,7 @@ export interface GraphStore {
   onConnect: OnConnect;
   forceSetNodesEdges: () => void,
   validateManifolds: () => void,
-  toggleManifold: (constraint: Constraint, on: boolean) => void;
+  setManifold: (constraints: Constraint[], on: boolean) => void;
 }
 
 // export type FactoryStore = UseBoundStore<StoreApi<GraphStore>>;
@@ -74,11 +74,11 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
           },
           addNode: (node) => {
             // console.log("Add node", node, get().nodes.concat(node));
-            set({ nodes: [...get().nodes.concat(node)] });
+            set({ nodes: [...get().nodes.concat(node)] }, false, "addNode");
             get().graphUpdateAction();
           },
           addEdge: (connection) => {
-            set(state => ({ edges: addEdge(connection, state.edges) }));
+            set(state => ({ edges: addEdge(connection, state.edges) }), false, "addEdge");
             get().graphUpdateAction();
           },
           removeNode: (nodeId: string) => {
@@ -97,22 +97,12 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
           onNodesChange: (changes) => {
             set({
               nodes: applyNodeChanges(changes, get().nodes),
-            });
-            const nowTime = new Date().getTime();
-            if (nowTime - get().throttledNodeUpdate.updateTime > get().throttledNodeUpdate.throttle)
-              set({
-                throttledNodeUpdate: {
-                  nodes: get().nodes,
-                  edges: get().edges,
-                  updateTime: nowTime,
-                  throttle: 1000
-                }
-              });
+            }, false, "onNodesChange");
           },
           onEdgesChange: (changes) => {
             set({
               edges: applyEdgeChanges(changes, get().edges) as CustomEdgeType[],
-            });
+            }, false, "onEdgesChange");
 
             if (changes.filter(change => change.type === "remove").length > 0) {
               get().graphUpdateAction();
@@ -139,7 +129,8 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
               console.log('graph update', get().nodes);
               set({
                 graph: createGraph(get().nodes, get().edges),
-              });
+              }, false, "graphUpdateAction");
+              console.log("Graph created", get().graph);
               get().validateManifolds();
             } catch (e) {
               console.error("Error in solver", e);
@@ -155,7 +146,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
             const solution = await solve(graph, get().goals, get().manifoldOptions);
 
             if (solution.status == "Solved") {
-              set({ solution: solution })
+              set({ solution: solution }, false, "solutionUpdateAction");
               const setNode = get().setNodeData;
               const solved = solution.status == "Solved"
               solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
@@ -171,10 +162,10 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
               const current = get().solution
               if (current) {
                 set({
-                  solution: {...current, status: solution.status}
+                  solution: { ...current, status: solution.status }
                 })
               }
-            } 
+            }
           },
           validateManifolds: () => {
             set({
@@ -186,8 +177,8 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                 const manifoldEdges = new Set(Object.keys(man.edges))
                 if (constraintEdges.symmetricDifference(manifoldEdges).size === 0) return man;
 
-                // Have a search across the other manifolds and see if we can find a match.
-                const otherMatch = get().graph?.manifolds.find(id => {
+                // Have a search across the other constraints and see if we can find a match.
+                const otherMatch = Object.keys(get().graph?.constraints || {}).find(id => {
                   const edges = get().graph?.constraints[id].edges;
                   return edges && new Set(Object.keys(edges)).symmetricDifference(manifoldEdges).size == 0
                 });
@@ -199,21 +190,21 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                   }
                 }
                 return false;
-              }).filter(x=>x!==false)
-            })
+              }).filter(x => x !== false)
+            }, false, "validateManifolds");
           },
-          toggleManifold: (constraint: Constraint, on: boolean) => {
+          setManifold: (constraints: Constraint[], on: boolean) => {
             if (on) {
               set({
-                manifoldOptions: [...get().manifoldOptions, {
+                manifoldOptions: [...get().manifoldOptions, ...constraints.map(constraint => ({
                   constraintId: constraint.id,
                   edges: constraint.edges,
                   free: true
-                }]
+                }))]
               })
             } else {
               set({
-                manifoldOptions: get().manifoldOptions.filter(m => m.constraintId != constraint.id)
+                manifoldOptions: get().manifoldOptions.filter(m => constraints.findIndex(c => c.id == m.constraintId) == -1)
               });
             }
             get().solutionUpdateAction();
@@ -225,7 +216,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                   return { ...node, data: { ...node.data, ...data } };
                 return node;
               })
-            })
+            }, false, "setNodeData");
           },
           setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
             set({
@@ -234,7 +225,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                   return { ...edge, data: { ...edge.data, ...data } };
                 return edge;
               })
-            })
+            }, false, "setEdgeData");
           },
           // Sometimes ReactFlow just needs a kick
           forceSetNodesEdges: () => {
@@ -242,7 +233,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
             set({
               nodes: [...get().nodes],
               edges: [...get().edges]
-            });
+            }, false, "forceSetNodesEdges");
           }
         }),
         {
@@ -253,25 +244,10 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                 getItem: (name) => {
                   const str = localStorage.getItem(name);
                   if (!str) return null;
-                  const existingValue = JSON.parse(str);
-                  return {
-                    ...existingValue,
-                    state: {
-                      ...existingValue.state,
-                      pastStates: existingValue.state.pastStates.map((s: GraphStore) => hydration.set(s)),
-                      futureStates: existingValue.state.futureStates.map((s: GraphStore) => hydration.set(s))
-                    }
-                  }
+                  return JSON.parse(str, hydration.reviver);                  
                 },
                 setItem: (name, newValue: StorageValue<TemporalState<GraphStore>>) => {
-                  const str = JSON.stringify({
-                    ...newValue,
-                    state: {
-                      ...newValue.state,
-                      pastStates: newValue.state.pastStates.map(s => hydration.set(s)),
-                      futureStates: newValue.state.futureStates.map(s => hydration.set(s))
-                    }
-                  })
+                  const str = JSON.stringify(newValue, hydration.replacer);
 
                   localStorage.setItem(name, str)
                 },
@@ -307,8 +283,12 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
           },
           limit: 1000,
 
+
         }
-      )
+      ),
+      {
+
+      }
     ),
     {
       name: id + "_zustand",
@@ -316,17 +296,10 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
         getItem: (name) => {
           const str = localStorage.getItem(name);
           if (!str) return null;
-          const existingValue = JSON.parse(str);
-          return {
-            ...existingValue,
-            state: hydration.get(existingValue.state)
-          }
+          return JSON.parse(str, hydration.reviver);
         },
         setItem: (name, newValue: StorageValue<GraphStore>) => {
-          const str = JSON.stringify({
-            ...newValue,
-            state: hydration.set(newValue.state)
-          })
+          const str = JSON.stringify(newValue, hydration.replacer);
 
           localStorage.setItem(name, str)
         },
@@ -337,15 +310,36 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
 );
 
 const hydration = {
-  get: (store: GraphStore) => {
-    return {
-      ...store,
+  reviver: (_: string, value: unknown) => {
+    // Check it's an object at all
+    if (value && typeof value === 'object') {
+      // These are mostly for TS checks
+      if (!Object.hasOwn(value, '_dataType')) return value;
+      if (!("data" in value && "_dataType" in value)) return value;
+
+      if (value._dataType === 'Map') {
+        return new Map(value.data as [unknown, unknown][]);
+      } else if (value._dataType === 'Set') {
+        return new Set(value.data as [unknown, unknown][]);
+      }
+      console.error('Unknown data type in localStorage', value._dataType);
     }
+
+    return value;
   },
-  set: (store: Partial<GraphStore>) => {
-    return {
-      ...store,
+  replacer: (_:string, value: unknown) => {
+    if (value instanceof Map) {
+      return {
+        _dataType: 'Map',
+        data: Array.from(value.entries()),
+      };
+    } else if (value instanceof Set) {
+      return {
+        _dataType: 'Set',
+        data: Array.from(value.values()),
+      };
     }
+    return value;
   }
 }
 export default Store;

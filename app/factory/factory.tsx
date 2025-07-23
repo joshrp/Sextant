@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { SelectorDialog } from 'app/components/Dialog';
 import Graph from "app/factory/graph/graph";
@@ -26,15 +26,9 @@ export function Factory() {
 
   const addNode = useStore(store, state => state.addNode);
 
-  const goals = useStore(store, state => state.goals);
-  const graph = useStore(store, state => state.graph);
   // const solutionUpdateAction = useStore().graphUpdateAction;
 
   // console.log('temporal', useStore(store).temporal.getState());
-  useEffect(() => {
-    console.log('use effect', graph, goals)
-    
-  }, [graph, goals]);
 
   // const [isOpen, setIsOpen] = useState(false);
   const [recipeSelectorProductId, setRecipeSelectorProduct] = useState<ProductId | null>(null);
@@ -64,7 +58,6 @@ export function Factory() {
   const blankRecipeSelectorProduct = () => {
     setRecipeSelectorProduct(null);
   }
-  console.log('render factory')
   return (
     <div className="h-[90vh] flex flex-row w-full" >
       <div className="h-full w-[25vw] resize-x overflow-x-hidden w-max-[50vw] overflow-y-scroll">

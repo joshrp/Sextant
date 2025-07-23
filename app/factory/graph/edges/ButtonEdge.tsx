@@ -49,6 +49,7 @@ export default function ButtonEdge({
   const { setEdges } = useReactFlow();
 
   const manifoldOptions = useStore(useFactory().store, state => state.manifoldOptions);
+  const graph = useStore(useFactory().store, state => state.graph);
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -61,21 +62,29 @@ export default function ButtonEdge({
   const onEdgeClick = () => {
     setEdges((edges) => edges.filter((edge) => edge.id !== id));
   };
-  const free = manifoldOptions.find(man => {
+  const man = manifoldOptions.find(man => {
     return new Set(Object.keys(man.edges)).has(id)
-  })?.free === true
+  });
+  const constraint = graph?.constraints[man?.constraintId || ""] || null;
 
   if (data?.highlight) {
-    style.stroke = "yellow";
+    style.stroke = "#00ffdd";
     style.strokeWidth = 8;
-  } else if (free) {
-    style.stroke = "green";
-    style.strokeWidth = 4;
+  } else if (man?.free === true) {
+    if (constraint?.parent !== undefined) {
+      style.strokeWidth = 6;
+      style.stroke = "#55dd55";
+    } else {
+      style.stroke = "#004400";
+      style.strokeWidth = 4;
+    }
+
+
   }
 
   return (
     <>
-      <BaseEdge path={edgePath} markerEnd={markerEnd} style={style}/>
+      <BaseEdge path={edgePath} markerEnd={markerEnd} style={style} />
       <EdgeLabelRenderer>
         <div
           style={{

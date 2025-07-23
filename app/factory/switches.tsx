@@ -20,7 +20,6 @@ export function FactorySwitches() {
   // const {past, future} = useStore.temporal.subscribe(state => ({past: state.pastStates, future: state.futureStates}))
   const clear = () => {
     tclear();
-    forceSetNodesEdges();
   }
   const undo = () => {
     tundo();

@@ -1,4 +1,6 @@
+import type { CustomEdgeType } from "../graph/edges";
 import type { ProductId, Recipe } from "../graph/loadJsonData";
+import type { CustomNodeType } from "../graph/nodes";
 
 export type NodeConnection = {
   recipe: Recipe,
@@ -31,7 +33,7 @@ export type Constraint = {
   id: string,
   productId: ProductId,
   edges: {[k: string]: boolean},
-  type: EqualityTypes,
+  equality: EqualityTypes,
   unconnected: boolean,
   terms: ({
     nodeId?: string,
@@ -61,4 +63,13 @@ export type ManifoldOptions = {
   constraintId: string,
   edges: Constraint["edges"],
   free: boolean
+}
+
+export type GraphModel = {
+  constraints: { [key: string]: Constraint };
+  graph: NodeConnections;
+  itemConstraints: Map<ProductId, string>;
+  nodeIdToLabels: Record<string, string>;
+  nodes: CustomNodeType[],
+  edges: CustomEdgeType[],
 }

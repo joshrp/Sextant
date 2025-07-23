@@ -61,6 +61,14 @@ function SideBar({ addNewRecipe }: props) {
     });
   }
 
+  // Any constrain that doesn't have a parent and isn't unconnected is a manifold in the UI
+  const manifolds = model?.constraints
+    ? Object.keys(model.constraints)
+      .map(id => model.constraints[id])
+      .filter(c => !c.parent && !c.unconnected)
+      .map(c => c.id)
+    : [];
+
   const [selectProductDialog, setSelectProductDialog] = useState(false);
   const goalsMenuOptions = [{
     label: "Edit",
@@ -84,7 +92,7 @@ function SideBar({ addNewRecipe }: props) {
 
 
   return (<>
-    <div className='sidebar flex flex-col h-full p-2 border-r-2 border-dotted border-gray-300 dark:border-gray-700'>
+    <div className='sidebar flex flex-col h-full p-2'>
       <div
         data-solved={solution?.status == "Solved" || null}
         data-blocked={solution?.status != "Solved" || null}
@@ -95,7 +103,7 @@ function SideBar({ addNewRecipe }: props) {
         {solution?.status}
       </div>
       <div className="title">Goals</div>
-      <div className="bg-gray-900 flex-1 p-1">
+      <div className="flex-1">
         {goals.map((goal, i) => {
           const resultCount = solution?.goals?.find(g => g.goal.productId == goal.productId && g.goal.dir == goal.dir)?.resultCount;
 
@@ -144,7 +152,7 @@ function SideBar({ addNewRecipe }: props) {
       </div>
       <div className="subtitle">By Products</div>
 
-      <div className="bg-gray-800 p-1 flex-1">
+      <div className="byproducts flex-1 grid grid-cols-2 gap-1">
         {solution?.products?.outputs.map((output, i) => {
           const goal = goals.find(g => g.productId === output.productId && g.dir == "output");
           let amount = output.amount;
@@ -155,28 +163,27 @@ function SideBar({ addNewRecipe }: props) {
           }
           if (amount <= 0) return;
 
-          return <div key={"output-" + i} className={`"output-goal w-full p-2 flex h-10 my-1
-                                bg-gray-700 hover:bg-gray-900
+          return <div key={"output-" + i} className={`"output-goal w-full p-1 flex h-8
+                                bg-gray-800 hover:bg-gray-900
                                 rounded cursor-pointer 
-                                border-1 border-gray-500 ${isSurplus ? "bg-green-900" : ""}`}>
+                                ${isSurplus ? "bg-green-900" : ""}`}>
             <img className="h-full justify-self-start" src={'/assets/products/' + productData[output.productId].icon} />
-            <span className="flex-8 justify-self-end-safe text-right">{amount} {isSurplus ? "extra" : ""}</span>
+            <span className="flex-8 justify-self-end-safe text-right text-sm content-center-safe">{amount} {isSurplus ? "extra" : ""}</span>
           </div>
         })}
       </div>
       <div className="subtitle">Inputs</div>
-      <div className="bg-gray-800 p-1 flex-1">
+      <div className="flex-1 grid grid-cols-2 gap-1">
         {solution?.products?.inputs.map((input, i) => {
           const amount = input.amount * -1;
           if (amount <= 0) return;
           return <Menu key={"input-" + i}>
-            <MenuButton as="div" className={`"input-goal w-full p-2 flex h-10 my-1
-                                bg-gray-700 hover:bg-gray-900
-                                rounded cursor-pointer 
-                                border-1 border-gray-500 `}
+            <MenuButton as="div" className={`"input-goal w-full p-1 flex h-8
+                                bg-gray-800 hover:bg-gray-900
+                                rounded cursor-pointer`}
             >
               <img className="h-full justify-self-start" src={'/assets/products/' + productData[input.productId].icon} />
-              <span className="flex-8 justify-self-end-safe text-right">{amount}</span>
+              <span className="flex-8 justify-self-end-safe text-right text-sm content-center-safe">{amount}</span>
             </MenuButton>
             <MenuItems anchor="bottom start" className="bg-gray-800 border-1 border-gray-600 rounded-sm shadow-xl">
               {inputsMenuOptions.map(m =>
@@ -189,15 +196,15 @@ function SideBar({ addNewRecipe }: props) {
         })}
       </div>
       <div className="subtitle justify-self-end-safe">Manifolds</div>
-      <div className="bg-gray-800 flex-1 p-1 items-end-safe justify-self-end-safe justify-end-safe">
-        {model?.manifolds?.map((m, i) => {
+      <div className="flex-1 items-end-safe justify-self-end-safe justify-end-safe">
+        {manifolds?.map((m, i) => {
           if (!m) return;
 
           return <Manifold key={"manifold-" + i} manifoldId={m} />
         })}
 
       </div>
-      <button className="h-10 py-1 w-20 mx-auto my-4 block bg-blue-500 cursor-pointer" onClick={graphUpdateAction}><ArrowPathIcon className="mx-auto h-full" /></button>
+      <button className="h-8 py-1 w-20 mx-auto my-4 block bg-blue-500 cursor-pointer" onClick={graphUpdateAction}><ArrowPathIcon className="mx-auto h-full" /></button>
     </div>
     {selectProductDialog ? (
       <SelectorDialog title={"Select Product to make"} isOpen={selectProductDialog} setIsOpen={setSelectProductDialog}>
