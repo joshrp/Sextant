@@ -1,39 +1,30 @@
+import debounce from "just-debounce-it";
 import { createStore } from "zustand";
 import { devtools, persist } from "zustand/middleware";
-import debounce from "just-debounce-it";
 
-import { applyEdgeChanges, applyNodeChanges, getConnectedEdges, type OnEdgesChange, type OnNodesChange } from "@xyflow/react";
-import {
-  addEdge,
-  type OnConnect,
-} from "@xyflow/react";
+import { addEdge, applyEdgeChanges, applyNodeChanges, getConnectedEdges, type OnConnect, type OnEdgesChange, type OnNodesChange } from "@xyflow/react";
 
-import type { CustomNodeType, } from "./graph/nodes";
+import equal from "fast-deep-equal";
+import { temporal, type TemporalState } from "zundo";
+import type { StorageValue } from "zustand/middleware";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
+import type { CustomNodeType, } from "./graph/nodes";
 import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraph, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution } from "./solver/types";
-import { temporal, type TemporalState } from "zundo";
-import equal from "fast-deep-equal";
-import type { StorageValue } from "zustand/middleware";
 
 export interface GraphStore {
   name: string,
   nodes: CustomNodeType[];
   edges: CustomEdgeType[];
-  throttledNodeUpdate: {
-    nodes: CustomNodeType[],
-    edges: CustomEdgeType[],
-    updateTime: number,
-    throttle: number,
-  };
   graph?: GraphModel,
   goals: FactoryGoal[];
   manifoldOptions: ManifoldOptions[],
   solution?: Solution;
+  solutionStatus?: "Solved" | "Error" | "Infeasible";
   graphUpdateAction: () => void;
-  solutionUpdateAction: () => void;
+  solutionUpdateAction: (autoSolve?: boolean) => void;
   addNode: (node: CustomNodeType) => void;
   removeNode: (nodeId: string) => void;
   addEdge: (edge: CustomEdgeType) => void;
@@ -66,6 +57,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
           manifoldOptions: [],
           graph: undefined,
           solution: undefined,
+          solutionStatus: undefined,
           throttledNodeUpdate: {
             nodes,
             edges,
@@ -137,34 +129,35 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
               return;
             }
 
-            get().solutionUpdateAction();
+            get().solutionUpdateAction(true);
           },
-          solutionUpdateAction: async () => {
+          solutionUpdateAction: async (autoSolve: boolean = false) => {
             const graph = get().graph
             if (!graph) return
 
-            const solution = await solve(graph, get().goals, get().manifoldOptions);
+            const result = await solve(graph, get().goals, get().manifoldOptions, autoSolve);
+            if (result === "Error") {
+              console.error("Solver Error");
+              set({ solutionStatus: "Error" }, false, "solutionUpdateAction");
+              return;
+            } else if (result === "Infeasible") {
+              console.warn("Solver Infeasible");
+              set({ solutionStatus: "Infeasible" }, false, "solutionUpdateAction");
+              return;
+            }
 
-            if (solution.status == "Solved") {
-              set({ solution: solution }, false, "solutionUpdateAction");
-              const setNode = get().setNodeData;
-              const solved = solution.status == "Solved"
-              solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
-                solution: {
-                  solved: true,
-                  runCount: solved ? res.count : 0
-                }
-              }));
-            } else if (solution.status == "Error") {
-              console.log("Solution Error", solution);
-            } else {
-              console.log("Infeasible", solution);
-              const current = get().solution
-              if (current) {
-                set({
-                  solution: { ...current, status: solution.status }
-                })
+            set({ solution: result.solution, solutionStatus: "Solved" }, false, "solutionUpdateAction");
+            const setNode = get().setNodeData;
+            result.solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
+              solution: {
+                solved: true,
+                runCount: res.count
               }
+            }));
+            if (result.manifolds) {
+              set({
+                manifoldOptions: result.manifolds
+              }, false, "solutionUpdateAction");
             }
           },
           validateManifolds: () => {
@@ -244,7 +237,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
                 getItem: (name) => {
                   const str = localStorage.getItem(name);
                   if (!str) return null;
-                  return JSON.parse(str, hydration.reviver);                  
+                  return JSON.parse(str, hydration.reviver);
                 },
                 setItem: (name, newValue: StorageValue<TemporalState<GraphStore>>) => {
                   const str = JSON.stringify(newValue, hydration.replacer);
@@ -327,7 +320,7 @@ const hydration = {
 
     return value;
   },
-  replacer: (_:string, value: unknown) => {
+  replacer: (_: string, value: unknown) => {
     if (value instanceof Map) {
       return {
         _dataType: 'Map',

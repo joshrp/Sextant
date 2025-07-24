@@ -30,6 +30,7 @@ function SideBar({ addNewRecipe }: props) {
   const store = useFactory().store;
 
   const solution = useStore(store, useShallow(state => state.solution));
+  const solutionStatus = useStore(store, useShallow(state => state.solutionStatus));
   const goals = useStore(store, useShallow(state => state.goals));
   const model = useStore(store, useShallow(state => state.graph));
   const graphUpdateAction = useStore(store, state => state.graphUpdateAction);
@@ -94,13 +95,13 @@ function SideBar({ addNewRecipe }: props) {
   return (<>
     <div className='sidebar flex flex-col h-full p-2'>
       <div
-        data-solved={solution?.status == "Solved" || null}
-        data-blocked={solution?.status != "Solved" || null}
+        data-solved={solutionStatus == "Solved" || null}
+        data-blocked={solutionStatus != "Solved" || null}
         className="w-full p-1 text-bold text-xl text-center 
         border-zinc-400 border-2 rounded  content-center-safe
         data-solved:bg-green-600 data-blocked:bg-red-600
         ">
-        {solution?.status}
+        {solutionStatus}
       </div>
       <div className="title">Goals</div>
       <div className="flex-1">

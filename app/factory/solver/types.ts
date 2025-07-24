@@ -44,19 +44,18 @@ export type Constraint = {
   children: string[]
 };
 
-export type Solution = {
-  status: "Solved" | "Infeasible" | "Error",
-  errorMessage?: string,
-  goals?: {
+export interface Solution {
+  goals: {
     goal: FactoryGoal,
     resultCount: number,
   }[],
-  products?: {
+  products: {
     inputs: { productId: ProductId, amount: number }[]
     outputs: { productId: ProductId, amount: number }[]
   },
-  nodeCounts?: { nodeId: string, count: number }[]
-  manifolds?: {[constraintId: string]: number}
+  nodeCounts: { nodeId: string, count: number }[]
+  manifolds: {[constraintId: string]: number}
+  ObjectiveValue: number,
 }
 
 export type ManifoldOptions = {

@@ -1,14 +1,14 @@
-import highsLoader, { type Highs } from "highs";
+import highsLoader, { type Highs, type HighsSolution } from "highs";
 import { loadRecipeData, type ProductId, type Recipe } from "../graph/loadJsonData";
 
-import type { CustomNodeType } from '../graph/nodes';
 import type { CustomEdgeType } from '../graph/edges';
-import type { Constraint, EqualityTypes, FactoryGoal, GraphModel, ManifoldOptions, NodeConnection, NodeConnections, OpenConnections, Solution } from "./types";
+import type { CustomNodeType } from '../graph/nodes';
+import { type Constraint, type EqualityTypes, type FactoryGoal, type GraphModel, type ManifoldOptions, type NodeConnection, type NodeConnections, type OpenConnections, type Solution } from "./types";
 
 const recipeData = loadRecipeData();
 let highsProm: Promise<Highs>;
 console.log("window", typeof window)
-if (typeof window === "undefined") 
+if (typeof window === "undefined")
   highsProm = highsLoader();
 else
   highsProm = highsLoader({ locateFile: (file: string) => "https://lovasoa.github.io/highs-js/" + file });
@@ -89,31 +89,95 @@ end`;
  * TODO:: Mark constraints belonging to a group
  * Use those to figure out which group actually helps solve an infeasible siolution
  * Loop through, disable whole group, then individuals along with it. Start wide, then shrink. Use objective value to order them
- *  */ 
-
-export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: ManifoldOptions[] = []): Promise<Solution> {
-  const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null));
+ *  */
+async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeConstraints: Set<string | null>): Promise<HighsSolution | null> {
   const lpp = buildLpp(graph, goals, freeConstraints);
   debug(lpp);
 
   const highs = await highsProm;
   let res: ReturnType<typeof highs.solve> | null = null;
   try {
-    res = highs.solve(lpp); 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    res = highs.solve(lpp);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error('Error solving LPP');
     console.error(e);
+    res = null;
+  }
+  return res;
+}
+
+export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: ManifoldOptions[] = [], autoSolve: boolean): 
+  Promise<{solution: Solution, manifolds?: ManifoldOptions[]} | "Error" | "Infeasible"> {
+  const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null).filter(x => x !== null));
+  const res = await getHighsSolution(graph, goals, freeConstraints);
+
+  if (!res) return "Error";
+  if (res.Status == "Optimal")
     return {
-      status: "Error",
-      errorMessage: e?.message
+      solution: parseHighsSolution(res, graph, goals)
+    }
+
+  else if (autoSolve) {
+    const solutions:{
+      constraintId: string,
+      freeConstraints: Set<string>,
+      solution: HighsSolution | null,
+    }[] = [];
+    // Try freeing all major manifolds and their children to see if anything works
+    await Promise.all(Object.keys(graph.constraints).map(async c => {    
+      // Start with the original free constraints, then add the rest
+      const newFreeConstraints = new Set(freeConstraints);
+      const constraint = graph.constraints[c];
+      const parentFree = constraint.parent && newFreeConstraints.has(constraint.parent);
+      const childFree = (constraint.children || []).some(c => newFreeConstraints.has(c));
+      if (constraint.unconnected || newFreeConstraints.has(constraint.id) || parentFree || childFree) {
+        debug("Skipping constraint", constraint.id, "as it or it's parent is already free");
+        return;
+      }
+      if (constraint.parent !== undefined) return;
+      debug("Making constraint", constraint.id, "free");
+
+      newFreeConstraints.add(constraint.id);
+      constraint.children?.forEach(childId => {
+        debug("Adding child constraint", childId, "to free constraints"); 
+        newFreeConstraints.add(childId);
+      });
+      solutions.push({
+        constraintId: c,
+        freeConstraints: newFreeConstraints,
+        solution: await getHighsSolution(graph, goals, newFreeConstraints)
+      });
+    }));
+    const working = solutions.filter(x => x.solution?.Status == "Optimal").sort((a, b) => {
+      const aObj = a.solution?.ObjectiveValue || 0;
+      const bObj = b.solution?.ObjectiveValue || 0;
+      return aObj - bObj;
+    });
+
+    debug("Solutions found", working.length, "with optimal status");
+    if (working.length > 0) {
+      const best = working[0];
+      debug("Best solution found for constraint", best.constraintId, "with objective value", best.solution?.ObjectiveValue);
+      return {
+        solution: parseHighsSolution(best.solution as HighsSolution, graph, goals),
+        manifolds: Array.from(best.freeConstraints).map(c => {
+          const constraint = graph.constraints[c];
+          return {
+            constraintId: c,
+            edges: constraint.edges,
+            free: true
+          }
+        })
+      }
     }
   }
-  if (!res) return { status: "Error", errorMessage: "No result" };
-  if (res.Status == "Infeasible") {
-    return {status: "Infeasible"};
-  }
 
+  return "Infeasible";
+}
+
+function parseHighsSolution(res: HighsSolution, graph: GraphModel, goals: FactoryGoal[]): Solution {
+  if (res.Status !== "Optimal") throw new Error("Cannot parse solution, not optimal");
 
   const nodeResults: Solution["nodeCounts"] = [];
   const productResults: Solution["products"] = { inputs: [], outputs: [] };
@@ -148,7 +212,6 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
   });
 
   return {
-    status: "Solved",
     goals: goals.map(goal => {
       const columnPrefix = goal.dir == "input" ? "i" : "o";
       return {
@@ -159,6 +222,7 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
     products: productResults,
     nodeCounts: nodeResults,
     manifolds: manifoldResults,
+    ObjectiveValue: res.ObjectiveValue,
   }
 }
 
@@ -170,7 +234,7 @@ export default class Solver {
 
   public constraints: { [key: string]: Constraint } = {};
   public graph: NodeConnections;
-  
+
   public nodeIdToLabels: Record<string, string> = {};
   private nodes: CustomNodeType[];
   private edges: CustomEdgeType[];
@@ -230,7 +294,7 @@ export default class Solver {
       constraint = {
         terms: [],
         id: id,
-        edges: {} as {[k: string]: boolean},
+        edges: {} as { [k: string]: boolean },
         productId: productId,
         // Default to equality, this is overridden when required
         equality: "eq",
@@ -271,7 +335,7 @@ export default class Solver {
     if (!connections || connections?.length == 0) {
       debug('Open Item', vertextId);
       const itemConstraintId = ioString.slice(0, 1) + "_" + productId;
-      const constraint = this.getOrCreateConstraint(itemConstraintId, productId);      this.itemConstraints.set(productId, itemConstraintId);
+      const constraint = this.getOrCreateConstraint(itemConstraintId, productId); this.itemConstraints.set(productId, itemConstraintId);
 
       constraint.terms.push(myTerm);
 

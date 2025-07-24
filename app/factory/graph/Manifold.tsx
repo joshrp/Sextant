@@ -121,16 +121,16 @@ export default function Manifold(props: ManifoldProps) {
       onMouseEnter={() => mouseEnter(constraint.edges)}
       onMouseLeave={() => mouseLeave(constraint.edges)}
     >
-      <div className="flex-1 flex gap-1 content-center-safe align-middle items-center-safe">
+      <div className="w-[45%] flex gap-1 content-center-safe align-middle items-center-safe">
         <img className="h-full " src={'/assets/products/' + mani.icon} title={mani.name} />
         {(isOver || isUnder) ? <ExclamationTriangleIcon className="inline-block h-[70%] text-rose-400" /> : ''}
 
       </div>
-      <div className="lockAll flex-1 flex content-center-safe align-middle items-center-safe justify-center">
+      <div className="lockAll w-[10%] flex content-center-safe align-middle items-center-safe justify-center">
         <ConstraintLockIcon onClick={() => setManifoldFree([constraint, ...children.map(c => c.constraint)], !freed)} unlocked={unlocked} />
 
       </div>
-      <div className="flex-1 h-5 justify-self-end-safe text-right">
+      <div className="w-[45%] h-5 justify-self-end-safe text-right">
         <span className="">{mani.flexible ? mani.amount : ''}</span>
       </div>
     </div>
@@ -188,7 +188,7 @@ export default function Manifold(props: ManifoldProps) {
                 </div>
                 )}
               </div>
-              <div className="flex w-[10%] flex-wrap align-middle content-center-safe">
+              <div className="flex w-[10%]">
                 <ConstraintLockIcon onClick={() => setManifoldFree([c.constraint, constraint], !c.freed)} unlocked={c.freed ? "all" : "none"} />
               </div>
               <div className="flex w-[45%] flex-wrap gap-1 justify-end-safe content-center-safe">
@@ -225,7 +225,7 @@ function ConstraintLockIcon(props: {
   return <div className="h-6 bg-zinc-900 border-b-2 border-zinc-700 
             content-center-safe align-middle items-center-safe
             rounded-xl box-border cursor-pointer inline-block p-1
-            active:brightness-60
+            active:brightness-60 ml-auto mr-auto
             transition-[filter] duration-100 hover:brightness-140"
 
     onClick={props.onClick}
