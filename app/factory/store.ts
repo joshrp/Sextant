@@ -15,6 +15,7 @@ import { createGraph, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution } from "./solver/types";
 
 export interface GraphStore {
+  id: string,
   name: string,
   nodes: CustomNodeType[];
   edges: CustomEdgeType[];
@@ -23,6 +24,14 @@ export interface GraphStore {
   manifoldOptions: ManifoldOptions[],
   solution?: Solution;
   solutionStatus?: "Solved" | "Error" | "Infeasible";
+  newNodeFor?: { 
+    productId: string, 
+    position: { x: number, y: number },
+    produce: boolean, // true = produce this item, false = consume
+    otherNode: string,
+  };
+
+  // Actions
   graphUpdateAction: () => void;
   solutionUpdateAction: (autoSolve?: boolean) => void;
   addNode: (node: CustomNodeType) => void;
@@ -50,6 +59,7 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
     devtools(
       temporal(
         (set, get) => ({
+          id: id,
           name: 'Default Factory',
           nodes,
           edges,
@@ -58,14 +68,9 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
           graph: undefined,
           solution: undefined,
           solutionStatus: undefined,
-          throttledNodeUpdate: {
-            nodes,
-            edges,
-            updateTime: (new Date().getTime()),
-            throttle: 1000,
-          },
+          newNodeFor: undefined,
           addNode: (node) => {
-            // console.log("Add node", node, get().nodes.concat(node));
+            console.log("Add node", node, get().nodes.concat(node));
             set({ nodes: [...get().nodes.concat(node)] }, false, "addNode");
             get().graphUpdateAction();
           },
@@ -141,7 +146,6 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => createStore<Grap
               set({ solutionStatus: "Error" }, false, "solutionUpdateAction");
               return;
             } else if (result === "Infeasible") {
-              console.warn("Solver Infeasible");
               set({ solutionStatus: "Infeasible" }, false, "solutionUpdateAction");
               return;
             }

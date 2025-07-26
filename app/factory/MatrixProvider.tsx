@@ -7,8 +7,10 @@ const LOCAL_STORAGE_KEY = "ProductionMatrix_settings";
 const DEFAULT_SETTINGS: ProductionMatrixSettings = {
   factories: [{
     id: "default-factory",
+    name: "Default Factory",
     order: 0,
-  }]
+  }],
+  selected: "default-factory",
 };
 
 export const ProductionMatrixProvider = ({ children }: { children: ReactNode }) => {

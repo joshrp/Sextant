@@ -91,9 +91,10 @@ end`;
  * Loop through, disable whole group, then individuals along with it. Start wide, then shrink. Use objective value to order them
  *  */
 async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeConstraints: Set<string | null>): Promise<HighsSolution | null> {
+  const t0 = performance.now();
   const lpp = buildLpp(graph, goals, freeConstraints);
   debug(lpp);
-
+  
   const highs = await highsProm;
   let res: ReturnType<typeof highs.solve> | null = null;
   try {
@@ -104,6 +105,7 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
     console.error(e);
     res = null;
   }
+  console.log("Highs solve time", performance.now() - t0, "ms", freeConstraints);
   return res;
 }
 
@@ -149,7 +151,7 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
         solution: await getHighsSolution(graph, goals, newFreeConstraints)
       });
     }));
-    const working = solutions.filter(x => x.solution?.Status == "Optimal").sort((a, b) => {
+    const working = solutions.filter(x => x.solution?.Status == "Optimal" && x.solution?.ObjectiveValue > 0).sort((a, b) => {
       const aObj = a.solution?.ObjectiveValue || 0;
       const bObj = b.solution?.ObjectiveValue || 0;
       return aObj - bObj;
@@ -521,7 +523,7 @@ const inputMatcher = /^i_(.+)$/;
 const outputMatcher = /^o_(.+)$/;
 
 // Instead of exporting a variable, export a setter function
-let DEBUG_SOLVER = true;
+let DEBUG_SOLVER = false;
 export function setDebugSolver(val: boolean) {
   DEBUG_SOLVER = val;
 }

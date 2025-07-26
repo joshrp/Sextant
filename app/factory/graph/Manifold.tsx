@@ -1,11 +1,10 @@
-import { LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/solid";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
-import useFactory from "../FactoryContext";
-import { loadProductData, type Product } from "./loadJsonData";
-import { useStore } from "zustand";
-import type { Constraint } from "../solver/types";
-import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon, LockClosedIcon, LockOpenIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
+import { useShallow } from "zustand/shallow";
+import { useFactoryStore } from "../FactoryContext";
+import type { Constraint } from "../solver/types";
+import { loadProductData, type Product } from "./loadJsonData";
 
 type ManifoldProps = {
   manifoldId: string
@@ -33,13 +32,13 @@ const productData = loadProductData();
 
 export default function Manifold(props: ManifoldProps) {
   const m = props.manifoldId;
-  const store = useFactory().store;
 
-  const model = useStore(store, state => state.graph);
-  const solution = useStore(store, state => state.solution);
-  const manifoldOptions = useStore(store, state => state.manifoldOptions);
-  const setManifoldFree = useStore(store, state => state.setManifold);
-  const setEdgeData = useStore(store, state => state.setEdgeData);
+  const model = useFactoryStore(useShallow(state => state.graph));
+  const solution = useFactoryStore(useShallow(state => state.solution));
+  const manifoldOptions = useFactoryStore(useShallow(state => state.manifoldOptions));
+  const setManifoldFree = useFactoryStore(useShallow(state => state.setManifold));
+  const setEdgeData = useFactoryStore(useShallow(state => state.setEdgeData));
+  
   const [childrenOpen, setChildrenOpen] = useState(false);
   const constraint = model?.constraints[m];
   const amount = solution?.manifolds?.[m];

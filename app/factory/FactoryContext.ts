@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 
-import { type FactoryStore } from "./store";
+import { type FactoryStore, type GraphStore } from "./store";
+import { useStore } from "zustand";
 
 export type FactorySettings = {
   id: string; // Unique identifier for the factory
@@ -20,4 +21,8 @@ export default function useFactory() {
     throw new Error("useFactory must be used within a FactoryProvider");
   }
   return context;
+}
+
+export function useFactoryStore<U>(selector: (state: GraphStore) => U): U {
+  return useStore(useFactory().store, selector);
 }

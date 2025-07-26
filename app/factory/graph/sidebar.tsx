@@ -4,11 +4,10 @@ import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { SelectorDialog } from 'app/components/Dialog';
-import useFactory from '~/factory/FactoryContext';
+import useFactory, { useFactoryStore } from '~/factory/FactoryContext';
 import type { FactoryGoal } from '../solver/types';
 import { loadProductData, type Product, type ProductId } from './loadJsonData';
 import Manifold from './Manifold';
-import { useStore } from 'zustand';
 import { useShallow } from 'zustand/shallow';
 
 // const transformSelector = (state: any) => state.transform;
@@ -29,24 +28,22 @@ function SideBar({ addNewRecipe }: props) {
   
   const store = useFactory().store;
 
-  const solution = useStore(store, useShallow(state => state.solution));
-  const solutionStatus = useStore(store, useShallow(state => state.solutionStatus));
-  const goals = useStore(store, useShallow(state => state.goals));
-  const model = useStore(store, useShallow(state => state.graph));
-  const graphUpdateAction = useStore(store, state => state.graphUpdateAction);
-  const solutionUpdateAction = useStore(store, state => state.solutionUpdateAction);
+  const solution = useFactoryStore(useShallow(state => state.solution));
+  const solutionStatus = useFactoryStore(useShallow(state => state.solutionStatus));
+  const goals = useFactoryStore(useShallow(state => state.goals));
+  const model = useFactoryStore(useShallow(state => state.graph));
+  const graphUpdateAction = useFactoryStore(useShallow(state => state.graphUpdateAction));
+  const solutionUpdateAction = useFactoryStore(useShallow(state => state.solutionUpdateAction));
 
   const [editGoal, setEditGoal] = useState<FactoryGoal | null>(null);
   
   const addGoal = useCallback((goal: FactoryGoal): void => {
+    console.log("Adding goal", goal, "to goals", goals);
     const exists = goals.findIndex(g => goal.productId == g.productId);
-    store.setState(state => {
-      if (exists !== -1)
-        state.goals[exists] = goal;
-      else
-        state.goals.push(goal);
-      return state;
-    });
+    if (exists >= 0)
+      store.setState(state => ({goals: state.goals.filter(g => g.productId != goal.productId)}), false, "Remove existing goal before adding new one");
+    else
+      store.setState(state => ({goals: [...state.goals, goal]}), false, "Add new goal");
     solutionUpdateAction();
 
     setEditGoal(null);
@@ -153,7 +150,7 @@ function SideBar({ addNewRecipe }: props) {
       </div>
       <div className="subtitle">By Products</div>
 
-      <div className="byproducts flex-1 grid grid-cols-2 gap-1">
+      <div className="byproducts flex-1 grid grid-cols-2 gap-1 content-start">
         {solution?.products?.outputs.map((output, i) => {
           const goal = goals.find(g => g.productId === output.productId && g.dir == "output");
           let amount = output.amount;
@@ -174,7 +171,7 @@ function SideBar({ addNewRecipe }: props) {
         })}
       </div>
       <div className="subtitle">Inputs</div>
-      <div className="flex-1 grid grid-cols-2 gap-1">
+      <div className="flex-1 grid grid-cols-2 gap-1 content-start">
         {solution?.products?.inputs.map((input, i) => {
           const amount = input.amount * -1;
           if (amount <= 0) return;

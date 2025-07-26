@@ -5,7 +5,9 @@ export type ProductionMatrixSettings = {
   factories: {
     id: string,
     order: number,
-  }[]
+    name: string
+  }[],
+  selected: string
 };
 
 type ProductionMatrixContextType = LocalStorageProvider<ProductionMatrixSettings> & {
