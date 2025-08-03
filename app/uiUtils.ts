@@ -4,7 +4,7 @@ let LANG = "en-GB";
 if (typeof window !== "undefined")
   LANG = window.navigator.language;
 
-export function formatNumber(value: number, unit: string): string {
+export function formatNumber(value: number, unit: string = ''): string {
   if (unit === "kW") {
     value /= 1000;
     unit = "MW";

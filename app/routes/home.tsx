@@ -39,9 +39,7 @@ export default function Home() {
         </div>
       </FactoryProvider>
       {images.map((img, idx) => (
-        <>
-          <link key={idx} rel="preload" href={img} as="image" />
-        </>
+        <link key={idx} rel="preload" href={img} as="image" />
       ))}
     </main >
   </>

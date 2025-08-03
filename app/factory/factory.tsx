@@ -15,7 +15,10 @@ import useFactory, { useFactoryStore } from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
 import { FactorySwitches } from "./switches";
 
-const { products } = loadData();
+const { products, machines, recipes } = loadData();
+console.log("Loaded products", products);
+console.log("Loaded machines", machines);
+console.log("Loaded recipes", recipes);
 
 export function Factory() {
   const store = useFactory().store
@@ -34,6 +37,7 @@ export function Factory() {
         setRecipeSelectorProductIsOutput(newNodeFor.produce);
       }
   }, [newNodeFor]); 
+
 
   const addNewRecipe = (id: ProductId) => {
     setRecipeSelectorProduct(id);

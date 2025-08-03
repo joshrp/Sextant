@@ -5,7 +5,7 @@
       "id": "Product_Virtual_Electricity",
       "name": "Electricity",
       "icon": "electricity.png",
-      "color": "#000000",
+      "color": "#FBDB2C",
       "unit": "kW",
       "recipes": {
         "input": [
@@ -27,7 +27,7 @@
       "id": "Product_Virtual_MechPower",
       "name": "Mechanical power",
       "icon": "mechanicalpower.png",
-      "color": "#000000",
+      "color": "#D2D9E9",
       "unit": "kW",
       "recipes": {
         "input": [
@@ -51,7 +51,7 @@
       "id": "Product_Virtual_Computing",
       "name": "Computing",
       "icon": "computing.png",
-      "color": "#000000",
+      "color": "#FFFFFF",
       "unit": "TFlops",
       "recipes": {
         "input": [],
@@ -68,7 +68,7 @@
       "id": "Product_Virtual_Upoints",
       "name": "Unity",
       "icon": "unity.png",
-      "color": "#000000",
+      "color": "#FFFFFF",
       "unit": "",
       "recipes": {
         "input": [],
@@ -83,7 +83,7 @@
       "id": "Product_Virtual_Heat",
       "name": "Heat",
       "icon": "heat.png",
-      "color": "#000000",
+      "color": "#ABB7C0",
       "unit": "",
       "recipes": {
         "input": [],
@@ -98,7 +98,7 @@
       "id": "Product_Virtual_MaintenanceT1",
       "name": "Maintenance I",
       "icon": "maintenance1.png",
-      "color": "#000000",
+      "color": "#B4B4B4",
       "unit": "",
       "recipes": {
         "input": [],
@@ -117,7 +117,7 @@
       "id": "Product_Virtual_MaintenanceT2",
       "name": "Maintenance II",
       "icon": "maintenance2.png",
-      "color": "#000000",
+      "color": "#B29A2C",
       "unit": "",
       "recipes": {
         "input": [],
@@ -135,7 +135,7 @@
       "id": "Product_Virtual_MaintenanceT3",
       "name": "Maintenance III",
       "icon": "maintenance3.png",
-      "color": "#000000",
+      "color": "#B23B2C",
       "unit": "",
       "recipes": {
         "input": [
@@ -155,7 +155,7 @@
       "id": "Product_Virtual_SpaceCrew",
       "name": "Space crew",
       "icon": "spacecrew.png",
-      "color": "#000000",
+      "color": "#B0A00C",
       "unit": "",
       "recipes": {
         "input": [],
@@ -170,7 +170,7 @@
       "id": "Product_Virtual_SpaceResearchPoints",
       "name": "Space research points",
       "icon": "spaceresearchpoints.png",
-      "color": "#000000",
+      "color": "#B2E54D",
       "unit": "",
       "recipes": {
         "input": [],
@@ -185,7 +185,7 @@
       "id": "Product_Wood",
       "name": "Wood",
       "icon": "wood.png",
-      "color": "#000000",
+      "color": "#9E6424",
       "unit": "",
       "recipes": {
         "input": [
@@ -215,7 +215,7 @@
       "id": "Product_Woodchips",
       "name": "Woodchips",
       "icon": "woodchips.png",
-      "color": "#000000",
+      "color": "#D8C586",
       "unit": "",
       "recipes": {
         "input": [
@@ -391,7 +391,7 @@
       "id": "Product_TreeSapling",
       "name": "Tree sapling",
       "icon": "treesapling.png",
-      "color": "#000000",
+      "color": "#74B094",
       "unit": "",
       "recipes": {
         "input": [
@@ -419,7 +419,7 @@
       "id": "Product_Paper",
       "name": "Paper",
       "icon": "paper.png",
-      "color": "#000000",
+      "color": "#EEEEEE",
       "unit": "",
       "recipes": {
         "input": [
@@ -444,7 +444,7 @@
       "id": "Product_Dirt",
       "name": "Dirt",
       "icon": "dirt.png",
-      "color": "#000000",
+      "color": "#CA8353",
       "unit": "",
       "recipes": {
         "input": [
@@ -465,7 +465,7 @@
       "id": "Product_Compost",
       "name": "Compost",
       "icon": "compost.png",
-      "color": "#000000",
+      "color": "#9F7D5A",
       "unit": "",
       "recipes": {
         "input": [
@@ -505,7 +505,7 @@
       "id": "Product_Sludge",
       "name": "Sludge",
       "icon": "sludge.png",
-      "color": "#000000",
+      "color": "#6B533B",
       "unit": "",
       "recipes": {
         "input": [
@@ -526,7 +526,7 @@
       "id": "Product_Limestone",
       "name": "Limestone",
       "icon": "limestone.png",
-      "color": "#000000",
+      "color": "#CDCD9A",
       "unit": "",
       "recipes": {
         "input": [
@@ -563,7 +563,7 @@
       "id": "Product_Rock",
       "name": "Rock",
       "icon": "rock.png",
-      "color": "#000000",
+      "color": "#746C68",
       "unit": "",
       "recipes": {
         "input": [
@@ -582,7 +582,7 @@
       "id": "Product_Gravel",
       "name": "Gravel",
       "icon": "gravel.png",
-      "color": "#000000",
+      "color": "#736B67",
       "unit": "",
       "recipes": {
         "input": [
@@ -615,7 +615,7 @@
       "id": "Product_ManufacturedSand",
       "name": "Manufactured sand",
       "icon": "manufacturedsand.png",
-      "color": "#000000",
+      "color": "#ACACAC",
       "unit": "",
       "recipes": {
         "input": [
@@ -642,7 +642,7 @@
       "id": "Product_FilterMedia",
       "name": "Filter media",
       "icon": "filtermedia.png",
-      "color": "#000000",
+      "color": "#CEBE80",
       "unit": "",
       "recipes": {
         "input": [
@@ -665,7 +665,7 @@
       "id": "Product_Coal",
       "name": "Coal",
       "icon": "coal.png",
-      "color": "#000000",
+      "color": "#676060",
       "unit": "",
       "recipes": {
         "input": [
@@ -710,7 +710,7 @@
       "id": "Product_Graphite",
       "name": "Graphite",
       "icon": "graphite.png",
-      "color": "#000000",
+      "color": "#6C6767",
       "unit": "",
       "recipes": {
         "input": [
@@ -751,7 +751,7 @@
       "id": "Product_Slag",
       "name": "Slag",
       "icon": "slag.png",
-      "color": "#000000",
+      "color": "#A9A9A5",
       "unit": "",
       "recipes": {
         "input": [
@@ -792,7 +792,7 @@
       "id": "Product_SlagCrushed",
       "name": "Slag crushed",
       "icon": "slagcrushed.png",
-      "color": "#000000",
+      "color": "#B6B3AF",
       "unit": "",
       "recipes": {
         "input": [
@@ -817,7 +817,7 @@
       "id": "Product_IronOre",
       "name": "Iron ore",
       "icon": "ironore.png",
-      "color": "#000000",
+      "color": "#B96346",
       "unit": "",
       "recipes": {
         "input": [
@@ -836,7 +836,7 @@
       "id": "Product_IronOreCrushed",
       "name": "Iron ore crushed",
       "icon": "ironorecrushed.png",
-      "color": "#000000",
+      "color": "#B85539",
       "unit": "",
       "recipes": {
         "input": [
@@ -859,7 +859,7 @@
       "id": "Product_IronScrap",
       "name": "Iron scrap",
       "icon": "ironscrap.png",
-      "color": "#000000",
+      "color": "#9F442D",
       "unit": "",
       "recipes": {
         "input": [
@@ -882,7 +882,7 @@
       "id": "Product_IronScrapPressed",
       "name": "Iron scrap pressed",
       "icon": "ironscrappressed.png",
-      "color": "#000000",
+      "color": "#868686",
       "unit": "",
       "recipes": {
         "input": [
@@ -901,7 +901,7 @@
       "id": "Product_MoltenIron",
       "name": "Molten iron",
       "icon": "molteniron.png",
-      "color": "#000000",
+      "color": "#FA9A3A",
       "unit": "",
       "recipes": {
         "input": [
@@ -931,7 +931,7 @@
       "id": "Product_MoltenSteel",
       "name": "Molten steel",
       "icon": "moltensteel.png",
-      "color": "#000000",
+      "color": "#4B5360",
       "unit": "",
       "recipes": {
         "input": [
@@ -952,7 +952,7 @@
       "id": "Product_Iron",
       "name": "Iron",
       "icon": "iron.png",
-      "color": "#000000",
+      "color": "#797979",
       "unit": "",
       "recipes": {
         "input": [
@@ -982,7 +982,7 @@
       "id": "Product_Steel",
       "name": "Steel",
       "icon": "steel.png",
-      "color": "#000000",
+      "color": "#B9B9B9",
       "unit": "",
       "recipes": {
         "input": [
@@ -1044,7 +1044,7 @@
       "id": "Product_CopperOre",
       "name": "Copper ore",
       "icon": "copperore.png",
-      "color": "#000000",
+      "color": "#2C5424",
       "unit": "",
       "recipes": {
         "input": [
@@ -1063,7 +1063,7 @@
       "id": "Product_CopperOreCrushed",
       "name": "Copper ore crushed",
       "icon": "copperorecrushed.png",
-      "color": "#000000",
+      "color": "#2D572D",
       "unit": "",
       "recipes": {
         "input": [
@@ -1085,7 +1085,7 @@
       "id": "Product_CopperScrap",
       "name": "Copper scrap",
       "icon": "copperscrap.png",
-      "color": "#000000",
+      "color": "#DA8C57",
       "unit": "",
       "recipes": {
         "input": [
@@ -1108,7 +1108,7 @@
       "id": "Product_CopperScrapPressed",
       "name": "Copper scrap pressed",
       "icon": "copperscrappressed.png",
-      "color": "#000000",
+      "color": "#D98B54",
       "unit": "",
       "recipes": {
         "input": [
@@ -1127,7 +1127,7 @@
       "id": "Product_MoltenCopper",
       "name": "Molten copper",
       "icon": "moltencopper.png",
-      "color": "#000000",
+      "color": "#FBC93A",
       "unit": "",
       "recipes": {
         "input": [
@@ -1154,7 +1154,7 @@
       "id": "Product_ImpureCopper",
       "name": "Impure copper",
       "icon": "impurecopper.png",
-      "color": "#000000",
+      "color": "#C46B44",
       "unit": "",
       "recipes": {
         "input": [
@@ -1175,7 +1175,7 @@
       "id": "Product_Copper",
       "name": "Copper",
       "icon": "copper.png",
-      "color": "#000000",
+      "color": "#D28C5B",
       "unit": "",
       "recipes": {
         "input": [
@@ -1210,7 +1210,7 @@
       "id": "Product_Bauxite",
       "name": "Bauxite",
       "icon": "bauxite.png",
-      "color": "#000000",
+      "color": "#9B4B2B",
       "unit": "",
       "recipes": {
         "input": [
@@ -1228,7 +1228,7 @@
       "id": "Product_BauxitePowder",
       "name": "Bauxite powder",
       "icon": "bauxitepowder.png",
-      "color": "#000000",
+      "color": "#AC512F",
       "unit": "",
       "recipes": {
         "input": [
@@ -1269,7 +1269,7 @@
       "id": "Product_HydratedAlumina",
       "name": "Hydrated alumina",
       "icon": "hydratedalumina.png",
-      "color": "#000000",
+      "color": "#5CD6F9",
       "unit": "",
       "recipes": {
         "input": [
@@ -1289,7 +1289,7 @@
       "id": "Product_Alumina",
       "name": "Alumina",
       "icon": "alumina.png",
-      "color": "#000000",
+      "color": "#C2C2C2",
       "unit": "",
       "recipes": {
         "input": [
@@ -1310,7 +1310,7 @@
       "id": "Product_AluminumScrap",
       "name": "Aluminum scrap",
       "icon": "aluminumscrap.png",
-      "color": "#000000",
+      "color": "#ACACAC",
       "unit": "",
       "recipes": {
         "input": [
@@ -1331,7 +1331,7 @@
       "id": "Product_AluminumScrapPressed",
       "name": "Aluminum scrap pressed",
       "icon": "aluminumscrappressed.png",
-      "color": "#000000",
+      "color": "#B2B2B2",
       "unit": "",
       "recipes": {
         "input": [
@@ -1350,7 +1350,7 @@
       "id": "Product_MoltenAluminum",
       "name": "Molten aluminum",
       "icon": "moltenaluminum.png",
-      "color": "#000000",
+      "color": "#EDC34A",
       "unit": "",
       "recipes": {
         "input": [
@@ -1373,7 +1373,7 @@
       "id": "Product_Aluminum",
       "name": "Aluminum",
       "icon": "aluminum.png",
-      "color": "#000000",
+      "color": "#D7D7D7",
       "unit": "",
       "recipes": {
         "input": [
@@ -1399,7 +1399,7 @@
       "id": "Product_TitaniumOre",
       "name": "Titanium ore",
       "icon": "titaniumore.png",
-      "color": "#000000",
+      "color": "#747E88",
       "unit": "",
       "recipes": {
         "input": [
@@ -1417,7 +1417,7 @@
       "id": "Product_TitaniumOreCrushed",
       "name": "Titanium ore crushed",
       "icon": "titaniumorecrushed.png",
-      "color": "#000000",
+      "color": "#2A2A2A",
       "unit": "",
       "recipes": {
         "input": [
@@ -1437,7 +1437,7 @@
       "id": "Product_TitaniumSlag",
       "name": "Titanium slag",
       "icon": "titaniumslag.png",
-      "color": "#000000",
+      "color": "#5C5C5C",
       "unit": "",
       "recipes": {
         "input": [
@@ -1494,7 +1494,7 @@
       "id": "Product_TitaniumSponge",
       "name": "Titanium sponge",
       "icon": "titaniumsponge.png",
-      "color": "#000000",
+      "color": "#A8A9B0",
       "unit": "",
       "recipes": {
         "input": [
@@ -1513,7 +1513,7 @@
       "id": "Product_MoltenTitanium",
       "name": "Molten titanium",
       "icon": "moltentitanium.png",
-      "color": "#000000",
+      "color": "#F99A3A",
       "unit": "",
       "recipes": {
         "input": [
@@ -1532,7 +1532,7 @@
       "id": "Product_MoltenTitaniumAlloy",
       "name": "Molten titanium alloy",
       "icon": "moltentitaniumalloy.png",
-      "color": "#000000",
+      "color": "#F9A839",
       "unit": "",
       "recipes": {
         "input": [
@@ -1551,7 +1551,7 @@
       "id": "Product_TitaniumAlloy",
       "name": "Titanium alloy",
       "icon": "titaniumalloy.png",
-      "color": "#000000",
+      "color": "#BBBBB0",
       "unit": "",
       "recipes": {
         "input": [
@@ -1571,7 +1571,7 @@
       "id": "Product_GoldOre",
       "name": "Gold ore",
       "icon": "goldore.png",
-      "color": "#000000",
+      "color": "#69563B",
       "unit": "",
       "recipes": {
         "input": [
@@ -1589,7 +1589,7 @@
       "id": "Product_GoldOreCrushed",
       "name": "Gold ore crushed",
       "icon": "goldorecrushed.png",
-      "color": "#000000",
+      "color": "#816951",
       "unit": "",
       "recipes": {
         "input": [
@@ -1610,7 +1610,7 @@
       "id": "Product_GoldOrePowder",
       "name": "Gold ore powder",
       "icon": "goldorepowder.png",
-      "color": "#000000",
+      "color": "#796454",
       "unit": "",
       "recipes": {
         "input": [
@@ -1630,7 +1630,7 @@
       "id": "Product_GoldOreConcentrate",
       "name": "Gold ore concentrate",
       "icon": "goldoreconcentrate.png",
-      "color": "#000000",
+      "color": "#A08130",
       "unit": "",
       "recipes": {
         "input": [
@@ -1649,7 +1649,7 @@
       "id": "Product_Gold",
       "name": "Gold",
       "icon": "gold.png",
-      "color": "#000000",
+      "color": "#E59F1E",
       "unit": "",
       "recipes": {
         "input": [
@@ -1679,7 +1679,7 @@
       "id": "Product_GoldScrap",
       "name": "Gold scrap",
       "icon": "goldscrap.png",
-      "color": "#000000",
+      "color": "#D4CC4E",
       "unit": "",
       "recipes": {
         "input": [
@@ -1699,7 +1699,7 @@
       "id": "Product_GoldScrapPressed",
       "name": "Gold scrap pressed",
       "icon": "goldscrappressed.png",
-      "color": "#000000",
+      "color": "#377236",
       "unit": "",
       "recipes": {
         "input": [
@@ -1718,7 +1718,7 @@
       "id": "Product_Sand",
       "name": "Sand",
       "icon": "sand.png",
-      "color": "#000000",
+      "color": "#BA9B53",
       "unit": "",
       "recipes": {
         "input": [
@@ -1756,7 +1756,7 @@
       "id": "Product_MoltenGlass",
       "name": "Molten glass",
       "icon": "moltenglass.png",
-      "color": "#000000",
+      "color": "#F8C437",
       "unit": "",
       "recipes": {
         "input": [
@@ -1787,7 +1787,7 @@
       "id": "Product_BrokenGlass",
       "name": "Broken glass",
       "icon": "brokenglass.png",
-      "color": "#000000",
+      "color": "#9F442D",
       "unit": "",
       "recipes": {
         "input": [
@@ -1809,7 +1809,7 @@
       "id": "Product_Glass",
       "name": "Glass",
       "icon": "glass.png",
-      "color": "#000000",
+      "color": "#82C9C9",
       "unit": "",
       "recipes": {
         "input": [
@@ -1846,7 +1846,7 @@
       "id": "Product_GlassMix",
       "name": "Glass mix",
       "icon": "glassmix.png",
-      "color": "#000000",
+      "color": "#B89A55",
       "unit": "",
       "recipes": {
         "input": [
@@ -1871,7 +1871,7 @@
       "id": "Product_UraniumOre",
       "name": "Uranium ore",
       "icon": "uraniumore.png",
-      "color": "#000000",
+      "color": "#869598",
       "unit": "",
       "recipes": {
         "input": [
@@ -1889,7 +1889,7 @@
       "id": "Product_UraniumOreCrushed",
       "name": "Uranium ore powder",
       "icon": "uraniumorepowder.png",
-      "color": "#000000",
+      "color": "#A7B8AC",
       "unit": "",
       "recipes": {
         "input": [
@@ -1909,7 +1909,7 @@
       "id": "Product_Yellowcake",
       "name": "Yellowcake",
       "icon": "yellowcake.png",
-      "color": "#000000",
+      "color": "#BBC151",
       "unit": "",
       "recipes": {
         "input": [
@@ -1929,7 +1929,7 @@
       "id": "Product_UraniumEnriched",
       "name": "Enriched uranium (4%)",
       "icon": "enricheduranium4.png",
-      "color": "#000000",
+      "color": "#6A757B",
       "unit": "",
       "recipes": {
         "input": [
@@ -1953,7 +1953,7 @@
       "id": "Product_UraniumEnriched20",
       "name": "Enriched uranium (20%)",
       "icon": "enricheduranium20.png",
-      "color": "#000000",
+      "color": "#80D077",
       "unit": "",
       "recipes": {
         "input": [
@@ -1975,7 +1975,7 @@
       "id": "Product_UraniumReprocessed",
       "name": "Reprocessed uranium (1%)",
       "icon": "reprocesseduranium1.png",
-      "color": "#000000",
+      "color": "#9CA494",
       "unit": "",
       "recipes": {
         "input": [
@@ -1994,7 +1994,7 @@
       "id": "Product_Plutonium",
       "name": "Plutonium",
       "icon": "plutonium.png",
-      "color": "#000000",
+      "color": "#5DAB4E",
       "unit": "",
       "recipes": {
         "input": [
@@ -2017,7 +2017,7 @@
       "id": "Product_UraniumDepleted",
       "name": "Depleted uranium",
       "icon": "depleteduranium.png",
-      "color": "#000000",
+      "color": "#505761",
       "unit": "",
       "recipes": {
         "input": [
@@ -2039,7 +2039,7 @@
       "id": "Product_UraniumRod",
       "name": "Uranium rod",
       "icon": "uraniumrod.png",
-      "color": "#000000",
+      "color": "#838383",
       "unit": "",
       "recipes": {
         "input": [
@@ -2063,7 +2063,7 @@
       "id": "Product_MoxRod",
       "name": "MOX rod",
       "icon": "moxrod.png",
-      "color": "#000000",
+      "color": "#768453",
       "unit": "",
       "recipes": {
         "input": [
@@ -2083,7 +2083,7 @@
       "id": "Product_SpentFuel",
       "name": "Spent fuel",
       "icon": "spentfuel.png",
-      "color": "#000000",
+      "color": "#DFB857",
       "unit": "",
       "recipes": {
         "input": [
@@ -2106,7 +2106,7 @@
       "id": "Product_SpentMox",
       "name": "Spent MOX",
       "icon": "spentmox.png",
-      "color": "#000000",
+      "color": "#D47E4F",
       "unit": "",
       "recipes": {
         "input": [
@@ -2126,7 +2126,7 @@
       "id": "Product_FissionProduct",
       "name": "Fission product",
       "icon": "fissionproduct.png",
-      "color": "#000000",
+      "color": "#467FCD",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2146,7 +2146,7 @@
       "id": "Product_RetiredWaste",
       "name": "Retired waste",
       "icon": "retiredwaste.png",
-      "color": "#000000",
+      "color": "#090908",
       "unit": "",
       "recipes": {
         "input": [
@@ -2259,7 +2259,7 @@
       "id": "Product_Quartz",
       "name": "Quartz",
       "icon": "quartz.png",
-      "color": "#000000",
+      "color": "#806330",
       "unit": "",
       "recipes": {
         "input": [
@@ -2277,7 +2277,7 @@
       "id": "Product_QuartzCrushed",
       "name": "Quartz crushed",
       "icon": "quartzcrushed.png",
-      "color": "#000000",
+      "color": "#BDBAA7",
       "unit": "",
       "recipes": {
         "input": [
@@ -2298,7 +2298,7 @@
       "id": "Product_MoltenSilicon",
       "name": "Molten silicon",
       "icon": "moltensilicon.png",
-      "color": "#000000",
+      "color": "#BCC8CE",
       "unit": "",
       "recipes": {
         "input": [
@@ -2318,7 +2318,7 @@
       "id": "Product_PolySilicon",
       "name": "Silicon (poly)",
       "icon": "siliconpoly.png",
-      "color": "#000000",
+      "color": "#D6DFE3",
       "unit": "",
       "recipes": {
         "input": [
@@ -2343,7 +2343,7 @@
       "id": "Product_SiliconWafer",
       "name": "Silicon wafer",
       "icon": "siliconwafer.png",
-      "color": "#000000",
+      "color": "#BCBCBC",
       "unit": "",
       "recipes": {
         "input": [
@@ -2702,7 +2702,7 @@
       "id": "Product_Virtual_PollutedWater",
       "name": "Water pollution",
       "icon": "waterpollution.png",
-      "color": "#000000",
+      "color": "#BFCDD7",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2726,7 +2726,7 @@
       "id": "Product_Virtual_PollutedAir",
       "name": "Air pollution",
       "icon": "airpollution.png",
-      "color": "#000000",
+      "color": "#BECCD5",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2790,7 +2790,7 @@
       "id": "Product_SteamSp",
       "name": "Steam (super)",
       "icon": "steamsuper.png",
-      "color": "#AAAAAA",
+      "color": "#8E4B4B",
       "unit": "",
       "recipes": {
         "input": [
@@ -2818,7 +2818,7 @@
       "id": "Product_SteamHi",
       "name": "Steam (high)",
       "icon": "steamhigh.png",
-      "color": "#AAAAAA",
+      "color": "#A1613B",
       "unit": "",
       "recipes": {
         "input": [
@@ -2876,7 +2876,7 @@
       "id": "Product_SteamLP",
       "name": "Steam (low)",
       "icon": "steamlow.png",
-      "color": "#AAAAAA",
+      "color": "#466D8D",
       "unit": "",
       "recipes": {
         "input": [
@@ -2914,7 +2914,7 @@
       "id": "Product_SteamDepleted",
       "name": "Steam (depleted)",
       "icon": "steamdepleted.png",
-      "color": "#AAAAAA",
+      "color": "#555555",
       "unit": "",
       "recipes": {
         "input": [
@@ -2943,7 +2943,7 @@
       "id": "Product_Salt",
       "name": "Salt",
       "icon": "salt.png",
-      "color": "#000000",
+      "color": "#EBEBF2",
       "unit": "",
       "recipes": {
         "input": [
@@ -3056,7 +3056,7 @@
       "id": "Product_Recyclables",
       "name": "Recyclables",
       "icon": "recyclables.png",
-      "color": "#000000",
+      "color": "#342E26",
       "unit": "",
       "recipes": {
         "input": [
@@ -3083,7 +3083,7 @@
       "id": "Product_RecyclablesPressed",
       "name": "Recyclables pressed",
       "icon": "recyclablespressed.png",
-      "color": "#000000",
+      "color": "#4A6936",
       "unit": "",
       "recipes": {
         "input": [],
@@ -3222,7 +3222,7 @@
       "id": "Product_Sulfur",
       "name": "Sulfur",
       "icon": "sulfur.png",
-      "color": "#000000",
+      "color": "#D5DD82",
       "unit": "",
       "recipes": {
         "input": [
@@ -3409,7 +3409,7 @@
       "id": "Product_Plastic",
       "name": "Plastic",
       "icon": "plastic.png",
-      "color": "#000000",
+      "color": "#C5CCCB",
       "unit": "",
       "recipes": {
         "input": [
@@ -3453,7 +3453,7 @@
       "id": "Product_Rubber",
       "name": "Rubber",
       "icon": "rubber.png",
-      "color": "#000000",
+      "color": "#5A626C",
       "unit": "",
       "recipes": {
         "input": [
@@ -3606,7 +3606,7 @@
       "id": "Product_Potato",
       "name": "Potato",
       "icon": "potato.png",
-      "color": "#000000",
+      "color": "#6E4110",
       "unit": "",
       "recipes": {
         "input": [
@@ -3637,7 +3637,7 @@
       "id": "Product_Corn",
       "name": "Corn",
       "icon": "corn.png",
-      "color": "#000000",
+      "color": "#8BC252",
       "unit": "",
       "recipes": {
         "input": [
@@ -3669,7 +3669,7 @@
       "id": "Product_Wheat",
       "name": "Wheat",
       "icon": "wheat.png",
-      "color": "#000000",
+      "color": "#F8D73A",
       "unit": "",
       "recipes": {
         "input": [
@@ -3700,7 +3700,7 @@
       "id": "Product_Soybean",
       "name": "Soybean",
       "icon": "soybean.png",
-      "color": "#000000",
+      "color": "#91BC72",
       "unit": "",
       "recipes": {
         "input": [
@@ -3732,7 +3732,7 @@
       "id": "Product_SugarCane",
       "name": "Sugar cane",
       "icon": "sugarcane.png",
-      "color": "#000000",
+      "color": "#EFCE57",
       "unit": "",
       "recipes": {
         "input": [
@@ -3757,7 +3757,7 @@
       "id": "Product_Canola",
       "name": "Canola",
       "icon": "canola.png",
-      "color": "#000000",
+      "color": "#DFBF1E",
       "unit": "",
       "recipes": {
         "input": [
@@ -3786,7 +3786,7 @@
       "id": "Product_Vegetables",
       "name": "Vegetables",
       "icon": "vegetables.png",
-      "color": "#000000",
+      "color": "#BA542A",
       "unit": "",
       "recipes": {
         "input": [
@@ -3817,7 +3817,7 @@
       "id": "Product_Fruit",
       "name": "Fruit",
       "icon": "fruit.png",
-      "color": "#000000",
+      "color": "#E1DC40",
       "unit": "",
       "recipes": {
         "input": [
@@ -3842,7 +3842,7 @@
       "id": "Product_Poppy",
       "name": "Poppy",
       "icon": "poppy.png",
-      "color": "#000000",
+      "color": "#1EBC40",
       "unit": "",
       "recipes": {
         "input": [
@@ -3867,7 +3867,7 @@
       "id": "Product_Bread",
       "name": "Bread",
       "icon": "bread.png",
-      "color": "#000000",
+      "color": "#F19E3C",
       "unit": "",
       "recipes": {
         "input": [
@@ -3891,7 +3891,7 @@
       "id": "Product_Flour",
       "name": "Flour",
       "icon": "flour.png",
-      "color": "#000000",
+      "color": "#81B8F9",
       "unit": "",
       "recipes": {
         "input": [
@@ -3912,7 +3912,7 @@
       "id": "Product_AnimalFeed",
       "name": "Animal feed",
       "icon": "animalfeed.png",
-      "color": "#000000",
+      "color": "#4E71AC",
       "unit": "",
       "recipes": {
         "input": [
@@ -3947,7 +3947,7 @@
       "id": "Product_Biomass",
       "name": "Biomass",
       "icon": "biomass.png",
-      "color": "#000000",
+      "color": "#7BAF51",
       "unit": "",
       "recipes": {
         "input": [
@@ -3972,7 +3972,7 @@
       "id": "Product_Eggs",
       "name": "Eggs",
       "icon": "eggs.png",
-      "color": "#000000",
+      "color": "#D6BCA8",
       "unit": "",
       "recipes": {
         "input": [
@@ -3995,7 +3995,7 @@
       "id": "Product_Tofu",
       "name": "Tofu",
       "icon": "tofu.png",
-      "color": "#000000",
+      "color": "#FAE5C6",
       "unit": "",
       "recipes": {
         "input": [
@@ -4041,7 +4041,7 @@
       "id": "Product_Meat",
       "name": "Meat",
       "icon": "meat.png",
-      "color": "#000000",
+      "color": "#D72B41",
       "unit": "",
       "recipes": {
         "input": [
@@ -4062,7 +4062,7 @@
       "id": "Product_Sausage",
       "name": "Sausage",
       "icon": "sausage.png",
-      "color": "#000000",
+      "color": "#EB8049",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4079,7 +4079,7 @@
       "id": "Product_Snack",
       "name": "Snack",
       "icon": "snack.png",
-      "color": "#000000",
+      "color": "#C6473A",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4097,7 +4097,7 @@
       "id": "Product_Cake",
       "name": "Cake",
       "icon": "cake.png",
-      "color": "#000000",
+      "color": "#FAE49F",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4114,7 +4114,7 @@
       "id": "Product_FoodPack",
       "name": "Food pack",
       "icon": "foodpack.png",
-      "color": "#000000",
+      "color": "#DB9242",
       "unit": "",
       "recipes": {
         "input": [
@@ -4143,7 +4143,7 @@
       "id": "Product_Chicken",
       "name": "Chicken",
       "icon": "chicken.png",
-      "color": "#000000",
+      "color": "#E6DBD3",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4158,7 +4158,7 @@
       "id": "Product_CargoShip",
       "name": "Cargo ship",
       "icon": "cargoship.png",
-      "color": "#000000",
+      "color": "#FFFFFF",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4173,7 +4173,7 @@
       "id": "Product_ChickenCarcass",
       "name": "Chicken carcass",
       "icon": "chickencarcass.png",
-      "color": "#000000",
+      "color": "#F9E4CF",
       "unit": "",
       "recipes": {
         "input": [
@@ -4194,7 +4194,7 @@
       "id": "Product_MeatTrimmings",
       "name": "Meat trimmings",
       "icon": "meattrimmings.png",
-      "color": "#000000",
+      "color": "#DD4374",
       "unit": "",
       "recipes": {
         "input": [
@@ -4218,7 +4218,7 @@
       "id": "Product_Sugar",
       "name": "Sugar",
       "icon": "sugar.png",
-      "color": "#000000",
+      "color": "#D89971",
       "unit": "",
       "recipes": {
         "input": [
@@ -4258,7 +4258,7 @@
       "id": "Product_HouseholdGoods",
       "name": "Household goods",
       "icon": "householdgoods.png",
-      "color": "#000000",
+      "color": "#A47444",
       "unit": "",
       "recipes": {
         "input": [
@@ -4282,7 +4282,7 @@
       "id": "Product_HouseholdAppliances",
       "name": "Household appliances",
       "icon": "householdappliances.png",
-      "color": "#000000",
+      "color": "#D4D7DB",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4301,7 +4301,7 @@
       "id": "Product_ConsumerElectronics",
       "name": "Consumer electronics",
       "icon": "consumerelectronics.png",
-      "color": "#000000",
+      "color": "#6AABD9",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4318,7 +4318,7 @@
       "id": "Product_LuxuryGoods",
       "name": "Luxury goods",
       "icon": "luxurygoods.png",
-      "color": "#000000",
+      "color": "#6E6775",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4337,7 +4337,7 @@
       "id": "Product_ImportedGoods",
       "name": "Imported goods",
       "icon": "importedgoods.png",
-      "color": "#000000",
+      "color": "#B0745C",
       "unit": "",
       "recipes": {
         "input": [
@@ -4356,7 +4356,7 @@
       "id": "Product_Antibiotics",
       "name": "Antibiotics",
       "icon": "antibiotics.png",
-      "color": "#000000",
+      "color": "#BCBCBC",
       "unit": "",
       "recipes": {
         "input": [
@@ -4377,7 +4377,7 @@
       "id": "Product_Disinfectant",
       "name": "Disinfectant",
       "icon": "disinfectant.png",
-      "color": "#000000",
+      "color": "#99B9EA",
       "unit": "",
       "recipes": {
         "input": [
@@ -4399,7 +4399,7 @@
       "id": "Product_Anesthetics",
       "name": "Anesthetics",
       "icon": "anesthetics.png",
-      "color": "#000000",
+      "color": "#D3DEE1",
       "unit": "",
       "recipes": {
         "input": [
@@ -4420,7 +4420,7 @@
       "id": "Product_Morphine",
       "name": "Morphine",
       "icon": "morphine.png",
-      "color": "#000000",
+      "color": "#8DDEF4",
       "unit": "",
       "recipes": {
         "input": [
@@ -4441,7 +4441,7 @@
       "id": "Product_MedicalEquipment",
       "name": "Medical equipment",
       "icon": "medicalequipment.png",
-      "color": "#000000",
+      "color": "#C9D4EC",
       "unit": "",
       "recipes": {
         "input": [
@@ -4464,7 +4464,7 @@
       "id": "Product_MedicalSupplies",
       "name": "Medical Supplies",
       "icon": "medicalsupplies.png",
-      "color": "#000000",
+      "color": "#EAEAEA",
       "unit": "",
       "recipes": {
         "input": [
@@ -4487,7 +4487,7 @@
       "id": "Product_MedicalSupplies2",
       "name": "Medical Supplies II",
       "icon": "medicalsupplies2.png",
-      "color": "#000000",
+      "color": "#F3CF3F",
       "unit": "",
       "recipes": {
         "input": [
@@ -4513,7 +4513,7 @@
       "id": "Product_MedicalSupplies3",
       "name": "Medical Supplies III",
       "icon": "medicalsupplies3.png",
-      "color": "#000000",
+      "color": "#F34F3F",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4532,7 +4532,7 @@
       "id": "Product_Cement",
       "name": "Cement",
       "icon": "cement.png",
-      "color": "#000000",
+      "color": "#D8A376",
       "unit": "",
       "recipes": {
         "input": [
@@ -4564,7 +4564,7 @@
       "id": "Product_ConcreteSlab",
       "name": "Concrete slab",
       "icon": "concreteslab.png",
-      "color": "#000000",
+      "color": "#B7B9B9",
       "unit": "",
       "recipes": {
         "input": [
@@ -4605,7 +4605,7 @@
       "id": "Product_Bricks",
       "name": "Bricks",
       "icon": "bricks.png",
-      "color": "#000000",
+      "color": "#DD7E63",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4620,7 +4620,7 @@
       "id": "Product_ConstructionParts",
       "name": "Construction Parts",
       "icon": "constructionparts.png",
-      "color": "#000000",
+      "color": "#F4F4F4",
       "unit": "",
       "recipes": {
         "input": [
@@ -4651,7 +4651,7 @@
       "id": "Product_ConstructionParts2",
       "name": "Construction Parts II",
       "icon": "constructionparts2.png",
-      "color": "#000000",
+      "color": "#D9BA3A",
       "unit": "",
       "recipes": {
         "input": [
@@ -4678,7 +4678,7 @@
       "id": "Product_ConstructionParts3",
       "name": "Construction Parts III",
       "icon": "constructionparts3.png",
-      "color": "#000000",
+      "color": "#DB4B3B",
       "unit": "",
       "recipes": {
         "input": [
@@ -4702,7 +4702,7 @@
       "id": "Product_ConstructionParts4",
       "name": "Construction Parts IV",
       "icon": "constructionparts4.png",
-      "color": "#000000",
+      "color": "#8363D1",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4721,7 +4721,7 @@
       "id": "Product_MechanicalParts",
       "name": "Mechanical Parts",
       "icon": "mechanicalparts.png",
-      "color": "#000000",
+      "color": "#7C737F",
       "unit": "",
       "recipes": {
         "input": [
@@ -4764,7 +4764,7 @@
       "id": "Product_VehicleParts",
       "name": "Vehicle Parts",
       "icon": "vehicleparts.png",
-      "color": "#000000",
+      "color": "#CECECE",
       "unit": "",
       "recipes": {
         "input": [
@@ -4789,7 +4789,7 @@
       "id": "Product_VehicleParts2",
       "name": "Vehicle Parts II",
       "icon": "vehicleparts2.png",
-      "color": "#000000",
+      "color": "#E0C03C",
       "unit": "",
       "recipes": {
         "input": [
@@ -4812,7 +4812,7 @@
       "id": "Product_VehicleParts3",
       "name": "Vehicle Parts III",
       "icon": "vehicleparts3.png",
-      "color": "#000000",
+      "color": "#E54D3E",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4831,7 +4831,7 @@
       "id": "Product_LabEquipment",
       "name": "Lab Equipment",
       "icon": "labequipment.png",
-      "color": "#000000",
+      "color": "#C3C3C3",
       "unit": "",
       "recipes": {
         "input": [
@@ -4857,7 +4857,7 @@
       "id": "Product_LabEquipment2",
       "name": "Lab Equipment II",
       "icon": "labequipment2.png",
-      "color": "#000000",
+      "color": "#CAAB33",
       "unit": "",
       "recipes": {
         "input": [
@@ -4882,7 +4882,7 @@
       "id": "Product_LabEquipment3",
       "name": "Lab Equipment III",
       "icon": "labequipment3.png",
-      "color": "#000000",
+      "color": "#CB4434",
       "unit": "",
       "recipes": {
         "input": [
@@ -4906,7 +4906,7 @@
       "id": "Product_LabEquipment4",
       "name": "Lab Equipment IV",
       "icon": "labequipment4.png",
-      "color": "#000000",
+      "color": "#735BBA",
       "unit": "",
       "recipes": {
         "input": [
@@ -4927,7 +4927,7 @@
       "id": "Product_RailParts",
       "name": "Rail Parts",
       "icon": "railparts.png",
-      "color": "#000000",
+      "color": "#9FA3A4",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4946,7 +4946,7 @@
       "id": "Product_OfficeSupplies",
       "name": "Office Supplies",
       "icon": "officesupplies.png",
-      "color": "#000000",
+      "color": "#2D8281",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4965,7 +4965,7 @@
       "id": "Product_Electronics",
       "name": "Electronics",
       "icon": "electronics.png",
-      "color": "#000000",
+      "color": "#998D99",
       "unit": "",
       "recipes": {
         "input": [
@@ -5011,7 +5011,7 @@
       "id": "Product_PCB",
       "name": "PCB",
       "icon": "pcb.png",
-      "color": "#000000",
+      "color": "#05AA5C",
       "unit": "",
       "recipes": {
         "input": [
@@ -5034,7 +5034,7 @@
       "id": "Product_Electronics2",
       "name": "Electronics II",
       "icon": "electronics2.png",
-      "color": "#000000",
+      "color": "#05A65A",
       "unit": "",
       "recipes": {
         "input": [
@@ -5076,7 +5076,7 @@
       "id": "Product_Electronics3",
       "name": "Electronics III",
       "icon": "electronics3.png",
-      "color": "#000000",
+      "color": "#861D07",
       "unit": "",
       "recipes": {
         "input": [
@@ -5104,7 +5104,7 @@
       "id": "Product_Electronics4",
       "name": "Electronics IV",
       "icon": "electronics4.png",
-      "color": "#000000",
+      "color": "#7749B9",
       "unit": "",
       "recipes": {
         "input": [
@@ -5124,7 +5124,7 @@
       "id": "Product_Server",
       "name": "Server",
       "icon": "server.png",
-      "color": "#000000",
+      "color": "#5C7484",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5142,7 +5142,7 @@
       "id": "Product_Microchips",
       "name": "Microchips",
       "icon": "microchips.png",
-      "color": "#000000",
+      "color": "#1E5997",
       "unit": "",
       "recipes": {
         "input": [
@@ -5163,7 +5163,7 @@
       "id": "Product_MicrochipsStage1A",
       "name": "Microchips stage 1 a",
       "icon": "microchipsstage1a.png",
-      "color": "#000000",
+      "color": "#F1C9F9",
       "unit": "",
       "recipes": {
         "input": [
@@ -5184,7 +5184,7 @@
       "id": "Product_MicrochipsStage1B",
       "name": "Microchips stage 1 b",
       "icon": "microchipsstage1b.png",
-      "color": "#000000",
+      "color": "#F8DFC8",
       "unit": "",
       "recipes": {
         "input": [
@@ -5205,7 +5205,7 @@
       "id": "Product_MicrochipsStage1C",
       "name": "Microchips stage 1 c",
       "icon": "microchipsstage1c.png",
-      "color": "#000000",
+      "color": "#C3AEC0",
       "unit": "",
       "recipes": {
         "input": [
@@ -5226,7 +5226,7 @@
       "id": "Product_MicrochipsStage2A",
       "name": "Microchips stage 2 a",
       "icon": "microchipsstage2a.png",
-      "color": "#000000",
+      "color": "#EFB0F8",
       "unit": "",
       "recipes": {
         "input": [
@@ -5247,7 +5247,7 @@
       "id": "Product_MicrochipsStage2B",
       "name": "Microchips stage 2 b",
       "icon": "microchipsstage2b.png",
-      "color": "#000000",
+      "color": "#F8D0B0",
       "unit": "",
       "recipes": {
         "input": [
@@ -5268,7 +5268,7 @@
       "id": "Product_MicrochipsStage2C",
       "name": "Microchips stage 2 c",
       "icon": "microchipsstage2c.png",
-      "color": "#000000",
+      "color": "#CC90B7",
       "unit": "",
       "recipes": {
         "input": [
@@ -5289,7 +5289,7 @@
       "id": "Product_MicrochipsStage3A",
       "name": "Microchips stage 3 a",
       "icon": "microchipsstage3a.png",
-      "color": "#000000",
+      "color": "#E999F9",
       "unit": "",
       "recipes": {
         "input": [
@@ -5310,7 +5310,7 @@
       "id": "Product_MicrochipsStage3B",
       "name": "Microchips stage 3 b",
       "icon": "microchipsstage3b.png",
-      "color": "#000000",
+      "color": "#F9C199",
       "unit": "",
       "recipes": {
         "input": [
@@ -5331,7 +5331,7 @@
       "id": "Product_MicrochipsStage3C",
       "name": "Microchips stage 3 c",
       "icon": "microchipsstage3c.png",
-      "color": "#000000",
+      "color": "#CB83AE",
       "unit": "",
       "recipes": {
         "input": [
@@ -5352,7 +5352,7 @@
       "id": "Product_MicrochipsStage4A",
       "name": "Microchips stage 4 a",
       "icon": "microchipsstage4a.png",
-      "color": "#000000",
+      "color": "#E180F8",
       "unit": "",
       "recipes": {
         "input": [
@@ -5373,7 +5373,7 @@
       "id": "Product_MicrochipsStage4B",
       "name": "Microchips stage 4 b",
       "icon": "microchipsstage4b.png",
-      "color": "#000000",
+      "color": "#F9B280",
       "unit": "",
       "recipes": {
         "input": [
@@ -5394,7 +5394,7 @@
       "id": "Product_Diamond",
       "name": "Diamond",
       "icon": "diamond.png",
-      "color": "#000000",
+      "color": "#C6D7DC",
       "unit": "",
       "recipes": {
         "input": [
@@ -5416,7 +5416,7 @@
       "id": "Product_DiamondPaste",
       "name": "Diamond paste",
       "icon": "diamondpaste.png",
-      "color": "#000000",
+      "color": "#D7A115",
       "unit": "",
       "recipes": {
         "input": [
@@ -5436,7 +5436,7 @@
       "id": "Product_SapphireWafer",
       "name": "Sapphire wafer",
       "icon": "sapphirewafer.png",
-      "color": "#000000",
+      "color": "#6077EA",
       "unit": "",
       "recipes": {
         "input": [
@@ -5455,7 +5455,7 @@
       "id": "Product_Lens",
       "name": "Lens",
       "icon": "lens.png",
-      "color": "#000000",
+      "color": "#9BB7C8",
       "unit": "",
       "recipes": {
         "input": [
@@ -5474,7 +5474,7 @@
       "id": "Product_SolarCell",
       "name": "Solar cell",
       "icon": "solarcell.png",
-      "color": "#000000",
+      "color": "#2A9EEB",
       "unit": "",
       "recipes": {
         "input": [
@@ -5498,7 +5498,7 @@
       "id": "Product_SolarCellMono",
       "name": "Solar cell mono",
       "icon": "solarcellmono.png",
-      "color": "#000000",
+      "color": "#D1D1D1",
       "unit": "",
       "recipes": {
         "input": [
@@ -5517,7 +5517,7 @@
       "id": "Product_CompositePanel",
       "name": "Composite panel",
       "icon": "compositepanel.png",
-      "color": "#000000",
+      "color": "#8C9CC3",
       "unit": "",
       "recipes": {
         "input": [
@@ -5541,7 +5541,7 @@
       "id": "Product_CompositeBodyBasic",
       "name": "Composite core basic",
       "icon": "compositecorebasic.png",
-      "color": "#000000",
+      "color": "#CCCCCC",
       "unit": "",
       "recipes": {
         "input": [
@@ -5564,7 +5564,7 @@
       "id": "Product_CompositeCore",
       "name": "Composite core",
       "icon": "compositecore.png",
-      "color": "#000000",
+      "color": "#F5D43C",
       "unit": "",
       "recipes": {
         "input": [
@@ -5585,7 +5585,7 @@
       "id": "Product_ChemicalFuel",
       "name": "Chemical fuel",
       "icon": "chemicalfuel.png",
-      "color": "#000000",
+      "color": "#C8CDDB",
       "unit": "",
       "recipes": {
         "input": [
@@ -5607,7 +5607,7 @@
       "id": "Product_SpaceStationParts1",
       "name": "Station parts (basic)",
       "icon": "stationpartsbasic.png",
-      "color": "#000000",
+      "color": "#54ACE3",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5626,7 +5626,7 @@
       "id": "Product_SpaceStationParts2",
       "name": "Station parts",
       "icon": "stationparts.png",
-      "color": "#000000",
+      "color": "#E1BF2B",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5643,7 +5643,7 @@
       "id": "Product_CrewSupplies",
       "name": "Crew supplies",
       "icon": "crewsupplies.png",
-      "color": "#000000",
+      "color": "#516977",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5662,7 +5662,7 @@
       "id": "Product_SpaceProbeParts",
       "name": "Space probe parts",
       "icon": "spaceprobeparts.png",
-      "color": "#000000",
+      "color": "#C8C6C8",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5679,7 +5679,7 @@
       "id": "Product_AsteroidBoosterParts",
       "name": "Asteroid booster parts",
       "icon": "asteroidboosterparts.png",
-      "color": "#000000",
+      "color": "#808385",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5696,7 +5696,7 @@
       "id": "Product_CompactReactor",
       "name": "Compact reactor",
       "icon": "compactreactor.png",
-      "color": "#000000",
+      "color": "#8A8A8A",
       "unit": "",
       "recipes": {
         "input": [
@@ -5770,7 +5770,7 @@
       "id": "Product_Waste",
       "name": "Waste",
       "icon": "waste.png",
-      "color": "#000000",
+      "color": "#09A0B9",
       "unit": "",
       "recipes": {
         "input": [
@@ -5792,7 +5792,7 @@
       "id": "Product_WastePressed",
       "name": "Waste pressed",
       "icon": "wastepressed.png",
-      "color": "#000000",
+      "color": "#C1BEB4",
       "unit": "",
       "recipes": {
         "input": [
@@ -5813,7 +5813,7 @@
       "id": "Product_Flowers",
       "name": "Flowers",
       "icon": "flowers.png",
-      "color": "#000000",
+      "color": "#CEBE41",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5835,7 +5835,7 @@
       "id": "Product_Virtual_CargoShip",
       "name": "Cargo Ships Built",
       "icon": "cargoshipsbuilt.png",
-      "color": "#000000",
+      "color": "#FFFFFF",
       "unit": "",
       "recipes": {
         "input": [],
@@ -25201,7 +25201,7 @@
         },
         {
           "id": "Product_BlanketFuel",
-          "quantity": 16,
+          "quantity": 1,
           "optional": true
         }
       ],
@@ -25216,7 +25216,7 @@
         },
         {
           "id": "Product_BlanketFuelEnriched",
-          "quantity": 16,
+          "quantity": 1,
           "optional": true
         }
       ]
