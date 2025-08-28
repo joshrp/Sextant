@@ -5,6 +5,7 @@ import { useShallow } from "zustand/shallow";
 import { useFactoryStore } from "../FactoryContext";
 import type { Constraint } from "../solver/types";
 import { loadData, type Product } from "./loadJsonData";
+import { formatNumber } from "~/uiUtils";
 
 type ManifoldProps = {
   manifoldId: string
@@ -114,7 +115,7 @@ export default function Manifold(props: ManifoldProps) {
     key={"manifold-" + mani.id}
     data-isover={isOver || null}
     data-isunder={isUnder || null}
-    className="flex flex-col my-1 gap-2 border-2 border-gray-700 rounded bg-gray-800 p-1 "
+    className="flex flex-col my-1 gap-2 border-1 border-gray-700 rounded bg-gray-800 p-1"
   >
     <div
       className="summary flex flex-row h-8 pb-1"
@@ -131,7 +132,7 @@ export default function Manifold(props: ManifoldProps) {
 
       </div>
       <div className="w-[45%] h-5 justify-self-end-safe text-right">
-        <span className="">{mani.flexible ? mani.amount : ''}</span>
+        <span className="">{mani.flexible && mani.amount !== undefined ? (isOver ? "+" : "") + formatNumber(mani.amount, mani.unit) : ''}</span>
       </div>
     </div>
     <div
@@ -227,7 +228,7 @@ function ConstraintLockIcon(props: {
             rounded-xl box-border cursor-pointer inline-block p-1
             active:brightness-60 ml-auto mr-auto
             transition-[filter] duration-100 hover:brightness-140"
-
+    title={props.unlocked == "none" ? "Temporarily allow import/export" : "Disallow import/export"}
     onClick={props.onClick}
   >
     {props.unlocked == "none" ?

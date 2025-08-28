@@ -5,22 +5,23 @@ if (typeof window !== "undefined")
   LANG = window.navigator.language;
 
 export function formatNumber(value: number, unit: string = ''): string {
+  console.log('Formatting number:', value, unit);
   if (unit === "kW") {
-    if (value >= 1000) {
+    if (Math.abs(value) >= 1000) {
       value /= 1000;
       unit = "MW";
     }
-    if (value >= 1000) {
+    if (Math.abs(value) >= 1000) {
       value /= 1000;
       unit = "GW";
     }
   }
   if (unit === "TFlops") {
-    if (value > 1000) {
+    if (Math.abs(value) > 1000) {
       value = value / 1000;
       unit = "PFlops";
     }
-    if (value > 1000) {
+    if (Math.abs(value) > 1000) {
       value = value / 1000;
       unit = "EFlops";
     }

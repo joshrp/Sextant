@@ -28,7 +28,8 @@ body {
 
 .recipe-row:hover td {
   @apply bg-gray-100 dark:bg-gray-700;
-  @apply border-blue-900
+  @apply border-gray-600;
+  border-style: ridge;
 }
 
 .recipe-row td:first-child {

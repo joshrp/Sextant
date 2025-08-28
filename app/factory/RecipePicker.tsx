@@ -1,6 +1,6 @@
 import { ClockIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { loadData, type ProductId, type Recipe, type RecipeId } from "./graph/loadJsonData";
-import { machineIcon } from "~/uiUtils";
+import { formatNumber, machineIcon } from "~/uiUtils";
 
 const { products } = loadData();
 
@@ -48,7 +48,7 @@ export default function RecipePicker({
   const maxOutputCells = Math.max((maxOutputs * 2) - 1, 0);
   const maxInputCells = Math.max((maxInputs * 2) - 1, 0);
 
-  return (<table className="recipe-list w-full border-spacing-y-1 border-separate text-sm"><tbody>
+  return (<table className="recipe-list w-full mx-auto border-spacing-y-1 border-separate text-sm"><tbody>
     {recipesList.map(recipe => {
       const outputCells = Math.max((recipe.outputs.length * 2) - 1, 0);
       const inputCells = Math.max((recipe.inputs.length * 2) - 1, 0);
@@ -58,11 +58,11 @@ export default function RecipePicker({
       // prefix the inputs with empty divs to fill the grid
       const inputs = prefixInputCells.concat(recipe.inputs.map((input, index) => {
         return (<>
-          {index !== 0 && <td className="w-8"><PlusIcon /></td>}
-          <td key={input.product.id} className="has-tooltip">
-            <span className='tooltip rounded shadow-lg p-1 border-1 bg-gray-900 -mt-8 -ml-8 text-nowrap'>{input.product.name}</span>
+          {index !== 0 && <td className="w-6"><PlusIcon /></td>}
+          <td key={input.product.id} className="has-tooltip relative">
+            <span className='tooltip rounded shadow-lg p-1 border-1 border-gray-500 bg-gray-900 -top-4 left-1/2 -translate-x-1/2 text-nowrap'>{input.product.name}</span>
             <img src={'/assets/products/' + input.product.icon} alt={input.product.name} className="block mb-2 mx-auto max-w-14" />
-            {input.quantity}
+            {formatNumber(input.quantity, input.product.unit)}
           </td>
         </>);
       }));
@@ -70,12 +70,12 @@ export default function RecipePicker({
       // append the outputs with empty divs to fill the grid
       const outputs = recipe.outputs.map((output, index) => {
         return (<>
-          {index !== 0 && <td className="w-12"><PlusIcon /></td>}
+          {index !== 0 && <td className="w-6"><PlusIcon /></td>}
 
-          <td key={output.product.id} className="has-tooltip">
-            <span className='tooltip rounded shadow-lg p-1 border-1 bg-gray-900 -mt-8 -ml-8 text-nowrap'>{output.product.name}</span>
+          <td key={output.product.id} className="has-tooltip relative">
+            <span className='tooltip rounded shadow-lg p-1 border-1 border-gray-500 bg-gray-900 -top-4 left-1/2 -translate-x-1/2 text-nowrap'>{output.product.name}</span>
             <img src={'/assets/products/' + output.product.icon} alt={output.product.name} className="block mb-2 mx-auto max-w-[60px]" />
-            {Math.round(output.quantity) !== Math.round(output.quantity) ? output.quantity?.toFixed(2) || 0 : output.quantity}
+            {formatNumber(output.quantity, output.product.unit)}
           </td>
         </>);
       }).concat(suffixOutputCells);
@@ -83,13 +83,12 @@ export default function RecipePicker({
       return (<tr className="recipe-row cursor-pointer" onClick={() => {
         selectRecipe(recipe.id);
       }} key={recipe.id}>
-        <td className="recipe-machine max-w-30">
-          <div className="flex gap-1 items-center-safe">
-            <div className="flex-3">
-              <img src={machineIcon(recipe.machine)} alt={recipe.machine.name} className="block" />
+        <td className="recipe-machine">
+          <div className="flex gap-1">
+            <div className="flex-3 items-center-safe">
+              <img src={machineIcon(recipe.machine)} alt={recipe.machine.name} className="justify-self-center-safe max-w-20" />
               {recipe.machine.name}
             </div>
-            <div className="flex-1 w-4">&rarr;</div>
           </div>
         </td>
         {/* Inputs, Duration, Outputs */}
@@ -99,7 +98,7 @@ export default function RecipePicker({
             <path fillRule="evenodd" d="m -8 5 L 11 5 L 11 3 L 14 6 L 11 9 V 7 H -8 Z" clipRule="evenodd" />
           </svg><br />
 
-          {recipe.duration || 60} <ClockIcon className="inline w-4 pb-1  text-gray-500" />
+          {recipe.duration || 60} <ClockIcon className="inline w-4 pb-1 text-gray-500" />
         </td>
         {outputs}
       </tr>)
