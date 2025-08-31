@@ -160,11 +160,33 @@ export async function formatProductData(rawProducts: RawProduct[]) {
         color = rgbToHex(rgbs[0][0], rgbs[0][1], rgbs[0][2]);
     }
 
+    let transport: ProductSerialized["transport"] = "Virtual";
+    switch (rawProduct.type) {
+      case "CountableProductProto":
+        transport = "Flat";
+        break;
+      case "LooseProductProto":
+        transport = "Loose";
+        break;
+      case "FluidProductProto":
+        transport = "Pipe";
+        break;
+      case "MoltenProductProto":
+        transport = "Molten";
+        break;
+      case "VirtualProductProto":
+        transport = "Virtual";
+        break;
+      default:
+        console.warn(`Unknown product type ${rawProduct.type} for product ${rawProduct.name}, defaulting to Flat transport.`);
+    }
+
     productData.set(rawProduct.name, {
       id: rawProduct.id as Product["id"],
       name: rawProduct.name,
       icon: sanitizeFileName(rawProduct.icon) + ".png",
       color: color,
+      transport,
       unit: rawProduct.unit.replace("{0}", "").trim(), // Remove the {0} from the unit
       recipes: { input: [], output: [] },
       machines: { input: [], output: [] },

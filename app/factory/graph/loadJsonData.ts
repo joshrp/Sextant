@@ -72,6 +72,7 @@ export type ProductBase = {
   icon: string;
   color: string; // Hex color code
   unit: string; // "{0} kW" | "{0} TFlops" | ""
+  transport: "Flat" | "Loose" | "Pipe" | "Molten" | "Virtual"; // How this product is transported
 }
 
 export type ProductSerialized = ProductBase & {
@@ -124,11 +125,13 @@ export type RecipeSerialized = RecipeBase & {
   outputs: RecipeProductSerialized[];
 }
 
-let loadedData: {
+export type GameDataParsed = {
   machines: Map<MachineId, Machine>;
   products: Map<ProductId, Product>;
   recipes: Map<RecipeId, Recipe>;
-} | null = null;
+}
+
+let loadedData: GameDataParsed | null = null;
 
 export function loadData() {
   return loadedData || (loadedData = parseData());

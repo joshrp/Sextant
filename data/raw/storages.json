@@ -1,4 +1,4 @@
-{"game_version":"0.7.7.0","storages":[{
+{"game_version":"0.7.9.0","storages":[{
 "id":"StorageUnitT4","name":"Unit storage IV","category":"Storage","next_tier":"","workers":0,"maintenance_cost_units":"","maintenance_cost_quantity":0,"electricity_consumed":0,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"CountableProductProto","storage_capacity":5000,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/StorageUnitT4.png","build_costs":[{
 "product":"Construction Parts III","quantity":120
 }

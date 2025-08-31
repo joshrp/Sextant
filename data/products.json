@@ -963,8 +963,7 @@
         "CpAssemblyT2",
         "MechPartsAssemblyT2",
         "CpAssemblyT1",
-        "MechPartsAssemblyT1",
-        "CargoShipRecipe"
+        "MechPartsAssemblyT1"
       ],
       "output": [
         "IronCastingCooled",
@@ -1025,8 +1024,7 @@
         "Cp3AssemblyT1",
         "HouseholdGoodsAssemblyT1",
         "CoreFuelReprocessing",
-        "AnestheticsProduction",
-        "CargoShipRecipeT2"
+        "AnestheticsProduction"
       ],
       "output": [
         "SteelCastingCooledT2",
@@ -1380,8 +1378,7 @@
         "CompositePanelAssemblyT3",
         "CompositePanelAssemblyT2",
         "CompositePanelAssemblyT1",
-        "ChemicalFuelProduction",
-        "CargoShipRecipeT2"
+        "ChemicalFuelProduction"
       ],
       "output": [
         "AluminumCastingT2",
@@ -3127,8 +3124,7 @@
         "RubberProductionDiesel",
         "RubberProductionDieselWithCoal",
         "DieselReforming",
-        "FlareDiesel",
-        "CargoShipRecipeT2"
+        "FlareDiesel"
       ],
       "output": [
         "DieselDistillationBasic",
@@ -4152,21 +4148,6 @@
       "output": []
     }
   },
-  "Product_CargoShip": {
-    "id": "Product_CargoShip",
-    "name": "Cargo ship",
-    "icon": "cargoship.png",
-    "color": "#ffffff",
-    "unit": "",
-    "recipes": {
-      "input": [],
-      "output": []
-    },
-    "machines": {
-      "input": [],
-      "output": []
-    }
-  },
   "Product_ChickenCarcass": {
     "id": "Product_ChickenCarcass",
     "name": "Chicken carcass",
@@ -4626,8 +4607,7 @@
         "Cp2AssemblyT4",
         "Cp2AssemblyT3",
         "Cp2AssemblyT2",
-        "Cp2AssemblyT1",
-        "CargoShipRecipe"
+        "Cp2AssemblyT1"
       ],
       "output": [
         "CpAssemblyT5",
@@ -4656,8 +4636,7 @@
         "Cp3AssemblyT4",
         "Cp3AssemblyT3",
         "Cp3AssemblyT2",
-        "Cp3AssemblyT1",
-        "CargoShipRecipeT2"
+        "Cp3AssemblyT1"
       ],
       "output": [
         "Cp2AssemblyT5",
@@ -4738,9 +4717,7 @@
         "MaintenanceT2Recipe",
         "MaintenanceT2Recycling",
         "MaintenanceT3Recipe",
-        "MaintenanceT3Recycling",
-        "CargoShipRecipe",
-        "CargoShipRecipeT2"
+        "MaintenanceT3Recycling"
       ],
       "output": [
         "MechPartsAssemblyT5Iron",
@@ -4989,8 +4966,7 @@
         "VehicleParts1AssemblyT1",
         "MaintenanceT1Recipe",
         "MaintenanceT1Recycling",
-        "MaintenanceT0Recipe",
-        "CargoShipRecipe"
+        "MaintenanceT0Recipe"
       ],
       "output": [
         "ElectronicsAssemblyT5",
@@ -5822,24 +5798,6 @@
         "Crop_Flowers_Product_Fertilizer_1",
         "Crop_Flowers_Product_Fertilizer2_1",
         "Crop_Flowers_Product_FertilizerOrganic_1"
-      ]
-    },
-    "machines": {
-      "input": [],
-      "output": []
-    }
-  },
-  "Product_Virtual_CargoShip": {
-    "id": "Product_Virtual_CargoShip",
-    "name": "Cargo Ships Built",
-    "icon": "cargoshipsbuilt.png",
-    "color": "#ffffff",
-    "unit": "",
-    "recipes": {
-      "input": [],
-      "output": [
-        "CargoShipRecipe",
-        "CargoShipRecipeT2"
       ]
     },
     "machines": {

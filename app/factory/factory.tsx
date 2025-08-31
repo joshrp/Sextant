@@ -96,7 +96,7 @@ export function Factory() {
         </div>
       </div>
       {addRecipeNode ? (
-        <SelectorDialog title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
+        <SelectorDialog widthClassName="min-w-[90vw]" title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
           <RecipePicker
             productId={addRecipeNode.productId}
             selectRecipe={(recipeId) => {

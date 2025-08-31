@@ -4,13 +4,14 @@ import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { SelectorDialog } from 'app/components/Dialog';
+import { useShallow } from 'zustand/shallow';
+import ProductSelector from '~/components/ProductSelector';
 import useFactory, { useFactoryStore } from '~/factory/FactoryContext';
+import { formatNumber, productBackground, productIcon } from '~/uiUtils';
+import type { AddRecipeNode } from '../factory';
 import type { FactoryGoal } from '../solver/types';
 import { loadData, type Product, type ProductId } from './loadJsonData';
 import Manifold from './Manifold';
-import { useShallow } from 'zustand/shallow';
-import { formatNumber, productBackground, productIcon } from '~/uiUtils';
-import type { AddRecipeNode } from '../factory';
 
 const productData = loadData()?.products;
 
@@ -177,9 +178,9 @@ function SideBar({ addNewRecipe }: props) {
           }
           if (amount <= 0) return;
 
-          return <div key={"output-" + i} 
-                      style={{ backgroundColor: productBackground(product) }}
-                      className={`"output-goal w-full p-1 flex h-8
+          return <div key={"output-" + i}
+            style={{ backgroundColor: productBackground(product) }}
+            className={`"output-goal w-full p-1 flex h-8
                                 hover:brightness-110
                                 rounded cursor-pointer 
                                 ${isSurplus ? "bg-green-900" : ""}`}>
@@ -199,9 +200,9 @@ function SideBar({ addNewRecipe }: props) {
           const amount = input.amount * -1;
           if (amount <= 0) return;
           return <Menu key={"input-" + i}>
-            <MenuButton as="div" 
-                        style={{ backgroundColor: productBackground(product) }}
-                        className={`"input-goal w-full p-1 flex h-8
+            <MenuButton as="div"
+              style={{ backgroundColor: productBackground(product) }}
+              className={`"input-goal w-full p-1 flex h-8
                         hover:brightness-110
                         rounded cursor-pointer`}
             >
@@ -229,31 +230,19 @@ function SideBar({ addNewRecipe }: props) {
       </div>
       <button className="h-8 py-1 w-20 mx-auto my-4 block bg-blue-500 cursor-pointer" onClick={graphUpdateAction}><ArrowPathIcon className="mx-auto h-full" /></button>
     </div>
-    {selectProductDialog ? (
-      <SelectorDialog title={"Select Product to make"} isOpen={selectProductDialog} setIsOpen={setSelectProductDialog}>
-
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(50px,4fr))] gap-2 overflow-y-auto">
-          {productData.values().map((item) => {
-            return (<div key={item.id} className="">
-              <div id={"tooltip-" + item.id} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
-                {item.name}
-                <div className="tooltip-arrow" data-popper-arrow></div>
-              </div>
-              <button
-                data-tooltip-target={"tooltip-" + item.id}
-                style={{ borderColor: item.color }}
-                className={"cursor-pointer bg-transparent hover:bg-gray-700 hover:border-2  p-2 hover:p-1 rounded block"}
-                onClick={() => editGoalFor(item)}
-              ><img src={'/assets/products/' + item.icon} title={item.name} className="inline-block" />
-              </button>
-            </div>)
-          }).toArray()}
-        </div>
-      </SelectorDialog>
-
-    ) : ("")}
+    <ProductSelector
+      products={productData}
+      isOpen={selectProductDialog}
+      setIsOpen={setSelectProductDialog}
+      onSelect={editGoalFor}
+    />
     {editGoal ? (
-      <SelectorDialog title={"Change " + productData.get(editGoal.productId)?.name + " Goal"} isOpen={editGoal !== null} setIsOpen={() => setEditGoal(null)}>
+      <SelectorDialog 
+        title={"Change " + productData.get(editGoal.productId)?.name + " Goal"} 
+        isOpen={editGoal !== null} 
+        setIsOpen={() => setEditGoal(null)}
+        widthClassName='min-w-140 max-w-[90vw]'
+        >
         <NewProductOptions addGoal={addGoal} goal={editGoal} />
       </SelectorDialog>
     ) : ("")}
@@ -270,7 +259,12 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
   const updateState = (e: ChangeEvent<HTMLInputElement>) => {
     const prop = e.target.name;
     if (!prop) return;
-    setGoalData(d => ({ ...d, [prop]: (e.target.value) }));
+    let newVal: number|string = e.target.value;
+    if (e.target.type == "number") {
+      newVal = parseFloat(newVal);
+      if (isNaN(newVal as number)) newVal = 0;
+    }
+    setGoalData(d => ({ ...d, [prop]: newVal }));
   }
 
   return <>

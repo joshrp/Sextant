@@ -5,7 +5,6 @@ if (typeof window !== "undefined")
   LANG = window.navigator.language;
 
 export function formatNumber(value: number, unit: string = ''): string {
-  console.log('Formatting number:', value, unit);
   if (unit === "kW") {
     if (Math.abs(value) >= 1000) {
       value /= 1000;

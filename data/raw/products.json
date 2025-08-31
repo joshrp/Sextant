@@ -1,4 +1,4 @@
-{"game_version":"0.7.7.0","products":[{
+{"game_version":"0.7.9.0","products":[{
 "id":"Product_Virtual_Electricity","name":"Electricity","icon":"Electricity","type":"VirtualProductProto","icon_path":"Assets/Base/Products/Icons/Electricity.svg","unit":"{0} kW"
 }
 ,{
@@ -678,8 +678,5 @@
 }
 ,{
 "id":"Product_Flowers","name":"Flowers","icon":"Flowers","type":"CountableProductProto","icon_path":"Assets/Base/Products/Icons/Flowers.svg","unit":""
-}
-,{
-"id":"Product_Virtual_CargoShip","name":"Cargo Ships Built","icon":"CargoShipsBuilt","type":"VirtualProductProto","icon_path":"Assets/Unity/UserInterface/WorldMap/CargoShipStoryIcon256.png","unit":""
 }
 ]}

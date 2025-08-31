@@ -1,4 +1,4 @@
-{"game_version":"0.7.7.0","machines_and_buildings":[{
+{"game_version":"0.7.9.0","machines_and_buildings":[{
 "id":"TurbineSuperPress","name":"Super-pressure turbine","category":"General","next_tier":"","workers":1,"maintenance_cost_units":"Maintenance II","maintenance_cost_quantity":3,"electricity_consumed":0,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/TurbineSuperPress.png","build_costs":[{
 "product":"Construction Parts IV","quantity":40
 }
@@ -139,24 +139,6 @@
 }
 ,{
 "product":"Solar cell mono","quantity":120
-}
-],"recipes":[]
-}
-,{
-"id":"SolarPanelQuarter","name":"Solar Panel Quarter","category":"General","next_tier":"","workers":0,"maintenance_cost_units":"Maintenance II","maintenance_cost_quantity":0.0546875,"electricity_consumed":0,"electricity_generated":40,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/SolarPanels/SolarPanel.png","build_costs":[{
-"product":"Construction Parts IV","quantity":3
-}
-,{
-"product":"Solar cell","quantity":30
-}
-],"recipes":[]
-}
-,{
-"id":"SolarPanelMonoQuarter","name":"Solar Panel (Mono) Quarter","category":"General","next_tier":"","workers":0,"maintenance_cost_units":"Maintenance II","maintenance_cost_quantity":0.05957031,"electricity_consumed":0,"electricity_generated":60,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/SolarPanels/SolarPanelMono.png","build_costs":[{
-"product":"Construction Parts IV","quantity":3
-}
-,{
-"product":"Solar cell mono","quantity":30
 }
 ],"recipes":[]
 }
@@ -753,11 +735,11 @@
 ]
 }
 ,{
-"id":"SaltMakingHeated","name":"Salt making","duration":30,"power_multiplier":1.00,"inputs":[{
-"name":"Seawater","quantity":48
+"id":"SaltMakingHeated","name":"Salt making","duration":20,"power_multiplier":1.00,"inputs":[{
+"name":"Seawater","quantity":32
 }
 ],"outputs":[{
-"name":"Salt","quantity":3
+"name":"Salt","quantity":2
 }
 ]
 }
@@ -786,11 +768,11 @@
 ]
 }
 ,{
-"id":"SaltMaking","name":"Salt making","duration":60,"power_multiplier":1.00,"inputs":[{
-"name":"Seawater","quantity":48
+"id":"SaltMaking","name":"Salt making","duration":40,"power_multiplier":1.00,"inputs":[{
+"name":"Seawater","quantity":32
 }
 ],"outputs":[{
-"name":"Salt","quantity":3
+"name":"Salt","quantity":2
 }
 ]
 }
@@ -6355,91 +6337,91 @@
 }
 ],"recipes":[{
 "id":"OceanWaterDumping","name":"Water dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Water","quantity":8
+"name":"Water","quantity":2
 }
 ],"outputs":[]
 }
 ,{
 "id":"BrineDumping","name":"Brine dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Brine","quantity":8
+"name":"Brine","quantity":2
 }
 ],"outputs":[]
 }
 ,{
 "id":"OceanWasteWaterPumping","name":"Waste water dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Waste water","quantity":8
+"name":"Waste water","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":8
+"name":"Water pollution","quantity":2
 }
 ]
 }
 ,{
 "id":"SourWaterDumping","name":"Sour water dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Sour water","quantity":8
+"name":"Sour water","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":16
+"name":"Water pollution","quantity":4
 }
 ]
 }
 ,{
 "id":"WasteAcidDumping","name":"Acid dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Acid","quantity":8
+"name":"Acid","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":16
+"name":"Water pollution","quantity":4
 }
 ]
 }
 ,{
 "id":"ToxicSlurryDumping","name":"Toxic slurry dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Toxic slurry","quantity":8
+"name":"Toxic slurry","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":20
+"name":"Water pollution","quantity":5
 }
 ]
 }
 ,{
 "id":"SeaWaterDumping","name":"Seawater dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Seawater","quantity":8
+"name":"Seawater","quantity":2
 }
 ],"outputs":[]
 }
 ,{
 "id":"FertilizerOrganicDumping","name":"Fertilizer dumping","duration":4,"power_multiplier":1.00,"inputs":[{
-"name":"Fertilizer (organic)","quantity":16
+"name":"Fertilizer (organic)","quantity":4
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":4
+"name":"Water pollution","quantity":1
 }
 ]
 }
 ,{
 "id":"FertilizerChem1Dumping","name":"Fertilizer dumping","duration":4,"power_multiplier":1.00,"inputs":[{
-"name":"Fertilizer I","quantity":8
+"name":"Fertilizer I","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":4
+"name":"Water pollution","quantity":1
 }
 ]
 }
 ,{
 "id":"FertilizerChem2Dumping","name":"Fertilizer dumping","duration":4,"power_multiplier":1.00,"inputs":[{
-"name":"Fertilizer II","quantity":8
+"name":"Fertilizer II","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":8
+"name":"Water pollution","quantity":2
 }
 ]
 }
 ,{
 "id":"RedMudDumping","name":"Red mud dumping","duration":2,"power_multiplier":1.00,"inputs":[{
-"name":"Red mud","quantity":8
+"name":"Red mud","quantity":2
 }
 ],"outputs":[{
-"name":"Water pollution","quantity":8
+"name":"Water pollution","quantity":2
 }
 ]
 }
@@ -7209,51 +7191,6 @@
 ]
 }
 ]
-}
-,{
-"id":"CargoShipDrydock","name":"Cargo Ship Drydock","category":"Cargo docks","next_tier":"","workers":0,"maintenance_cost_units":"","maintenance_cost_quantity":0,"electricity_consumed":1000,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/CargoShipDryDock.png","build_costs":[],"recipes":[{
-"id":"CargoShipRecipe","name":"Build Cargo Ship","duration":1800,"power_multiplier":2.00,"inputs":[{
-"name":"Iron","quantity":300
-}
-,{
-"name":"Construction Parts","quantity":100
-}
-,{
-"name":"Mechanical Parts","quantity":150
-}
-,{
-"name":"Electronics","quantity":50
-}
-],"outputs":[{
-"name":"Cargo Ships Built","quantity":1
-}
-]
-}
-,{
-"id":"CargoShipRecipeT2","name":"Build Cargo Ship T2","duration":900,"power_multiplier":1.00,"inputs":[{
-"name":"Steel","quantity":600
-}
-,{
-"name":"Aluminum","quantity":150
-}
-,{
-"name":"Mechanical Parts","quantity":250
-}
-,{
-"name":"Construction Parts II","quantity":100
-}
-,{
-"name":"Diesel","quantity":250
-}
-],"outputs":[{
-"name":"Cargo Ships Built","quantity":1
-}
-]
-}
-]
-}
-,{
-"id":"CargoShipDryDock","name":"Cargo Ship Drydock","category":"Cargo docks","next_tier":"","workers":0,"maintenance_cost_units":"","maintenance_cost_quantity":0,"electricity_consumed":1000,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/CargoShipDryDock.png","build_costs":[],"recipes":[]
 }
 ,{
 "id":"FarmT4","name":"Greenhouse II","category":"Food production","next_tier":"","workers":20,"maintenance_cost_units":"Maintenance I","maintenance_cost_quantity":8,"electricity_consumed":0,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":0,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/FarmT4.png","build_costs":[{
@@ -8765,7 +8702,7 @@
 ],"recipes":[]
 }
 ,{
-"id":"SettlementFoodModuleT2","name":"Food market II","category":"Housing & services","next_tier":"","workers":6,"maintenance_cost_units":"","maintenance_cost_quantity":0,"electricity_consumed":0,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":800,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/SettlementFoodModuleT2.png","build_costs":[{
+"id":"SettlementFoodModuleT2","name":"Food market II","category":"Housing & services","next_tier":"","workers":6,"maintenance_cost_units":"","maintenance_cost_quantity":0,"electricity_consumed":0,"electricity_generated":0,"computing_consumed":0,"computing_generated":0,"product_type":"","storage_capacity":400,"unity_cost":0,"research_speed":0,"icon_path":"Assets/Unity/Generated/Icons/LayoutEntity/SettlementFoodModuleT2.png","build_costs":[{
 "product":"Construction Parts II","quantity":40
 }
 ],"recipes":[]

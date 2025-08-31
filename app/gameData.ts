@@ -6,6 +6,7 @@
       "name": "Electricity",
       "icon": "electricity.png",
       "color": "#FBDB2C",
+      "transport": "Virtual",
       "unit": "kW",
       "recipes": {
         "input": [
@@ -28,6 +29,7 @@
       "name": "Mechanical power",
       "icon": "mechanicalpower.png",
       "color": "#D2D9E9",
+      "transport": "Virtual",
       "unit": "kW",
       "recipes": {
         "input": [
@@ -52,6 +54,7 @@
       "name": "Computing",
       "icon": "computing.png",
       "color": "#FFFFFF",
+      "transport": "Virtual",
       "unit": "TFlops",
       "recipes": {
         "input": [],
@@ -69,6 +72,7 @@
       "name": "Unity",
       "icon": "unity.png",
       "color": "#FFFFFF",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -84,6 +88,7 @@
       "name": "Heat",
       "icon": "heat.png",
       "color": "#ABB7C0",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -99,6 +104,7 @@
       "name": "Maintenance I",
       "icon": "maintenance1.png",
       "color": "#B4B4B4",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -118,6 +124,7 @@
       "name": "Maintenance II",
       "icon": "maintenance2.png",
       "color": "#B29A2C",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -136,6 +143,7 @@
       "name": "Maintenance III",
       "icon": "maintenance3.png",
       "color": "#B23B2C",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [
@@ -156,6 +164,7 @@
       "name": "Space crew",
       "icon": "spacecrew.png",
       "color": "#B0A00C",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -171,6 +180,7 @@
       "name": "Space research points",
       "icon": "spaceresearchpoints.png",
       "color": "#B2E54D",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -186,6 +196,7 @@
       "name": "Wood",
       "icon": "wood.png",
       "color": "#9E6424",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -216,6 +227,7 @@
       "name": "Woodchips",
       "icon": "woodchips.png",
       "color": "#D8C586",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -237,6 +249,7 @@
       "name": "Fertilizer I",
       "icon": "fertilizer1.png",
       "color": "#938166",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -290,6 +303,7 @@
       "name": "Fertilizer II",
       "icon": "fertilizer2.png",
       "color": "#938D4F",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -339,6 +353,7 @@
       "name": "Fertilizer (organic)",
       "icon": "fertilizerorganic.png",
       "color": "#7B8A45",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -392,6 +407,7 @@
       "name": "Tree sapling",
       "icon": "treesapling.png",
       "color": "#74B094",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -420,6 +436,7 @@
       "name": "Paper",
       "icon": "paper.png",
       "color": "#EEEEEE",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -445,6 +462,7 @@
       "name": "Dirt",
       "icon": "dirt.png",
       "color": "#CA8353",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -466,6 +484,7 @@
       "name": "Compost",
       "icon": "compost.png",
       "color": "#9F7D5A",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -506,6 +525,7 @@
       "name": "Sludge",
       "icon": "sludge.png",
       "color": "#6B533B",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -527,6 +547,7 @@
       "name": "Limestone",
       "icon": "limestone.png",
       "color": "#CDCD9A",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -564,6 +585,7 @@
       "name": "Rock",
       "icon": "rock.png",
       "color": "#746C68",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -583,6 +605,7 @@
       "name": "Gravel",
       "icon": "gravel.png",
       "color": "#736B67",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -616,6 +639,7 @@
       "name": "Manufactured sand",
       "icon": "manufacturedsand.png",
       "color": "#ACACAC",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -643,6 +667,7 @@
       "name": "Filter media",
       "icon": "filtermedia.png",
       "color": "#CEBE80",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -666,6 +691,7 @@
       "name": "Coal",
       "icon": "coal.png",
       "color": "#676060",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -711,6 +737,7 @@
       "name": "Graphite",
       "icon": "graphite.png",
       "color": "#6C6767",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -752,6 +779,7 @@
       "name": "Slag",
       "icon": "slag.png",
       "color": "#A9A9A5",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -793,6 +821,7 @@
       "name": "Slag crushed",
       "icon": "slagcrushed.png",
       "color": "#B6B3AF",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -818,6 +847,7 @@
       "name": "Iron ore",
       "icon": "ironore.png",
       "color": "#B96346",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -837,6 +867,7 @@
       "name": "Iron ore crushed",
       "icon": "ironorecrushed.png",
       "color": "#B85539",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -860,6 +891,7 @@
       "name": "Iron scrap",
       "icon": "ironscrap.png",
       "color": "#9F442D",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -883,6 +915,7 @@
       "name": "Iron scrap pressed",
       "icon": "ironscrappressed.png",
       "color": "#868686",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -902,6 +935,7 @@
       "name": "Molten iron",
       "icon": "molteniron.png",
       "color": "#FA9A3A",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -932,6 +966,7 @@
       "name": "Molten steel",
       "icon": "moltensteel.png",
       "color": "#4B5360",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -953,6 +988,7 @@
       "name": "Iron",
       "icon": "iron.png",
       "color": "#797979",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -965,8 +1001,7 @@
           "CpAssemblyT2",
           "MechPartsAssemblyT2",
           "CpAssemblyT1",
-          "MechPartsAssemblyT1",
-          "CargoShipRecipe"
+          "MechPartsAssemblyT1"
         ],
         "output": [
           "IronCastingCooled",
@@ -983,6 +1018,7 @@
       "name": "Steel",
       "icon": "steel.png",
       "color": "#B9B9B9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1027,8 +1063,7 @@
           "Cp3AssemblyT1",
           "HouseholdGoodsAssemblyT1",
           "CoreFuelReprocessing",
-          "AnestheticsProduction",
-          "CargoShipRecipeT2"
+          "AnestheticsProduction"
         ],
         "output": [
           "SteelCastingCooledT2",
@@ -1045,6 +1080,7 @@
       "name": "Copper ore",
       "icon": "copperore.png",
       "color": "#2C5424",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1064,6 +1100,7 @@
       "name": "Copper ore crushed",
       "icon": "copperorecrushed.png",
       "color": "#2D572D",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1086,6 +1123,7 @@
       "name": "Copper scrap",
       "icon": "copperscrap.png",
       "color": "#DA8C57",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1109,6 +1147,7 @@
       "name": "Copper scrap pressed",
       "icon": "copperscrappressed.png",
       "color": "#D98B54",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1128,6 +1167,7 @@
       "name": "Molten copper",
       "icon": "moltencopper.png",
       "color": "#FBC93A",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -1155,6 +1195,7 @@
       "name": "Impure copper",
       "icon": "impurecopper.png",
       "color": "#C46B44",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1176,6 +1217,7 @@
       "name": "Copper",
       "icon": "copper.png",
       "color": "#D28C5B",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1211,6 +1253,7 @@
       "name": "Bauxite",
       "icon": "bauxite.png",
       "color": "#9B4B2B",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1229,6 +1272,7 @@
       "name": "Bauxite powder",
       "icon": "bauxitepowder.png",
       "color": "#AC512F",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1249,6 +1293,7 @@
       "name": "Red mud",
       "icon": "redmud.png",
       "color": "#6E4134",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -1270,6 +1315,7 @@
       "name": "Hydrated alumina",
       "icon": "hydratedalumina.png",
       "color": "#5CD6F9",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1290,6 +1336,7 @@
       "name": "Alumina",
       "icon": "alumina.png",
       "color": "#C2C2C2",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1311,6 +1358,7 @@
       "name": "Aluminum scrap",
       "icon": "aluminumscrap.png",
       "color": "#ACACAC",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1332,6 +1380,7 @@
       "name": "Aluminum scrap pressed",
       "icon": "aluminumscrappressed.png",
       "color": "#B2B2B2",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1351,6 +1400,7 @@
       "name": "Molten aluminum",
       "icon": "moltenaluminum.png",
       "color": "#EDC34A",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -1374,6 +1424,7 @@
       "name": "Aluminum",
       "icon": "aluminum.png",
       "color": "#D7D7D7",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1382,8 +1433,7 @@
           "CompositePanelAssemblyT3",
           "CompositePanelAssemblyT2",
           "CompositePanelAssemblyT1",
-          "ChemicalFuelProduction",
-          "CargoShipRecipeT2"
+          "ChemicalFuelProduction"
         ],
         "output": [
           "AluminumCastingT2",
@@ -1400,6 +1450,7 @@
       "name": "Titanium ore",
       "icon": "titaniumore.png",
       "color": "#747E88",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1418,6 +1469,7 @@
       "name": "Titanium ore crushed",
       "icon": "titaniumorecrushed.png",
       "color": "#2A2A2A",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1438,6 +1490,7 @@
       "name": "Titanium slag",
       "icon": "titaniumslag.png",
       "color": "#5C5C5C",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1457,6 +1510,7 @@
       "name": "Titanium chloride",
       "icon": "titaniumchloride.png",
       "color": "#948759",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -1476,6 +1530,7 @@
       "name": "Titanium chloride (pure)",
       "icon": "titaniumchloridepure.png",
       "color": "#939459",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -1495,6 +1550,7 @@
       "name": "Titanium sponge",
       "icon": "titaniumsponge.png",
       "color": "#A8A9B0",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1514,6 +1570,7 @@
       "name": "Molten titanium",
       "icon": "moltentitanium.png",
       "color": "#F99A3A",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -1533,6 +1590,7 @@
       "name": "Molten titanium alloy",
       "icon": "moltentitaniumalloy.png",
       "color": "#F9A839",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -1552,6 +1610,7 @@
       "name": "Titanium alloy",
       "icon": "titaniumalloy.png",
       "color": "#BBBBB0",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1572,6 +1631,7 @@
       "name": "Gold ore",
       "icon": "goldore.png",
       "color": "#69563B",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1590,6 +1650,7 @@
       "name": "Gold ore crushed",
       "icon": "goldorecrushed.png",
       "color": "#816951",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1611,6 +1672,7 @@
       "name": "Gold ore powder",
       "icon": "goldorepowder.png",
       "color": "#796454",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1631,6 +1693,7 @@
       "name": "Gold ore concentrate",
       "icon": "goldoreconcentrate.png",
       "color": "#A08130",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1650,6 +1713,7 @@
       "name": "Gold",
       "icon": "gold.png",
       "color": "#E59F1E",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1680,6 +1744,7 @@
       "name": "Gold scrap",
       "icon": "goldscrap.png",
       "color": "#D4CC4E",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1700,6 +1765,7 @@
       "name": "Gold scrap pressed",
       "icon": "goldscrappressed.png",
       "color": "#377236",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1719,6 +1785,7 @@
       "name": "Sand",
       "icon": "sand.png",
       "color": "#BA9B53",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1757,6 +1824,7 @@
       "name": "Molten glass",
       "icon": "moltenglass.png",
       "color": "#F8C437",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -1788,6 +1856,7 @@
       "name": "Broken glass",
       "icon": "brokenglass.png",
       "color": "#9F442D",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1810,6 +1879,7 @@
       "name": "Glass",
       "icon": "glass.png",
       "color": "#82C9C9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1847,6 +1917,7 @@
       "name": "Glass mix",
       "icon": "glassmix.png",
       "color": "#B89A55",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1872,6 +1943,7 @@
       "name": "Uranium ore",
       "icon": "uraniumore.png",
       "color": "#869598",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1890,6 +1962,7 @@
       "name": "Uranium ore powder",
       "icon": "uraniumorepowder.png",
       "color": "#A7B8AC",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1910,6 +1983,7 @@
       "name": "Yellowcake",
       "icon": "yellowcake.png",
       "color": "#BBC151",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -1930,6 +2004,7 @@
       "name": "Enriched uranium (4%)",
       "icon": "enricheduranium4.png",
       "color": "#6A757B",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1954,6 +2029,7 @@
       "name": "Enriched uranium (20%)",
       "icon": "enricheduranium20.png",
       "color": "#80D077",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1976,6 +2052,7 @@
       "name": "Reprocessed uranium (1%)",
       "icon": "reprocesseduranium1.png",
       "color": "#9CA494",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -1995,6 +2072,7 @@
       "name": "Plutonium",
       "icon": "plutonium.png",
       "color": "#5DAB4E",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2018,6 +2096,7 @@
       "name": "Depleted uranium",
       "icon": "depleteduranium.png",
       "color": "#505761",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -2040,6 +2119,7 @@
       "name": "Uranium rod",
       "icon": "uraniumrod.png",
       "color": "#838383",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2064,6 +2144,7 @@
       "name": "MOX rod",
       "icon": "moxrod.png",
       "color": "#768453",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2084,6 +2165,7 @@
       "name": "Spent fuel",
       "icon": "spentfuel.png",
       "color": "#DFB857",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2107,6 +2189,7 @@
       "name": "Spent MOX",
       "icon": "spentmox.png",
       "color": "#D47E4F",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2127,6 +2210,7 @@
       "name": "Fission product",
       "icon": "fissionproduct.png",
       "color": "#467FCD",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2147,6 +2231,7 @@
       "name": "Retired waste",
       "icon": "retiredwaste.png",
       "color": "#090908",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2164,6 +2249,7 @@
       "name": "Core fuel",
       "icon": "corefuel.png",
       "color": "#A77D7D",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2189,6 +2275,7 @@
       "name": "Core fuel (spent)",
       "icon": "corefuelspent.png",
       "color": "#988266",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2211,6 +2298,7 @@
       "name": "Blanket fuel",
       "icon": "blanketfuel.png",
       "color": "#8694A7",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2237,6 +2325,7 @@
       "name": "Blanket fuel (enriched)",
       "icon": "blanketfuelenriched.png",
       "color": "#928BA7",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2260,6 +2349,7 @@
       "name": "Quartz",
       "icon": "quartz.png",
       "color": "#806330",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -2278,6 +2368,7 @@
       "name": "Quartz crushed",
       "icon": "quartzcrushed.png",
       "color": "#BDBAA7",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -2299,6 +2390,7 @@
       "name": "Molten silicon",
       "icon": "moltensilicon.png",
       "color": "#BCC8CE",
+      "transport": "Molten",
       "unit": "",
       "recipes": {
         "input": [
@@ -2319,6 +2411,7 @@
       "name": "Silicon (poly)",
       "icon": "siliconpoly.png",
       "color": "#D6DFE3",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2344,6 +2437,7 @@
       "name": "Silicon wafer",
       "icon": "siliconwafer.png",
       "color": "#BCBCBC",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -2365,6 +2459,7 @@
       "name": "Water",
       "icon": "water.png",
       "color": "#7994B0",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2576,6 +2671,7 @@
       "name": "Chilled water",
       "icon": "chilledwater.png",
       "color": "#6B9997",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2595,6 +2691,7 @@
       "name": "Seawater",
       "icon": "seawater.png",
       "color": "#8089AF",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2626,6 +2723,7 @@
       "name": "Brine",
       "icon": "brine.png",
       "color": "#A9A9A9",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2659,6 +2757,7 @@
       "name": "Waste water",
       "icon": "wastewater.png",
       "color": "#594529",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2682,6 +2781,7 @@
       "name": "Toxic slurry",
       "icon": "toxicslurry.png",
       "color": "#939C62",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2703,6 +2803,7 @@
       "name": "Water pollution",
       "icon": "waterpollution.png",
       "color": "#BFCDD7",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2727,6 +2828,7 @@
       "name": "Air pollution",
       "icon": "airpollution.png",
       "color": "#BECCD5",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -2764,6 +2866,7 @@
       "name": "Chlorine",
       "icon": "chlorine.png",
       "color": "#91933E",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2791,6 +2894,7 @@
       "name": "Steam (super)",
       "icon": "steamsuper.png",
       "color": "#8E4B4B",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2819,6 +2923,7 @@
       "name": "Steam (high)",
       "icon": "steamhigh.png",
       "color": "#A1613B",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2877,6 +2982,7 @@
       "name": "Steam (low)",
       "icon": "steamlow.png",
       "color": "#466D8D",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2915,6 +3021,7 @@
       "name": "Steam (depleted)",
       "icon": "steamdepleted.png",
       "color": "#555555",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -2944,6 +3051,7 @@
       "name": "Salt",
       "icon": "salt.png",
       "color": "#EBEBF2",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -2983,6 +3091,7 @@
       "name": "Exhaust",
       "icon": "exhaust.png",
       "color": "#666666",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3057,6 +3166,7 @@
       "name": "Recyclables",
       "icon": "recyclables.png",
       "color": "#342E26",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3084,6 +3194,7 @@
       "name": "Recyclables pressed",
       "icon": "recyclablespressed.png",
       "color": "#4A6936",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -3101,6 +3212,7 @@
       "name": "Crude oil",
       "icon": "crudeoil.png",
       "color": "#3F3F3F",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3121,6 +3233,7 @@
       "name": "Diesel",
       "icon": "diesel.png",
       "color": "#AD8F3B",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3129,8 +3242,7 @@
           "RubberProductionDiesel",
           "RubberProductionDieselWithCoal",
           "DieselReforming",
-          "FlareDiesel",
-          "CargoShipRecipeT2"
+          "FlareDiesel"
         ],
         "output": [
           "DieselDistillationBasic",
@@ -3152,6 +3264,7 @@
       "name": "Naphtha",
       "icon": "naphtha.png",
       "color": "#9F985E",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3179,6 +3292,7 @@
       "name": "Fuel gas",
       "icon": "fuelgas.png",
       "color": "#875E2B",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3223,6 +3337,7 @@
       "name": "Sulfur",
       "icon": "sulfur.png",
       "color": "#D5DD82",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3254,6 +3369,7 @@
       "name": "Sour water",
       "icon": "sourwater.png",
       "color": "#7D8B5D",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3276,6 +3392,7 @@
       "name": "Ammonia",
       "icon": "ammonia.png",
       "color": "#8DA5BA",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3306,6 +3423,7 @@
       "name": "Acid",
       "icon": "acid.png",
       "color": "#996F6A",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3346,6 +3464,7 @@
       "name": "Heavy oil",
       "icon": "heavyoil.png",
       "color": "#5B4927",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3369,6 +3488,7 @@
       "name": "Medium oil",
       "icon": "mediumoil.png",
       "color": "#635A63",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3389,6 +3509,7 @@
       "name": "Light oil",
       "icon": "lightoil.png",
       "color": "#6C6F43",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3410,6 +3531,7 @@
       "name": "Plastic",
       "icon": "plastic.png",
       "color": "#C5CCCB",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3454,6 +3576,7 @@
       "name": "Rubber",
       "icon": "rubber.png",
       "color": "#5A626C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3481,6 +3604,7 @@
       "name": "Hydrogen",
       "icon": "hydrogen.png",
       "color": "#AAB7DE",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3519,6 +3643,7 @@
       "name": "Nitrogen",
       "icon": "nitrogen.png",
       "color": "#576F93",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3543,6 +3668,7 @@
       "name": "Carbon dioxide",
       "icon": "carbondioxide.png",
       "color": "#555555",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3578,6 +3704,7 @@
       "name": "Ethanol",
       "icon": "ethanol.png",
       "color": "#9D9D9D",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -3607,6 +3734,7 @@
       "name": "Potato",
       "icon": "potato.png",
       "color": "#6E4110",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3638,6 +3766,7 @@
       "name": "Corn",
       "icon": "corn.png",
       "color": "#8BC252",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3670,6 +3799,7 @@
       "name": "Wheat",
       "icon": "wheat.png",
       "color": "#F8D73A",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3701,6 +3831,7 @@
       "name": "Soybean",
       "icon": "soybean.png",
       "color": "#91BC72",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3733,6 +3864,7 @@
       "name": "Sugar cane",
       "icon": "sugarcane.png",
       "color": "#EFCE57",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3758,6 +3890,7 @@
       "name": "Canola",
       "icon": "canola.png",
       "color": "#DFBF1E",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3787,6 +3920,7 @@
       "name": "Vegetables",
       "icon": "vegetables.png",
       "color": "#BA542A",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3818,6 +3952,7 @@
       "name": "Fruit",
       "icon": "fruit.png",
       "color": "#E1DC40",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3843,6 +3978,7 @@
       "name": "Poppy",
       "icon": "poppy.png",
       "color": "#1EBC40",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3868,6 +4004,7 @@
       "name": "Bread",
       "icon": "bread.png",
       "color": "#F19E3C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3892,6 +4029,7 @@
       "name": "Flour",
       "icon": "flour.png",
       "color": "#81B8F9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3913,6 +4051,7 @@
       "name": "Animal feed",
       "icon": "animalfeed.png",
       "color": "#4E71AC",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3948,6 +4087,7 @@
       "name": "Biomass",
       "icon": "biomass.png",
       "color": "#7BAF51",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -3973,6 +4113,7 @@
       "name": "Eggs",
       "icon": "eggs.png",
       "color": "#D6BCA8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -3996,6 +4137,7 @@
       "name": "Tofu",
       "icon": "tofu.png",
       "color": "#FAE5C6",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4017,6 +4159,7 @@
       "name": "Cooking oil",
       "icon": "cookingoil.png",
       "color": "#A49442",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -4042,6 +4185,7 @@
       "name": "Meat",
       "icon": "meat.png",
       "color": "#D72B41",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4063,6 +4207,7 @@
       "name": "Sausage",
       "icon": "sausage.png",
       "color": "#EB8049",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4080,6 +4225,7 @@
       "name": "Snack",
       "icon": "snack.png",
       "color": "#C6473A",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4098,6 +4244,7 @@
       "name": "Cake",
       "icon": "cake.png",
       "color": "#FAE49F",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4115,6 +4262,7 @@
       "name": "Food pack",
       "icon": "foodpack.png",
       "color": "#DB9242",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4144,6 +4292,7 @@
       "name": "Chicken",
       "icon": "chicken.png",
       "color": "#E6DBD3",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4159,6 +4308,7 @@
       "name": "Cargo ship",
       "icon": "cargoship.png",
       "color": "#FFFFFF",
+      "transport": "Virtual",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4174,6 +4324,7 @@
       "name": "Chicken carcass",
       "icon": "chickencarcass.png",
       "color": "#F9E4CF",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4195,6 +4346,7 @@
       "name": "Meat trimmings",
       "icon": "meattrimmings.png",
       "color": "#DD4374",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -4219,6 +4371,7 @@
       "name": "Sugar",
       "icon": "sugar.png",
       "color": "#D89971",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -4240,6 +4393,7 @@
       "name": "Corn mash",
       "icon": "cornmash.png",
       "color": "#988140",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -4259,6 +4413,7 @@
       "name": "Household goods",
       "icon": "householdgoods.png",
       "color": "#A47444",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4283,6 +4438,7 @@
       "name": "Household appliances",
       "icon": "householdappliances.png",
       "color": "#D4D7DB",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4302,6 +4458,7 @@
       "name": "Consumer electronics",
       "icon": "consumerelectronics.png",
       "color": "#6AABD9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4319,6 +4476,7 @@
       "name": "Luxury goods",
       "icon": "luxurygoods.png",
       "color": "#6E6775",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4338,6 +4496,7 @@
       "name": "Imported goods",
       "icon": "importedgoods.png",
       "color": "#B0745C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4357,6 +4516,7 @@
       "name": "Antibiotics",
       "icon": "antibiotics.png",
       "color": "#BCBCBC",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4378,6 +4538,7 @@
       "name": "Disinfectant",
       "icon": "disinfectant.png",
       "color": "#99B9EA",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4400,6 +4561,7 @@
       "name": "Anesthetics",
       "icon": "anesthetics.png",
       "color": "#D3DEE1",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4421,6 +4583,7 @@
       "name": "Morphine",
       "icon": "morphine.png",
       "color": "#8DDEF4",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4442,6 +4605,7 @@
       "name": "Medical equipment",
       "icon": "medicalequipment.png",
       "color": "#C9D4EC",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4465,6 +4629,7 @@
       "name": "Medical Supplies",
       "icon": "medicalsupplies.png",
       "color": "#EAEAEA",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4488,6 +4653,7 @@
       "name": "Medical Supplies II",
       "icon": "medicalsupplies2.png",
       "color": "#F3CF3F",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4514,6 +4680,7 @@
       "name": "Medical Supplies III",
       "icon": "medicalsupplies3.png",
       "color": "#F34F3F",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4533,6 +4700,7 @@
       "name": "Cement",
       "icon": "cement.png",
       "color": "#D8A376",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4565,6 +4733,7 @@
       "name": "Concrete slab",
       "icon": "concreteslab.png",
       "color": "#B7B9B9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4606,6 +4775,7 @@
       "name": "Bricks",
       "icon": "bricks.png",
       "color": "#DD7E63",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4621,6 +4791,7 @@
       "name": "Construction Parts",
       "icon": "constructionparts.png",
       "color": "#F4F4F4",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4628,8 +4799,7 @@
           "Cp2AssemblyT4",
           "Cp2AssemblyT3",
           "Cp2AssemblyT2",
-          "Cp2AssemblyT1",
-          "CargoShipRecipe"
+          "Cp2AssemblyT1"
         ],
         "output": [
           "CpAssemblyT5",
@@ -4652,14 +4822,14 @@
       "name": "Construction Parts II",
       "icon": "constructionparts2.png",
       "color": "#D9BA3A",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
           "Cp3AssemblyT4",
           "Cp3AssemblyT3",
           "Cp3AssemblyT2",
-          "Cp3AssemblyT1",
-          "CargoShipRecipeT2"
+          "Cp3AssemblyT1"
         ],
         "output": [
           "Cp2AssemblyT5",
@@ -4679,6 +4849,7 @@
       "name": "Construction Parts III",
       "icon": "constructionparts3.png",
       "color": "#DB4B3B",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4703,6 +4874,7 @@
       "name": "Construction Parts IV",
       "icon": "constructionparts4.png",
       "color": "#8363D1",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4722,6 +4894,7 @@
       "name": "Mechanical Parts",
       "icon": "mechanicalparts.png",
       "color": "#7C737F",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4740,9 +4913,7 @@
           "MaintenanceT2Recipe",
           "MaintenanceT2Recycling",
           "MaintenanceT3Recipe",
-          "MaintenanceT3Recycling",
-          "CargoShipRecipe",
-          "CargoShipRecipeT2"
+          "MaintenanceT3Recycling"
         ],
         "output": [
           "MechPartsAssemblyT5Iron",
@@ -4765,6 +4936,7 @@
       "name": "Vehicle Parts",
       "icon": "vehicleparts.png",
       "color": "#CECECE",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4790,6 +4962,7 @@
       "name": "Vehicle Parts II",
       "icon": "vehicleparts2.png",
       "color": "#E0C03C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4813,6 +4986,7 @@
       "name": "Vehicle Parts III",
       "icon": "vehicleparts3.png",
       "color": "#E54D3E",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4832,6 +5006,7 @@
       "name": "Lab Equipment",
       "icon": "labequipment.png",
       "color": "#C3C3C3",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4858,6 +5033,7 @@
       "name": "Lab Equipment II",
       "icon": "labequipment2.png",
       "color": "#CAAB33",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4883,6 +5059,7 @@
       "name": "Lab Equipment III",
       "icon": "labequipment3.png",
       "color": "#CB4434",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4907,6 +5084,7 @@
       "name": "Lab Equipment IV",
       "icon": "labequipment4.png",
       "color": "#735BBA",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4928,6 +5106,7 @@
       "name": "Rail Parts",
       "icon": "railparts.png",
       "color": "#9FA3A4",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4947,6 +5126,7 @@
       "name": "Office Supplies",
       "icon": "officesupplies.png",
       "color": "#2D8281",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -4966,6 +5146,7 @@
       "name": "Electronics",
       "icon": "electronics.png",
       "color": "#998D99",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -4991,8 +5172,7 @@
           "VehicleParts1AssemblyT1",
           "MaintenanceT1Recipe",
           "MaintenanceT1Recycling",
-          "MaintenanceT0Recipe",
-          "CargoShipRecipe"
+          "MaintenanceT0Recipe"
         ],
         "output": [
           "ElectronicsAssemblyT5",
@@ -5012,6 +5192,7 @@
       "name": "PCB",
       "icon": "pcb.png",
       "color": "#05AA5C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5035,6 +5216,7 @@
       "name": "Electronics II",
       "icon": "electronics2.png",
       "color": "#05A65A",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5077,6 +5259,7 @@
       "name": "Electronics III",
       "icon": "electronics3.png",
       "color": "#861D07",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5105,6 +5288,7 @@
       "name": "Electronics IV",
       "icon": "electronics4.png",
       "color": "#7749B9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5125,6 +5309,7 @@
       "name": "Server",
       "icon": "server.png",
       "color": "#5C7484",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5143,6 +5328,7 @@
       "name": "Microchips",
       "icon": "microchips.png",
       "color": "#1E5997",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5164,6 +5350,7 @@
       "name": "Microchips stage 1 a",
       "icon": "microchipsstage1a.png",
       "color": "#F1C9F9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5185,6 +5372,7 @@
       "name": "Microchips stage 1 b",
       "icon": "microchipsstage1b.png",
       "color": "#F8DFC8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5206,6 +5394,7 @@
       "name": "Microchips stage 1 c",
       "icon": "microchipsstage1c.png",
       "color": "#C3AEC0",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5227,6 +5416,7 @@
       "name": "Microchips stage 2 a",
       "icon": "microchipsstage2a.png",
       "color": "#EFB0F8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5248,6 +5438,7 @@
       "name": "Microchips stage 2 b",
       "icon": "microchipsstage2b.png",
       "color": "#F8D0B0",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5269,6 +5460,7 @@
       "name": "Microchips stage 2 c",
       "icon": "microchipsstage2c.png",
       "color": "#CC90B7",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5290,6 +5482,7 @@
       "name": "Microchips stage 3 a",
       "icon": "microchipsstage3a.png",
       "color": "#E999F9",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5311,6 +5504,7 @@
       "name": "Microchips stage 3 b",
       "icon": "microchipsstage3b.png",
       "color": "#F9C199",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5332,6 +5526,7 @@
       "name": "Microchips stage 3 c",
       "icon": "microchipsstage3c.png",
       "color": "#CB83AE",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5353,6 +5548,7 @@
       "name": "Microchips stage 4 a",
       "icon": "microchipsstage4a.png",
       "color": "#E180F8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5374,6 +5570,7 @@
       "name": "Microchips stage 4 b",
       "icon": "microchipsstage4b.png",
       "color": "#F9B280",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5395,6 +5592,7 @@
       "name": "Diamond",
       "icon": "diamond.png",
       "color": "#C6D7DC",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5417,6 +5615,7 @@
       "name": "Diamond paste",
       "icon": "diamondpaste.png",
       "color": "#D7A115",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5437,6 +5636,7 @@
       "name": "Sapphire wafer",
       "icon": "sapphirewafer.png",
       "color": "#6077EA",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5456,6 +5656,7 @@
       "name": "Lens",
       "icon": "lens.png",
       "color": "#9BB7C8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5475,6 +5676,7 @@
       "name": "Solar cell",
       "icon": "solarcell.png",
       "color": "#2A9EEB",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5499,6 +5701,7 @@
       "name": "Solar cell mono",
       "icon": "solarcellmono.png",
       "color": "#D1D1D1",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5518,6 +5721,7 @@
       "name": "Composite panel",
       "icon": "compositepanel.png",
       "color": "#8C9CC3",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5542,6 +5746,7 @@
       "name": "Composite core basic",
       "icon": "compositecorebasic.png",
       "color": "#CCCCCC",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5565,6 +5770,7 @@
       "name": "Composite core",
       "icon": "compositecore.png",
       "color": "#F5D43C",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5586,6 +5792,7 @@
       "name": "Chemical fuel",
       "icon": "chemicalfuel.png",
       "color": "#C8CDDB",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5608,6 +5815,7 @@
       "name": "Station parts (basic)",
       "icon": "stationpartsbasic.png",
       "color": "#54ACE3",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5627,6 +5835,7 @@
       "name": "Station parts",
       "icon": "stationparts.png",
       "color": "#E1BF2B",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5644,6 +5853,7 @@
       "name": "Crew supplies",
       "icon": "crewsupplies.png",
       "color": "#516977",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5663,6 +5873,7 @@
       "name": "Space probe parts",
       "icon": "spaceprobeparts.png",
       "color": "#C8C6C8",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5680,6 +5891,7 @@
       "name": "Asteroid booster parts",
       "icon": "asteroidboosterparts.png",
       "color": "#808385",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5697,6 +5909,7 @@
       "name": "Compact reactor",
       "icon": "compactreactor.png",
       "color": "#8A8A8A",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5716,6 +5929,7 @@
       "name": "Oxygen",
       "icon": "oxygen.png",
       "color": "#7B504B",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -5749,6 +5963,7 @@
       "name": "Hydrogen fluoride",
       "icon": "hydrogenfluoride.png",
       "color": "#969451",
+      "transport": "Pipe",
       "unit": "",
       "recipes": {
         "input": [
@@ -5771,6 +5986,7 @@
       "name": "Waste",
       "icon": "waste.png",
       "color": "#09A0B9",
+      "transport": "Loose",
       "unit": "",
       "recipes": {
         "input": [
@@ -5793,6 +6009,7 @@
       "name": "Waste pressed",
       "icon": "wastepressed.png",
       "color": "#C1BEB4",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [
@@ -5814,6 +6031,7 @@
       "name": "Flowers",
       "icon": "flowers.png",
       "color": "#CEBE41",
+      "transport": "Flat",
       "unit": "",
       "recipes": {
         "input": [],
@@ -5824,24 +6042,6 @@
           "Crop_Flowers_Product_Fertilizer_1",
           "Crop_Flowers_Product_Fertilizer2_1",
           "Crop_Flowers_Product_FertilizerOrganic_1"
-        ]
-      },
-      "machines": {
-        "input": [],
-        "output": []
-      }
-    },
-    "Product_Virtual_CargoShip": {
-      "id": "Product_Virtual_CargoShip",
-      "name": "Cargo Ships Built",
-      "icon": "cargoshipsbuilt.png",
-      "color": "#FFFFFF",
-      "unit": "",
-      "recipes": {
-        "input": [],
-        "output": [
-          "CargoShipRecipe",
-          "CargoShipRecipeT2"
         ]
       },
       "machines": {
@@ -6104,64 +6304,6 @@
       "maintenance_cost": {
         "id": "Product_Virtual_MaintenanceT2",
         "quantity": 0.2001953
-      }
-    },
-    "SolarPanelQuarter": {
-      "id": "SolarPanelQuarter",
-      "name": "Solar Panel Quarter",
-      "category_id": "General",
-      "workers": 0,
-      "recipes": [],
-      "buildCosts": [
-        {
-          "id": "Product_ConstructionParts4",
-          "quantity": 3
-        },
-        {
-          "id": "Product_SolarCell",
-          "quantity": 30
-        }
-      ],
-      "isFarm": false,
-      "electricity_consumed": 0,
-      "electricity_generated": 40,
-      "computing_consumed": 0,
-      "computing_generated": 0,
-      "storage_capacity": 0,
-      "unity_cost": 0,
-      "research_speed": 0,
-      "maintenance_cost": {
-        "id": "Product_Virtual_MaintenanceT2",
-        "quantity": 0.0546875
-      }
-    },
-    "SolarPanelMonoQuarter": {
-      "id": "SolarPanelMonoQuarter",
-      "name": "Solar Panel (Mono) Quarter",
-      "category_id": "General",
-      "workers": 0,
-      "recipes": [],
-      "buildCosts": [
-        {
-          "id": "Product_ConstructionParts4",
-          "quantity": 3
-        },
-        {
-          "id": "Product_SolarCellMono",
-          "quantity": 30
-        }
-      ],
-      "isFarm": false,
-      "electricity_consumed": 0,
-      "electricity_generated": 60,
-      "computing_consumed": 0,
-      "computing_generated": 0,
-      "storage_capacity": 0,
-      "unity_cost": 0,
-      "research_speed": 0,
-      "maintenance_cost": {
-        "id": "Product_Virtual_MaintenanceT2",
-        "quantity": 0.05957031
       }
     },
     "DieselGenerator": {
@@ -8957,41 +9099,6 @@
       "unity_cost": 0,
       "research_speed": 0
     },
-    "CargoShipDrydock": {
-      "id": "CargoShipDrydock",
-      "name": "Cargo Ship Drydock",
-      "category_id": "Cargo docks",
-      "workers": 0,
-      "recipes": [
-        "CargoShipRecipe",
-        "CargoShipRecipeT2"
-      ],
-      "buildCosts": [],
-      "isFarm": false,
-      "electricity_consumed": 1000,
-      "electricity_generated": 0,
-      "computing_consumed": 0,
-      "computing_generated": 0,
-      "storage_capacity": 0,
-      "unity_cost": 0,
-      "research_speed": 0
-    },
-    "CargoShipDryDock": {
-      "id": "CargoShipDryDock",
-      "name": "Cargo Ship Drydock",
-      "category_id": "Cargo docks",
-      "workers": 0,
-      "recipes": [],
-      "buildCosts": [],
-      "isFarm": false,
-      "electricity_consumed": 1000,
-      "electricity_generated": 0,
-      "computing_consumed": 0,
-      "computing_generated": 0,
-      "storage_capacity": 0,
-      "unity_cost": 0,
-      "research_speed": 0
-    },
     "FarmT4": {
       "id": "FarmT4",
       "name": "Greenhouse II",
@@ -10312,7 +10419,7 @@
       "electricity_generated": 0,
       "computing_consumed": 0,
       "computing_generated": 0,
-      "storage_capacity": 800,
+      "storage_capacity": 400,
       "unity_cost": 0,
       "research_speed": 0
     },
@@ -11792,7 +11899,7 @@
       "id": "SaltMakingHeated",
       "name": "Salt making",
       "machine": "EvaporationPondHeated",
-      "origDuration": 30,
+      "origDuration": 20,
       "duration": 60,
       "inputs": [
         {
@@ -11851,7 +11958,7 @@
       "name": "Salt making",
       "linkId": "97f9f034c23fb42be6c95f477fa31ef9a50d09fa84134858afacbd6004f3b507",
       "machine": "EvaporationPond",
-      "origDuration": 60,
+      "origDuration": 40,
       "duration": 60,
       "inputs": [
         {
@@ -21646,7 +21753,7 @@
       "inputs": [
         {
           "id": "Product_Water",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": []
@@ -21660,7 +21767,7 @@
       "inputs": [
         {
           "id": "Product_Brine",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": []
@@ -21674,13 +21781,13 @@
       "inputs": [
         {
           "id": "Product_WasteWater",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 240
+          "quantity": 60
         }
       ]
     },
@@ -21693,13 +21800,13 @@
       "inputs": [
         {
           "id": "Product_SourWater",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 480
+          "quantity": 120
         }
       ]
     },
@@ -21712,13 +21819,13 @@
       "inputs": [
         {
           "id": "Product_Acid",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 480
+          "quantity": 120
         }
       ]
     },
@@ -21731,13 +21838,13 @@
       "inputs": [
         {
           "id": "Product_ToxicSlurry",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 600
+          "quantity": 150
         }
       ]
     },
@@ -21750,7 +21857,7 @@
       "inputs": [
         {
           "id": "Product_Seawater",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": []
@@ -21764,13 +21871,13 @@
       "inputs": [
         {
           "id": "Product_FertilizerOrganic",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 60
+          "quantity": 15
         }
       ]
     },
@@ -21783,13 +21890,13 @@
       "inputs": [
         {
           "id": "Product_Fertilizer",
-          "quantity": 120
+          "quantity": 30
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 60
+          "quantity": 15
         }
       ]
     },
@@ -21802,13 +21909,13 @@
       "inputs": [
         {
           "id": "Product_Fertilizer2",
-          "quantity": 120
+          "quantity": 30
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 120
+          "quantity": 30
         }
       ]
     },
@@ -21821,13 +21928,13 @@
       "inputs": [
         {
           "id": "Product_RedMud",
-          "quantity": 240
+          "quantity": 60
         }
       ],
       "outputs": [
         {
           "id": "Product_Virtual_PollutedWater",
-          "quantity": 240
+          "quantity": 60
         }
       ]
     },
@@ -23147,72 +23254,6 @@
         {
           "id": "Product_Recyclables",
           "quantity": 24
-        }
-      ]
-    },
-    "CargoShipRecipe": {
-      "id": "CargoShipRecipe",
-      "name": "Build Cargo Ship",
-      "machine": "CargoShipDrydock",
-      "origDuration": 1800,
-      "duration": 60,
-      "inputs": [
-        {
-          "id": "Product_Iron",
-          "quantity": 10
-        },
-        {
-          "id": "Product_ConstructionParts",
-          "quantity": 3.3333333333333335
-        },
-        {
-          "id": "Product_MechanicalParts",
-          "quantity": 5
-        },
-        {
-          "id": "Product_Electronics",
-          "quantity": 1.6666666666666667
-        }
-      ],
-      "outputs": [
-        {
-          "id": "Product_Virtual_CargoShip",
-          "quantity": 0.03333333333333333
-        }
-      ]
-    },
-    "CargoShipRecipeT2": {
-      "id": "CargoShipRecipeT2",
-      "name": "Build Cargo Ship T2",
-      "machine": "CargoShipDrydock",
-      "origDuration": 900,
-      "duration": 60,
-      "inputs": [
-        {
-          "id": "Product_Steel",
-          "quantity": 40
-        },
-        {
-          "id": "Product_Aluminum",
-          "quantity": 10
-        },
-        {
-          "id": "Product_MechanicalParts",
-          "quantity": 16.666666666666668
-        },
-        {
-          "id": "Product_ConstructionParts2",
-          "quantity": 6.666666666666667
-        },
-        {
-          "id": "Product_Diesel",
-          "quantity": 16.666666666666668
-        }
-      ],
-      "outputs": [
-        {
-          "id": "Product_Virtual_CargoShip",
-          "quantity": 0.06666666666666667
         }
       ]
     },
