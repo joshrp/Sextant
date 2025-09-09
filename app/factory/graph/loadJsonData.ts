@@ -35,10 +35,7 @@ type MachineBase = {
   unity_cost: number;
   research_speed: number;
   isFarm: boolean;
-  cooling?: { // TODO:: Needs exporting
-    input: ProductId[];
-    output: ProductId[];
-  },
+
 }
 
 
@@ -47,7 +44,11 @@ export type MachineSerialized = MachineBase & {
   buildCosts: {
     id: ProductId;
     quantity: number;
-  }[]
+  }[],
+  cooling?: {
+    input: RecipeProductSerialized[];
+    output: RecipeProductSerialized[];
+  },
 }
 
 export type Machine = MachineBase & {
@@ -56,7 +57,11 @@ export type Machine = MachineBase & {
   buildCosts: {
     product: Product;
     quantity: number;
-  }[]
+  }[],
+  cooling?: {
+    input: RecipeProduct[];
+    output: RecipeProduct[];
+  },
 }
 
 export type Category = {
@@ -99,11 +104,13 @@ export type Product = ProductBase & {
 export type RecipeProduct = {
   product: Product;
   quantity: number;
+  optional?: boolean;
 }
 
 export type RecipeProductSerialized = {
   id: ProductId;
   quantity: number;
+  optional?: boolean;
 }
 
 export type RecipeBase = {
@@ -179,6 +186,30 @@ export function parseData(unparsedData = gameData) {
             quantity: cost.quantity,
           }
         }),
+        cooling: machine.cooling ? {
+          input: machine.cooling.input.map(input => {
+            const product = newData.products.get(input.id);
+            if (!product) {
+              throw new Error(`Product ${input.id} not found for machine ${machineId} cooling input`);
+            }
+            return {
+              product: product,
+              quantity: input.quantity,
+              optional: input.optional,
+            }
+          }),
+          output: machine.cooling.output.map(output => {
+            const product = newData.products.get(output.id);
+            if (!product) {
+              throw new Error(`Product ${output.id} not found for machine ${machineId} cooling output`);
+            }
+            return {
+              product: product,
+              quantity: output.quantity,
+              optional: output.optional,
+            }
+          }),
+        } : undefined,
       }
       newData.machines.set(machineId, newMachine);
     }
@@ -208,6 +239,7 @@ export function parseData(unparsedData = gameData) {
         return {
           product: product,
           quantity: input.quantity,
+          optional: input.optional || false,
         }
       });
       newRecipe.outputs = recipe.outputs.map(output => {
@@ -219,6 +251,7 @@ export function parseData(unparsedData = gameData) {
         return {
           product: product,
           quantity: output.quantity,
+          optional: output.optional || false,
         }
       });
     }

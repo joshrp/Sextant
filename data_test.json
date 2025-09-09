@@ -25104,8 +25104,7 @@
         },
         {
           "id": "Product_BlanketFuel",
-          "quantity": 1,
-          "optional": true
+          "quantity": 1
         }
       ],
       "outputs": [
@@ -25170,8 +25169,7 @@
         },
         {
           "id": "Product_BlanketFuel",
-          "quantity": 1,
-          "optional": true
+          "quantity": 1
         }
       ],
       "outputs": [

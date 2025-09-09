@@ -2,6 +2,7 @@ import { parseData, type GameData, type ProductId } from "~/factory/graph/loadJs
 import { getDataFromRaw, writeRawData } from "./reformat";
 
 import { beforeAll, describe, expect, test } from 'vitest';
+import { assert } from "console";
 
 describe("Check refomatted data", () => {
   let allData: Awaited<ReturnType<typeof getDataFromRaw>>;
@@ -91,6 +92,7 @@ describe("Check refomatted data", () => {
       }
     }
   });
+
 });
 
 describe("Check parsed data", () => {
@@ -117,5 +119,37 @@ describe("Check parsed data", () => {
         expect(output.product.recipes.output.find(r => r.id === recipeId)).toBeDefined();
       }
     }
+  });
+
+
+  test("Research and Maintenance recipes should be collapsed and have optional recyclable outputs", async () => {
+    const { machines } = loadedData;
+    for (const id of ["ResearchLab2", "ResearchLab3", "ResearchLab4", "ResearchLab5"]) {
+      const machine = machines.get(id)!;
+      expect(machine).toBeDefined();
+      expect(machine.recipes.length).toBe(1);
+      const item = machine.recipes[0].outputs.find(o => o.product.id === "Product_Recyclables" as ProductId);
+      expect(item?.optional).toBe(true);
+    }
+
+    // All maintenance machines should have exactly one maintenance recipe with optional recyclables
+    for (const id of ["MaintenanceDepotT1", "MaintenanceDepotT2", "MaintenanceDepotT3"]) {
+      const machine = machines.get(id)!;
+      expect(machine).toBeDefined();
+      expect(machine.recipes.length).toBe(1);
+      expect(machine.recipes[0].outputs.find(o => o.product.id === "Product_Recyclables" as ProductId && o.optional)).toBeDefined();
+    }
+  });
+
+  test("Find Recyclables", () => {
+    const { recipes } = loadedData;
+    const recyclables = [];
+    recipes.forEach((recipe) => {
+      if (recipe.outputs.find(o => o.product.id === "Product_Recyclables" as ProductId && o.optional)) {
+        console.log(`Recyclables found in recipe ${recipe.id} (${recipe.name})`);
+        recyclables.push(recipe);
+      }
+    });
+
   });
 });

@@ -135,8 +135,10 @@ function HandleList({ data, products, pos, inputs }: { data: RecipeNodeData, pro
           id={prod.product.id}
           style={handleStyle}
           className="py-2 text-center">
-          <img src={productIcon(prod.product.icon)} alt={prod.product.name}
-            className="drop-shadow-md/30 pointer-events-none block max-w-8" />
+          <img data-optional={prod.optional ? true : null} src={productIcon(prod.product.icon)} alt={prod.product.name}
+            className="drop-shadow-md/30 pointer-events-none block max-w-8 
+            data-optional:p-0.5 data-optional:box-content data-optional:border-1 border-dashed border-gray-400 border-0
+          " />
           <div
             style={{
               backgroundColor: productColor,

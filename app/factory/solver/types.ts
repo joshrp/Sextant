@@ -38,7 +38,9 @@ export type Constraint = {
   terms: ({
     nodeId?: string,
     id: string,
+    isInput: boolean,
     term: string,
+    optional?: boolean
   })[],
   parent?: string,
   children: string[]

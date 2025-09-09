@@ -81,8 +81,26 @@ export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraint
 
     if (goals.find(g => g.productId == con.productId)) continue;
 
+    // Find any optional terms, they need appropriate sinks
+    const optionals = con.terms.reduce((acc, t) => {
+      if (t.optional) {
+        if (t.isInput) acc.input = true;
+        else acc.output = true;
+      }
+      return acc;
+    }, { input: false, output: false, });
+
+    // If there's optional inputs and outputs, it can be free
+    if (optionals.input && optionals.output)
+      con.unconnected = true;
+
+    con.terms.filter(t => t.optional);
     if (con.unconnected || freeConstraints.has(con.id))
       boundsList.push(`${con.id} free`);
+    else if (optionals.output) 
+      boundsList.push(`0 <= ${con.id} <= inf`);
+    else if (optionals.input)
+      boundsList.push(`-inf <= ${con.id} <= 0`);    
     else
       boundsList.push(`${con.id} = 0`);
   };
@@ -331,16 +349,18 @@ export default class Solver {
     if (!recipe) {
       throw new Error(`Recipe not found for node ${nodeId} with recipeId ${this.graph?.[nodeId].recipeId}`);
     }
-    const recipeQty = recipe[ioString].find(p => productId == p.product.id)?.quantity
-    if (!recipeQty) {
+    const recipeItem = recipe[ioString].find(p => productId == p.product.id);
+    if (!recipeItem) {
       console.error('Could not find recipe quantity for', productId, 'as', ioString, 'on', nodeId);
       return null;
     }
-
+    
     return {
       id: this.getNodeLabel(nodeId),
       nodeId: nodeId,
-      term: (isInput ? "-" : "+") + recipeQty
+      isInput,
+      term: (isInput ? "-" : "+") + recipeItem.quantity,
+      optional: recipeItem.optional || false,
     };
   }
 
@@ -368,7 +388,8 @@ export default class Solver {
       //   is signed and indicates whether it's a deficit or surplus
       constraint.terms.push({
         id: id,
-        term: "-"
+        term: "-",
+        isInput: true,
       });
 
       this.constraints[id] = constraint;
@@ -528,7 +549,8 @@ export default class Solver {
       constraint.terms.push({
         id: label + "_int",
         nodeId: nodeId,
-        term: "+" + recipe.machine.workers
+        term: "+" + recipe.machine.workers,
+        isInput: true,
       });
     }
     // Electricity
@@ -538,7 +560,8 @@ export default class Solver {
       constraint.terms.push({
         id: label,
         nodeId: nodeId,
-        term: "+" + recipe.machine.electricity_consumed
+        term: "+" + recipe.machine.electricity_consumed,
+        isInput: true,
       });
 
     }
@@ -550,7 +573,8 @@ export default class Solver {
       constraint.terms.push({
         id: label,
         nodeId: nodeId,
-        term: "+" + recipe.machine.computing_consumed
+        term: "+" + recipe.machine.computing_consumed,
+        isInput: true,
       });
     }
     // Maintenance
@@ -562,7 +586,8 @@ export default class Solver {
       constraint.terms.push({
         id: label,
         nodeId: nodeId,
-        term: "+" + recipe.machine.maintenance_cost.quantity
+        term: "+" + recipe.machine.maintenance_cost.quantity,
+        isInput: true,
       });
     }
   }

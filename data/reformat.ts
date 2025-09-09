@@ -241,6 +241,41 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
       };
     }
 
+    // if (rawMachine.coolant) {
+    //   assert(products.has(rawMachine.coolant.productIn), `Product ${rawMachine.coolant.productIn} not found in product data.`);
+    //   assert(products.has(rawMachine.coolant.productOut), `Product ${rawMachine.coolant.productOut} not found in product data.`);
+    //   machine.cooling = {
+    //     input: [{
+    //       id: products.get(rawMachine.coolant.productIn)!.id,
+    //       quantity: rawMachine.coolant.quantityIn,
+    //       ...(rawMachine.coolant.optional ? { optional: true } : {}),
+    //     }],
+    //     output: [{
+    //       id: products.get(rawMachine.coolant.productOut)!.id,
+    //       quantity: rawMachine.coolant.quantityOut,
+    //       ...(rawMachine.coolant.optional ? { optional: true } : {}),
+    //     }],
+    //   }
+    // }
+
+    // Research Labs and Maintenance Depots have optional recycling in game, but this is modeled as multiple recipes
+    // We want to collapse these into a single recipe with optional outputs to avoid clutter in the UI 
+    // and to allow fractional outputs of recycled items
+    if (rawMachine.id.startsWith("ResearchLab") && !rawMachine.id.endsWith("T1")) {
+      if (rawMachine.recipes.length > 1) {
+        console.warn(`Collapsing recipes for ${rawMachine.id} to only recipes with outputs and making them optional.`);
+        rawMachine.recipes = rawMachine.recipes.filter(r => r.outputs.length > 0);
+        rawMachine.recipes.forEach(r => r.outputs.forEach(o => o.optional = true));
+      }
+    }
+    if (rawMachine.id.startsWith("MaintenanceDepot") && !rawMachine.id.endsWith("T0")) {
+      if (rawMachine.recipes.length > 1) {
+        console.warn(`Collapsing recipes for ${rawMachine.id} to only recipes with Recycling outputs and making them optional.`);
+        rawMachine.recipes = rawMachine.recipes.filter(r => r.outputs.find(o => o.name === "Recyclables"));
+        rawMachine.recipes.forEach(r => r.outputs.forEach(o => o.name == "Recyclables" ? o.optional = true : null));
+      }
+    }
+
     for (const rawRecipe of rawMachine.recipes) {
       let newRecipeId = rawRecipe.id as Recipe["id"];
       const duration = rawRecipe.duration || 60; // Default to 60 seconds if no duration is specified
@@ -264,7 +299,6 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
         return {
           id: existingProduct!.id,
           quantity: getRecipeQty60(input, duration),
-          ...(input.optional ? { optional: true } : {}),
         }
       });
 
@@ -272,7 +306,6 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
         const existingProduct = products.get(output.name);
         assert(existingProduct, `Product ${output.name} not found in product data.`);
         existingProduct!.recipes.output.push(newRecipeId);
-
         return {
           id: existingProduct!.id,
           quantity: getRecipeQty60(output, duration),

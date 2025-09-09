@@ -72,9 +72,15 @@ export default function RecipePicker({
         return (<>
           {index !== 0 && <td className="w-6"><PlusIcon /></td>}
 
-          <td key={output.product.id} className="has-tooltip relative">
-            <span className='tooltip rounded shadow-lg p-1 border-1 border-gray-500 bg-gray-900 -top-4 left-1/2 -translate-x-1/2 text-nowrap'>{output.product.name}</span>
-            <img src={'/assets/products/' + output.product.icon} alt={output.product.name} className="block mb-2 mx-auto max-w-[60px]" />
+          <td data-optional={output.optional ? true : null}
+            key={output.product.id}
+            className="group has-tooltip relative data-optional:italic"
+          >
+            <span className='z-100 tooltip rounded shadow-lg p-1 border-1 border-gray-500 bg-gray-900 -top-4 left-1/2 -translate-x-1/2 text-nowrap'>
+            {output.product.name + (output.optional ? " (optional)" : "")}
+            </span>
+            <img src={'/assets/products/' + output.product.icon} alt={output.product.name} 
+            className="block mx-auto p-2 mb-2 max-w-[90px] group-data-optional:border-2 border-dashed border-gray-500" />
             {formatNumber(output.quantity, output.product.unit)}
           </td>
         </>);
