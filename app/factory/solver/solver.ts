@@ -1,4 +1,4 @@
-import highsLoader, { type Highs, type HighsSolution } from "highs";
+import highsLoader, { type Highs, type HighsOptions, type HighsSolution } from "highs";
 import { loadData, type ProductId, type Recipe } from "../graph/loadJsonData";
 
 import type { CustomEdgeType } from '../graph/edges';
@@ -13,6 +13,7 @@ if (typeof window === "undefined")
 else
   highsProm = highsLoader({ locateFile: (file: string) => "https://lovasoa.github.io/highs-js/" + file });
 
+const highsOptions: HighsOptions = { time_limit: 2, small_matrix_value: 1e-3 };
 /** 
  * Some terms:
  * Node - A box on the graph, almost always a Recipe Node (others planned)
@@ -60,7 +61,7 @@ export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraint
       }).toArray().filter(x => x !== null);
       break;
     case "infra":
-      // I would use infra_ here, but nothing can start with "inf" without causing Highs to error...
+      // I would use "infra_" here, but nothing can start with "inf" without causing Highs to error...
       // TODO:: Figure out how to weight these properly
       objectives = ["in_workers", "0.01 in_electricity", "0.01 in_computing", "in_maintenance_1", "10 in_maintenance_2", "50 in_maintenance_3"];
 
@@ -124,7 +125,7 @@ export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraint
     return `${prefix} ${graph.itemConstraints.get(g.productId)} ${getEquality(g.type)} ${g.qty}`
   }))
 
-  // Calculating workers needs a rounded up integer value of each node
+  // Make an integer of every node for use in Workers and Footprint calculations
   const integerNodes = Object.values(graph.nodeIdToLabels).map(n => {
     return [
       n + "_int",
@@ -162,14 +163,15 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
   const highs = await highsProm;
   let res: ReturnType<typeof highs.solve> | null = null;
   try {
-    res = highs.solve(lpp, { time_limit: 2 });
+    res = highs.solve(lpp, highsOptions);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error('Error solving LPP');
     console.error(e);
     res = null;
   }
-  console.log("Highs solve time", performance.now() - t0, "ms", freeConstraints);
+  
+  console.log("Highs solve time", performance.now() - t0, "ms", freeConstraints, res);
   return res;
 }
 
@@ -603,7 +605,7 @@ export default class Solver {
         constraint.unconnected = true;
         
         constraint.terms.push({
-          id: label,
+          id: label + "_int",
           nodeId: nodeId,
           term: "+" + area,
           isInput: true,

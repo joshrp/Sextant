@@ -5,6 +5,11 @@ if (typeof window !== "undefined")
   LANG = window.navigator.language;
 
 export function formatNumber(value: number, unit: string = '', maximumFractionDigits: number = 1): string {
+  if (isNaN(value)) return "? " + unit;
+  if (!isFinite(value)) return (value < 0 ? "-" : "") + "∞ " + unit;
+  if (value === 0) return "0 " + unit;
+  if (Math.abs(value) <= 0.001) return value.toExponential(1) + unit;
+
   if (unit === "kW") {
     if (Math.abs(value) >= 1000) {
       value /= 1000;
@@ -26,7 +31,7 @@ export function formatNumber(value: number, unit: string = '', maximumFractionDi
       unit = "Ef";
     }
   }
-  return value.toLocaleString(LANG, { maximumFractionDigits }) + " " + unit;
+  return value.toLocaleString(LANG, { maximumFractionDigits: 8 }) + " " + unit;
 }
 
 export const productIcon = (icon: string) => `/assets/products/${icon}`;

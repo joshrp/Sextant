@@ -129,10 +129,28 @@ async function getImageColors(iconPath: string, name: string): Promise<number[][
   return rgbs;
 }
 
+
 function sanitizeFileName(fileName: string): string {
   // Remove any characters that are not alphanumeric, underscore, or hyphen
   return fileName.replace(/[^a-zA-Z0-9_-]/g, "").toLowerCase();
 }
+
+const transportTypes = [{
+  type: "Flat",
+  storage: "StorageUnitT4",
+}, {
+  type: "Loose",
+  storage: "StorageLooseT4",
+}, {
+  type: "Pipe",
+  storage: "StorageFluidT4",
+}, {
+  type: "Molten",
+  storage: "None",
+}, {
+  type: "Virtual",
+  storage: "None",
+}] as const;
 
 export async function formatProductData(rawProducts: RawProduct[]) {
   const productData = new Map<string, ProductSerialized>();
@@ -194,6 +212,7 @@ export async function formatProductData(rawProducts: RawProduct[]) {
     });
   }
 
+  // Used for footprint calculations
   productData.set("Product_Virtual_Footprint", {
     id: "Product_Virtual_Footprint" as Product["id"],
     name: "Footprint",
@@ -201,6 +220,18 @@ export async function formatProductData(rawProducts: RawProduct[]) {
     color: "#808080",
     transport: "Virtual",
     unit: "tiles",
+    recipes: { input: [], output: [] },
+    machines: { input: [], output: [] },
+  });
+
+  // Wildcard product for buffer passthroughs
+  productData.set("Product_Virtual_Wildcard", {
+    id: "Product_Virtual_Wildcard" as Product["id"],
+    name: "Wildcard",
+    icon: "wildcard.png",
+    color: "#808080",
+    transport: "Virtual",
+    unit: "",
     recipes: { input: [], output: [] },
     machines: { input: [], output: [] },
   });
@@ -357,9 +388,56 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
     machineData.set(rawMachine.id, machine as MachineSerialized);
   }
 
+  for (const transport of transportTypes) {
+    const machine: MachineSerialized = {
+      id: `Balancer${transport.type}` as MachineId,
+      name: `Balancer`,
+      category_id: "Balancer" as Machine["category_id"],
+      workers: 0,
+      recipes: [],
+      buildCosts: [],
+
+      isFarm: false,
+      electricity_consumed: 0,
+      electricity_generated: 0,
+      computing_consumed: 0,
+      computing_generated: 0,
+      storage_capacity: 0,
+      unity_cost: 0,
+      research_speed: 0,
+      footprint: [0,0],
+    };
+    machineData.set(machine.id, machine);
+  }
+
   const productsById: Map<ProductId, ProductSerialized> = new Map();
   for (const product of products.values()) {
     productsById.set(product.id, product);
+
+    // Make a Balancer recipe for all products, add them to the Balancer machine matching their transport type
+    const transport = transportTypes.find(t => t.type === product.transport)!;
+    assert(transport, `Transport type ${product.transport} not found for product ${product.name}.`);
+    const BalancerMachineId = `Balancer${transport.type}` as MachineId;
+    const machine = machineData.get(BalancerMachineId)!;
+    assert(machine, `Balancer machine ${BalancerMachineId} not found for product ${product.name}.`);
+    const BalancerRecipeId = `Balancer_${product.id}` as RecipeId;
+
+    // Add a Balancer machine and recipe that can pass any item through unchanged
+    const BalancerRecipe: RecipeSerialized = {
+      id: BalancerRecipeId,
+      name: "Balancer Passthrough",
+      duration: 60,
+      origDuration: 60,
+      machine: BalancerMachineId,
+      inputs: [{ id: product.id, quantity: 1 }],
+      outputs: [{ id: product.id, quantity: 1 }],
+    };
+    recipeData.set(BalancerRecipe.id, BalancerRecipe);
+    machine.recipes.push(BalancerRecipe.id);
+    product.recipes.input.push(BalancerRecipe.id);
+    product.recipes.output.push(BalancerRecipe.id);
+    product.machines.input.push(BalancerMachineId);
+    product.machines.output.push(BalancerMachineId);
   }
 
   return {

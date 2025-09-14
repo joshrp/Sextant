@@ -162,6 +162,7 @@ describe("Check parsed data", () => {
     const { machines } = loadedData;
     for (const machine of machines.values()) {
       if (machine.footprint) {
+        if (machine.id.startsWith("Balancer")) continue; // Balancers have no footprint
         expect(machine.footprint[0], `Machine ${machine.id} has invalid footprint width`).toBeGreaterThan(0);
         expect(machine.footprint[1], `Machine ${machine.id} has invalid footprint height`).toBeGreaterThan(0);
         expect(machine.footprint[0], `Machine ${machine.id} has invalid footprint width`).toBeLessThanOrEqual(80);

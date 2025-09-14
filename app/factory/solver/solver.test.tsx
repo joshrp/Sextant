@@ -8,39 +8,9 @@ import type { FactoryGoal } from './types';
 import type { ProductId } from '../graph/loadJsonData';
 
 describe("Solver", () => {
-  // test("Version 1 basic LPP check", () => {
-  //   const connections = buildNodeConnections(initialNodes, initialEdges);
-  //   const lpp = buildLpp(connections.nodeConnections, basicGoals)
-  //   expect(lpp.lpp).toEqual(basicLpp);
-  // });
-  // test("Version 1 basic full run", async () => {
-  //   const connections = buildNodeConnections(initialNodes, initialEdges);
-  //   const highs = await load;
-  //   const lpp = buildLpp(connections.nodeConnections, basicGoals)
-
-  //   // const runId = new Date().getTime();
-  //   // writeFileSync("./runs/"+(runId)+".json", JSON.stringify({
-  //   //   ...connections,
-  //   //   ...lpp,
-  //   // }, null, 2))
-
-  //   const result = highs.solve(lpp.lpp);
-
-  //   console.log(result.Status);
-  //   // expect(result).toStrictEqual(quickTestResult);
-
-  //   if (result.Status == "Optimal") {
-  //     console.log(Object.keys(result.Columns).map(c => {
-  //       const col = result.Columns[c];
-  //       return col.Name + " = " + col.Primal
-  //     }).sort().join('\n'))
-  //   }
-  // });
-
   test("Version 2 basic LPP check", async () => {
     const graph = createGraph(initialNodes, initialEdges);
     expect(graph).not.toBeNull();
-    
     const lpp = buildLpp(graph, basicGoals, new Set<string>(), "inputs");
     expect(lpp).toEqual(basicLpp);
   });
@@ -49,7 +19,7 @@ describe("Solver", () => {
     const graph = createGraph(initialNodes, initialEdges);
     expect(graph).not.toBeNull();
     
-    expect(solve(graph, basicGoals, [], "inputs", false)).not.toBeNull();
+    expect(await solve(graph, basicGoals, [], "inputs", false)).not.toBeNull();
   });
 
   
@@ -70,6 +40,7 @@ const basicLpp = `
 Maximize
   obj: i_Product_Exhaust+i_Product_SteamHi
 Subject To 
+  in_footprint: - in_footprint +25 n_0_int +42 n_3_int +54 n_1_int +18 n_2_int = 0
   c0: - c0 -24 n_0 +24 n_1 +48 n_2 = 0
   c1: - c1 +24 n_1 -24 n_0 <= 0
   c2: - c2 +48 n_2 -24 n_0 <= 0
@@ -96,6 +67,7 @@ Subject To
   n_3_lower: n_3_int - n_3 >= 0
   n_3_upper: n_3_int - n_3 <= 0.99999
 Bounds 
+  in_footprint free
   c0 = 0
   c1 = 0
   c2 = 0

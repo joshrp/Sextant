@@ -10,18 +10,24 @@
       "unit": "kW",
       "recipes": {
         "input": [
-          "BasicServerRack"
+          "BasicServerRack",
+          "Balancer_Product_Virtual_Electricity"
         ],
         "output": [
           "PowerGeneratorT1",
           "PowerGeneratorT2",
           "DieselGenerator",
-          "DieselGeneratorT2"
+          "DieselGeneratorT2",
+          "Balancer_Product_Virtual_Electricity"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_MechPower": {
@@ -34,19 +40,25 @@
       "recipes": {
         "input": [
           "PowerGeneratorT1",
-          "PowerGeneratorT2"
+          "PowerGeneratorT2",
+          "Balancer_Product_Virtual_MechPower"
         ],
         "output": [
           "TurbineSuperPress",
           "TurbineHighPressT2",
           "TurbineHighPress",
           "TurbineLowPressT2",
-          "TurbineLowPress"
+          "TurbineLowPress",
+          "Balancer_Product_Virtual_MechPower"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_Computing": {
@@ -57,14 +69,21 @@
       "transport": "Virtual",
       "unit": "TFlops",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Virtual_Computing"
+        ],
         "output": [
-          "BasicServerRack"
+          "BasicServerRack",
+          "Balancer_Product_Virtual_Computing"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_Upoints": {
@@ -75,12 +94,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Virtual_Upoints"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_Upoints"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_Heat": {
@@ -91,12 +118,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Virtual_Heat"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_Heat"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_MaintenanceT1": {
@@ -107,15 +142,22 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Virtual_MaintenanceT1"
+        ],
         "output": [
           "MaintenanceT1Recycling",
-          "MaintenanceT0Recipe"
+          "MaintenanceT0Recipe",
+          "Balancer_Product_Virtual_MaintenanceT1"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_MaintenanceT2": {
@@ -126,14 +168,21 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Virtual_MaintenanceT2"
+        ],
         "output": [
-          "MaintenanceT2Recycling"
+          "MaintenanceT2Recycling",
+          "Balancer_Product_Virtual_MaintenanceT2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_MaintenanceT3": {
@@ -145,15 +194,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "BasicServerRack"
+          "BasicServerRack",
+          "Balancer_Product_Virtual_MaintenanceT3"
         ],
         "output": [
-          "MaintenanceT3Recycling"
+          "MaintenanceT3Recycling",
+          "Balancer_Product_Virtual_MaintenanceT3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_SpaceCrew": {
@@ -164,12 +219,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Virtual_SpaceCrew"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_SpaceCrew"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_SpaceResearchPoints": {
@@ -180,12 +243,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Virtual_SpaceResearchPoints"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_SpaceResearchPoints"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Wood": {
@@ -210,13 +281,20 @@
           "HouseholdGoodsAssemblyT1",
           "CpAssemblyT1",
           "CharcoalBurning",
-          "ShreddingWood"
+          "ShreddingWood",
+          "Balancer_Product_Wood"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_Wood"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Woodchips": {
@@ -230,15 +308,21 @@
         "input": [
           "SteamGenerationWood",
           "PaperProductionT2",
-          "PaperProduction"
+          "PaperProduction",
+          "Balancer_Product_Woodchips"
         ],
         "output": [
-          "ShreddingWood"
+          "ShreddingWood",
+          "Balancer_Product_Woodchips"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Fertilizer": {
@@ -281,18 +365,24 @@
           "Crop_TreeSapling_Product_Fertilizer_1",
           "Crop_Soybeans_Product_Fertilizer_1",
           "Crop_Vegetables_Product_Fertilizer_1",
-          "Crop_Canola_Product_Fertilizer_1"
+          "Crop_Canola_Product_Fertilizer_1",
+          "Balancer_Product_Fertilizer"
         ],
         "output": [
           "FertilizerProductionT2",
           "FertilizerProductionFromOrganicT2",
           "FertilizerProduction",
-          "FertilizerProductionFromOrganic"
+          "FertilizerProductionFromOrganic",
+          "Balancer_Product_Fertilizer"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Fertilizer2": {
@@ -333,16 +423,22 @@
           "Crop_TreeSapling_Product_Fertilizer2_1",
           "Crop_Soybeans_Product_Fertilizer2_1",
           "Crop_Vegetables_Product_Fertilizer2_1",
-          "Crop_Canola_Product_Fertilizer2_1"
+          "Crop_Canola_Product_Fertilizer2_1",
+          "Balancer_Product_Fertilizer2"
         ],
         "output": [
           "Fertilizer2ProductionT2",
-          "Fertilizer2Production"
+          "Fertilizer2Production",
+          "Balancer_Product_Fertilizer2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_FertilizerOrganic": {
@@ -385,18 +481,24 @@
           "Crop_TreeSapling_Product_FertilizerOrganic_1",
           "Crop_Soybeans_Product_FertilizerOrganic_1",
           "Crop_Vegetables_Product_FertilizerOrganic_1",
-          "Crop_Canola_Product_FertilizerOrganic_1"
+          "Crop_Canola_Product_FertilizerOrganic_1",
+          "Balancer_Product_FertilizerOrganic"
         ],
         "output": [
           "OrganicFertilizerProductionT2",
           "OrganicFertilizerProductionDirtT2",
           "OrganicFertilizerProduction",
-          "OrganicFertilizerProductionDirt"
+          "OrganicFertilizerProductionDirt",
+          "Balancer_Product_FertilizerOrganic"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_TreeSapling": {
@@ -408,7 +510,8 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingSaplings"
+          "ShreddingSaplings",
+          "Balancer_Product_TreeSapling"
         ],
         "output": [
           "Crop_TreeSapling_Product_Fertilizer",
@@ -420,12 +523,17 @@
           "Crop_TreeSapling_Product_Fertilizer_1",
           "Crop_TreeSapling_Product_Fertilizer2_1",
           "Crop_TreeSapling_Product_FertilizerOrganic_1",
-          "Crop_TreeSapling"
+          "Crop_TreeSapling",
+          "Balancer_Product_TreeSapling"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Paper": {
@@ -442,16 +550,22 @@
           "LabEquipment2AssemblyT3",
           "OfficeSuppliesAssemblyT2",
           "LabEquipment2AssemblyT2",
-          "OfficeSuppliesAssemblyT1"
+          "OfficeSuppliesAssemblyT1",
+          "Balancer_Product_Paper"
         ],
         "output": [
           "PaperProductionT2",
-          "PaperProduction"
+          "PaperProduction",
+          "Balancer_Product_Paper"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Dirt": {
@@ -464,16 +578,22 @@
       "recipes": {
         "input": [
           "OrganicFertilizerProductionDirtT2",
-          "OrganicFertilizerProductionDirt"
+          "OrganicFertilizerProductionDirt",
+          "Balancer_Product_Dirt"
         ],
         "output": [
           "DirtMixingT2",
-          "DirtMixing"
+          "DirtMixing",
+          "Balancer_Product_Dirt"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Compost": {
@@ -490,7 +610,8 @@
           "DirtMixingT2",
           "OrganicFertilizerProduction",
           "OrganicFertilizerProductionDirt",
-          "DirtMixing"
+          "DirtMixing",
+          "Balancer_Product_Compost"
         ],
         "output": [
           "AnimalFeedCompostT2",
@@ -509,12 +630,17 @@
           "SoybeanDigestion",
           "SugarCaneDigestion",
           "MeatTrimmingsDigestion",
-          "EggsDigestion"
+          "EggsDigestion",
+          "Balancer_Product_Compost"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Sludge": {
@@ -527,16 +653,22 @@
       "recipes": {
         "input": [
           "SludgeBurning",
-          "SludgeDigestion"
+          "SludgeDigestion",
+          "Balancer_Product_Sludge"
         ],
         "output": [
           "WaterTreatment",
-          "WaterTreatmentT2"
+          "WaterTreatmentT2",
+          "Balancer_Product_Sludge"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Limestone": {
@@ -568,13 +700,20 @@
           "Fertilizer2Production",
           "PaperProductionT2",
           "PaperProduction",
-          "ExhaustFilteringLime"
+          "ExhaustFilteringLime",
+          "Balancer_Product_Limestone"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_Limestone"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Rock": {
@@ -588,13 +727,20 @@
         "input": [
           "FluorideLeaching",
           "RockCrushing",
-          "RockCrushingT2"
+          "RockCrushingT2",
+          "Balancer_Product_Rock"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_Rock"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Gravel": {
@@ -619,16 +765,22 @@
           "DirtMixingT2",
           "FilterMediaMixing",
           "FilterMediaMixingM",
-          "DirtMixing"
+          "DirtMixing",
+          "Balancer_Product_Gravel"
         ],
         "output": [
           "RockCrushing",
-          "RockCrushingT2"
+          "RockCrushingT2",
+          "Balancer_Product_Gravel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_ManufacturedSand": {
@@ -647,16 +799,22 @@
           "ConcreteMixingGravelM",
           "ConcreteMixingSlagM",
           "FilterMediaMixingMT2",
-          "FilterMediaMixingM"
+          "FilterMediaMixingM",
+          "Balancer_Product_ManufacturedSand"
         ],
         "output": [
           "GravelCrushing",
-          "GravelCrushingT2"
+          "GravelCrushingT2",
+          "Balancer_Product_ManufacturedSand"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_FilterMedia": {
@@ -669,18 +827,24 @@
       "recipes": {
         "input": [
           "WaterTreatmentT2",
-          "ToxicSlurryTreatment"
+          "ToxicSlurryTreatment",
+          "Balancer_Product_FilterMedia"
         ],
         "output": [
           "FilterMediaMixingT2",
           "FilterMediaMixingMT2",
           "FilterMediaMixing",
-          "FilterMediaMixingM"
+          "FilterMediaMixingM",
+          "Balancer_Product_FilterMedia"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Coal": {
@@ -718,15 +882,21 @@
           "GraphiteProductionT2",
           "GraphiteProductionT1",
           "RubberProductionNaphthaAlt",
-          "RubberProductionDieselWithCoal"
+          "RubberProductionDieselWithCoal",
+          "Balancer_Product_Coal"
         ],
         "output": [
-          "CharcoalBurning"
+          "CharcoalBurning",
+          "Balancer_Product_Coal"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Graphite": {
@@ -758,17 +928,23 @@
           "SiliconSmeltingArc",
           "AluminumSmeltingScrapArcT1",
           "AluminumElectrolysis",
-          "TitaniumChlorination"
+          "TitaniumChlorination",
+          "Balancer_Product_Graphite"
         ],
         "output": [
           "GraphiteProductionT2",
           "GraphiteProductionCo2",
-          "GraphiteProductionT1"
+          "GraphiteProductionT1",
+          "Balancer_Product_Graphite"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Slag": {
@@ -781,7 +957,8 @@
       "recipes": {
         "input": [
           "SlagCrushing",
-          "SlagCrushingT2"
+          "SlagCrushingT2",
+          "Balancer_Product_Slag"
         ],
         "output": [
           "FluorideLeaching",
@@ -805,12 +982,17 @@
           "SulfurNeutralization",
           "TitaniumChlorination",
           "ExhaustFilteringLime",
-          "ToxicSlurryTreatment"
+          "ToxicSlurryTreatment",
+          "Balancer_Product_Slag"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_SlagCrushed": {
@@ -827,16 +1009,22 @@
           "ConcreteMixingSlagT2",
           "ConcreteMixingSlagMT2",
           "ConcreteMixingSlag",
-          "ConcreteMixingSlagM"
+          "ConcreteMixingSlagM",
+          "Balancer_Product_SlagCrushed"
         ],
         "output": [
           "SlagCrushing",
-          "SlagCrushingT2"
+          "SlagCrushingT2",
+          "Balancer_Product_SlagCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_IronOre": {
@@ -850,13 +1038,20 @@
         "input": [
           "IronOreCrushing",
           "IronOreCrushingT2",
-          "IronSmeltingT1Coal"
+          "IronSmeltingT1Coal",
+          "Balancer_Product_IronOre"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_IronOre"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_IronOreCrushed": {
@@ -870,17 +1065,23 @@
         "input": [
           "IronSmeltingArc",
           "IronSmeltingArcT1",
-          "IronSmeltingT2"
+          "IronSmeltingT2",
+          "Balancer_Product_IronOreCrushed"
         ],
         "output": [
           "RedMudSettlingAcid",
           "IronOreCrushing",
-          "IronOreCrushingT2"
+          "IronOreCrushingT2",
+          "Balancer_Product_IronOreCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_IronScrap": {
@@ -896,15 +1097,21 @@
           "IronSmeltingArcScrapT1",
           "IronSmeltingT2Scrap",
           "IronSmeltingT1Scrap",
-          "PressingOfIronScrap"
+          "PressingOfIronScrap",
+          "Balancer_Product_IronScrap"
         ],
         "output": [
-          "ShreddingIronScrap"
+          "ShreddingIronScrap",
+          "Balancer_Product_IronScrap"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_IronScrapPressed": {
@@ -916,15 +1123,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingIronScrap"
+          "ShreddingIronScrap",
+          "Balancer_Product_IronScrapPressed"
         ],
         "output": [
-          "PressingOfIronScrap"
+          "PressingOfIronScrap",
+          "Balancer_Product_IronScrapPressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MoltenIron": {
@@ -939,7 +1152,8 @@
           "IronCastingCooled",
           "IronCasting",
           "SteelSmeltingT2",
-          "SteelSmelting"
+          "SteelSmelting",
+          "Balancer_Product_MoltenIron"
         ],
         "output": [
           "IronSmeltingArcScrap",
@@ -950,12 +1164,17 @@
           "IronSmeltingT2Scrap",
           "IronSmeltingT2",
           "IronSmeltingT1Scrap",
-          "IronSmeltingT1Coal"
+          "IronSmeltingT1Coal",
+          "Balancer_Product_MoltenIron"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_MoltenSteel": {
@@ -968,16 +1187,22 @@
       "recipes": {
         "input": [
           "SteelCastingCooledT2",
-          "SteelCastingCooled"
+          "SteelCastingCooled",
+          "Balancer_Product_MoltenSteel"
         ],
         "output": [
           "SteelSmeltingT2",
-          "SteelSmelting"
+          "SteelSmelting",
+          "Balancer_Product_MoltenSteel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_Iron": {
@@ -998,16 +1223,22 @@
           "CpAssemblyT2",
           "MechPartsAssemblyT2",
           "CpAssemblyT1",
-          "MechPartsAssemblyT1"
+          "MechPartsAssemblyT1",
+          "Balancer_Product_Iron"
         ],
         "output": [
           "IronCastingCooled",
-          "IronCasting"
+          "IronCasting",
+          "Balancer_Product_Iron"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Steel": {
@@ -1060,16 +1291,22 @@
           "Cp3AssemblyT1",
           "HouseholdGoodsAssemblyT1",
           "CoreFuelReprocessing",
-          "AnestheticsProduction"
+          "AnestheticsProduction",
+          "Balancer_Product_Steel"
         ],
         "output": [
           "SteelCastingCooledT2",
-          "SteelCastingCooled"
+          "SteelCastingCooled",
+          "Balancer_Product_Steel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CopperOre": {
@@ -1083,13 +1320,20 @@
         "input": [
           "CopperOreCrushing",
           "CopperOreCrushingT2",
-          "CopperSmeltingT1"
+          "CopperSmeltingT1",
+          "Balancer_Product_CopperOre"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_CopperOre"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_CopperOreCrushed": {
@@ -1103,16 +1347,22 @@
         "input": [
           "CopperSmeltingArc",
           "CopperSmeltingArcT1",
-          "CopperSmeltingT2"
+          "CopperSmeltingT2",
+          "Balancer_Product_CopperOreCrushed"
         ],
         "output": [
           "CopperOreCrushing",
-          "CopperOreCrushingT2"
+          "CopperOreCrushingT2",
+          "Balancer_Product_CopperOreCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_CopperScrap": {
@@ -1128,15 +1378,21 @@
           "CopperSmeltingArcScrapT1",
           "CopperSmeltingT2Scrap",
           "CopperSmeltingT1Scrap",
-          "PressingOfCopperScrap"
+          "PressingOfCopperScrap",
+          "Balancer_Product_CopperScrap"
         ],
         "output": [
-          "ShreddingCopperScrap"
+          "ShreddingCopperScrap",
+          "Balancer_Product_CopperScrap"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_CopperScrapPressed": {
@@ -1148,15 +1404,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingCopperScrap"
+          "ShreddingCopperScrap",
+          "Balancer_Product_CopperScrapPressed"
         ],
         "output": [
-          "PressingOfCopperScrap"
+          "PressingOfCopperScrap",
+          "Balancer_Product_CopperScrapPressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MoltenCopper": {
@@ -1169,7 +1431,8 @@
       "recipes": {
         "input": [
           "CopperCastingCooled",
-          "CopperCasting"
+          "CopperCasting",
+          "Balancer_Product_MoltenCopper"
         ],
         "output": [
           "CopperSmeltingArcScrap",
@@ -1179,12 +1442,17 @@
           "CopperSmeltingT2Scrap",
           "CopperSmeltingT2",
           "CopperSmeltingT1Scrap",
-          "CopperSmeltingT1"
+          "CopperSmeltingT1",
+          "Balancer_Product_MoltenCopper"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_ImpureCopper": {
@@ -1197,16 +1465,22 @@
       "recipes": {
         "input": [
           "CopperElectrolysisProcess",
-          "CopperElectrolysisWithWater"
+          "CopperElectrolysisWithWater",
+          "Balancer_Product_ImpureCopper"
         ],
         "output": [
           "CopperCastingCooled",
-          "CopperCasting"
+          "CopperCasting",
+          "Balancer_Product_ImpureCopper"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Copper": {
@@ -1233,16 +1507,22 @@
           "MicrochipMachine_MicrochipProdStage2A",
           "MicrochipMachine_MicrochipProdStage2B",
           "MicrochipMachine_MicrochipProdStage2C",
-          "MicrochipMachine_MicrochipProdStage2D"
+          "MicrochipMachine_MicrochipProdStage2D",
+          "Balancer_Product_Copper"
         ],
         "output": [
           "CopperElectrolysisProcess",
-          "CopperElectrolysisWithWater"
+          "CopperElectrolysisWithWater",
+          "Balancer_Product_Copper"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Bauxite": {
@@ -1255,13 +1535,20 @@
       "recipes": {
         "input": [
           "BauxiteMilling",
-          "BauxiteMillingT2"
+          "BauxiteMillingT2",
+          "Balancer_Product_Bauxite"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_Bauxite"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_BauxitePowder": {
@@ -1273,16 +1560,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "BauxiteDigestion"
+          "BauxiteDigestion",
+          "Balancer_Product_BauxitePowder"
         ],
         "output": [
           "BauxiteMilling",
-          "BauxiteMillingT2"
+          "BauxiteMillingT2",
+          "Balancer_Product_BauxitePowder"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_RedMud": {
@@ -1296,15 +1589,21 @@
         "input": [
           "RedMudSettling",
           "RedMudSettlingAcid",
-          "RedMudDumping"
+          "RedMudDumping",
+          "Balancer_Product_RedMud"
         ],
         "output": [
-          "BauxiteDigestion"
+          "BauxiteDigestion",
+          "Balancer_Product_RedMud"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_HydratedAlumina": {
@@ -1317,15 +1616,21 @@
       "recipes": {
         "input": [
           "AluminaCalcificationGas",
-          "AluminaCalcificationHydrogen"
+          "AluminaCalcificationHydrogen",
+          "Balancer_Product_HydratedAlumina"
         ],
         "output": [
-          "BauxiteDigestion"
+          "BauxiteDigestion",
+          "Balancer_Product_HydratedAlumina"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Alumina": {
@@ -1338,16 +1643,22 @@
       "recipes": {
         "input": [
           "AluminumElectrolysis",
-          "AluminaCrystallization"
+          "AluminaCrystallization",
+          "Balancer_Product_Alumina"
         ],
         "output": [
           "AluminaCalcificationGas",
-          "AluminaCalcificationHydrogen"
+          "AluminaCalcificationHydrogen",
+          "Balancer_Product_Alumina"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_AluminumScrap": {
@@ -1361,15 +1672,21 @@
         "input": [
           "AluminumSmeltingScrapArcT2",
           "AluminumSmeltingScrapArcT1",
-          "PressingOfAluminumScrap"
+          "PressingOfAluminumScrap",
+          "Balancer_Product_AluminumScrap"
         ],
         "output": [
-          "ShreddingAluminumScrap"
+          "ShreddingAluminumScrap",
+          "Balancer_Product_AluminumScrap"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_AluminumScrapPressed": {
@@ -1381,15 +1698,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingAluminumScrap"
+          "ShreddingAluminumScrap",
+          "Balancer_Product_AluminumScrapPressed"
         ],
         "output": [
-          "PressingOfAluminumScrap"
+          "PressingOfAluminumScrap",
+          "Balancer_Product_AluminumScrapPressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MoltenAluminum": {
@@ -1403,17 +1726,23 @@
         "input": [
           "AluminumCastingT2",
           "AluminumCasting",
-          "TitaniumAlloyMixing"
+          "TitaniumAlloyMixing",
+          "Balancer_Product_MoltenAluminum"
         ],
         "output": [
           "AluminumSmeltingScrapArcT2",
           "AluminumSmeltingScrapArcT1",
-          "AluminumElectrolysis"
+          "AluminumElectrolysis",
+          "Balancer_Product_MoltenAluminum"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_Aluminum": {
@@ -1430,16 +1759,22 @@
           "CompositePanelAssemblyT3",
           "CompositePanelAssemblyT2",
           "CompositePanelAssemblyT1",
-          "ChemicalFuelProduction"
+          "ChemicalFuelProduction",
+          "Balancer_Product_Aluminum"
         ],
         "output": [
           "AluminumCastingT2",
-          "AluminumCasting"
+          "AluminumCasting",
+          "Balancer_Product_Aluminum"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_TitaniumOre": {
@@ -1452,13 +1787,20 @@
       "recipes": {
         "input": [
           "IlmeniteMilling",
-          "IlmeniteMillingT2"
+          "IlmeniteMillingT2",
+          "Balancer_Product_TitaniumOre"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_TitaniumOre"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_TitaniumOreCrushed": {
@@ -1470,16 +1812,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "IlmeniteSmeltingArc2"
+          "IlmeniteSmeltingArc2",
+          "Balancer_Product_TitaniumOreCrushed"
         ],
         "output": [
           "IlmeniteMilling",
-          "IlmeniteMillingT2"
+          "IlmeniteMillingT2",
+          "Balancer_Product_TitaniumOreCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_TitaniumSlag": {
@@ -1491,15 +1839,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumChlorination"
+          "TitaniumChlorination",
+          "Balancer_Product_TitaniumSlag"
         ],
         "output": [
-          "IlmeniteSmeltingArc2"
+          "IlmeniteSmeltingArc2",
+          "Balancer_Product_TitaniumSlag"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_TitaniumChloride": {
@@ -1511,15 +1865,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumPurification"
+          "TitaniumPurification",
+          "Balancer_Product_TitaniumChloride"
         ],
         "output": [
-          "TitaniumChlorination"
+          "TitaniumChlorination",
+          "Balancer_Product_TitaniumChloride"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_TitaniumChloridePure": {
@@ -1531,15 +1891,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumChlorideReduction"
+          "TitaniumChlorideReduction",
+          "Balancer_Product_TitaniumChloridePure"
         ],
         "output": [
-          "TitaniumPurification"
+          "TitaniumPurification",
+          "Balancer_Product_TitaniumChloridePure"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_TitaniumSponge": {
@@ -1551,15 +1917,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumSmeltingArc2"
+          "TitaniumSmeltingArc2",
+          "Balancer_Product_TitaniumSponge"
         ],
         "output": [
-          "TitaniumChlorideReduction"
+          "TitaniumChlorideReduction",
+          "Balancer_Product_TitaniumSponge"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_MoltenTitanium": {
@@ -1571,15 +1943,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumAlloyMixing"
+          "TitaniumAlloyMixing",
+          "Balancer_Product_MoltenTitanium"
         ],
         "output": [
-          "TitaniumSmeltingArc2"
+          "TitaniumSmeltingArc2",
+          "Balancer_Product_MoltenTitanium"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_MoltenTitaniumAlloy": {
@@ -1591,15 +1969,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "TitaniumAlloyCastingT2"
+          "TitaniumAlloyCastingT2",
+          "Balancer_Product_MoltenTitaniumAlloy"
         ],
         "output": [
-          "TitaniumAlloyMixing"
+          "TitaniumAlloyMixing",
+          "Balancer_Product_MoltenTitaniumAlloy"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_TitaniumAlloy": {
@@ -1612,15 +1996,21 @@
       "recipes": {
         "input": [
           "CompositeCoreAssembly",
-          "CompactReactorAssembly"
+          "CompactReactorAssembly",
+          "Balancer_Product_TitaniumAlloy"
         ],
         "output": [
-          "TitaniumAlloyCastingT2"
+          "TitaniumAlloyCastingT2",
+          "Balancer_Product_TitaniumAlloy"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_GoldOre": {
@@ -1633,13 +2023,20 @@
       "recipes": {
         "input": [
           "GoldOreCrushing",
-          "GoldOreCrushingT2"
+          "GoldOreCrushingT2",
+          "Balancer_Product_GoldOre"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_GoldOre"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_GoldOreCrushed": {
@@ -1652,16 +2049,22 @@
       "recipes": {
         "input": [
           "GoldMilling",
-          "GoldOreMillingT2"
+          "GoldOreMillingT2",
+          "Balancer_Product_GoldOreCrushed"
         ],
         "output": [
           "GoldOreCrushing",
-          "GoldOreCrushingT2"
+          "GoldOreCrushingT2",
+          "Balancer_Product_GoldOreCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_GoldOrePowder": {
@@ -1673,16 +2076,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "GoldSettling"
+          "GoldSettling",
+          "Balancer_Product_GoldOrePowder"
         ],
         "output": [
           "GoldMilling",
-          "GoldOreMillingT2"
+          "GoldOreMillingT2",
+          "Balancer_Product_GoldOrePowder"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_GoldOreConcentrate": {
@@ -1694,15 +2103,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "GoldSmelting"
+          "GoldSmelting",
+          "Balancer_Product_GoldOreConcentrate"
         ],
         "output": [
-          "GoldSettling"
+          "GoldSettling",
+          "Balancer_Product_GoldOreConcentrate"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Gold": {
@@ -1724,16 +2139,22 @@
           "MicrochipMachine_MicrochipProdStage3A",
           "MicrochipMachine_MicrochipProdStage3B",
           "MicrochipMachine_MicrochipProdStage3C",
-          "MicrochipMachine_MicrochipProdFinalStage"
+          "MicrochipMachine_MicrochipProdFinalStage",
+          "Balancer_Product_Gold"
         ],
         "output": [
           "GoldSmelting",
-          "GoldScrapSmelting"
+          "GoldScrapSmelting",
+          "Balancer_Product_Gold"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_GoldScrap": {
@@ -1746,15 +2167,21 @@
       "recipes": {
         "input": [
           "GoldScrapSmelting",
-          "PressingOfGoldScrap"
+          "PressingOfGoldScrap",
+          "Balancer_Product_GoldScrap"
         ],
         "output": [
-          "ShreddingGoldScrap"
+          "ShreddingGoldScrap",
+          "Balancer_Product_GoldScrap"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_GoldScrapPressed": {
@@ -1766,15 +2193,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingGoldScrap"
+          "ShreddingGoldScrap",
+          "Balancer_Product_GoldScrapPressed"
         ],
         "output": [
-          "PressingOfGoldScrap"
+          "PressingOfGoldScrap",
+          "Balancer_Product_GoldScrapPressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Sand": {
@@ -1804,16 +2237,22 @@
           "GlassMixMixing",
           "GlassMixMixingWithAcid",
           "FilterMediaMixing",
-          "WaterTreatment"
+          "WaterTreatment",
+          "Balancer_Product_Sand"
         ],
         "output": [
           "QuartzMilling",
-          "QuartzMillingT2"
+          "QuartzMillingT2",
+          "Balancer_Product_Sand"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_MoltenGlass": {
@@ -1830,7 +2269,8 @@
           "SpentMoxToBlanket",
           "CoreFuelReprocessing",
           "GlassCastingT2",
-          "GlassCastingT1"
+          "GlassCastingT1",
+          "Balancer_Product_MoltenGlass"
         ],
         "output": [
           "GlassSmeltingArc",
@@ -1840,12 +2280,17 @@
           "GlassSmeltingT2",
           "GlassSmeltingT2WithBroken",
           "GlassSmelting",
-          "GlassSmeltingWithBroken"
+          "GlassSmeltingWithBroken",
+          "Balancer_Product_MoltenGlass"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_BrokenGlass": {
@@ -1860,15 +2305,21 @@
           "GlassSmeltingArcWithBroken",
           "GlassSmeltingArcT1WithBroken",
           "GlassSmeltingT2WithBroken",
-          "GlassSmeltingWithBroken"
+          "GlassSmeltingWithBroken",
+          "Balancer_Product_BrokenGlass"
         ],
         "output": [
-          "GlassCastingT1"
+          "GlassCastingT1",
+          "Balancer_Product_BrokenGlass"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Glass": {
@@ -1897,16 +2348,22 @@
           "PCBAssemblyT1",
           "SolarCellAssemblyT1",
           "HouseholdGoodsAssemblyT1",
-          "MorphineProduction"
+          "MorphineProduction",
+          "Balancer_Product_Glass"
         ],
         "output": [
           "GlassCastingT2",
-          "GlassCastingT1"
+          "GlassCastingT1",
+          "Balancer_Product_Glass"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_GlassMix": {
@@ -1921,18 +2378,24 @@
           "GlassSmeltingArc",
           "GlassSmeltingArcT1",
           "GlassSmeltingT2",
-          "GlassSmelting"
+          "GlassSmelting",
+          "Balancer_Product_GlassMix"
         ],
         "output": [
           "GlassMixMixingT2",
           "GlassMixMixingWithAcidT2",
           "GlassMixMixing",
-          "GlassMixMixingWithAcid"
+          "GlassMixMixingWithAcid",
+          "Balancer_Product_GlassMix"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_UraniumOre": {
@@ -1945,13 +2408,20 @@
       "recipes": {
         "input": [
           "UraniumCrushing",
-          "UraniumCrushingT2"
+          "UraniumCrushingT2",
+          "Balancer_Product_UraniumOre"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_UraniumOre"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_UraniumOreCrushed": {
@@ -1963,16 +2433,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "UraniumLeaching"
+          "UraniumLeaching",
+          "Balancer_Product_UraniumOreCrushed"
         ],
         "output": [
           "UraniumCrushing",
-          "UraniumCrushingT2"
+          "UraniumCrushingT2",
+          "Balancer_Product_UraniumOreCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Yellowcake": {
@@ -1985,15 +2461,21 @@
       "recipes": {
         "input": [
           "UraniumEnrichment",
-          "BlanketFuelFromYellowcake"
+          "BlanketFuelFromYellowcake",
+          "Balancer_Product_Yellowcake"
         ],
         "output": [
-          "UraniumLeaching"
+          "UraniumLeaching",
+          "Balancer_Product_Yellowcake"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_UraniumEnriched": {
@@ -2009,16 +2491,22 @@
           "UraniumRodsAssemblyT2",
           "UraniumEnrichedAssemblyT1",
           "UraniumRodsAssemblyT1",
-          "UraniumEnrichment20"
+          "UraniumEnrichment20",
+          "Balancer_Product_UraniumEnriched"
         ],
         "output": [
           "UraniumEnrichment",
-          "ReprocessedUraniumEnrichment"
+          "ReprocessedUraniumEnrichment",
+          "Balancer_Product_UraniumEnriched"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_UraniumEnriched20": {
@@ -2031,17 +2519,23 @@
       "recipes": {
         "input": [
           "CompactReactorAssembly",
-          "CoreFuelFromEnriched"
+          "CoreFuelFromEnriched",
+          "Balancer_Product_UraniumEnriched20"
         ],
         "output": [
           "UraniumEnrichedAssemblyT1",
           "UraniumEnrichment20",
-          "BlanketFuelReprocessingToU30"
+          "BlanketFuelReprocessingToU30",
+          "Balancer_Product_UraniumEnriched20"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_UraniumReprocessed": {
@@ -2053,15 +2547,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ReprocessedUraniumEnrichment"
+          "ReprocessedUraniumEnrichment",
+          "Balancer_Product_UraniumReprocessed"
         ],
         "output": [
-          "SpentFuelReprocessing"
+          "SpentFuelReprocessing",
+          "Balancer_Product_UraniumReprocessed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Plutonium": {
@@ -2076,16 +2576,22 @@
           "ProbePartsAssembly",
           "UraniumEnrichedAssemblyT1",
           "MoxRodsAssemblyT1",
-          "CoreFuelFromPu"
+          "CoreFuelFromPu",
+          "Balancer_Product_Plutonium"
         ],
         "output": [
           "BlanketFuelReprocessingToPu",
-          "SpentFuelReprocessing"
+          "SpentFuelReprocessing",
+          "Balancer_Product_Plutonium"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_UraniumDepleted": {
@@ -2098,17 +2604,23 @@
       "recipes": {
         "input": [
           "MoxRodsAssemblyT1",
-          "BlanketFuelFromDepleted"
+          "BlanketFuelFromDepleted",
+          "Balancer_Product_UraniumDepleted"
         ],
         "output": [
           "UraniumEnrichment",
           "ReprocessedUraniumEnrichment",
-          "UraniumEnrichment20"
+          "UraniumEnrichment20",
+          "Balancer_Product_UraniumDepleted"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_UraniumRod": {
@@ -2121,17 +2633,23 @@
       "recipes": {
         "input": [
           "NuclearReactorT22",
-          "NuclearReactor1"
+          "NuclearReactor1",
+          "Balancer_Product_UraniumRod"
         ],
         "output": [
           "UraniumRodsAssemblyT3",
           "UraniumRodsAssemblyT2",
-          "UraniumRodsAssemblyT1"
+          "UraniumRodsAssemblyT1",
+          "Balancer_Product_UraniumRod"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MoxRod": {
@@ -2143,15 +2661,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "NuclearReactorT21"
+          "NuclearReactorT21",
+          "Balancer_Product_MoxRod"
         ],
         "output": [
-          "MoxRodsAssemblyT1"
+          "MoxRodsAssemblyT1",
+          "Balancer_Product_MoxRod"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SpentFuel": {
@@ -2164,16 +2688,22 @@
       "recipes": {
         "input": [
           "SpentFuelReprocessing",
-          "SpentFuelToBlanket"
+          "SpentFuelToBlanket",
+          "Balancer_Product_SpentFuel"
         ],
         "output": [
           "NuclearReactorT22",
-          "NuclearReactor1"
+          "NuclearReactor1",
+          "Balancer_Product_SpentFuel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SpentMox": {
@@ -2185,15 +2715,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "SpentMoxToBlanket"
+          "SpentMoxToBlanket",
+          "Balancer_Product_SpentMox"
         ],
         "output": [
-          "NuclearReactorT21"
+          "NuclearReactorT21",
+          "Balancer_Product_SpentMox"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_FissionProduct": {
@@ -2204,17 +2740,24 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_FissionProduct"
+        ],
         "output": [
           "SpentFuelReprocessing",
           "SpentFuelToBlanket",
           "SpentMoxToBlanket",
-          "CoreFuelReprocessing"
+          "CoreFuelReprocessing",
+          "Balancer_Product_FissionProduct"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_RetiredWaste": {
@@ -2226,13 +2769,20 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ShreddingRetiredWaste"
+          "ShreddingRetiredWaste",
+          "Balancer_Product_RetiredWaste"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_RetiredWaste"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CoreFuel": {
@@ -2246,18 +2796,24 @@
         "input": [
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_CoreFuel"
         ],
         "output": [
           "BlanketFuelReprocessing",
           "CoreFuelReprocessing",
           "CoreFuelFromEnriched",
-          "CoreFuelFromPu"
+          "CoreFuelFromPu",
+          "Balancer_Product_CoreFuel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_CoreFuelDirty": {
@@ -2269,17 +2825,23 @@
       "unit": "",
       "recipes": {
         "input": [
-          "CoreFuelReprocessing"
+          "CoreFuelReprocessing",
+          "Balancer_Product_CoreFuelDirty"
         ],
         "output": [
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_CoreFuelDirty"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_BlanketFuel": {
@@ -2293,7 +2855,8 @@
         "input": [
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_BlanketFuel"
         ],
         "output": [
           "BlanketFuelReprocessing",
@@ -2302,12 +2865,17 @@
           "SpentFuelToBlanket",
           "SpentMoxToBlanket",
           "BlanketFuelFromDepleted",
-          "BlanketFuelFromYellowcake"
+          "BlanketFuelFromYellowcake",
+          "Balancer_Product_BlanketFuel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_BlanketFuelEnriched": {
@@ -2322,17 +2890,23 @@
           "BlanketFuelReprocessing",
           "BlanketFuelReprocessingToPu",
           "BlanketFuelReprocessingToU30",
-          "BlanketFuelFromDepleted"
+          "BlanketFuelFromDepleted",
+          "Balancer_Product_BlanketFuelEnriched"
         ],
         "output": [
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_BlanketFuelEnriched"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Quartz": {
@@ -2345,13 +2919,20 @@
       "recipes": {
         "input": [
           "QuartzCrushing",
-          "QuartzCrushingT2"
+          "QuartzCrushingT2",
+          "Balancer_Product_Quartz"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_Quartz"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_QuartzCrushed": {
@@ -2364,16 +2945,22 @@
       "recipes": {
         "input": [
           "QuartzMilling",
-          "QuartzMillingT2"
+          "QuartzMillingT2",
+          "Balancer_Product_QuartzCrushed"
         ],
         "output": [
           "QuartzCrushing",
-          "QuartzCrushingT2"
+          "QuartzCrushingT2",
+          "Balancer_Product_QuartzCrushed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_MoltenSilicon": {
@@ -2385,16 +2972,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "SiliconTreatment"
+          "SiliconTreatment",
+          "Balancer_Product_MoltenSilicon"
         ],
         "output": [
           "SiliconSmeltingArc2",
-          "SiliconSmeltingArc"
+          "SiliconSmeltingArc",
+          "Balancer_Product_MoltenSilicon"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerMolten"
+        ],
+        "output": [
+          "BalancerMolten"
+        ]
       }
     },
     "Product_PolySilicon": {
@@ -2412,15 +3005,21 @@
           "SolarCellAssemblyT2",
           "Electronics2AssemblyT1",
           "SolarCellAssemblyT1",
-          "SiliconCrystallization"
+          "SiliconCrystallization",
+          "Balancer_Product_PolySilicon"
         ],
         "output": [
-          "SiliconTreatment"
+          "SiliconTreatment",
+          "Balancer_Product_PolySilicon"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SiliconWafer": {
@@ -2434,15 +3033,21 @@
         "input": [
           "SolarCellMonoAssemblyT1",
           "MicrochipMachineT2_MicrochipProdStage1A",
-          "MicrochipMachine_MicrochipProdStage1A"
+          "MicrochipMachine_MicrochipProdStage1A",
+          "Balancer_Product_SiliconWafer"
         ],
         "output": [
-          "SiliconCrystallization"
+          "SiliconCrystallization",
+          "Balancer_Product_SiliconWafer"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Water": {
@@ -2621,7 +3226,8 @@
           "NuclearReactor1",
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_Water"
         ],
         "output": [
           "WaterDesalinationBasic",
@@ -2645,12 +3251,17 @@
           "WaterTreatmentT2",
           "ToxicSlurryTreatment",
           "RainwaterHarvester",
-          "BasicServerRack"
+          "BasicServerRack",
+          "Balancer_Product_Water"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_ChilledWater": {
@@ -2662,15 +3273,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "BasicServerRack"
+          "BasicServerRack",
+          "Balancer_Product_ChilledWater"
         ],
         "output": [
-          "WaterChilling"
+          "WaterChilling",
+          "Balancer_Product_ChilledWater"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Seawater": {
@@ -2693,16 +3310,22 @@
           "DesalinationFromLP",
           "DesalinationFromDepleted",
           "RedMudSettling",
-          "SeaWaterDumping"
+          "SeaWaterDumping",
+          "Balancer_Product_Seawater"
         ],
         "output": [
           "OceanWaterPumping",
-          "OceanWaterPumpingT2"
+          "OceanWaterPumpingT2",
+          "Balancer_Product_Seawater"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Brine": {
@@ -2720,7 +3343,8 @@
           "BrineElectrolysis",
           "BauxiteDigestion",
           "BrineDumping",
-          "ToxicSlurryTreatment"
+          "ToxicSlurryTreatment",
+          "Balancer_Product_Brine"
         ],
         "output": [
           "WaterDesalinationBasic",
@@ -2731,12 +3355,17 @@
           "DesalinationFromLP",
           "DesalinationFromDepleted",
           "BrineProductionT2",
-          "BrineProduction"
+          "BrineProduction",
+          "Balancer_Product_Brine"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_WasteWater": {
@@ -2750,17 +3379,23 @@
         "input": [
           "OceanWasteWaterPumping",
           "WaterTreatment",
-          "WaterTreatmentT2"
+          "WaterTreatmentT2",
+          "Balancer_Product_WasteWater"
         ],
         "output": [
           "DieselDistillationBasic",
           "RubberProductionNaphthaAlt",
-          "RubberProductionDieselWithCoal"
+          "RubberProductionDieselWithCoal",
+          "Balancer_Product_WasteWater"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_ToxicSlurry": {
@@ -2773,16 +3408,22 @@
       "recipes": {
         "input": [
           "ToxicSlurryDumping",
-          "ToxicSlurryTreatment"
+          "ToxicSlurryTreatment",
+          "Balancer_Product_ToxicSlurry"
         ],
         "output": [
           "GoldSettling",
-          "UraniumLeaching"
+          "UraniumLeaching",
+          "Balancer_Product_ToxicSlurry"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Virtual_PollutedWater": {
@@ -2793,7 +3434,9 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Virtual_PollutedWater"
+        ],
         "output": [
           "OceanWasteWaterPumping",
           "SourWaterDumping",
@@ -2802,12 +3445,17 @@
           "FertilizerOrganicDumping",
           "FertilizerChem1Dumping",
           "FertilizerChem2Dumping",
-          "RedMudDumping"
+          "RedMudDumping",
+          "Balancer_Product_Virtual_PollutedWater"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Virtual_PollutedAir": {
@@ -2818,7 +3466,9 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Virtual_PollutedAir"
+        ],
         "output": [
           "DieselGenerator",
           "SmokeStackLargeExhaust",
@@ -2840,12 +3490,17 @@
           "MeatTrimmingsBurning",
           "ChickenCarcassBurning",
           "SulfurBurning",
-          "SludgeBurning"
+          "SludgeBurning",
+          "Balancer_Product_Virtual_PollutedAir"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_Chlorine": {
@@ -2863,17 +3518,23 @@
           "PlasticMaking",
           "PlasticMakingEthanol",
           "WaterTreatment",
-          "WaterTreatmentT2"
+          "WaterTreatmentT2",
+          "Balancer_Product_Chlorine"
         ],
         "output": [
           "BrineElectrolysisT2",
           "BrineElectrolysis",
-          "TitaniumChlorideReduction"
+          "TitaniumChlorideReduction",
+          "Balancer_Product_Chlorine"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_SteamSp": {
@@ -2890,18 +3551,24 @@
           "SteamSpCondensationT2",
           "HydrogenProductionFromSteamSp",
           "SmokeStackLargeSpSteam",
-          "SmokeStackSpSteam"
+          "SmokeStackSpSteam",
+          "Balancer_Product_SteamSp"
         ],
         "output": [
           "SteamGenerationSpElectric",
           "FastBreederReactorEnrichment1",
           "FastBreederReactorEnrichment2",
-          "FastBreederReactorEnrichment3"
+          "FastBreederReactorEnrichment3",
+          "Balancer_Product_SteamSp"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_SteamHi": {
@@ -2929,7 +3596,8 @@
           "HydrogenReforming",
           "SourWaterStripping",
           "SmokeStackLargeHpSteam",
-          "SmokeStackHpSteam"
+          "SmokeStackHpSteam",
+          "Balancer_Product_SteamHi"
         ],
         "output": [
           "TurbineSuperPress",
@@ -2952,12 +3620,17 @@
           "IncinerationOfWastePressedHydrogen",
           "NuclearReactorT21",
           "NuclearReactorT22",
-          "NuclearReactor1"
+          "NuclearReactor1",
+          "Balancer_Product_SteamHi"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_SteamLP": {
@@ -2975,7 +3648,8 @@
           "SteamLpCondensation",
           "SteamLpCondensationT2",
           "SmokeStackLargeLpSteam",
-          "SmokeStackLpSteam"
+          "SmokeStackLpSteam",
+          "Balancer_Product_SteamLP"
         ],
         "output": [
           "TurbineHighPressT2",
@@ -2991,12 +3665,17 @@
           "IlmeniteSmeltingArc2",
           "TitaniumSmeltingArc2",
           "ExhaustFiltering",
-          "ExhaustFilteringLime"
+          "ExhaustFilteringLime",
+          "Balancer_Product_SteamLP"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_SteamDepleted": {
@@ -3012,7 +3691,8 @@
           "SteamDepletedCondensation",
           "SteamDepletedCondensationT2",
           "SmokeStackLargeDepletedSteam",
-          "SmokeStackDepletedSteam"
+          "SmokeStackDepletedSteam",
+          "Balancer_Product_SteamDepleted"
         ],
         "output": [
           "TurbineLowPressT2",
@@ -3021,12 +3701,17 @@
           "CementProductionHydrogen",
           "AluminaCalcificationHydrogen",
           "TitaniumPurification",
-          "HydrogenProductionFromSteamSp"
+          "HydrogenProductionFromSteamSp",
+          "Balancer_Product_SteamDepleted"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Salt": {
@@ -3055,18 +3740,24 @@
           "BlanketFuelFromDepleted",
           "BlanketFuelFromYellowcake",
           "CoreFuelFromEnriched",
-          "CoreFuelFromPu"
+          "CoreFuelFromPu",
+          "Balancer_Product_Salt"
         ],
         "output": [
           "SaltMakingHeated",
           "SaltMakingFromBrineHeated",
           "SaltMaking",
-          "SaltMakingFromBrine"
+          "SaltMakingFromBrine",
+          "Balancer_Product_Salt"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Exhaust": {
@@ -3081,7 +3772,8 @@
           "SmokeStackLargeExhaust",
           "SmokeStackExhaust",
           "ExhaustFiltering",
-          "ExhaustFilteringLime"
+          "ExhaustFilteringLime",
+          "Balancer_Product_Exhaust"
         ],
         "output": [
           "DieselGeneratorT2",
@@ -3136,12 +3828,17 @@
           "IncinerationOfWaste",
           "IncinerationOfWastePressed",
           "IncinerationOfWasteHydrogen",
-          "IncinerationOfWastePressedHydrogen"
+          "IncinerationOfWastePressedHydrogen",
+          "Balancer_Product_Exhaust"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Recyclables": {
@@ -3153,7 +3850,8 @@
       "unit": "",
       "recipes": {
         "input": [
-          "PressingOfRecyclables"
+          "PressingOfRecyclables",
+          "Balancer_Product_Recyclables"
         ],
         "output": [
           "ShreddingRetiredWaste",
@@ -3164,12 +3862,17 @@
           "ResearchLab21",
           "ResearchLab31",
           "ResearchLab41",
-          "ResearchLab51"
+          "ResearchLab51",
+          "Balancer_Product_Recyclables"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_RecyclablesPressed": {
@@ -3180,14 +3883,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_RecyclablesPressed"
+        ],
         "output": [
-          "PressingOfRecyclables"
+          "PressingOfRecyclables",
+          "Balancer_Product_RecyclablesPressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CrudeOil": {
@@ -3200,15 +3910,21 @@
       "recipes": {
         "input": [
           "DieselDistillationBasic",
-          "CrudeOilRefiningT1"
+          "CrudeOilRefiningT1",
+          "Balancer_Product_CrudeOil"
         ],
         "output": [
-          "OilGroundPumping"
+          "OilGroundPumping",
+          "Balancer_Product_CrudeOil"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Diesel": {
@@ -3225,7 +3941,8 @@
           "RubberProductionDiesel",
           "RubberProductionDieselWithCoal",
           "DieselReforming",
-          "FlareDiesel"
+          "FlareDiesel",
+          "Balancer_Product_Diesel"
         ],
         "output": [
           "DieselDistillationBasic",
@@ -3234,12 +3951,17 @@
           "CrudeOilRefiningT2",
           "HeavyOilCracking",
           "NaphthaReforming",
-          "FuelGasReforming"
+          "FuelGasReforming",
+          "Balancer_Product_Diesel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Naphtha": {
@@ -3257,17 +3979,23 @@
           "NaphthaReforming",
           "NaphthaReformingToGas",
           "PlasticMaking",
-          "FlareNaphtha"
+          "FlareNaphtha",
+          "Balancer_Product_Naphtha"
         ],
         "output": [
           "HeavyDistillateRefining",
           "HeavyOilCrackingToNaphtha",
-          "DieselReforming"
+          "DieselReforming",
+          "Balancer_Product_Naphtha"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_FuelGas": {
@@ -3287,7 +4015,8 @@
           "HydrogenReforming",
           "FlareFuelGas",
           "IncinerationOfWaste",
-          "IncinerationOfWastePressed"
+          "IncinerationOfWastePressed",
+          "Balancer_Product_FuelGas"
         ],
         "output": [
           "FuelGasSynthesis",
@@ -3307,12 +4036,17 @@
           "SoybeanDigestion",
           "SugarCaneDigestion",
           "MeatTrimmingsDigestion",
-          "EggsDigestion"
+          "EggsDigestion",
+          "Balancer_Product_FuelGas"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Sulfur": {
@@ -3334,17 +4068,23 @@
           "RubberProductionNaphtha",
           "RubberProductionEthanol",
           "RubberProductionDiesel",
-          "SulfurBurning"
+          "SulfurBurning",
+          "Balancer_Product_Sulfur"
         ],
         "output": [
           "SourWaterStripping",
           "ExhaustFiltering",
-          "ExhaustFilteringLime"
+          "ExhaustFilteringLime",
+          "Balancer_Product_Sulfur"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_SourWater": {
@@ -3357,17 +4097,23 @@
       "recipes": {
         "input": [
           "SourWaterStripping",
-          "SourWaterDumping"
+          "SourWaterDumping",
+          "Balancer_Product_SourWater"
         ],
         "output": [
           "GraphiteProductionT2",
           "GraphiteProductionT1",
-          "CrudeOilRefiningT1"
+          "CrudeOilRefiningT1",
+          "Balancer_Product_SourWater"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Ammonia": {
@@ -3388,17 +4134,23 @@
           "ChemicalFuelProduction",
           "FertilizerProduction",
           "FertilizerProductionFromOrganic",
-          "FlareAmmonia"
+          "FlareAmmonia",
+          "Balancer_Product_Ammonia"
         ],
         "output": [
           "AmmoniaSynthesisT2",
           "AmmoniaSynthesis",
-          "SourWaterStripping"
+          "SourWaterStripping",
+          "Balancer_Product_Ammonia"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Acid": {
@@ -3430,16 +4182,22 @@
           "GlassMixMixingWithAcidT2",
           "GlassMixMixingWithAcid",
           "MorphineProduction",
-          "WasteAcidDumping"
+          "WasteAcidDumping",
+          "Balancer_Product_Acid"
         ],
         "output": [
           "AcidMixMixingT2",
-          "AcidMixMixing"
+          "AcidMixMixing",
+          "Balancer_Product_Acid"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_HeavyOil": {
@@ -3455,15 +4213,21 @@
           "DiamondPasteFromHeavyOil",
           "HeavyOilCracking",
           "HeavyOilCrackingToNaphtha",
-          "FlareHeavyOil"
+          "FlareHeavyOil",
+          "Balancer_Product_HeavyOil"
         ],
         "output": [
-          "CrudeOilRefiningT1"
+          "CrudeOilRefiningT1",
+          "Balancer_Product_HeavyOil"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_MediumOil": {
@@ -3476,15 +4240,21 @@
       "recipes": {
         "input": [
           "SteamGenerationMediumOil",
-          "CrudeOilRefiningT2"
+          "CrudeOilRefiningT2",
+          "Balancer_Product_MediumOil"
         ],
         "output": [
-          "CrudeOilRefiningT1"
+          "CrudeOilRefiningT1",
+          "Balancer_Product_MediumOil"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_LightOil": {
@@ -3498,15 +4268,21 @@
         "input": [
           "SteamGenerationLightOil",
           "HeavyDistillateRefining",
-          "FlareLightOil"
+          "FlareLightOil",
+          "Balancer_Product_LightOil"
         ],
         "output": [
-          "CrudeOilRefiningT2"
+          "CrudeOilRefiningT2",
+          "Balancer_Product_LightOil"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Plastic": {
@@ -3542,16 +4318,22 @@
           "MicrochipMachine_MicrochipProdStage2C",
           "MicrochipMachine_MicrochipProdStage2D",
           "DisinfectantProductionT2",
-          "DisinfectantProduction"
+          "DisinfectantProduction",
+          "Balancer_Product_Plastic"
         ],
         "output": [
           "PlasticMaking",
-          "PlasticMakingEthanol"
+          "PlasticMakingEthanol",
+          "Balancer_Product_Plastic"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Rubber": {
@@ -3567,19 +4349,25 @@
           "ElectronicsAssemblyT4",
           "ElectronicsAssemblyT3",
           "ElectronicsAssemblyT2",
-          "ElectronicsAssemblyT1"
+          "ElectronicsAssemblyT1",
+          "Balancer_Product_Rubber"
         ],
         "output": [
           "RubberProductionNaphtha",
           "RubberProductionNaphthaAlt",
           "RubberProductionEthanol",
           "RubberProductionDiesel",
-          "RubberProductionDieselWithCoal"
+          "RubberProductionDieselWithCoal",
+          "Balancer_Product_Rubber"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Hydrogen": {
@@ -3604,7 +4392,8 @@
           "NaphthaReforming",
           "FlareHydrogen",
           "IncinerationOfWasteHydrogen",
-          "IncinerationOfWastePressedHydrogen"
+          "IncinerationOfWastePressedHydrogen",
+          "Balancer_Product_Hydrogen"
         ],
         "output": [
           "WaterElectrolysisT2",
@@ -3613,12 +4402,17 @@
           "AmmoniaElectrolysis",
           "NaphthaReformingToGas",
           "HydrogenReforming",
-          "HydrogenProductionFromSteamSp"
+          "HydrogenProductionFromSteamSp",
+          "Balancer_Product_Hydrogen"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Nitrogen": {
@@ -3633,17 +4427,23 @@
           "AmmoniaSynthesisT2",
           "AmmoniaSynthesis",
           "SmokeStackLargeNitrogen",
-          "SmokeStackNitrogen"
+          "SmokeStackNitrogen",
+          "Balancer_Product_Nitrogen"
         ],
         "output": [
           "AmmoniaElectrolysisT2",
           "AmmoniaElectrolysis",
-          "AirSeparation"
+          "AirSeparation",
+          "Balancer_Product_Nitrogen"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_CarbonDioxide": {
@@ -3660,7 +4460,8 @@
           "GraphiteProductionCo2",
           "CarbonToEthanolProduction",
           "SmokeStackLargeCarbonDioxide",
-          "SmokeStackCarbonDioxide"
+          "SmokeStackCarbonDioxide",
+          "Balancer_Product_CarbonDioxide"
         ],
         "output": [
           "SteamGenerationEthanol",
@@ -3674,12 +4475,17 @@
           "TitaniumChlorination",
           "HydrogenReforming",
           "ExhaustFiltering",
-          "ExhaustFilteringLime"
+          "ExhaustFilteringLime",
+          "Balancer_Product_CarbonDioxide"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Ethanol": {
@@ -3699,17 +4505,23 @@
           "DisinfectantProduction",
           "RubberProductionEthanol",
           "PlasticMakingEthanol",
-          "FlareEthanol"
+          "FlareEthanol",
+          "Balancer_Product_Ethanol"
         ],
         "output": [
           "SugarToEthanolFermentation",
           "CornToEthanolFermentation",
-          "CarbonToEthanolProduction"
+          "CarbonToEthanolProduction",
+          "Balancer_Product_Ethanol"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Potato": {
@@ -3724,7 +4536,8 @@
           "SnackProductionPotato",
           "AnimalFeedFromPotatoT2",
           "AnimalFeedFromPotato",
-          "PotatoDigestion"
+          "PotatoDigestion",
+          "Balancer_Product_Potato"
         ],
         "output": [
           "Crop_Potato_Product_Fertilizer",
@@ -3736,12 +4549,17 @@
           "Crop_Potato_Product_Fertilizer_1",
           "Crop_Potato_Product_Fertilizer2_1",
           "Crop_Potato_Product_FertilizerOrganic_1",
-          "Crop_Potato"
+          "Crop_Potato",
+          "Balancer_Product_Potato"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Corn": {
@@ -3757,7 +4575,8 @@
           "SnackProductionCorn",
           "AnimalFeedFromCornT2",
           "AnimalFeedFromCorn",
-          "CornDigestion"
+          "CornDigestion",
+          "Balancer_Product_Corn"
         ],
         "output": [
           "Crop_Corn_Product_Fertilizer",
@@ -3769,12 +4588,17 @@
           "Crop_Corn_Product_Fertilizer_1",
           "Crop_Corn_Product_Fertilizer2_1",
           "Crop_Corn_Product_FertilizerOrganic_1",
-          "Crop_Corn"
+          "Crop_Corn",
+          "Balancer_Product_Corn"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Wheat": {
@@ -3789,7 +4613,8 @@
           "WheatMilling",
           "AnimalFeedFromWheatT2",
           "AnimalFeedFromWheat",
-          "WheatDigestion"
+          "WheatDigestion",
+          "Balancer_Product_Wheat"
         ],
         "output": [
           "Crop_Wheat_Product_Fertilizer",
@@ -3801,12 +4626,17 @@
           "Crop_Wheat_Product_Fertilizer_1",
           "Crop_Wheat_Product_Fertilizer2_1",
           "Crop_Wheat_Product_FertilizerOrganic_1",
-          "Crop_Wheat"
+          "Crop_Wheat",
+          "Balancer_Product_Wheat"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Soybean": {
@@ -3822,7 +4652,8 @@
           "TofuProduction",
           "AnimalFeedFromSoybeanT2",
           "AnimalFeedFromSoybean",
-          "SoybeanDigestion"
+          "SoybeanDigestion",
+          "Balancer_Product_Soybean"
         ],
         "output": [
           "Crop_Soybeans_Product_Fertilizer",
@@ -3834,12 +4665,17 @@
           "Crop_Soybeans_Product_Fertilizer_1",
           "Crop_Soybeans_Product_Fertilizer2_1",
           "Crop_Soybeans_Product_FertilizerOrganic_1",
-          "Crop_Soybeans"
+          "Crop_Soybeans",
+          "Balancer_Product_Soybean"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_SugarCane": {
@@ -3852,7 +4688,8 @@
       "recipes": {
         "input": [
           "SugarRefiningCane",
-          "SugarCaneDigestion"
+          "SugarCaneDigestion",
+          "Balancer_Product_SugarCane"
         ],
         "output": [
           "Crop_SugarCane_Product_Fertilizer",
@@ -3860,12 +4697,17 @@
           "Crop_SugarCane_Product_FertilizerOrganic",
           "Crop_SugarCane_Product_Fertilizer_1",
           "Crop_SugarCane_Product_Fertilizer2_1",
-          "Crop_SugarCane_Product_FertilizerOrganic_1"
+          "Crop_SugarCane_Product_FertilizerOrganic_1",
+          "Balancer_Product_SugarCane"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Canola": {
@@ -3878,7 +4720,8 @@
       "recipes": {
         "input": [
           "CanolaMilling",
-          "CanolaBurning"
+          "CanolaBurning",
+          "Balancer_Product_Canola"
         ],
         "output": [
           "Crop_Canola_Product_Fertilizer",
@@ -3890,12 +4733,17 @@
           "Crop_Canola_Product_Fertilizer_1",
           "Crop_Canola_Product_Fertilizer2_1",
           "Crop_Canola_Product_FertilizerOrganic_1",
-          "Crop_Canola"
+          "Crop_Canola",
+          "Balancer_Product_Canola"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Vegetables": {
@@ -3910,7 +4758,8 @@
           "FoodPackAssemblyTofuT3",
           "FoodPackAssemblyTofuT2",
           "FoodPackAssemblyTofu",
-          "VegetablesDigestion"
+          "VegetablesDigestion",
+          "Balancer_Product_Vegetables"
         ],
         "output": [
           "Crop_Vegetables_Product_Fertilizer",
@@ -3922,12 +4771,17 @@
           "Crop_Vegetables_Product_Fertilizer_1",
           "Crop_Vegetables_Product_Fertilizer2_1",
           "Crop_Vegetables_Product_FertilizerOrganic_1",
-          "Crop_Vegetables"
+          "Crop_Vegetables",
+          "Balancer_Product_Vegetables"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Fruit": {
@@ -3940,7 +4794,8 @@
       "recipes": {
         "input": [
           "CakeProduction",
-          "FruitDigestion"
+          "FruitDigestion",
+          "Balancer_Product_Fruit"
         ],
         "output": [
           "Crop_Fruits_Product_Fertilizer",
@@ -3948,12 +4803,17 @@
           "Crop_Fruits_Product_FertilizerOrganic",
           "Crop_Fruits_Product_Fertilizer_1",
           "Crop_Fruits_Product_Fertilizer2_1",
-          "Crop_Fruits_Product_FertilizerOrganic_1"
+          "Crop_Fruits_Product_FertilizerOrganic_1",
+          "Balancer_Product_Fruit"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Poppy": {
@@ -3966,7 +4826,8 @@
       "recipes": {
         "input": [
           "MorphineProduction",
-          "PoppyDigestion"
+          "PoppyDigestion",
+          "Balancer_Product_Poppy"
         ],
         "output": [
           "Crop_Poppy_Product_Fertilizer",
@@ -3974,12 +4835,17 @@
           "Crop_Poppy_Product_FertilizerOrganic",
           "Crop_Poppy_Product_Fertilizer_1",
           "Crop_Poppy_Product_Fertilizer2_1",
-          "Crop_Poppy_Product_FertilizerOrganic_1"
+          "Crop_Poppy_Product_FertilizerOrganic_1",
+          "Balancer_Product_Poppy"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Bread": {
@@ -3996,15 +4862,21 @@
           "FoodPackAssemblyMeatT2",
           "FoodPackAssemblyEggsT2",
           "FoodPackAssemblyMeat",
-          "FoodPackAssemblyEggs"
+          "FoodPackAssemblyEggs",
+          "Balancer_Product_Bread"
         ],
         "output": [
-          "BreadProduction"
+          "BreadProduction",
+          "Balancer_Product_Bread"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Flour": {
@@ -4018,15 +4890,21 @@
         "input": [
           "SausageProduction",
           "BreadProduction",
-          "CakeProduction"
+          "CakeProduction",
+          "Balancer_Product_Flour"
         ],
         "output": [
-          "WheatMilling"
+          "WheatMilling",
+          "Balancer_Product_Flour"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_AnimalFeed": {
@@ -4042,7 +4920,8 @@
           "AnimalFeedCompostT2",
           "AnimalFeedCompost",
           "AnimalFeedBurning",
-          "ChickenFarm"
+          "ChickenFarm",
+          "Balancer_Product_AnimalFeed"
         ],
         "output": [
           "WheatMilling",
@@ -4057,12 +4936,17 @@
           "AnimalFeedFromPotato",
           "AnimalFeedFromWheat",
           "AnimalFeedFromCorn",
-          "AnimalFeedFromSoybean"
+          "AnimalFeedFromSoybean",
+          "Balancer_Product_AnimalFeed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Biomass": {
@@ -4077,18 +4961,24 @@
           "SteamGenerationBiomass",
           "BiomassCompostT2",
           "BiomassCompost",
-          "BiomassBurning"
+          "BiomassBurning",
+          "Balancer_Product_Biomass"
         ],
         "output": [
           "SnackProductionPotato",
           "SnackProductionCorn",
           "SugarRefiningCane",
-          "ShreddingSaplings"
+          "ShreddingSaplings",
+          "Balancer_Product_Biomass"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Eggs": {
@@ -4104,15 +4994,21 @@
           "FoodPackAssemblyEggsT3",
           "FoodPackAssemblyEggsT2",
           "FoodPackAssemblyEggs",
-          "EggsDigestion"
+          "EggsDigestion",
+          "Balancer_Product_Eggs"
         ],
         "output": [
-          "ChickenFarm"
+          "ChickenFarm",
+          "Balancer_Product_Eggs"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Tofu": {
@@ -4126,15 +5022,21 @@
         "input": [
           "FoodPackAssemblyTofuT3",
           "FoodPackAssemblyTofuT2",
-          "FoodPackAssemblyTofu"
+          "FoodPackAssemblyTofu",
+          "Balancer_Product_Tofu"
         ],
         "output": [
-          "TofuProduction"
+          "TofuProduction",
+          "Balancer_Product_Tofu"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CookingOil": {
@@ -4151,16 +5053,22 @@
           "CakeProduction",
           "EthanolCookingOilReformingT2",
           "DiamondPasteFromCookingOil",
-          "EthanolCookingOilReforming"
+          "EthanolCookingOilReforming",
+          "Balancer_Product_CookingOil"
         ],
         "output": [
           "SoybeanMilling",
-          "CanolaMilling"
+          "CanolaMilling",
+          "Balancer_Product_CookingOil"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Meat": {
@@ -4174,15 +5082,21 @@
         "input": [
           "FoodPackAssemblyMeatT3",
           "FoodPackAssemblyMeatT2",
-          "FoodPackAssemblyMeat"
+          "FoodPackAssemblyMeat",
+          "Balancer_Product_Meat"
         ],
         "output": [
-          "MeatProcessing"
+          "MeatProcessing",
+          "Balancer_Product_Meat"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Sausage": {
@@ -4193,14 +5107,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Sausage"
+        ],
         "output": [
-          "SausageProduction"
+          "SausageProduction",
+          "Balancer_Product_Sausage"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Snack": {
@@ -4211,15 +5132,22 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Snack"
+        ],
         "output": [
           "SnackProductionPotato",
-          "SnackProductionCorn"
+          "SnackProductionCorn",
+          "Balancer_Product_Snack"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Cake": {
@@ -4230,14 +5158,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Cake"
+        ],
         "output": [
-          "CakeProduction"
+          "CakeProduction",
+          "Balancer_Product_Cake"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_FoodPack": {
@@ -4251,7 +5186,8 @@
         "input": [
           "CrewSuppliesAssemblyT3",
           "CrewSuppliesAssemblyT2",
-          "CrewSuppliesAssemblyT1"
+          "CrewSuppliesAssemblyT1",
+          "Balancer_Product_FoodPack"
         ],
         "output": [
           "FoodPackAssemblyMeatT3",
@@ -4262,12 +5198,17 @@
           "FoodPackAssemblyTofuT2",
           "FoodPackAssemblyMeat",
           "FoodPackAssemblyEggs",
-          "FoodPackAssemblyTofu"
+          "FoodPackAssemblyTofu",
+          "Balancer_Product_FoodPack"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Chicken": {
@@ -4278,12 +5219,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Chicken"
+        ],
+        "output": [
+          "Balancer_Product_Chicken"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_CargoShip": {
@@ -4294,12 +5243,20 @@
       "transport": "Virtual",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_CargoShip"
+        ],
+        "output": [
+          "Balancer_Product_CargoShip"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     },
     "Product_ChickenCarcass": {
@@ -4313,15 +5270,21 @@
         "input": [
           "MeatProcessing",
           "MeatProcessingTrimmings",
-          "ChickenCarcassBurning"
+          "ChickenCarcassBurning",
+          "Balancer_Product_ChickenCarcass"
         ],
         "output": [
-          "ChickenFarm"
+          "ChickenFarm",
+          "Balancer_Product_ChickenCarcass"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MeatTrimmings": {
@@ -4337,16 +5300,22 @@
           "MeatTrimmingsCompostT2",
           "MeatTrimmingsCompost",
           "MeatTrimmingsBurning",
-          "MeatTrimmingsDigestion"
+          "MeatTrimmingsDigestion",
+          "Balancer_Product_MeatTrimmings"
         ],
         "output": [
           "MeatProcessing",
-          "MeatProcessingTrimmings"
+          "MeatProcessingTrimmings",
+          "Balancer_Product_MeatTrimmings"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_Sugar": {
@@ -4360,15 +5329,21 @@
         "input": [
           "CakeProduction",
           "SugarToEthanolFermentation",
-          "AntibioticsFermentation"
+          "AntibioticsFermentation",
+          "Balancer_Product_Sugar"
         ],
         "output": [
-          "SugarRefiningCane"
+          "SugarRefiningCane",
+          "Balancer_Product_Sugar"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_CornMash": {
@@ -4380,15 +5355,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "CornToEthanolFermentation"
+          "CornToEthanolFermentation",
+          "Balancer_Product_CornMash"
         ],
         "output": [
-          "CornMilling"
+          "CornMilling",
+          "Balancer_Product_CornMash"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_HouseholdGoods": {
@@ -4402,18 +5383,24 @@
         "input": [
           "OfficeSuppliesAssemblyT3",
           "OfficeSuppliesAssemblyT2",
-          "OfficeSuppliesAssemblyT1"
+          "OfficeSuppliesAssemblyT1",
+          "Balancer_Product_HouseholdGoods"
         ],
         "output": [
           "HouseholdGoodsAssemblyT4",
           "HouseholdGoodsAssemblyT3",
           "HouseholdGoodsAssemblyT2",
-          "HouseholdGoodsAssemblyT1"
+          "HouseholdGoodsAssemblyT1",
+          "Balancer_Product_HouseholdGoods"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_HouseholdAppliances": {
@@ -4424,16 +5411,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_HouseholdAppliances"
+        ],
         "output": [
           "HouseholdAppliancesAssemblyT3",
           "HouseholdAppliancesAssemblyT2",
-          "HouseholdAppliancesAssemblyT1"
+          "HouseholdAppliancesAssemblyT1",
+          "Balancer_Product_HouseholdAppliances"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConsumerElectronics": {
@@ -4444,14 +5438,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_ConsumerElectronics"
+        ],
         "output": [
-          "ConsumerElectronicsAssemblyT1"
+          "ConsumerElectronicsAssemblyT1",
+          "Balancer_Product_ConsumerElectronics"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_LuxuryGoods": {
@@ -4462,16 +5463,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_LuxuryGoods"
+        ],
         "output": [
           "LuxuryGoodsAssemblyT3",
           "LuxuryGoodsAssemblyT2",
-          "LuxuryGoodsAssemblyT1"
+          "LuxuryGoodsAssemblyT1",
+          "Balancer_Product_LuxuryGoods"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ImportedGoods": {
@@ -4485,13 +5493,20 @@
         "input": [
           "LuxuryGoodsAssemblyT3",
           "LuxuryGoodsAssemblyT2",
-          "LuxuryGoodsAssemblyT1"
+          "LuxuryGoodsAssemblyT1",
+          "Balancer_Product_ImportedGoods"
         ],
-        "output": []
+        "output": [
+          "Balancer_Product_ImportedGoods"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Antibiotics": {
@@ -4505,15 +5520,21 @@
         "input": [
           "MedicalSupplies2AssemblyT3",
           "MedicalSupplies2AssemblyT2",
-          "MedicalSupplies2AssemblyT1"
+          "MedicalSupplies2AssemblyT1",
+          "Balancer_Product_Antibiotics"
         ],
         "output": [
-          "AntibioticsFermentation"
+          "AntibioticsFermentation",
+          "Balancer_Product_Antibiotics"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Disinfectant": {
@@ -4527,16 +5548,22 @@
         "input": [
           "MedicalSuppliesAssemblyT3",
           "MedicalSuppliesAssemblyT2",
-          "MedicalSuppliesAssemblyT1"
+          "MedicalSuppliesAssemblyT1",
+          "Balancer_Product_Disinfectant"
         ],
         "output": [
           "DisinfectantProductionT2",
-          "DisinfectantProduction"
+          "DisinfectantProduction",
+          "Balancer_Product_Disinfectant"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Anesthetics": {
@@ -4550,15 +5577,21 @@
         "input": [
           "MedicalSupplies3AssemblyT3",
           "MedicalSupplies3AssemblyT2",
-          "MedicalSupplies3AssemblyT1"
+          "MedicalSupplies3AssemblyT1",
+          "Balancer_Product_Anesthetics"
         ],
         "output": [
-          "AnestheticsProduction"
+          "AnestheticsProduction",
+          "Balancer_Product_Anesthetics"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Morphine": {
@@ -4572,15 +5605,21 @@
         "input": [
           "MedicalSupplies3AssemblyT3",
           "MedicalSupplies3AssemblyT2",
-          "MedicalSupplies3AssemblyT1"
+          "MedicalSupplies3AssemblyT1",
+          "Balancer_Product_Morphine"
         ],
         "output": [
-          "MorphineProduction"
+          "MorphineProduction",
+          "Balancer_Product_Morphine"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MedicalEquipment": {
@@ -4594,17 +5633,23 @@
         "input": [
           "MedicalSuppliesAssemblyT3",
           "MedicalSuppliesAssemblyT2",
-          "MedicalSuppliesAssemblyT1"
+          "MedicalSuppliesAssemblyT1",
+          "Balancer_Product_MedicalEquipment"
         ],
         "output": [
           "MedicalEquipmentAssemblyT3",
           "MedicalEquipmentAssemblyT2",
-          "MedicalEquipmentAssemblyT1"
+          "MedicalEquipmentAssemblyT1",
+          "Balancer_Product_MedicalEquipment"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MedicalSupplies": {
@@ -4618,17 +5663,23 @@
         "input": [
           "MedicalSupplies2AssemblyT3",
           "MedicalSupplies2AssemblyT2",
-          "MedicalSupplies2AssemblyT1"
+          "MedicalSupplies2AssemblyT1",
+          "Balancer_Product_MedicalSupplies"
         ],
         "output": [
           "MedicalSuppliesAssemblyT3",
           "MedicalSuppliesAssemblyT2",
-          "MedicalSuppliesAssemblyT1"
+          "MedicalSuppliesAssemblyT1",
+          "Balancer_Product_MedicalSupplies"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MedicalSupplies2": {
@@ -4645,17 +5696,23 @@
           "MedicalSupplies3AssemblyT2",
           "CrewSuppliesAssemblyT2",
           "MedicalSupplies3AssemblyT1",
-          "CrewSuppliesAssemblyT1"
+          "CrewSuppliesAssemblyT1",
+          "Balancer_Product_MedicalSupplies2"
         ],
         "output": [
           "MedicalSupplies2AssemblyT3",
           "MedicalSupplies2AssemblyT2",
-          "MedicalSupplies2AssemblyT1"
+          "MedicalSupplies2AssemblyT1",
+          "Balancer_Product_MedicalSupplies2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MedicalSupplies3": {
@@ -4666,16 +5723,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_MedicalSupplies3"
+        ],
         "output": [
           "MedicalSupplies3AssemblyT3",
           "MedicalSupplies3AssemblyT2",
-          "MedicalSupplies3AssemblyT1"
+          "MedicalSupplies3AssemblyT1",
+          "Balancer_Product_MedicalSupplies3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Cement": {
@@ -4698,17 +5762,23 @@
           "ConcreteMixingSlag",
           "ConcreteMixingGravel",
           "ConcreteMixingGravelM",
-          "ConcreteMixingSlagM"
+          "ConcreteMixingSlagM",
+          "Balancer_Product_Cement"
         ],
         "output": [
           "CementProductionGas",
           "CementProductionHydrogen",
-          "CementProduction"
+          "CementProduction",
+          "Balancer_Product_Cement"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConcreteSlab": {
@@ -4730,7 +5800,8 @@
           "CpAssemblySteelT3",
           "RailPartsAssemblyT1",
           "CpAssemblyT2",
-          "CpAssemblyT1"
+          "CpAssemblyT1",
+          "Balancer_Product_ConcreteSlab"
         ],
         "output": [
           "SimpleConcreteMaking",
@@ -4745,12 +5816,17 @@
           "ConcreteMixingSlag",
           "ConcreteMixingGravel",
           "ConcreteMixingGravelM",
-          "ConcreteMixingSlagM"
+          "ConcreteMixingSlagM",
+          "Balancer_Product_ConcreteSlab"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Bricks": {
@@ -4761,12 +5837,20 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Bricks"
+        ],
+        "output": [
+          "Balancer_Product_Bricks"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConstructionParts": {
@@ -4782,7 +5866,8 @@
           "Cp2AssemblyT4",
           "Cp2AssemblyT3",
           "Cp2AssemblyT2",
-          "Cp2AssemblyT1"
+          "Cp2AssemblyT1",
+          "Balancer_Product_ConstructionParts"
         ],
         "output": [
           "CpAssemblyT5",
@@ -4792,12 +5877,17 @@
           "CpAssemblyT3",
           "CpAssemblySteelT3",
           "CpAssemblyT2",
-          "CpAssemblyT1"
+          "CpAssemblyT1",
+          "Balancer_Product_ConstructionParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConstructionParts2": {
@@ -4812,19 +5902,25 @@
           "Cp3AssemblyT4",
           "Cp3AssemblyT3",
           "Cp3AssemblyT2",
-          "Cp3AssemblyT1"
+          "Cp3AssemblyT1",
+          "Balancer_Product_ConstructionParts2"
         ],
         "output": [
           "Cp2AssemblyT5",
           "Cp2AssemblyT4",
           "Cp2AssemblyT3",
           "Cp2AssemblyT2",
-          "Cp2AssemblyT1"
+          "Cp2AssemblyT1",
+          "Balancer_Product_ConstructionParts2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConstructionParts3": {
@@ -4838,18 +5934,24 @@
         "input": [
           "Cp4AssemblyRoboticT2",
           "Cp4AssemblyRoboticT1",
-          "Cp4AssemblyElectrifiedT2"
+          "Cp4AssemblyElectrifiedT2",
+          "Balancer_Product_ConstructionParts3"
         ],
         "output": [
           "Cp3AssemblyT4",
           "Cp3AssemblyT3",
           "Cp3AssemblyT2",
-          "Cp3AssemblyT1"
+          "Cp3AssemblyT1",
+          "Balancer_Product_ConstructionParts3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ConstructionParts4": {
@@ -4860,16 +5962,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_ConstructionParts4"
+        ],
         "output": [
           "Cp4AssemblyRoboticT2",
           "Cp4AssemblyRoboticT1",
-          "Cp4AssemblyElectrifiedT2"
+          "Cp4AssemblyElectrifiedT2",
+          "Balancer_Product_ConstructionParts4"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MechanicalParts": {
@@ -4893,7 +6002,8 @@
           "MaintenanceT1Recycling",
           "MaintenanceT0Recipe",
           "MaintenanceT2Recycling",
-          "MaintenanceT3Recycling"
+          "MaintenanceT3Recycling",
+          "Balancer_Product_MechanicalParts"
         ],
         "output": [
           "MechPartsAssemblyT5Iron",
@@ -4903,12 +6013,17 @@
           "MechPartsAssemblyT3Iron",
           "MechPartsAssemblyT3",
           "MechPartsAssemblyT2",
-          "MechPartsAssemblyT1"
+          "MechPartsAssemblyT1",
+          "Balancer_Product_MechanicalParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_VehicleParts": {
@@ -4922,19 +6037,25 @@
         "input": [
           "VehicleParts2AssemblyT3",
           "VehicleParts2AssemblyT2",
-          "VehicleParts2AssemblyT1"
+          "VehicleParts2AssemblyT1",
+          "Balancer_Product_VehicleParts"
         ],
         "output": [
           "VehicleParts1AssemblyT5",
           "VehicleParts1AssemblyT4",
           "VehicleParts1AssemblyT3",
           "VehicleParts1AssemblyT2",
-          "VehicleParts1AssemblyT1"
+          "VehicleParts1AssemblyT1",
+          "Balancer_Product_VehicleParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_VehicleParts2": {
@@ -4948,17 +6069,23 @@
         "input": [
           "VehicleParts3AssemblyT3",
           "VehicleParts3AssemblyT2",
-          "VehicleParts3AssemblyT1"
+          "VehicleParts3AssemblyT1",
+          "Balancer_Product_VehicleParts2"
         ],
         "output": [
           "VehicleParts2AssemblyT3",
           "VehicleParts2AssemblyT2",
-          "VehicleParts2AssemblyT1"
+          "VehicleParts2AssemblyT1",
+          "Balancer_Product_VehicleParts2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_VehicleParts3": {
@@ -4969,16 +6096,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_VehicleParts3"
+        ],
         "output": [
           "VehicleParts3AssemblyT3",
           "VehicleParts3AssemblyT2",
-          "VehicleParts3AssemblyT1"
+          "VehicleParts3AssemblyT1",
+          "Balancer_Product_VehicleParts3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_LabEquipment": {
@@ -4993,18 +6127,24 @@
           "LabEquipment2AssemblyT4",
           "LabEquipment2AssemblyT3",
           "LabEquipment2AssemblyT2",
-          "ResearchLab21"
+          "ResearchLab21",
+          "Balancer_Product_LabEquipment"
         ],
         "output": [
           "LabEquipment1AssemblyT4",
           "LabEquipment1AssemblyT3",
           "LabEquipment1AssemblyT2",
-          "LabEquipment1AssemblyT1"
+          "LabEquipment1AssemblyT1",
+          "Balancer_Product_LabEquipment"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_LabEquipment2": {
@@ -5019,17 +6159,23 @@
           "LabEquipment3AssemblyT3",
           "LabEquipment3AssemblyT2",
           "LabEquipment3AssemblyT1",
-          "ResearchLab31"
+          "ResearchLab31",
+          "Balancer_Product_LabEquipment2"
         ],
         "output": [
           "LabEquipment2AssemblyT4",
           "LabEquipment2AssemblyT3",
-          "LabEquipment2AssemblyT2"
+          "LabEquipment2AssemblyT2",
+          "Balancer_Product_LabEquipment2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_LabEquipment3": {
@@ -5043,17 +6189,23 @@
         "input": [
           "LabEquipment4AssemblyT3",
           "LabEquipment4AssemblyT2",
-          "ResearchLab41"
+          "ResearchLab41",
+          "Balancer_Product_LabEquipment3"
         ],
         "output": [
           "LabEquipment3AssemblyT3",
           "LabEquipment3AssemblyT2",
-          "LabEquipment3AssemblyT1"
+          "LabEquipment3AssemblyT1",
+          "Balancer_Product_LabEquipment3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_LabEquipment4": {
@@ -5065,16 +6217,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "ResearchLab51"
+          "ResearchLab51",
+          "Balancer_Product_LabEquipment4"
         ],
         "output": [
           "LabEquipment4AssemblyT3",
-          "LabEquipment4AssemblyT2"
+          "LabEquipment4AssemblyT2",
+          "Balancer_Product_LabEquipment4"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_RailParts": {
@@ -5085,16 +6243,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_RailParts"
+        ],
         "output": [
           "RailPartsAssemblyT3",
           "RailPartsAssemblyT2",
-          "RailPartsAssemblyT1"
+          "RailPartsAssemblyT1",
+          "Balancer_Product_RailParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_OfficeSupplies": {
@@ -5105,16 +6270,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_OfficeSupplies"
+        ],
         "output": [
           "OfficeSuppliesAssemblyT3",
           "OfficeSuppliesAssemblyT2",
-          "OfficeSuppliesAssemblyT1"
+          "OfficeSuppliesAssemblyT1",
+          "Balancer_Product_OfficeSupplies"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Electronics": {
@@ -5147,19 +6319,25 @@
           "Cp2AssemblyT1",
           "VehicleParts1AssemblyT1",
           "MaintenanceT1Recycling",
-          "MaintenanceT0Recipe"
+          "MaintenanceT0Recipe",
+          "Balancer_Product_Electronics"
         ],
         "output": [
           "ElectronicsAssemblyT5",
           "ElectronicsAssemblyT4",
           "ElectronicsAssemblyT3",
           "ElectronicsAssemblyT2",
-          "ElectronicsAssemblyT1"
+          "ElectronicsAssemblyT1",
+          "Balancer_Product_Electronics"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_PCB": {
@@ -5173,17 +6351,23 @@
         "input": [
           "Electronics2AssemblyT3",
           "Electronics2AssemblyT2",
-          "Electronics2AssemblyT1"
+          "Electronics2AssemblyT1",
+          "Balancer_Product_PCB"
         ],
         "output": [
           "PCBAssemblyT3",
           "PCBAssemblyT2",
-          "PCBAssemblyT1"
+          "PCBAssemblyT1",
+          "Balancer_Product_PCB"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Electronics2": {
@@ -5215,17 +6399,23 @@
           "HouseholdAppliancesAssemblyT1",
           "OfficeSuppliesAssemblyT1",
           "CompositeCoreBasicAssemblyT1",
-          "MaintenanceT2Recycling"
+          "MaintenanceT2Recycling",
+          "Balancer_Product_Electronics2"
         ],
         "output": [
           "Electronics2AssemblyT3",
           "Electronics2AssemblyT2",
-          "Electronics2AssemblyT1"
+          "Electronics2AssemblyT1",
+          "Balancer_Product_Electronics2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Electronics3": {
@@ -5244,16 +6434,22 @@
           "CompositeCoreAssembly",
           "LabEquipment4AssemblyT2",
           "ServerAssemblyT1",
-          "MaintenanceT3Recycling"
+          "MaintenanceT3Recycling",
+          "Balancer_Product_Electronics3"
         ],
         "output": [
           "Electronics3AssemblyRoboticT2",
-          "Electronics3AssemblyRoboticT1"
+          "Electronics3AssemblyRoboticT1",
+          "Balancer_Product_Electronics3"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Electronics4": {
@@ -5266,15 +6462,21 @@
       "recipes": {
         "input": [
           "ProbePartsAssembly",
-          "CompactReactorAssembly"
+          "CompactReactorAssembly",
+          "Balancer_Product_Electronics4"
         ],
         "output": [
-          "Electronics4Assembly"
+          "Electronics4Assembly",
+          "Balancer_Product_Electronics4"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Server": {
@@ -5285,15 +6487,22 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Server"
+        ],
         "output": [
           "ServerAssemblyT2",
-          "ServerAssemblyT1"
+          "ServerAssemblyT1",
+          "Balancer_Product_Server"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Microchips": {
@@ -5306,16 +6515,22 @@
       "recipes": {
         "input": [
           "Electronics3AssemblyRoboticT2",
-          "Electronics3AssemblyRoboticT1"
+          "Electronics3AssemblyRoboticT1",
+          "Balancer_Product_Microchips"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdFinalStage",
-          "MicrochipMachine_MicrochipProdFinalStage"
+          "MicrochipMachine_MicrochipProdFinalStage",
+          "Balancer_Product_Microchips"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage1A": {
@@ -5328,16 +6543,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage2A",
-          "MicrochipMachine_MicrochipProdStage2A"
+          "MicrochipMachine_MicrochipProdStage2A",
+          "Balancer_Product_MicrochipsStage1A"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage1A",
-          "MicrochipMachine_MicrochipProdStage1A"
+          "MicrochipMachine_MicrochipProdStage1A",
+          "Balancer_Product_MicrochipsStage1A"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage1B": {
@@ -5350,16 +6571,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage3A",
-          "MicrochipMachine_MicrochipProdStage3A"
+          "MicrochipMachine_MicrochipProdStage3A",
+          "Balancer_Product_MicrochipsStage1B"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage2A",
-          "MicrochipMachine_MicrochipProdStage2A"
+          "MicrochipMachine_MicrochipProdStage2A",
+          "Balancer_Product_MicrochipsStage1B"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage1C": {
@@ -5372,16 +6599,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage1B",
-          "MicrochipMachine_MicrochipProdStage1B"
+          "MicrochipMachine_MicrochipProdStage1B",
+          "Balancer_Product_MicrochipsStage1C"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage3A",
-          "MicrochipMachine_MicrochipProdStage3A"
+          "MicrochipMachine_MicrochipProdStage3A",
+          "Balancer_Product_MicrochipsStage1C"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage2A": {
@@ -5394,16 +6627,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage2B",
-          "MicrochipMachine_MicrochipProdStage2B"
+          "MicrochipMachine_MicrochipProdStage2B",
+          "Balancer_Product_MicrochipsStage2A"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage1B",
-          "MicrochipMachine_MicrochipProdStage1B"
+          "MicrochipMachine_MicrochipProdStage1B",
+          "Balancer_Product_MicrochipsStage2A"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage2B": {
@@ -5416,16 +6655,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage3B",
-          "MicrochipMachine_MicrochipProdStage3B"
+          "MicrochipMachine_MicrochipProdStage3B",
+          "Balancer_Product_MicrochipsStage2B"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage2B",
-          "MicrochipMachine_MicrochipProdStage2B"
+          "MicrochipMachine_MicrochipProdStage2B",
+          "Balancer_Product_MicrochipsStage2B"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage2C": {
@@ -5438,16 +6683,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage1C",
-          "MicrochipMachine_MicrochipProdStage1C"
+          "MicrochipMachine_MicrochipProdStage1C",
+          "Balancer_Product_MicrochipsStage2C"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage3B",
-          "MicrochipMachine_MicrochipProdStage3B"
+          "MicrochipMachine_MicrochipProdStage3B",
+          "Balancer_Product_MicrochipsStage2C"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage3A": {
@@ -5460,16 +6711,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage2C",
-          "MicrochipMachine_MicrochipProdStage2C"
+          "MicrochipMachine_MicrochipProdStage2C",
+          "Balancer_Product_MicrochipsStage3A"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage1C",
-          "MicrochipMachine_MicrochipProdStage1C"
+          "MicrochipMachine_MicrochipProdStage1C",
+          "Balancer_Product_MicrochipsStage3A"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage3B": {
@@ -5482,16 +6739,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage3C",
-          "MicrochipMachine_MicrochipProdStage3C"
+          "MicrochipMachine_MicrochipProdStage3C",
+          "Balancer_Product_MicrochipsStage3B"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage2C",
-          "MicrochipMachine_MicrochipProdStage2C"
+          "MicrochipMachine_MicrochipProdStage2C",
+          "Balancer_Product_MicrochipsStage3B"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage3C": {
@@ -5504,16 +6767,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage1D",
-          "MicrochipMachine_MicrochipProdStage1D"
+          "MicrochipMachine_MicrochipProdStage1D",
+          "Balancer_Product_MicrochipsStage3C"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage3C",
-          "MicrochipMachine_MicrochipProdStage3C"
+          "MicrochipMachine_MicrochipProdStage3C",
+          "Balancer_Product_MicrochipsStage3C"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage4A": {
@@ -5526,16 +6795,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdStage2D",
-          "MicrochipMachine_MicrochipProdStage2D"
+          "MicrochipMachine_MicrochipProdStage2D",
+          "Balancer_Product_MicrochipsStage4A"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage1D",
-          "MicrochipMachine_MicrochipProdStage1D"
+          "MicrochipMachine_MicrochipProdStage1D",
+          "Balancer_Product_MicrochipsStage4A"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_MicrochipsStage4B": {
@@ -5548,16 +6823,22 @@
       "recipes": {
         "input": [
           "MicrochipMachineT2_MicrochipProdFinalStage",
-          "MicrochipMachine_MicrochipProdFinalStage"
+          "MicrochipMachine_MicrochipProdFinalStage",
+          "Balancer_Product_MicrochipsStage4B"
         ],
         "output": [
           "MicrochipMachineT2_MicrochipProdStage2D",
-          "MicrochipMachine_MicrochipProdStage2D"
+          "MicrochipMachine_MicrochipProdStage2D",
+          "Balancer_Product_MicrochipsStage4B"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Diamond": {
@@ -5572,15 +6853,21 @@
           "Electronics4Assembly",
           "AsteroidBoosterPartsAssembly",
           "DiamondPasteFromCookingOil",
-          "DiamondPasteFromHeavyOil"
+          "DiamondPasteFromHeavyOil",
+          "Balancer_Product_Diamond"
         ],
         "output": [
-          "DiamondSynthesis"
+          "DiamondSynthesis",
+          "Balancer_Product_Diamond"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_DiamondPaste": {
@@ -5592,16 +6879,22 @@
       "unit": "",
       "recipes": {
         "input": [
-          "LensMaking"
+          "LensMaking",
+          "Balancer_Product_DiamondPaste"
         ],
         "output": [
           "DiamondPasteFromCookingOil",
-          "DiamondPasteFromHeavyOil"
+          "DiamondPasteFromHeavyOil",
+          "Balancer_Product_DiamondPaste"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SapphireWafer": {
@@ -5613,15 +6906,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "LensMaking"
+          "LensMaking",
+          "Balancer_Product_SapphireWafer"
         ],
         "output": [
-          "AluminaCrystallization"
+          "AluminaCrystallization",
+          "Balancer_Product_SapphireWafer"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Lens": {
@@ -5633,15 +6932,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "Electronics4Assembly"
+          "Electronics4Assembly",
+          "Balancer_Product_Lens"
         ],
         "output": [
-          "LensMaking"
+          "LensMaking",
+          "Balancer_Product_Lens"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SolarCell": {
@@ -5656,17 +6961,23 @@
           "StationPartsBasicAssemblyT3",
           "StationPartsBasicAssemblyT2",
           "StationPartsBasicAssemblyT1",
-          "ShreddingPolyCells"
+          "ShreddingPolyCells",
+          "Balancer_Product_SolarCell"
         ],
         "output": [
           "SolarCellAssemblyT3",
           "SolarCellAssemblyT2",
-          "SolarCellAssemblyT1"
+          "SolarCellAssemblyT1",
+          "Balancer_Product_SolarCell"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SolarCellMono": {
@@ -5678,15 +6989,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "StationPartsAssembly"
+          "StationPartsAssembly",
+          "Balancer_Product_SolarCellMono"
         ],
         "output": [
-          "SolarCellMonoAssemblyT1"
+          "SolarCellMonoAssemblyT1",
+          "Balancer_Product_SolarCellMono"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CompositePanel": {
@@ -5701,17 +7018,23 @@
           "CompositeCoreBasicAssemblyT3",
           "CompositeCoreAssembly",
           "CompositeCoreBasicAssemblyT2",
-          "CompositeCoreBasicAssemblyT1"
+          "CompositeCoreBasicAssemblyT1",
+          "Balancer_Product_CompositePanel"
         ],
         "output": [
           "CompositePanelAssemblyT3",
           "CompositePanelAssemblyT2",
-          "CompositePanelAssemblyT1"
+          "CompositePanelAssemblyT1",
+          "Balancer_Product_CompositePanel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CompositeBodyBasic": {
@@ -5725,17 +7048,23 @@
         "input": [
           "StationPartsBasicAssemblyT3",
           "StationPartsBasicAssemblyT2",
-          "StationPartsBasicAssemblyT1"
+          "StationPartsBasicAssemblyT1",
+          "Balancer_Product_CompositeBodyBasic"
         ],
         "output": [
           "CompositeCoreBasicAssemblyT3",
           "CompositeCoreBasicAssemblyT2",
-          "CompositeCoreBasicAssemblyT1"
+          "CompositeCoreBasicAssemblyT1",
+          "Balancer_Product_CompositeBodyBasic"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CompositeCore": {
@@ -5749,15 +7078,21 @@
         "input": [
           "StationPartsAssembly",
           "ProbePartsAssembly",
-          "AsteroidBoosterPartsAssembly"
+          "AsteroidBoosterPartsAssembly",
+          "Balancer_Product_CompositeCore"
         ],
         "output": [
-          "CompositeCoreAssembly"
+          "CompositeCoreAssembly",
+          "Balancer_Product_CompositeCore"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_ChemicalFuel": {
@@ -5772,15 +7107,21 @@
           "StationPartsBasicAssemblyT3",
           "StationPartsAssembly",
           "StationPartsBasicAssemblyT2",
-          "StationPartsBasicAssemblyT1"
+          "StationPartsBasicAssemblyT1",
+          "Balancer_Product_ChemicalFuel"
         ],
         "output": [
-          "ChemicalFuelProduction"
+          "ChemicalFuelProduction",
+          "Balancer_Product_ChemicalFuel"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SpaceStationParts1": {
@@ -5791,16 +7132,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_SpaceStationParts1"
+        ],
         "output": [
           "StationPartsBasicAssemblyT3",
           "StationPartsBasicAssemblyT2",
-          "StationPartsBasicAssemblyT1"
+          "StationPartsBasicAssemblyT1",
+          "Balancer_Product_SpaceStationParts1"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SpaceStationParts2": {
@@ -5811,14 +7159,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_SpaceStationParts2"
+        ],
         "output": [
-          "StationPartsAssembly"
+          "StationPartsAssembly",
+          "Balancer_Product_SpaceStationParts2"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CrewSupplies": {
@@ -5829,16 +7184,23 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_CrewSupplies"
+        ],
         "output": [
           "CrewSuppliesAssemblyT3",
           "CrewSuppliesAssemblyT2",
-          "CrewSuppliesAssemblyT1"
+          "CrewSuppliesAssemblyT1",
+          "Balancer_Product_CrewSupplies"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_SpaceProbeParts": {
@@ -5849,14 +7211,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_SpaceProbeParts"
+        ],
         "output": [
-          "ProbePartsAssembly"
+          "ProbePartsAssembly",
+          "Balancer_Product_SpaceProbeParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_AsteroidBoosterParts": {
@@ -5867,14 +7236,21 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_AsteroidBoosterParts"
+        ],
         "output": [
-          "AsteroidBoosterPartsAssembly"
+          "AsteroidBoosterPartsAssembly",
+          "Balancer_Product_AsteroidBoosterParts"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_CompactReactor": {
@@ -5886,15 +7262,21 @@
       "unit": "",
       "recipes": {
         "input": [
-          "AsteroidBoosterPartsAssembly"
+          "AsteroidBoosterPartsAssembly",
+          "Balancer_Product_CompactReactor"
         ],
         "output": [
-          "CompactReactorAssembly"
+          "CompactReactorAssembly",
+          "Balancer_Product_CompactReactor"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Oxygen": {
@@ -5917,18 +7299,24 @@
           "FertilizerProductionFromOrganic",
           "FuelGasReforming",
           "SmokeStackLargeOxygen",
-          "SmokeStackOxygen"
+          "SmokeStackOxygen",
+          "Balancer_Product_Oxygen"
         ],
         "output": [
           "WaterElectrolysisT2",
           "WaterElectrolysis",
           "HydrogenProductionFromSteamSp",
-          "AirSeparation"
+          "AirSeparation",
+          "Balancer_Product_Oxygen"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_HydrogenFluoride": {
@@ -5943,15 +7331,21 @@
           "UraniumEnrichment",
           "ReprocessedUraniumEnrichment",
           "UraniumEnrichment20",
-          "AnestheticsProduction"
+          "AnestheticsProduction",
+          "Balancer_Product_HydrogenFluoride"
         ],
         "output": [
-          "FluorideLeaching"
+          "FluorideLeaching",
+          "Balancer_Product_HydrogenFluoride"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerPipe"
+        ],
+        "output": [
+          "BalancerPipe"
+        ]
       }
     },
     "Product_Waste": {
@@ -5966,15 +7360,21 @@
           "LandfillBurning",
           "IncinerationOfWaste",
           "IncinerationOfWasteHydrogen",
-          "PressingOfWaste"
+          "PressingOfWaste",
+          "Balancer_Product_Waste"
         ],
         "output": [
-          "ShreddingWaste"
+          "ShreddingWaste",
+          "Balancer_Product_Waste"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerLoose"
+        ],
+        "output": [
+          "BalancerLoose"
+        ]
       }
     },
     "Product_WastePressed": {
@@ -5988,15 +7388,21 @@
         "input": [
           "IncinerationOfWastePressed",
           "IncinerationOfWastePressedHydrogen",
-          "ShreddingWaste"
+          "ShreddingWaste",
+          "Balancer_Product_WastePressed"
         ],
         "output": [
-          "PressingOfWaste"
+          "PressingOfWaste",
+          "Balancer_Product_WastePressed"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Flowers": {
@@ -6007,19 +7413,26 @@
       "transport": "Flat",
       "unit": "",
       "recipes": {
-        "input": [],
+        "input": [
+          "Balancer_Product_Flowers"
+        ],
         "output": [
           "Crop_Flowers_Product_Fertilizer",
           "Crop_Flowers_Product_Fertilizer2",
           "Crop_Flowers_Product_FertilizerOrganic",
           "Crop_Flowers_Product_Fertilizer_1",
           "Crop_Flowers_Product_Fertilizer2_1",
-          "Crop_Flowers_Product_FertilizerOrganic_1"
+          "Crop_Flowers_Product_FertilizerOrganic_1",
+          "Balancer_Product_Flowers"
         ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerFlat"
+        ],
+        "output": [
+          "BalancerFlat"
+        ]
       }
     },
     "Product_Virtual_Footprint": {
@@ -6030,12 +7443,44 @@
       "transport": "Virtual",
       "unit": "tiles",
       "recipes": {
-        "input": [],
-        "output": []
+        "input": [
+          "Balancer_Product_Virtual_Footprint"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_Footprint"
+        ]
       },
       "machines": {
-        "input": [],
-        "output": []
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
+      }
+    },
+    "Product_Virtual_Wildcard": {
+      "id": "Product_Virtual_Wildcard",
+      "name": "Wildcard",
+      "icon": "wildcard.png",
+      "color": "#808080",
+      "transport": "Virtual",
+      "unit": "",
+      "recipes": {
+        "input": [
+          "Balancer_Product_Virtual_Wildcard"
+        ],
+        "output": [
+          "Balancer_Product_Virtual_Wildcard"
+        ]
+      },
+      "machines": {
+        "input": [
+          "BalancerVirtual"
+        ],
+        "output": [
+          "BalancerVirtual"
+        ]
       }
     }
   },
@@ -11480,6 +12925,340 @@
         "id": "Product_Virtual_MaintenanceT3",
         "quantity": 0.7998047
       }
+    },
+    "BalancerFlat": {
+      "id": "BalancerFlat",
+      "name": "Balancer",
+      "category_id": "Balancer",
+      "workers": 0,
+      "recipes": [
+        "Balancer_Product_Wood",
+        "Balancer_Product_TreeSapling",
+        "Balancer_Product_Paper",
+        "Balancer_Product_Graphite",
+        "Balancer_Product_IronScrapPressed",
+        "Balancer_Product_Iron",
+        "Balancer_Product_Steel",
+        "Balancer_Product_CopperScrapPressed",
+        "Balancer_Product_ImpureCopper",
+        "Balancer_Product_Copper",
+        "Balancer_Product_AluminumScrapPressed",
+        "Balancer_Product_Aluminum",
+        "Balancer_Product_TitaniumAlloy",
+        "Balancer_Product_Gold",
+        "Balancer_Product_GoldScrapPressed",
+        "Balancer_Product_Glass",
+        "Balancer_Product_UraniumEnriched",
+        "Balancer_Product_UraniumEnriched20",
+        "Balancer_Product_UraniumReprocessed",
+        "Balancer_Product_Plutonium",
+        "Balancer_Product_UraniumRod",
+        "Balancer_Product_MoxRod",
+        "Balancer_Product_SpentFuel",
+        "Balancer_Product_SpentMox",
+        "Balancer_Product_FissionProduct",
+        "Balancer_Product_RetiredWaste",
+        "Balancer_Product_PolySilicon",
+        "Balancer_Product_SiliconWafer",
+        "Balancer_Product_RecyclablesPressed",
+        "Balancer_Product_Plastic",
+        "Balancer_Product_Rubber",
+        "Balancer_Product_Vegetables",
+        "Balancer_Product_Fruit",
+        "Balancer_Product_Bread",
+        "Balancer_Product_Flour",
+        "Balancer_Product_Eggs",
+        "Balancer_Product_Tofu",
+        "Balancer_Product_Meat",
+        "Balancer_Product_Sausage",
+        "Balancer_Product_Snack",
+        "Balancer_Product_Cake",
+        "Balancer_Product_FoodPack",
+        "Balancer_Product_ChickenCarcass",
+        "Balancer_Product_HouseholdGoods",
+        "Balancer_Product_HouseholdAppliances",
+        "Balancer_Product_ConsumerElectronics",
+        "Balancer_Product_LuxuryGoods",
+        "Balancer_Product_ImportedGoods",
+        "Balancer_Product_Antibiotics",
+        "Balancer_Product_Disinfectant",
+        "Balancer_Product_Anesthetics",
+        "Balancer_Product_Morphine",
+        "Balancer_Product_MedicalEquipment",
+        "Balancer_Product_MedicalSupplies",
+        "Balancer_Product_MedicalSupplies2",
+        "Balancer_Product_MedicalSupplies3",
+        "Balancer_Product_Cement",
+        "Balancer_Product_ConcreteSlab",
+        "Balancer_Product_Bricks",
+        "Balancer_Product_ConstructionParts",
+        "Balancer_Product_ConstructionParts2",
+        "Balancer_Product_ConstructionParts3",
+        "Balancer_Product_ConstructionParts4",
+        "Balancer_Product_MechanicalParts",
+        "Balancer_Product_VehicleParts",
+        "Balancer_Product_VehicleParts2",
+        "Balancer_Product_VehicleParts3",
+        "Balancer_Product_LabEquipment",
+        "Balancer_Product_LabEquipment2",
+        "Balancer_Product_LabEquipment3",
+        "Balancer_Product_LabEquipment4",
+        "Balancer_Product_RailParts",
+        "Balancer_Product_OfficeSupplies",
+        "Balancer_Product_Electronics",
+        "Balancer_Product_PCB",
+        "Balancer_Product_Electronics2",
+        "Balancer_Product_Electronics3",
+        "Balancer_Product_Electronics4",
+        "Balancer_Product_Server",
+        "Balancer_Product_Microchips",
+        "Balancer_Product_MicrochipsStage1A",
+        "Balancer_Product_MicrochipsStage1B",
+        "Balancer_Product_MicrochipsStage1C",
+        "Balancer_Product_MicrochipsStage2A",
+        "Balancer_Product_MicrochipsStage2B",
+        "Balancer_Product_MicrochipsStage2C",
+        "Balancer_Product_MicrochipsStage3A",
+        "Balancer_Product_MicrochipsStage3B",
+        "Balancer_Product_MicrochipsStage3C",
+        "Balancer_Product_MicrochipsStage4A",
+        "Balancer_Product_MicrochipsStage4B",
+        "Balancer_Product_Diamond",
+        "Balancer_Product_DiamondPaste",
+        "Balancer_Product_SapphireWafer",
+        "Balancer_Product_Lens",
+        "Balancer_Product_SolarCell",
+        "Balancer_Product_SolarCellMono",
+        "Balancer_Product_CompositePanel",
+        "Balancer_Product_CompositeBodyBasic",
+        "Balancer_Product_CompositeCore",
+        "Balancer_Product_ChemicalFuel",
+        "Balancer_Product_SpaceStationParts1",
+        "Balancer_Product_SpaceStationParts2",
+        "Balancer_Product_CrewSupplies",
+        "Balancer_Product_SpaceProbeParts",
+        "Balancer_Product_AsteroidBoosterParts",
+        "Balancer_Product_CompactReactor",
+        "Balancer_Product_WastePressed",
+        "Balancer_Product_Flowers"
+      ],
+      "buildCosts": [],
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0,
+      "footprint": [
+        0,
+        0
+      ]
+    },
+    "BalancerLoose": {
+      "id": "BalancerLoose",
+      "name": "Balancer",
+      "category_id": "Balancer",
+      "workers": 0,
+      "recipes": [
+        "Balancer_Product_Woodchips",
+        "Balancer_Product_Dirt",
+        "Balancer_Product_Compost",
+        "Balancer_Product_Sludge",
+        "Balancer_Product_Limestone",
+        "Balancer_Product_Rock",
+        "Balancer_Product_Gravel",
+        "Balancer_Product_ManufacturedSand",
+        "Balancer_Product_FilterMedia",
+        "Balancer_Product_Coal",
+        "Balancer_Product_Slag",
+        "Balancer_Product_SlagCrushed",
+        "Balancer_Product_IronOre",
+        "Balancer_Product_IronOreCrushed",
+        "Balancer_Product_IronScrap",
+        "Balancer_Product_CopperOre",
+        "Balancer_Product_CopperOreCrushed",
+        "Balancer_Product_CopperScrap",
+        "Balancer_Product_Bauxite",
+        "Balancer_Product_BauxitePowder",
+        "Balancer_Product_HydratedAlumina",
+        "Balancer_Product_Alumina",
+        "Balancer_Product_AluminumScrap",
+        "Balancer_Product_TitaniumOre",
+        "Balancer_Product_TitaniumOreCrushed",
+        "Balancer_Product_TitaniumSlag",
+        "Balancer_Product_TitaniumSponge",
+        "Balancer_Product_GoldOre",
+        "Balancer_Product_GoldOreCrushed",
+        "Balancer_Product_GoldOrePowder",
+        "Balancer_Product_GoldOreConcentrate",
+        "Balancer_Product_GoldScrap",
+        "Balancer_Product_Sand",
+        "Balancer_Product_BrokenGlass",
+        "Balancer_Product_GlassMix",
+        "Balancer_Product_UraniumOre",
+        "Balancer_Product_UraniumOreCrushed",
+        "Balancer_Product_Yellowcake",
+        "Balancer_Product_UraniumDepleted",
+        "Balancer_Product_Quartz",
+        "Balancer_Product_QuartzCrushed",
+        "Balancer_Product_Salt",
+        "Balancer_Product_Recyclables",
+        "Balancer_Product_Sulfur",
+        "Balancer_Product_Potato",
+        "Balancer_Product_Corn",
+        "Balancer_Product_Wheat",
+        "Balancer_Product_Soybean",
+        "Balancer_Product_SugarCane",
+        "Balancer_Product_Canola",
+        "Balancer_Product_Poppy",
+        "Balancer_Product_AnimalFeed",
+        "Balancer_Product_Biomass",
+        "Balancer_Product_MeatTrimmings",
+        "Balancer_Product_Sugar",
+        "Balancer_Product_Waste"
+      ],
+      "buildCosts": [],
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0,
+      "footprint": [
+        0,
+        0
+      ]
+    },
+    "BalancerPipe": {
+      "id": "BalancerPipe",
+      "name": "Balancer",
+      "category_id": "Balancer",
+      "workers": 0,
+      "recipes": [
+        "Balancer_Product_Fertilizer",
+        "Balancer_Product_Fertilizer2",
+        "Balancer_Product_FertilizerOrganic",
+        "Balancer_Product_RedMud",
+        "Balancer_Product_TitaniumChloride",
+        "Balancer_Product_TitaniumChloridePure",
+        "Balancer_Product_CoreFuel",
+        "Balancer_Product_CoreFuelDirty",
+        "Balancer_Product_BlanketFuel",
+        "Balancer_Product_BlanketFuelEnriched",
+        "Balancer_Product_Water",
+        "Balancer_Product_ChilledWater",
+        "Balancer_Product_Seawater",
+        "Balancer_Product_Brine",
+        "Balancer_Product_WasteWater",
+        "Balancer_Product_ToxicSlurry",
+        "Balancer_Product_Chlorine",
+        "Balancer_Product_SteamSp",
+        "Balancer_Product_SteamHi",
+        "Balancer_Product_SteamLP",
+        "Balancer_Product_SteamDepleted",
+        "Balancer_Product_Exhaust",
+        "Balancer_Product_CrudeOil",
+        "Balancer_Product_Diesel",
+        "Balancer_Product_Naphtha",
+        "Balancer_Product_FuelGas",
+        "Balancer_Product_SourWater",
+        "Balancer_Product_Ammonia",
+        "Balancer_Product_Acid",
+        "Balancer_Product_HeavyOil",
+        "Balancer_Product_MediumOil",
+        "Balancer_Product_LightOil",
+        "Balancer_Product_Hydrogen",
+        "Balancer_Product_Nitrogen",
+        "Balancer_Product_CarbonDioxide",
+        "Balancer_Product_Ethanol",
+        "Balancer_Product_CookingOil",
+        "Balancer_Product_CornMash",
+        "Balancer_Product_Oxygen",
+        "Balancer_Product_HydrogenFluoride"
+      ],
+      "buildCosts": [],
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0,
+      "footprint": [
+        0,
+        0
+      ]
+    },
+    "BalancerMolten": {
+      "id": "BalancerMolten",
+      "name": "Balancer",
+      "category_id": "Balancer",
+      "workers": 0,
+      "recipes": [
+        "Balancer_Product_MoltenIron",
+        "Balancer_Product_MoltenSteel",
+        "Balancer_Product_MoltenCopper",
+        "Balancer_Product_MoltenAluminum",
+        "Balancer_Product_MoltenTitanium",
+        "Balancer_Product_MoltenTitaniumAlloy",
+        "Balancer_Product_MoltenGlass",
+        "Balancer_Product_MoltenSilicon"
+      ],
+      "buildCosts": [],
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0,
+      "footprint": [
+        0,
+        0
+      ]
+    },
+    "BalancerVirtual": {
+      "id": "BalancerVirtual",
+      "name": "Balancer",
+      "category_id": "Balancer",
+      "workers": 0,
+      "recipes": [
+        "Balancer_Product_Virtual_Electricity",
+        "Balancer_Product_Virtual_MechPower",
+        "Balancer_Product_Virtual_Computing",
+        "Balancer_Product_Virtual_Upoints",
+        "Balancer_Product_Virtual_Heat",
+        "Balancer_Product_Virtual_MaintenanceT1",
+        "Balancer_Product_Virtual_MaintenanceT2",
+        "Balancer_Product_Virtual_MaintenanceT3",
+        "Balancer_Product_Virtual_SpaceCrew",
+        "Balancer_Product_Virtual_SpaceResearchPoints",
+        "Balancer_Product_Virtual_PollutedWater",
+        "Balancer_Product_Virtual_PollutedAir",
+        "Balancer_Product_Chicken",
+        "Balancer_Product_CargoShip",
+        "Balancer_Product_Virtual_Footprint",
+        "Balancer_Product_Virtual_Wildcard"
+      ],
+      "buildCosts": [],
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0,
+      "footprint": [
+        0,
+        0
+      ]
     }
   },
   "recipes": {
@@ -25809,6 +27588,4357 @@
         {
           "id": "Product_Virtual_Computing",
           "quantity": 192
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Electricity": {
+      "id": "Balancer_Product_Virtual_Electricity",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Electricity",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Electricity",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_MechPower": {
+      "id": "Balancer_Product_Virtual_MechPower",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_MechPower",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_MechPower",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Computing": {
+      "id": "Balancer_Product_Virtual_Computing",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Computing",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Computing",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Upoints": {
+      "id": "Balancer_Product_Virtual_Upoints",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Upoints",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Upoints",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Heat": {
+      "id": "Balancer_Product_Virtual_Heat",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Heat",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Heat",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_MaintenanceT1": {
+      "id": "Balancer_Product_Virtual_MaintenanceT1",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT1",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT1",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_MaintenanceT2": {
+      "id": "Balancer_Product_Virtual_MaintenanceT2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_MaintenanceT3": {
+      "id": "Balancer_Product_Virtual_MaintenanceT3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_MaintenanceT3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_SpaceCrew": {
+      "id": "Balancer_Product_Virtual_SpaceCrew",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_SpaceCrew",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_SpaceCrew",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_SpaceResearchPoints": {
+      "id": "Balancer_Product_Virtual_SpaceResearchPoints",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_SpaceResearchPoints",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_SpaceResearchPoints",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Wood": {
+      "id": "Balancer_Product_Wood",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Wood",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wood",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Woodchips": {
+      "id": "Balancer_Product_Woodchips",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Woodchips",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Woodchips",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Fertilizer": {
+      "id": "Balancer_Product_Fertilizer",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Fertilizer",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Fertilizer",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Fertilizer2": {
+      "id": "Balancer_Product_Fertilizer2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Fertilizer2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Fertilizer2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_FertilizerOrganic": {
+      "id": "Balancer_Product_FertilizerOrganic",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_FertilizerOrganic",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FertilizerOrganic",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TreeSapling": {
+      "id": "Balancer_Product_TreeSapling",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_TreeSapling",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TreeSapling",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Paper": {
+      "id": "Balancer_Product_Paper",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Paper",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Paper",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Dirt": {
+      "id": "Balancer_Product_Dirt",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Dirt",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Dirt",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Compost": {
+      "id": "Balancer_Product_Compost",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Compost",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Compost",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Sludge": {
+      "id": "Balancer_Product_Sludge",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Sludge",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sludge",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Limestone": {
+      "id": "Balancer_Product_Limestone",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Limestone",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Limestone",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Rock": {
+      "id": "Balancer_Product_Rock",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Rock",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Rock",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Gravel": {
+      "id": "Balancer_Product_Gravel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Gravel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Gravel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ManufacturedSand": {
+      "id": "Balancer_Product_ManufacturedSand",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_ManufacturedSand",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ManufacturedSand",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_FilterMedia": {
+      "id": "Balancer_Product_FilterMedia",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_FilterMedia",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FilterMedia",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Coal": {
+      "id": "Balancer_Product_Coal",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Graphite": {
+      "id": "Balancer_Product_Graphite",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Graphite",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Graphite",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Slag": {
+      "id": "Balancer_Product_Slag",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Slag",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Slag",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SlagCrushed": {
+      "id": "Balancer_Product_SlagCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_SlagCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SlagCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_IronOre": {
+      "id": "Balancer_Product_IronOre",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_IronOreCrushed": {
+      "id": "Balancer_Product_IronOreCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_IronOreCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronOreCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_IronScrap": {
+      "id": "Balancer_Product_IronScrap",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_IronScrap",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronScrap",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_IronScrapPressed": {
+      "id": "Balancer_Product_IronScrapPressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_IronScrapPressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronScrapPressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenIron": {
+      "id": "Balancer_Product_MoltenIron",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenIron",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenIron",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenSteel": {
+      "id": "Balancer_Product_MoltenSteel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenSteel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenSteel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Iron": {
+      "id": "Balancer_Product_Iron",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Iron",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Iron",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Steel": {
+      "id": "Balancer_Product_Steel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Steel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Steel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CopperOre": {
+      "id": "Balancer_Product_CopperOre",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CopperOreCrushed": {
+      "id": "Balancer_Product_CopperOreCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_CopperOreCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOreCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CopperScrap": {
+      "id": "Balancer_Product_CopperScrap",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CopperScrapPressed": {
+      "id": "Balancer_Product_CopperScrapPressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CopperScrapPressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperScrapPressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenCopper": {
+      "id": "Balancer_Product_MoltenCopper",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenCopper",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenCopper",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ImpureCopper": {
+      "id": "Balancer_Product_ImpureCopper",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ImpureCopper",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ImpureCopper",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Copper": {
+      "id": "Balancer_Product_Copper",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Copper",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Copper",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Bauxite": {
+      "id": "Balancer_Product_Bauxite",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_BauxitePowder": {
+      "id": "Balancer_Product_BauxitePowder",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_BauxitePowder",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_BauxitePowder",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_RedMud": {
+      "id": "Balancer_Product_RedMud",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_RedMud",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_RedMud",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_HydratedAlumina": {
+      "id": "Balancer_Product_HydratedAlumina",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_HydratedAlumina",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_HydratedAlumina",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Alumina": {
+      "id": "Balancer_Product_Alumina",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Alumina",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Alumina",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_AluminumScrap": {
+      "id": "Balancer_Product_AluminumScrap",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_AluminumScrap",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_AluminumScrap",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_AluminumScrapPressed": {
+      "id": "Balancer_Product_AluminumScrapPressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_AluminumScrapPressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_AluminumScrapPressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenAluminum": {
+      "id": "Balancer_Product_MoltenAluminum",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenAluminum",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenAluminum",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Aluminum": {
+      "id": "Balancer_Product_Aluminum",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Aluminum",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Aluminum",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumOre": {
+      "id": "Balancer_Product_TitaniumOre",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_TitaniumOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumOre",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumOreCrushed": {
+      "id": "Balancer_Product_TitaniumOreCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_TitaniumOreCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumOreCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumSlag": {
+      "id": "Balancer_Product_TitaniumSlag",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_TitaniumSlag",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumSlag",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumChloride": {
+      "id": "Balancer_Product_TitaniumChloride",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_TitaniumChloride",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumChloride",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumChloridePure": {
+      "id": "Balancer_Product_TitaniumChloridePure",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_TitaniumChloridePure",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumChloridePure",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumSponge": {
+      "id": "Balancer_Product_TitaniumSponge",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_TitaniumSponge",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumSponge",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenTitanium": {
+      "id": "Balancer_Product_MoltenTitanium",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenTitanium",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenTitanium",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenTitaniumAlloy": {
+      "id": "Balancer_Product_MoltenTitaniumAlloy",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenTitaniumAlloy",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenTitaniumAlloy",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_TitaniumAlloy": {
+      "id": "Balancer_Product_TitaniumAlloy",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_TitaniumAlloy",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumAlloy",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldOre": {
+      "id": "Balancer_Product_GoldOre",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GoldOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldOre",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldOreCrushed": {
+      "id": "Balancer_Product_GoldOreCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GoldOreCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldOreCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldOrePowder": {
+      "id": "Balancer_Product_GoldOrePowder",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GoldOrePowder",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldOrePowder",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldOreConcentrate": {
+      "id": "Balancer_Product_GoldOreConcentrate",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GoldOreConcentrate",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldOreConcentrate",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Gold": {
+      "id": "Balancer_Product_Gold",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldScrap": {
+      "id": "Balancer_Product_GoldScrap",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GoldScrap",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldScrap",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GoldScrapPressed": {
+      "id": "Balancer_Product_GoldScrapPressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_GoldScrapPressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldScrapPressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Sand": {
+      "id": "Balancer_Product_Sand",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Sand",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sand",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenGlass": {
+      "id": "Balancer_Product_MoltenGlass",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenGlass",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenGlass",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_BrokenGlass": {
+      "id": "Balancer_Product_BrokenGlass",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Glass": {
+      "id": "Balancer_Product_Glass",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Glass",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Glass",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_GlassMix": {
+      "id": "Balancer_Product_GlassMix",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_GlassMix",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GlassMix",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumOre": {
+      "id": "Balancer_Product_UraniumOre",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumOreCrushed": {
+      "id": "Balancer_Product_UraniumOreCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_UraniumOreCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOreCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Yellowcake": {
+      "id": "Balancer_Product_Yellowcake",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Yellowcake",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Yellowcake",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumEnriched": {
+      "id": "Balancer_Product_UraniumEnriched",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_UraniumEnriched",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumEnriched",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumEnriched20": {
+      "id": "Balancer_Product_UraniumEnriched20",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_UraniumEnriched20",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumEnriched20",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumReprocessed": {
+      "id": "Balancer_Product_UraniumReprocessed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_UraniumReprocessed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumReprocessed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Plutonium": {
+      "id": "Balancer_Product_Plutonium",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Plutonium",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Plutonium",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumDepleted": {
+      "id": "Balancer_Product_UraniumDepleted",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_UraniumDepleted",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumDepleted",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_UraniumRod": {
+      "id": "Balancer_Product_UraniumRod",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_UraniumRod",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumRod",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoxRod": {
+      "id": "Balancer_Product_MoxRod",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MoxRod",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoxRod",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SpentFuel": {
+      "id": "Balancer_Product_SpentFuel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SpentFuel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SpentFuel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SpentMox": {
+      "id": "Balancer_Product_SpentMox",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SpentMox",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SpentMox",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_FissionProduct": {
+      "id": "Balancer_Product_FissionProduct",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_FissionProduct",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FissionProduct",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_RetiredWaste": {
+      "id": "Balancer_Product_RetiredWaste",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_RetiredWaste",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_RetiredWaste",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CoreFuel": {
+      "id": "Balancer_Product_CoreFuel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CoreFuel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CoreFuel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CoreFuelDirty": {
+      "id": "Balancer_Product_CoreFuelDirty",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CoreFuelDirty",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CoreFuelDirty",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_BlanketFuel": {
+      "id": "Balancer_Product_BlanketFuel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_BlanketFuel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_BlanketFuel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_BlanketFuelEnriched": {
+      "id": "Balancer_Product_BlanketFuelEnriched",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_BlanketFuelEnriched",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_BlanketFuelEnriched",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Quartz": {
+      "id": "Balancer_Product_Quartz",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_QuartzCrushed": {
+      "id": "Balancer_Product_QuartzCrushed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_QuartzCrushed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_QuartzCrushed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MoltenSilicon": {
+      "id": "Balancer_Product_MoltenSilicon",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerMolten",
+      "inputs": [
+        {
+          "id": "Product_MoltenSilicon",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MoltenSilicon",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_PolySilicon": {
+      "id": "Balancer_Product_PolySilicon",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_PolySilicon",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_PolySilicon",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SiliconWafer": {
+      "id": "Balancer_Product_SiliconWafer",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SiliconWafer",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SiliconWafer",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Water": {
+      "id": "Balancer_Product_Water",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Water",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Water",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ChilledWater": {
+      "id": "Balancer_Product_ChilledWater",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_ChilledWater",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ChilledWater",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Seawater": {
+      "id": "Balancer_Product_Seawater",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Seawater",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Seawater",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Brine": {
+      "id": "Balancer_Product_Brine",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Brine",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Brine",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_WasteWater": {
+      "id": "Balancer_Product_WasteWater",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_WasteWater",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_WasteWater",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ToxicSlurry": {
+      "id": "Balancer_Product_ToxicSlurry",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_ToxicSlurry",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ToxicSlurry",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_PollutedWater": {
+      "id": "Balancer_Product_Virtual_PollutedWater",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_PollutedWater",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_PollutedWater",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_PollutedAir": {
+      "id": "Balancer_Product_Virtual_PollutedAir",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_PollutedAir",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_PollutedAir",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Chlorine": {
+      "id": "Balancer_Product_Chlorine",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Chlorine",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Chlorine",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SteamSp": {
+      "id": "Balancer_Product_SteamSp",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_SteamSp",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SteamSp",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SteamHi": {
+      "id": "Balancer_Product_SteamHi",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_SteamHi",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SteamHi",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SteamLP": {
+      "id": "Balancer_Product_SteamLP",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_SteamLP",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SteamLP",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SteamDepleted": {
+      "id": "Balancer_Product_SteamDepleted",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_SteamDepleted",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SteamDepleted",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Salt": {
+      "id": "Balancer_Product_Salt",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Salt",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Salt",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Exhaust": {
+      "id": "Balancer_Product_Exhaust",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Exhaust",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Exhaust",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Recyclables": {
+      "id": "Balancer_Product_Recyclables",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Recyclables",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Recyclables",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_RecyclablesPressed": {
+      "id": "Balancer_Product_RecyclablesPressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_RecyclablesPressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_RecyclablesPressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CrudeOil": {
+      "id": "Balancer_Product_CrudeOil",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Diesel": {
+      "id": "Balancer_Product_Diesel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Diesel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Diesel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Naphtha": {
+      "id": "Balancer_Product_Naphtha",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Naphtha",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Naphtha",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_FuelGas": {
+      "id": "Balancer_Product_FuelGas",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_FuelGas",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FuelGas",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Sulfur": {
+      "id": "Balancer_Product_Sulfur",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Sulfur",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sulfur",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SourWater": {
+      "id": "Balancer_Product_SourWater",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_SourWater",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SourWater",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Ammonia": {
+      "id": "Balancer_Product_Ammonia",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Ammonia",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Ammonia",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Acid": {
+      "id": "Balancer_Product_Acid",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Acid",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Acid",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_HeavyOil": {
+      "id": "Balancer_Product_HeavyOil",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_HeavyOil",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_HeavyOil",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MediumOil": {
+      "id": "Balancer_Product_MediumOil",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_MediumOil",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MediumOil",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LightOil": {
+      "id": "Balancer_Product_LightOil",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_LightOil",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LightOil",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Plastic": {
+      "id": "Balancer_Product_Plastic",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Plastic",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Plastic",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Rubber": {
+      "id": "Balancer_Product_Rubber",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Rubber",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Rubber",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Hydrogen": {
+      "id": "Balancer_Product_Hydrogen",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Hydrogen",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Hydrogen",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Nitrogen": {
+      "id": "Balancer_Product_Nitrogen",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Nitrogen",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Nitrogen",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CarbonDioxide": {
+      "id": "Balancer_Product_CarbonDioxide",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CarbonDioxide",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CarbonDioxide",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Ethanol": {
+      "id": "Balancer_Product_Ethanol",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Ethanol",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Ethanol",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Potato": {
+      "id": "Balancer_Product_Potato",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Potato",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Potato",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Corn": {
+      "id": "Balancer_Product_Corn",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Corn",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Corn",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Wheat": {
+      "id": "Balancer_Product_Wheat",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Wheat",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wheat",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Soybean": {
+      "id": "Balancer_Product_Soybean",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Soybean",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Soybean",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SugarCane": {
+      "id": "Balancer_Product_SugarCane",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_SugarCane",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SugarCane",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Canola": {
+      "id": "Balancer_Product_Canola",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Canola",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Canola",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Vegetables": {
+      "id": "Balancer_Product_Vegetables",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Vegetables",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Vegetables",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Fruit": {
+      "id": "Balancer_Product_Fruit",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Fruit",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Fruit",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Poppy": {
+      "id": "Balancer_Product_Poppy",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Poppy",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Poppy",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Bread": {
+      "id": "Balancer_Product_Bread",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Bread",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bread",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Flour": {
+      "id": "Balancer_Product_Flour",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Flour",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Flour",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_AnimalFeed": {
+      "id": "Balancer_Product_AnimalFeed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_AnimalFeed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_AnimalFeed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Biomass": {
+      "id": "Balancer_Product_Biomass",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Biomass",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Biomass",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Eggs": {
+      "id": "Balancer_Product_Eggs",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Eggs",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Eggs",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Tofu": {
+      "id": "Balancer_Product_Tofu",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Tofu",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Tofu",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CookingOil": {
+      "id": "Balancer_Product_CookingOil",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CookingOil",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CookingOil",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Meat": {
+      "id": "Balancer_Product_Meat",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Meat",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Meat",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Sausage": {
+      "id": "Balancer_Product_Sausage",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Sausage",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sausage",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Snack": {
+      "id": "Balancer_Product_Snack",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Snack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Snack",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Cake": {
+      "id": "Balancer_Product_Cake",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Cake",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Cake",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_FoodPack": {
+      "id": "Balancer_Product_FoodPack",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_FoodPack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FoodPack",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Chicken": {
+      "id": "Balancer_Product_Chicken",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Chicken",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Chicken",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CargoShip": {
+      "id": "Balancer_Product_CargoShip",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_CargoShip",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CargoShip",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ChickenCarcass": {
+      "id": "Balancer_Product_ChickenCarcass",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ChickenCarcass",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ChickenCarcass",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MeatTrimmings": {
+      "id": "Balancer_Product_MeatTrimmings",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_MeatTrimmings",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MeatTrimmings",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Sugar": {
+      "id": "Balancer_Product_Sugar",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Sugar",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sugar",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CornMash": {
+      "id": "Balancer_Product_CornMash",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_CornMash",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CornMash",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_HouseholdGoods": {
+      "id": "Balancer_Product_HouseholdGoods",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_HouseholdGoods",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_HouseholdGoods",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_HouseholdAppliances": {
+      "id": "Balancer_Product_HouseholdAppliances",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConsumerElectronics": {
+      "id": "Balancer_Product_ConsumerElectronics",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LuxuryGoods": {
+      "id": "Balancer_Product_LuxuryGoods",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_LuxuryGoods",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LuxuryGoods",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ImportedGoods": {
+      "id": "Balancer_Product_ImportedGoods",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ImportedGoods",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ImportedGoods",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Antibiotics": {
+      "id": "Balancer_Product_Antibiotics",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Antibiotics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Antibiotics",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Disinfectant": {
+      "id": "Balancer_Product_Disinfectant",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Disinfectant",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Disinfectant",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Anesthetics": {
+      "id": "Balancer_Product_Anesthetics",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Anesthetics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Anesthetics",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Morphine": {
+      "id": "Balancer_Product_Morphine",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Morphine",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Morphine",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MedicalEquipment": {
+      "id": "Balancer_Product_MedicalEquipment",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MedicalEquipment",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MedicalEquipment",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MedicalSupplies": {
+      "id": "Balancer_Product_MedicalSupplies",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MedicalSupplies",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MedicalSupplies",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MedicalSupplies2": {
+      "id": "Balancer_Product_MedicalSupplies2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MedicalSupplies2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MedicalSupplies2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MedicalSupplies3": {
+      "id": "Balancer_Product_MedicalSupplies3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MedicalSupplies3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MedicalSupplies3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Cement": {
+      "id": "Balancer_Product_Cement",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Cement",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Cement",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConcreteSlab": {
+      "id": "Balancer_Product_ConcreteSlab",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConcreteSlab",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConcreteSlab",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Bricks": {
+      "id": "Balancer_Product_Bricks",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Bricks",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bricks",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConstructionParts": {
+      "id": "Balancer_Product_ConstructionParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConstructionParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConstructionParts2": {
+      "id": "Balancer_Product_ConstructionParts2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConstructionParts2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConstructionParts3": {
+      "id": "Balancer_Product_ConstructionParts3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConstructionParts3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ConstructionParts4": {
+      "id": "Balancer_Product_ConstructionParts4",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ConstructionParts4",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MechanicalParts": {
+      "id": "Balancer_Product_MechanicalParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MechanicalParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MechanicalParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_VehicleParts": {
+      "id": "Balancer_Product_VehicleParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_VehicleParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_VehicleParts2": {
+      "id": "Balancer_Product_VehicleParts2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_VehicleParts3": {
+      "id": "Balancer_Product_VehicleParts3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_VehicleParts3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LabEquipment": {
+      "id": "Balancer_Product_LabEquipment",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LabEquipment",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LabEquipment2": {
+      "id": "Balancer_Product_LabEquipment2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LabEquipment2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LabEquipment3": {
+      "id": "Balancer_Product_LabEquipment3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LabEquipment3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_LabEquipment4": {
+      "id": "Balancer_Product_LabEquipment4",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_LabEquipment4",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_RailParts": {
+      "id": "Balancer_Product_RailParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_RailParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_RailParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_OfficeSupplies": {
+      "id": "Balancer_Product_OfficeSupplies",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_OfficeSupplies",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_OfficeSupplies",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Electronics": {
+      "id": "Balancer_Product_Electronics",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Electronics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Electronics",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_PCB": {
+      "id": "Balancer_Product_PCB",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_PCB",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_PCB",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Electronics2": {
+      "id": "Balancer_Product_Electronics2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Electronics2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Electronics2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Electronics3": {
+      "id": "Balancer_Product_Electronics3",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Electronics3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Electronics3",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Electronics4": {
+      "id": "Balancer_Product_Electronics4",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Electronics4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Electronics4",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Server": {
+      "id": "Balancer_Product_Server",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Server",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Server",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Microchips": {
+      "id": "Balancer_Product_Microchips",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Microchips",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Microchips",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage1A": {
+      "id": "Balancer_Product_MicrochipsStage1A",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage1A",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage1A",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage1B": {
+      "id": "Balancer_Product_MicrochipsStage1B",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage1B",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage1B",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage1C": {
+      "id": "Balancer_Product_MicrochipsStage1C",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage1C",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage1C",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage2A": {
+      "id": "Balancer_Product_MicrochipsStage2A",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage2A",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage2A",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage2B": {
+      "id": "Balancer_Product_MicrochipsStage2B",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage2B",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage2B",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage2C": {
+      "id": "Balancer_Product_MicrochipsStage2C",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage2C",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage2C",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage3A": {
+      "id": "Balancer_Product_MicrochipsStage3A",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage3A",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage3A",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage3B": {
+      "id": "Balancer_Product_MicrochipsStage3B",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage3B",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage3B",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage3C": {
+      "id": "Balancer_Product_MicrochipsStage3C",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage3C",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage3C",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage4A": {
+      "id": "Balancer_Product_MicrochipsStage4A",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage4A",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage4A",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_MicrochipsStage4B": {
+      "id": "Balancer_Product_MicrochipsStage4B",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_MicrochipsStage4B",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_MicrochipsStage4B",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Diamond": {
+      "id": "Balancer_Product_Diamond",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Diamond",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Diamond",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_DiamondPaste": {
+      "id": "Balancer_Product_DiamondPaste",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_DiamondPaste",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_DiamondPaste",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SapphireWafer": {
+      "id": "Balancer_Product_SapphireWafer",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SapphireWafer",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SapphireWafer",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Lens": {
+      "id": "Balancer_Product_Lens",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Lens",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Lens",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SolarCell": {
+      "id": "Balancer_Product_SolarCell",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SolarCell",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SolarCell",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SolarCellMono": {
+      "id": "Balancer_Product_SolarCellMono",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SolarCellMono",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SolarCellMono",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CompositePanel": {
+      "id": "Balancer_Product_CompositePanel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CompositePanel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CompositePanel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CompositeBodyBasic": {
+      "id": "Balancer_Product_CompositeBodyBasic",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CompositeBodyBasic",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CompositeBodyBasic",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CompositeCore": {
+      "id": "Balancer_Product_CompositeCore",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CompositeCore",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CompositeCore",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_ChemicalFuel": {
+      "id": "Balancer_Product_ChemicalFuel",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_ChemicalFuel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ChemicalFuel",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SpaceStationParts1": {
+      "id": "Balancer_Product_SpaceStationParts1",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SpaceStationParts1",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SpaceStationParts1",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SpaceStationParts2": {
+      "id": "Balancer_Product_SpaceStationParts2",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SpaceStationParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SpaceStationParts2",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CrewSupplies": {
+      "id": "Balancer_Product_CrewSupplies",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CrewSupplies",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrewSupplies",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_SpaceProbeParts": {
+      "id": "Balancer_Product_SpaceProbeParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_SpaceProbeParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SpaceProbeParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_AsteroidBoosterParts": {
+      "id": "Balancer_Product_AsteroidBoosterParts",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_AsteroidBoosterParts",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_AsteroidBoosterParts",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_CompactReactor": {
+      "id": "Balancer_Product_CompactReactor",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_CompactReactor",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CompactReactor",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Oxygen": {
+      "id": "Balancer_Product_Oxygen",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_Oxygen",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Oxygen",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_HydrogenFluoride": {
+      "id": "Balancer_Product_HydrogenFluoride",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerPipe",
+      "inputs": [
+        {
+          "id": "Product_HydrogenFluoride",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_HydrogenFluoride",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Waste": {
+      "id": "Balancer_Product_Waste",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerLoose",
+      "inputs": [
+        {
+          "id": "Product_Waste",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Waste",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_WastePressed": {
+      "id": "Balancer_Product_WastePressed",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_WastePressed",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_WastePressed",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Flowers": {
+      "id": "Balancer_Product_Flowers",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerFlat",
+      "inputs": [
+        {
+          "id": "Product_Flowers",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Flowers",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Footprint": {
+      "id": "Balancer_Product_Virtual_Footprint",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Footprint",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Footprint",
+          "quantity": 1
+        }
+      ]
+    },
+    "Balancer_Product_Virtual_Wildcard": {
+      "id": "Balancer_Product_Virtual_Wildcard",
+      "name": "Balancer Passthrough",
+      "duration": 60,
+      "origDuration": 60,
+      "machine": "BalancerVirtual",
+      "inputs": [
+        {
+          "id": "Product_Virtual_Wildcard",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Virtual_Wildcard",
+          "quantity": 1
         }
       ]
     }

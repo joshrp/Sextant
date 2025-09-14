@@ -49,7 +49,22 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   const recipe = recipes.get(props.data.recipeId);
   if (!recipe) {
     console.error("Recipe not found for id:", props.data.recipeId);
-    return <div className="recipe-node-error">Recipe not found</div>;
+    return  <div className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+      <div className="recipe-node-title-bar flex justify-between border-white/20 mb-8 pb-2 border-b-2 items-center-safe ">
+        <div className="flex-1 text-left p-1">
+        </div>
+        <div className="flex-10 text-center text-xl">Recipe Not Found</div>
+        <div className="flex-1 justify-end-safe text-right ">
+          <button
+            className="cursor-pointer text-red-500/50 hover:text-white/80 hover:bg-red-500/50 p-1 rounded"
+            onClick={() => removeNode(props.id)}>
+            <TrashIcon className='w-6' />
+          </button>
+        </div>
+      </div>
+      <div className="text-center text-red-500">Error: Recipe ID `{props.data.recipeId}` not found.</div>
+      
+    </div>;
   }
 
   const runCount = props.data.solution?.solved ? props.data.solution.runCount : 1;
@@ -91,24 +106,26 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
       <div className="recipe-node-infra-bar flex justify-start align-start gap-2 border-white/20 pt-4 mb-1 pb-0 border-t-2">
         <InfrastructureIcon name="Electricity Used" icon={uiIcon("Electricity")} 
           amount={getQuantityDisplay(recipe.machine.electricity_consumed, runCount, "kW") /*TODO:: Modify by recipe?*/} />
-        <InfrastructureIcon name="Workers" icon={uiIcon("Worker")} 
+        <InfrastructureIcon name={`Workers (${recipe.machine.workers}) x ${Math.ceil(runCount)}`} icon={uiIcon("Worker")} 
           amount={getQuantityDisplay(recipe.machine.workers, Math.ceil(runCount) /* TODO:: Is this correct? Do workers get consumed even when the building is idle */, "")} />
         <InfrastructureIcon name={maintenanceName(recipe.machine)} icon={maintenanceIcon(recipe.machine)} 
           amount={getQuantityDisplay(recipe.machine.maintenance_cost?.quantity || 0, runCount, "")} />
         <InfrastructureIcon name="Computing Used" icon={uiIcon("Computing")} 
-          amount={getQuantityDisplay(recipe.machine.computing_consumed, runCount, "TFlops")} />
+          amount={getQuantityDisplay(recipe.machine.computing_consumed, runCount, "TFlops")} />          
+        <InfrastructureIcon name={`Tile Footprint (${recipe.machine.footprint?.[0]} x ${recipe.machine.footprint?.[1]}) x ${Math.ceil(runCount)}`} icon={uiIcon("Move128")} iconClassName="rotate-45 scale-120"
+          amount={getQuantityDisplay(recipe.machine.footprint?.reduce((a, i) => a*=i,1) || 0, Math.ceil(runCount), "")} />
       </div>
     </div>
   );
 }
 
-function InfrastructureIcon({ name, icon, amount }: { name: string, icon: string, amount: string }) {
+function InfrastructureIcon({ name, icon, amount, iconClassName }: { name: string, icon: string, amount: string, iconClassName?: string  }) {
   return (
     <div data-zero={amount.startsWith("0 ") ? true : null} className="flex-1 text-center text-xl text-gray-400 data-zero:opacity-20 data-zero:grayscale">
       <div className="h-8">
-        <img src={icon} className="h-full mx-auto" title={name} />
+        <img src={icon} className={"h-full mx-auto " + iconClassName} title={name} />
       </div>
-      <div className="">{amount}</div>
+      <div className="text-nowrap">{amount}</div>
     </div>
   );
 }
