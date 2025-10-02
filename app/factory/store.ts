@@ -5,13 +5,15 @@ import { addEdge, applyEdgeChanges, applyNodeChanges, getConnectedEdges, type On
 
 import { openDB } from "idb";
 import type { StorageValue } from "zustand/middleware";
+import hydration from "~/hydration";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
+import type { ProductId } from "./graph/loadJsonData";
 import type { CustomNodeType, } from "./graph/nodes";
 import type { RecipeNodeData } from "./graph/RecipeNode";
+import type { MatrixStoreData } from "./MatrixProvider";
 import { createGraph, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution } from "./solver/types";
-import hydration from "~/hydration";
 
 export interface GraphStore {
   id: string,
@@ -20,6 +22,8 @@ export interface GraphStore {
   edges: CustomEdgeType[];
   graph?: GraphModel,
   goals: FactoryGoal[];
+  baseWeights: MatrixStoreData["weights"];
+  weights: Pick<MatrixStoreData["weights"], "infrastructure" | "products">;
   manifoldOptions: ManifoldOptions[],
   solution?: Solution;
   solutionStatus?: "Solved" | "Error" | "Infeasible";
@@ -40,32 +44,17 @@ export interface GraphStore {
   validateManifolds: () => void,
   setManifold: (constraints: Constraint[], on: boolean) => void;
   setScoreMethod: (method: GraphStore["scoringMethod"]) => void;
+  setBaseWeights: (weights: MatrixStoreData["weights"]) => void;
 }
 
 // export type FactoryStore = UseBoundStore<StoreApi<GraphStore>>;
 export type FactoryStore = ReturnType<typeof Store>;
 
-export type GraphStoreProps = Pick<GraphStore, "nodes" | "edges" | "goals"> & {
-  id: string
-};
-const version = 1;
+export type GraphStoreProps = Pick<GraphStore, "nodes" | "edges" | "goals"> & { id: string };
 
 const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => {
 
-  const idb = openDB(id, version, {
-    upgrade(db, oldVersion, newVersion, transaction, event) {
-      db.createObjectStore('current-state');
-    },
-    // blocked(currentVersion, blockedVersion, event) {
-    //   // …
-    // },
-    // blocking(currentVersion, blockedVersion, event) {
-    //   // …
-    // },
-    // terminated() {
-    //   // …
-    // },
-  });
+  const idb = getIdb(id);
 
   return createStore<GraphStore>()(
     persist(
@@ -76,6 +65,15 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => {
           nodes,
           edges,
           goals,
+          baseWeights: {
+            infrastructure: new Map<string, number>(),
+            products: new Map<ProductId, number>(),
+            base: "early",
+          },
+          weights: {
+            infrastructure: new Map<string, number>(),
+            products: new Map<ProductId, number>(),
+          },
           manifoldOptions: [],
           graph: undefined,
           solution: undefined,
@@ -247,19 +245,24 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => {
               nodes: [...get().nodes],
               edges: [...get().edges]
             }, false, "forceSetNodesEdges");
+          },
+          setBaseWeights: (weights: MatrixStoreData["weights"]) => {
+            console.log("Setting base weights to", weights, get().goals[0]);
+            set({ baseWeights: weights }, false, "setWeights");
+            get().solutionUpdateAction(false);
           }
         })
       ),
-      {
+      { // Persisted state options
         name: id + "_zustand",
-
+        version: 2,
         storage: {
           getItem: async (name) => {
-            // const str = localStorage.getItem(id + "_zustand");
-            const str = await (await idb).get('current-state', name);          
+            const str = await (await idb).get('current-state', name);
 
             if (!str) return null;
-            return JSON.parse(str, hydration.reviver);
+            const data = JSON.parse(str, hydration.reviver);
+            return data;
           },
           setItem: async (name, newValue: StorageValue<GraphStore>) => {
             const str = JSON.stringify(newValue, hydration.replacer);
@@ -268,10 +271,37 @@ const Store = ({ id, nodes, edges, goals }: GraphStoreProps) => {
           },
           removeItem: (name) => localStorage.removeItem(name),
         },
+        migrate: (persistedState: unknown, currentVersion: number) => {
+          if (!persistedState || !('id' in (persistedState as GraphStore))) {
+            console.log("No persisted state found, or invalid, something is weird in migrate.");
+            return persistedState as GraphStore;
+          }
+          const newState = persistedState as GraphStore;
+
+          if (currentVersion === 1) {
+            newState.weights = {
+              infrastructure: new Map<string, number>(),
+              products: new Map<ProductId, number>(),
+            };
+            console.log("Migrated FactoryStore from version 1 to include weights");
+          }
+          console.log("Migrated FactoryStore to new version from", currentVersion, newState);
+          return newState;
+        }
       }
     )
   );
 }
 
+
+const indexedDBVersion = 1;
+const getIdb = (id: string) => openDB(id, indexedDBVersion, {
+  upgrade(db, oldVersion) {
+    if (oldVersion < 1)
+      db.createObjectStore('current-state');
+    else
+      throw new Error("Database version not supported, please clear site data for this site.");
+  },
+});
 
 export default Store;

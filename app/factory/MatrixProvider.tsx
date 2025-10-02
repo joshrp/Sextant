@@ -4,6 +4,7 @@ import { createStore } from "zustand";
 import { devtools, persist, type StorageValue } from "zustand/middleware";
 import hydration from "~/hydration";
 import { openDB } from "idb";
+import type { ProductId } from "./graph/loadJsonData";
 
 export const ProductionMatrixProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<MatrixStore | null>(null);
@@ -27,29 +28,17 @@ export interface MatrixStoreData {
     name: string
   }[],
   selected: string,
-  weights: { [k: string]: number },
-
+  weights: {
+    base: "early" | "mid" | "late" | "end",
+    products: Map<ProductId, number>,
+    infrastructure: Map<string, number>,
+  },
   changeTab(id: string): void;
   newFactory(name: string): void;
 };
 
-const isClient = typeof window !== "undefined";
-const version = 1;
 const Store = () => {
-  const idb = isClient ? openDB("ProductionMatrixStore", version, {
-    upgrade(db, oldVersion, newVersion, transaction, event) {
-      db.createObjectStore('current-state');
-    },
-    // blocked(currentVersion, blockedVersion, event) {
-    //   // …
-    // },
-    // blocking(currentVersion, blockedVersion, event) {
-    //   // …
-    // },
-    // terminated() {
-    //   // …
-    // },
-  }) : null;
+  const idb = getIdb();
 
   return createStore<MatrixStoreData>()(
     persist(
@@ -61,7 +50,11 @@ const Store = () => {
             order: 0,
           }],
           selected: "default-factory",
-          weights: {},
+          weights: {
+            base: 1,
+            products: new Map<ProductId, number>(),
+            infrastructure: new Map<string, number>(),
+          },
 
           changeTab: (id: string) => {
             const settings = get();
@@ -105,8 +98,41 @@ const Store = () => {
             return (await idb).put('current-state', str, name)
           },
           removeItem: (name) => localStorage.removeItem(name),
+
+        },
+        version: 2,
+        migrate: (persistedState: unknown, currentVersion: number) => {
+          if (!persistedState || !('factories' in (persistedState as MatrixStoreData))) {
+            console.log("No persisted state found, or invalid, something is weird in migrate.");
+            return persistedState as MatrixStoreData;
+          }
+          const newState = persistedState as MatrixStoreData;
+
+          if (currentVersion === 1) {
+            newState.weights = {
+              infrastructure: new Map<string, number>(),
+              products: new Map<ProductId, number>(),
+              base: "early",
+            };
+            console.log("Migrated ProductionMatrix_settings from version 1 to include weights", newState); 
+          }
+
+          return newState;
         }
       })
 
   );
+}
+
+const isClient = typeof window !== "undefined";
+const indexedDBVersion = 2;
+const getIdb = () => {
+  return isClient ? openDB("ProductionMatrixStore", indexedDBVersion, {
+    async upgrade(db, oldVersion) {
+      if (oldVersion < 1) 
+        return db.createObjectStore('current-state');
+      else
+        throw new Error("Database version not supported, please clear site data for this site.");
+    }
+  }) : null;
 }

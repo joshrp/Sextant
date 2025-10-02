@@ -12,8 +12,8 @@ import {
 
 import { ReactFlowProvider } from "@xyflow/react";
 import useFactory, { useFactoryStore } from "./FactoryContext";
-import RecipePicker from "./RecipePicker";
 import FactoryControls from "./FactoryControls";
+import RecipePicker from "./RecipePicker";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);

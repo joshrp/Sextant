@@ -1,7 +1,8 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ExclamationTriangleIcon, InformationCircleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
-import { ArrowsPointingOutIcon, CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ArrowsPointingOutIcon, CheckCircleIcon, ChevronDownIcon, Cog8ToothIcon } from "@heroicons/react/24/solid";
 import React from "react";
+import { Link } from "react-router";
 import { useShallow } from "zustand/shallow";
 import { formatNumber, maintenanceIcon, productIcon, uiIcon } from "~/uiUtils";
 import { useFactoryStore } from "./FactoryContext";
@@ -44,8 +45,7 @@ export default function FactoryControls() {
     unit: 'TFlops'
   }];
   const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
-
-  return (<div className="factoryControls px-2 flex">
+  return (<div className="factoryControls px-2 flex justify-stretch w-full">
     <Menu key="factory-menu" as="div" className="relative">
       <MenuButton className="cursor-pointer h-full">
         <div
@@ -180,12 +180,12 @@ export default function FactoryControls() {
       </MenuItems>
     </Menu >
 
-    <div className="costs ml-4 mt-0.5 align-middle flex-1 h-full grid auto-cols-fr grid-flow-col grid-rows-1 py-0.5 gap-1 justify-around">
+    <div className="costs pl-4 mt-0.5 align-middle flex-1 h-full grid auto-cols-fr grid-flow-col grid-rows-1 py-0.5 gap-1 justify-around content-start">
       {solutionStatus == "Solved" && solution ? (<>
         {infraScores.map((i) => {
-          return (<div key={i.name} 
+          return (<div key={i.name}
             className="grid gap-0.5 grid-rows-[minmax(0,2fr)_min-content]
-            text-center text-xs text-gray-400 data-zero:opacity-20 data-zero:grayscale" 
+            text-center text-xs text-gray-400 data-zero:opacity-20 data-zero:grayscale"
             title={i.name + (i.unit ? (" (" + i.unit + ")") : "")}>
             <div className="">
               <img src={i.icon} alt={i.name} className="mx-auto h-full inline-block" />
@@ -195,7 +195,7 @@ export default function FactoryControls() {
         })}
 
         {solution?.infrastructure['footprint'] != undefined ? (<>
-          <div key="footprint"  
+          <div key="footprint"
             className="grid gap-0.5 grid-rows-[minmax(0,2fr)_min-content]
             text-center text-xs text-gray-400 data-zero:opacity-20 data-zero:grayscale" title={"Machine Footprint (tiles)"}>
             <div className=""><ArrowsPointingOutIcon className="inline-block h-full mx-auto" /></div>
@@ -204,6 +204,13 @@ export default function FactoryControls() {
         </>) : null}
 
       </>) : null}
+    </div>
+
+    <div className="px-2 cursor-pointer justify-self-end-safe content-center-safe hover:brightness-70" title="Factory Settings">
+      <Link to="settings" className="h-full">
+        <Cog8ToothIcon className="w-6 inline-block" />
+      </Link>
+
     </div>
   </div >
   );

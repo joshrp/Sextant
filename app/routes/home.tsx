@@ -1,12 +1,12 @@
-import { CheckIcon } from "@heroicons/react/24/solid";
-import { use, useState } from "react";
-import { FactoryProvider } from "~/factory/FactoryProvider";
-import useProductionMatrix, { useProductionMatrixStore } from "~/factory/MatrixContext";
-import { Factory } from "../factory/factory";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { useEffect, useMemo, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router";
+import { FactoryProvider } from "~/factory/FactoryProvider";
 import { loadData } from "~/factory/graph/loadJsonData";
+import { useProductionMatrixStore } from "~/factory/MatrixContext";
 import { machineIcon, productIcon, uiIcon } from "~/uiUtils";
+import { Factory } from "../factory/factory";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -20,7 +20,11 @@ export function meta() {
 const { products, machines } = loadData();
 
 export default function Home() {
-  const selectedId = useProductionMatrixStore(state => state.selected);
+  const {selectedId} = useParams();
+  
+  if (!selectedId) throw new Error("No factory selected");
+  // const selectedId = useProductionMatrixStore(state => state.selected);
+  const baseWeights = useProductionMatrixStore(state => state.weights);
 
   const [images, setImages] = useState<string[]>([]); 
   useEffect(() => {
@@ -33,27 +37,35 @@ export default function Home() {
     newImg.push(uiIcon("Maintenance"));
     setImages(newImg);
   }, [products, machines]); 
-  return <>
+  
+  return useMemo(()=><>
     <main className="h-[100vh]">
-      <FactoryProvider id={selectedId}>
+      <FactoryProvider id={selectedId} weights={baseWeights}>
         <div className="flex flex-col justify-stretch h-full">
           <Header/>
 
           <Factory />
+
+          <Outlet />
         </div>
       </FactoryProvider>
       {images.map((img, idx) => (
         <link key={idx} rel="preload" href={img} as="image" />
       ))}
     </main >
-  </>
+  </>, [selectedId, images]);
 }
 
 function Header() {
+  const {selectedId} = useParams();
+
   const factories = useProductionMatrixStore(state => state.factories);
-  const selectedId = useProductionMatrixStore(state => state.selected);
+  // const selectedId = useProductionMatrixStore(state => state.selected);
   
-  const changeTab = useProductionMatrixStore(state => state.changeTab);
+  const nav = useNavigate();
+  const changeTab = (id: string) => {
+    nav(`/factories/${id}`);
+  }
   const addNewFactory = useProductionMatrixStore(state => state.newFactory);
 
   const [inputNewName, setInputNewName] = useState<boolean>(false);
@@ -65,7 +77,7 @@ function Header() {
     setInputNewName(false);
   };
 
-  return <header className="w-full bg-gray-800">
+  return useMemo(()=><header className="w-full bg-gray-800">
     <div className="max-w-[100vw] p-4">
       Factory
     </div>
@@ -110,5 +122,5 @@ function Header() {
       </ul>
     </div>
 
-  </header>
+  </header>, [factories, selectedId, inputNewName, newName]);
 }
