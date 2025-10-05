@@ -4,11 +4,12 @@ import { useShallow } from "zustand/shallow";
 
 import { ClipboardIcon, FolderArrowDownIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
+import usePlanner from "~/context/PlannerContext";
+import useProductionMatrix from "~/context/ZoneContext";
+import type { ProductionZoneStoreData } from "~/context/ZoneProvider";
 import useFactory, { useFactoryStore } from "~/factory/FactoryContext";
 import { loadData, type ProductId } from "~/factory/graph/loadJsonData";
 import { compress, minify } from "~/factory/importexport/importexport";
-import useProductionMatrix from "~/context/ZoneContext";
-import type { MatrixStoreData } from "~/context/ZoneProvider";
 import { useStableParam } from "~/routes";
 import { productIcon } from "~/uiUtils";
 import { SelectorDialog } from "../Dialog";
@@ -24,12 +25,13 @@ const tabIds = settingsTabs.map(t => t.id);
 
 export default function FactorySettings() {
   const navigate = useNavigate();
+  const tabParam = useStableParam("tab");
 
   const { name } = useFactoryStore(useShallow(state => ({ id: state.id, name: state.name })));
   const [exportedStr, setExportedStr] = useState("Something went wrong exporting Factory");
-  const tabParam = useStableParam("tabId");
-  const prodMatrixStore = useProductionMatrix().store;
-  const lastTab = prodMatrixStore.getState().lastSettingsTab;
+
+  const plannerStore = usePlanner().store;
+  const lastTab = plannerStore.getState().lastSettingsTab;
 
   let tabId = `${tabParam}`;
   // If there's no tab, or the tab isn't valid. Go to the last tab, if that's not valid go to weights
@@ -46,7 +48,7 @@ export default function FactorySettings() {
     }
     else if (lastTab !== tabId) {
       console.log('Setting lastSettingsTab from', lastTab, 'to', tabId);
-      prodMatrixStore.setState((state) => ({ ...state, lastSettingsTab: tabId }), false, "Set lastSettingsTab");
+      plannerStore.setState((state) => ({ ...state, lastSettingsTab: tabId }), false, "Set lastSettingsTab");
     }
   }, [tabParam, lastTab]);
 
@@ -148,7 +150,7 @@ function FactoryWeights() {
 
   const baseWeights: Map<ProductId, number> = new Map();
 
-  const setPreset = (preset: MatrixStoreData["weights"]["base"]) => {
+  const setPreset = (preset: ProductionZoneStoreData["weights"]["base"]) => {
     matrixStore.setState(state => ({ weights: { ...state.weights, base: preset } }), false);
     factoryStore.setState(state => ({ baseWeights: { ...state.weights, base: preset } }), false);
   };

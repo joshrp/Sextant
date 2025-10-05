@@ -3,11 +3,13 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { useEffect, useMemo, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { FactoryProvider } from "~/context/FactoryProvider";
+import useProductionZone, { useProductionZoneStore } from "~/context/ZoneContext";
+import { ProductionZoneProvider } from "~/context/ZoneProvider";
 import { loadData } from "~/factory/graph/loadJsonData";
-import { useProductionZoneStore } from "~/context/ZoneContext";
 import { useStableParam } from "~/routes";
 import { machineIcon, productIcon, uiIcon } from "~/uiUtils";
 import { Factory } from "../factory/factory";
+import useFactory from "~/factory/FactoryContext";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -21,13 +23,9 @@ export function meta() {
 const { products, machines } = loadData();
 
 export default function Home() {
-  const selectedFactoryId = useStableParam("selectedFactory");
+  const selectedZone = useStableParam("zone");
 
-  console.log('Home render', { selectedFactoryId });
-  if (!selectedFactoryId) throw new Error("No factory selected");
-  const baseWeights = useProductionZoneStore(state => state.weights);
-  const factories = useProductionZoneStore(state => state.factories);
-  const selectedFactory = factories.find(f => f.id === selectedFactoryId);
+  console.log('Home render zone', selectedZone);
 
   const [images, setImages] = useState<string[]>([]);
   useEffect(() => {
@@ -42,32 +40,49 @@ export default function Home() {
   }, [products, machines]);
 
   return useMemo(() => <>
-    <main className="h-[100vh]">
-      <FactoryProvider id={selectedFactoryId} name={selectedFactory?.name || "Default"} weights={baseWeights}>
-        <div className="flex flex-col justify-stretch h-full">
-          <Header />
+    <ProductionZoneProvider zoneId={selectedZone || "default"}>
+      <main className="h-[100vh]">
+        <Zone />
+        {images.map((img, idx) => (
+          <link key={idx} rel="preload" href={img} as="image" />
+        ))}
+      </main >
+    </ProductionZoneProvider>
+  </>, [selectedZone, images]);
+}
 
-          <Factory />
+function Zone() {
+  const selectedFactoryId = useStableParam("factory");
 
-          <Outlet />
-        </div>
-      </FactoryProvider>
-      {images.map((img, idx) => (
-        <link key={idx} rel="preload" href={img} as="image" />
-      ))}
-    </main >
-  </>, [selectedFactoryId, images]);
+  if (!selectedFactoryId) throw new Error("No factory selected");
+  const baseWeights = useProductionZoneStore(state => state.weights);
+  const factories = useProductionZoneStore(state => state.factories);
+  const selectedFactory = factories.find(f => f.id === selectedFactoryId);
+  const idb = useProductionZone().idb;
+  
+  return useMemo(() => <>
+    <FactoryProvider idb={idb} id={selectedFactoryId} name={selectedFactory?.name || "Default"} weights={baseWeights}>
+      <div className="flex flex-col justify-stretch h-full">
+        <Header />
+
+        <Factory />
+
+        <Outlet />
+      </div>
+    </FactoryProvider>
+  </>, [selectedFactoryId, baseWeights]);
 }
 
 function Header() {
   const nav = useNavigate();
-  const selectedFactory = useStableParam("selectedFactory");
+  const selectedFactory = useFactory().id;
+  const zoneId = useProductionZone().id;
 
   const factories = useProductionZoneStore(state => state.factories);
   // const selectedId = useProductionZoneStore(state => state.selected);
   console.log('Header render', { selectedFactory, factories });
   const changeTab = (e: React.MouseEvent<unknown, MouseEvent>, id: string) => {
-    nav(`/factories/${id}`);
+    nav(`/zones/${zoneId}/${id}`);
     e.preventDefault();
   }
   const addNewFactory = useProductionZoneStore(state => state.newFactory);
@@ -96,7 +111,7 @@ function Header() {
                 data-is-selected:border-amber-500
                 data-is-selected:hover:bg-black data-is-selected:cursor-default
                 "
-              onClick={(e)=>changeTab(e, f.id)} 
+              onClick={(e) => changeTab(e, f.id)}
               href={`/factories/${f.id}`}>
               {f.name}</a>
           </li>)

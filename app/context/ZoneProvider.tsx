@@ -6,42 +6,46 @@ import hydration from "~/hydration";
 import { openDB } from "idb";
 import type { ProductId } from "../factory/graph/loadJsonData";
 
-export const ProductionZoneProvider = ({ children }: { children: ReactNode }) => {
-  const storeRef = useRef<MatrixStore | null>(null);
-
+export const ProductionZoneProvider = ({ zoneId, children }: { zoneId: string, children: ReactNode }) => {
+  const storeRef = useRef<ProductionZoneStore | null>(null);
+  const idbRef = useRef<IDB | null>(null);
+  if (!idbRef.current) {
+    idbRef.current = getIdb(zoneId);
+  }
   if (!storeRef.current) {
     // Initialize store only once
-    storeRef.current = Store();
+    storeRef.current = Store(idbRef.current!);
   }
   return (
-    <ProductionZoneContext.Provider value={{ store: storeRef.current }}>
+    <ProductionZoneContext.Provider value={{ 
+      idb: idbRef.current!, 
+      store: storeRef.current,
+      id: zoneId,
+      name: zoneId, // TODO:: Allow changing this?
+      
+    }}>
       {children}
     </ProductionZoneContext.Provider>
   );
 };
 
-export type MatrixStore = ReturnType<typeof Store>;
-export interface MatrixStoreData {
+export type ProductionZoneStore = ReturnType<typeof Store>;
+export interface ProductionZoneStoreData {
   factories: {
     id: string,
     order: number,
     name: string
   }[],
-  selected: string,
   weights: {
     base: "early" | "mid" | "late" | "end",
     products: Map<ProductId, number>,
     infrastructure: Map<string, number>,
   },
-  lastSettingsTab: string,
-  changeTab(id: string): void;
   newFactory(name: string): void;
 };
 
-const Store = () => {
-  const idb = getIdb();
-
-  return createStore<MatrixStoreData>()(
+const Store = (idb: IDB) => {
+  return createStore<ProductionZoneStoreData>()(
     persist(
       devtools(
         (set, get) => ({
@@ -50,21 +54,12 @@ const Store = () => {
             name: "Default Factory",
             order: 0,
           }],
-          selected: "default-factory",
           weights: {
             base: 1,
             products: new Map<ProductId, number>(),
             infrastructure: new Map<string, number>(),
           },
-          lastSettingsTab: "weights",
-
-          changeTab: (id: string) => {
-            const settings = get();
-            console.log("Changing tab to", id, settings);
-            if (settings.factories.find(f => f.id === id)) {
-              set({ selected: id });
-            }
-          },
+        
           newFactory: (name: string) => {
             const settings = get();
             const newId = name.trim().toLowerCase().replace(/\s+/g, "-");
@@ -83,32 +78,32 @@ const Store = () => {
         })
       ),
       {
-        name: "ProductionZone_settings",
+        name: "current-state",
         storage: {
           getItem: async (name) => {
             // const str = localStorage.getItem('ProductionZone_settings');
             if (!idb) return null;
-            const str = await (await idb).get('current-state', name);
+            const str = await (await idb).get(zoneObjectStore, name);
 
             if (!str) return null;
             return JSON.parse(str, hydration.reviver);
           },
-          setItem: async (name, newValue: StorageValue<MatrixStoreData>) => {
+          setItem: async (name, newValue: StorageValue<ProductionZoneStoreData>) => {
             if (!idb) return;
             const str = JSON.stringify(newValue, hydration.replacer);
 
-            return (await idb).put('current-state', str, name)
+            return (await idb).put(zoneObjectStore, str, name)
           },
           removeItem: (name) => localStorage.removeItem(name),
 
         },
         version: 2,
         migrate: (persistedState: unknown, currentVersion: number) => {
-          if (!persistedState || !('factories' in (persistedState as MatrixStoreData))) {
+          if (!persistedState || !('factories' in (persistedState as ProductionZoneStoreData))) {
             console.log("No persisted state found, or invalid, something is weird in migrate.");
-            return persistedState as MatrixStoreData;
+            return persistedState as ProductionZoneStoreData;
           }
-          const newState = persistedState as MatrixStoreData;
+          const newState = persistedState as ProductionZoneStoreData;
 
           if (currentVersion === 1) {
             newState.weights = {
@@ -126,13 +121,18 @@ const Store = () => {
   );
 }
 
+const zoneObjectStore = 'zone-settings';
 const isClient = typeof window !== "undefined";
 const indexedDBVersion = 2;
-const getIdb = () => {
-  return isClient ? openDB("ProductionZoneStore", indexedDBVersion, {
+export type IDB = ReturnType<typeof openDB>;
+const getIdb = (zoneId: string) => {
+  return isClient ? openDB("Zone_" + zoneId, indexedDBVersion, {
     async upgrade(db, oldVersion) {
-      if (oldVersion < 1) 
-        return db.createObjectStore('current-state');
+      if (oldVersion < 1) {
+        await db.createObjectStore(zoneObjectStore);
+        await db.createObjectStore("factories");
+        await db.createObjectStore("factory-history");
+      }
       else
         throw new Error("Database version not supported, please clear site data for this site.");
     }

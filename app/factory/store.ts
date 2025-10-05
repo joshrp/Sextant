@@ -3,15 +3,14 @@ import { devtools, persist } from "zustand/middleware";
 
 import { addEdge, applyEdgeChanges, applyNodeChanges, getConnectedEdges, type OnConnect, type OnEdgesChange, type OnNodesChange } from "@xyflow/react";
 
-import { openDB } from "idb";
 import type { StorageValue } from "zustand/middleware";
 import hydration from "~/hydration";
+import type { IDB, ProductionZoneStoreData } from "../context/ZoneProvider";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
 import type { ProductId, RecipeId } from "./graph/loadJsonData";
 import type { CustomNodeType, } from "./graph/nodes";
 import type { RecipeNodeData } from "./graph/RecipeNode";
-import type { MatrixStoreData } from "../context/ZoneProvider";
 import { createGraphModel, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
 
@@ -44,14 +43,14 @@ export interface GraphStoreActions {
   validateManifolds: () => void,
   setManifold: (constraints: Constraint[], on: boolean) => void;
   setScoreMethod: (method: GraphStore["scoringMethod"]) => void;
-  setBaseWeights: (weights: MatrixStoreData["weights"]) => void;
+  setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
 }
 
 export interface GraphStore extends GraphSolutionState, GraphStoreActions {
   id: string,
 
-  baseWeights: MatrixStoreData["weights"];
-  weights: Pick<MatrixStoreData["weights"], "infrastructure" | "products">;
+  baseWeights: ProductionZoneStoreData["weights"];
+  weights: Pick<ProductionZoneStoreData["weights"], "infrastructure" | "products">;
   manifoldOptions: ManifoldOptions[];
 }
 
@@ -60,10 +59,7 @@ export type FactoryStore = ReturnType<typeof Store>;
 
 export type GraphStoreProps = { id: string, name: string };
 
-const Store = ({ id, name }: GraphStoreProps) => {
-
-  const idb = getIdb(id);
-
+const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
   const Historical = createStore<{ lastUpdated: number | null }>()(
     devtools(
       persist(
@@ -76,7 +72,7 @@ const Store = ({ id, name }: GraphStoreProps) => {
           version: 1,
           storage: {
             getItem: async (name) => {
-              const str = await (await idb).get('current-state', name);
+              const str = await (await idb).get("factories", name);
 
               if (!str) return null;
               const data = JSON.parse(str, hydration.reviver);
@@ -85,9 +81,9 @@ const Store = ({ id, name }: GraphStoreProps) => {
             setItem: async (name, newValue: StorageValue<{ lastUpdated: number | null }>) => {
               const str = JSON.stringify(newValue, hydration.replacer);
 
-              return (await idb).put('current-state', str, name)
+              return (await idb).put("factories", str, name)
             },
-            removeItem: (name) => localStorage.removeItem(name),
+            removeItem: () => {},
           },
         }
       )
@@ -289,18 +285,18 @@ const Store = ({ id, name }: GraphStoreProps) => {
               edges: [...get().edges]
             }, false, "forceSetNodesEdges");
           },
-          setBaseWeights: (weights: MatrixStoreData["weights"]) => {
+          setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => {
             console.log("Setting base weights to", weights, get().goals[0]);
             set({ baseWeights: weights }, false, "setWeights");
             get().solutionUpdateAction(false);
           },
         }),
         { // Persisted state options
-          name: id + "_zustand",
+          name: id,
           version: 2,
           storage: {
             getItem: async (name) => {
-              const str = await (await idb).get('current-state', name);
+              const str = await (await idb).get("factories", name);
 
               if (!str) return null;
               const data = JSON.parse(str, hydration.reviver);
@@ -308,9 +304,9 @@ const Store = ({ id, name }: GraphStoreProps) => {
             },
             setItem: async (name, newValue: StorageValue<GraphStore>) => {
               const str = JSON.stringify(newValue, hydration.replacer);
-              return (await idb).put('current-state', str, name)
+              return (await idb).put("factories", str, name)
             },
-            removeItem: (name) => localStorage.removeItem(name),
+            removeItem: () => {},
           },
           migrate: (persistedState: unknown, currentVersion: number) => {
             if (!persistedState || !('id' in (persistedState as GraphStore))) {
@@ -339,16 +335,6 @@ const Store = ({ id, name }: GraphStoreProps) => {
     Historical
   }
 }
-
-const indexedDBVersion = 1;
-const getIdb = (id: string) => openDB(id, indexedDBVersion, {
-  upgrade(db, oldVersion) {
-    if (oldVersion < 1)
-      db.createObjectStore('current-state');
-    else
-      throw new Error("Database version not supported, please clear site data for this site.");
-  },
-});
 
 export default Store;
 

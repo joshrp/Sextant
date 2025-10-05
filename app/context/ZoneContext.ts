@@ -1,9 +1,12 @@
 import { createContext, useContext } from "react";
 import { useStore } from "zustand";
-import type { MatrixStoreData, MatrixStore } from "./ZoneProvider";
+import type { IDB, ProductionZoneStore, ProductionZoneStoreData } from "./ZoneProvider";
 
 type ProductionZoneContextType = {
-  store: MatrixStore;
+  store: ProductionZoneStore;
+  idb: IDB;
+  id: string;
+  name: string;
 };
 
 export const ProductionZoneContext = createContext<ProductionZoneContextType | undefined>(undefined);
@@ -16,6 +19,6 @@ export default function useProductionZone() {
   return context;
 };
 
-export function useProductionZoneStore<U>(selector: (state: MatrixStoreData) => U): U {
+export function useProductionZoneStore<U>(selector: (state: ProductionZoneStoreData) => U): U {
   return useStore(useProductionZone().store, selector);
 }

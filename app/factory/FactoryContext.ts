@@ -12,6 +12,8 @@ export type FactorySettings = {
 type FactoryContextType = {
   store: FactoryStore["Graph"];
   historical: FactoryStore["Historical"];
+  id: string;
+  name: string;
 };
 
 export const FactoryContext = createContext<FactoryContextType | undefined>(undefined);
