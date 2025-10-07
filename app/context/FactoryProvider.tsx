@@ -5,24 +5,26 @@ import Store, { type FactoryStore } from "../factory/store";
 
 interface FactoryProviderProps {
   idb: IDB;
+  zoneId: string;
   children: ReactNode;
   id: string;
   name: string;
   weights: ProductionZoneStoreData["weights"];
 }
 
-export const FactoryProvider = ({ children, idb, id = "default-factory", name, weights }: FactoryProviderProps) => {
+const storeCache = {} as Record<string, { store: FactoryStore }>;
+
+export const FactoryProvider = ({ children, idb, id = "default-factory", zoneId, name, weights }: FactoryProviderProps) => {
   const storeRef = useRef<FactoryStore | null>(null);
-  
-  if (!storeRef.current || storeRef.current?.Graph.getInitialState().id !== id) {
-    console.log("Factory Store initialized for", id);
-
-    // Initialize store only once
+  const cacheId = zoneId + id;
+  if (storeCache[cacheId]) {
+    storeRef.current = storeCache[cacheId].store;
+    storeRef.current.Graph.getState().setBaseWeights(weights);
+  } else {
     storeRef.current = Store(idb, { id, name });
-
-    // Ignore persisted weights, always use provided weights from the user preferences  
     storeRef.current?.Graph.persist.onFinishHydration(state => state.setBaseWeights(weights));
-  }  
+    storeCache[cacheId] = { store: storeRef.current }; // Placeholder, will be set below
+  }
 
   return (
     <FactoryContext.Provider value={{ 

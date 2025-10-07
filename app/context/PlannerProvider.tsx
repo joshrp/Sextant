@@ -29,6 +29,7 @@ export interface PlannerStoreData {
   }[],
   lastSettingsTab: string,
   newZone(name: string): void;
+  renameZone(id: string, newName: string): void;
 };
 
 const Store = () => {
@@ -57,6 +58,17 @@ const Store = () => {
                 order: settings.zones.length
               }]
             });
+          },
+          renameZone: (id: string, newName: string) => {
+            const settings = get();
+            const zone = settings.zones.find(z => z.id === id);
+            if (!zone) throw new Error("Zone not found");
+            if (settings.zones.some(z => z.name === newName && z.id !== id))
+              throw new Error("Zone with this name already exists");
+            zone.name = newName;
+            set({
+              zones: [...settings.zones]
+            });
           }
         })
       ),
@@ -80,7 +92,7 @@ const Store = () => {
           removeItem: (name) => localStorage.removeItem(name),
         },
         version: 2,
-        migrate: (persistedState: unknown, currentVersion: number) => {
+        migrate: (persistedState: unknown) => {//, currentVersion: number) => {
           if (!persistedState || !('zones' in (persistedState as PlannerStoreData))) {
             console.error("No persisted state found, or invalid, something is weird in migrate.");
             return persistedState as PlannerStoreData;

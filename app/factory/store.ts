@@ -287,17 +287,18 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             }, false, "forceSetNodesEdges");
           },
           setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => {
-            console.log("Setting base weights to", weights, get().goals[0]);
-            set({ baseWeights: weights }, false, "setWeights");
-            get().solutionUpdateAction(false);
+            if (get().baseWeights !== weights) {
+              set({ baseWeights: weights }, false, "setWeights");
+              get().solutionUpdateAction(false);
+            }
           },
 
           importData: async (data: GraphImportData) => {
             const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
-                id: n.id,
-                type: n.type,
-                position: n.position,
-                data: n.data,
+              id: n.id,
+              type: n.type,
+              position: n.position,
+              data: n.data,
             }));
 
             const newEdges: GraphCoreData["edges"] = data.edges.map(e => ({
@@ -316,7 +317,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               type: g.type,
               dir: g.dir,
             }));
-            
+
             set({
               name: data.name,
               nodes: newNodes,

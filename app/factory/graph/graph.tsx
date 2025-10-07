@@ -40,6 +40,7 @@ export default function Graph({ addNewRecipe }: props) {
     store,
     useShallow(selector),
   );
+  console.log("Rendering graph with nodes", nodes.length, "edges", edges.length);
 
   // Only fit viewport to nodes when we go from none to some,
   // This could fire other times, but mostly it's just the page loading
@@ -76,9 +77,7 @@ export default function Graph({ addNewRecipe }: props) {
         otherNode: connectionState.fromHandle.nodeId
       });
     }
-  },
-    [screenToFlowPosition],
-  );
+  }, [screenToFlowPosition, addNewRecipe]);
 
   return (
     <ReactFlow<CustomNodeType, CustomEdgeType>

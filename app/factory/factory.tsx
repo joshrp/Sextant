@@ -82,7 +82,7 @@ export function Factory() {
       </div>
       <div className="flex-1">
         <div className="w-full h-full">
-          <ReactFlowProvider >
+          <ReactFlowProvider>
             <Graph addNewRecipe={addNewRecipe} />
           </ReactFlowProvider>
         </div>

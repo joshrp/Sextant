@@ -8,22 +8,29 @@ import type { ProductId } from "../factory/graph/loadJsonData";
 import type { GraphImportData } from "~/factory/store";
 import FactoryStore from "../factory/store";
 
-export const ProductionZoneProvider = ({ zoneId, children }: { zoneId: string, children: ReactNode }) => {
+const storeCache = {} as Record<string, { store: ProductionZoneStore, idb: IDB }>;
+
+export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId: string, zoneName: string, children: ReactNode }) => {
   const storeRef = useRef<ProductionZoneStore | null>(null);
   const idbRef = useRef<IDB | null>(null);
-  if (!idbRef.current) {
+
+  if (storeCache[zoneId]) {
+    console.log("Reusing cached store for zone", zoneId);
+    storeRef.current = storeCache[zoneId].store;
+    idbRef.current = storeCache[zoneId].idb;
+  } else {
+    console.log("Production Zone Store initialized for", zoneId);
     idbRef.current = getIdb(zoneId);
+    storeRef.current = Store(idbRef.current!, { id: zoneId, name: zoneName });
+    storeCache[zoneId] = { store: storeRef.current, idb: idbRef.current! };
   }
-  if (!storeRef.current) {
-    // Initialize store only once
-    storeRef.current = Store(idbRef.current!);
-  }
+
   return (
     <ProductionZoneContext.Provider value={{
       idb: idbRef.current!,
       store: storeRef.current,
       id: zoneId,
-      name: zoneId, // TODO:: Allow changing this?
+      name: zoneName, // TODO:: Allow changing this?
       // Import a factory by creating a new Zuhstand store for it, and running the import there.
       // If that works, add it to the list of factories in this zone.
       importFactory: (data: GraphImportData) => {
@@ -33,7 +40,7 @@ export const ProductionZoneProvider = ({ zoneId, children }: { zoneId: string, c
         const id = factoryIdFromName(data.name);
         if (storeRef.current?.getState().factories.find(f => f.id === id))
           throw new Error("Factory with this ID already exists: " + id);
-        
+
         const newStore = FactoryStore(idbRef.current!, { id, name: data.name })
         newStore.Graph.getState().importData(data);
 
@@ -53,6 +60,8 @@ function factoryIdFromName(name: string) {
 
 export type ProductionZoneStore = ReturnType<typeof Store>;
 export interface ProductionZoneStoreData {
+  id: string,
+  name: string,
   factories: {
     id: string,
     order: number,
@@ -63,15 +72,20 @@ export interface ProductionZoneStoreData {
     products: Map<ProductId, number>,
     infrastructure: Map<string, number>,
   },
-  newFactory(name: string, id?: string): void;
+  lastFactory: string | undefined,
+
+  newFactory(name: string, id?: string): string;
+  setLastFactory(id: string): void;
+  renameFactory(id: string, newName: string): void;
 };
 
-const Store = (idb: IDB) => {
+const Store = (idb: IDB, { id, name }: { id: string, name: string }) => {
   return createStore<ProductionZoneStoreData>()(
     subscribeWithSelector(
       persist(
         devtools(
           (set, get) => ({
+            id, name,
             factories: [{
               id: "default-factory",
               name: "Default Factory",
@@ -82,14 +96,14 @@ const Store = (idb: IDB) => {
               products: new Map<ProductId, number>(),
               infrastructure: new Map<string, number>(),
             },
+            lastFactory: undefined,
 
             newFactory: (name: string, id?: string) => {
               const settings = get();
               if (!id) id = factoryIdFromName(name);
 
               if (settings.factories.some(f => f.id === id)) {
-                alert("Factory with this name already exists.");
-                return;
+                id = id + "-" + (new Date().getTime()).toString().slice(-4);
               }
               set({
                 factories: [...settings.factories, {
@@ -98,6 +112,24 @@ const Store = (idb: IDB) => {
                   order: settings.factories.length
                 }]
               });
+
+              return id;
+            },
+            renameFactory: (id: string, newName: string) => {
+              const settings = get();
+              const factory = settings.factories.find(f => f.id === id);
+              if (!factory) throw new Error("Factory not found");
+              if (settings.factories.some(f => f.name === newName && f.id !== id)) {
+                alert("Factory with this name already exists.");
+                return;
+              }
+              factory.name = newName;
+              set({
+                factories: [...settings.factories]
+              });
+            },
+            setLastFactory: (id: string) => {
+              set({ lastFactory: id });
             }
           })
         ),
