@@ -1,7 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { CheckIcon, InboxArrowDownIcon, PlusIcon } from "@heroicons/react/24/solid";
 import { useEffect, useMemo, useState } from "react";
-import { Outlet, useNavigate } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
+import FactoryControls from "~/context/FactoryControls";
 import { FactoryProvider } from "~/context/FactoryProvider";
 import useProductionZone, { useProductionZoneStore } from "~/context/ZoneContext";
 import { ProductionZoneProvider } from "~/context/ZoneProvider";
@@ -9,8 +10,6 @@ import { loadData } from "~/factory/graph/loadJsonData";
 import { useStableParam } from "~/routes";
 import { machineIcon, productIcon, uiIcon } from "~/uiUtils";
 import { Factory } from "../factory/factory";
-import useFactory from "~/factory/FactoryContext";
-import FactoryControls from "~/context/FactoryControls";
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -68,30 +67,35 @@ function Zone() {
   const idb = useProductionZone().idb;
 
   return useMemo(() => <>
-    <FactoryProvider idb={idb} id={selectedFactoryId} name={selectedFactory?.name || "Default"} weights={baseWeights}>
-      <div className="shrink-1 h-full">
-        <FactoriesSideBar />
-      </div>
-      <div className="flex-1 flex flex-col">
-        <div className="factoryActions flex flex-row w-full h-10 bg-black">
-          <FactoryControls />
-        </div>
+    <div className="shrink-1 h-full">
+      <ZoneSideBar selectedFactoryId={selectedFactoryId} />
+    </div>
+    {selectedFactory &&
+      <FactoryProvider idb={idb} id={selectedFactoryId} name={selectedFactory?.name || "Default Factory"} weights={baseWeights}>
+        <div className="flex-1 flex flex-col">
+          <div className="factoryActions flex flex-row w-full h-10 bg-black">
+            <FactoryControls />
+          </div>
 
-        <Factory />
+          <Factory />
+        </div>
+        <Outlet />
+      </FactoryProvider >
+    } {!selectedFactory &&
+      <div className="flex-1 flex flex-col justify-center-safe items-center-safe bg-black">
+        <h2 className="text-2xl mb-4">No Factory Selected</h2>
+        <p>Please select a factory from the sidebar.</p>
       </div>
-      <Outlet />
-    </FactoryProvider >
+    }
   </>, [selectedFactoryId, baseWeights]);
 }
 
-function FactoriesSideBar() {
+function ZoneSideBar({ selectedFactoryId }: { selectedFactoryId: string }) {
   const nav = useNavigate();
-  const selectedFactory = useFactory().id;
   const zoneId = useProductionZone().id;
 
   const factories = useProductionZoneStore(state => state.factories);
-  // const selectedId = useProductionZoneStore(state => state.selected);
-  console.log('Header render', { selectedFactory, factories });
+
   const changeTab = (e: React.MouseEvent<unknown, MouseEvent>, id: string) => {
     nav(`/zones/${zoneId}/${id}`);
     e.preventDefault();
@@ -110,8 +114,9 @@ function FactoriesSideBar() {
 
   return useMemo(() => <header
     data-expanded={expanded || null}
-    className="group h-full w-12 transition-[width] data-expanded:w-60 
+    className="group h-full w-12 data-expanded:w-60 
     border-r-2 border-black
+    transition-[width] duration-200 ease-out
     flex flex-col shrink-0">
 
     <div className="factoryTabs w-full overflow-hidden ">
@@ -144,19 +149,25 @@ function FactoriesSideBar() {
               />
               <CheckIcon onClick={() => newFactory()} className="h-6 w-6 text-green-500 inline-block cursor-pointer" />
             </form>
-            : <span onClick={() => setInputNewName(true)}
+            : <span onClick={() => {setInputNewName(true); setExpanded(true)}}
               className="h-full cursor-pointer text-gray-400 hover:text-white">
               <PlusIcon className="w-6" />
             </span>
           }
           {expanded &&
-            <button className="text-xs text-gray-400 cursor-pointer"><InboxArrowDownIcon className="w-6" /></button>
+            <Link className="text-xs text-gray-400 cursor-pointer"
+              to={`./settings/importexport`}
+              title="Import Factory"
+            >
+
+              <InboxArrowDownIcon className="w-6" />
+            </Link>
           }
         </li>
         {factories.map(f => (
           <li key={f.id} className="">
             <a
-              data-is-selected={f.id == selectedFactory || null}
+              data-is-selected={f.id == selectedFactoryId || null}
               className="block p-3 bg-black rounded-l text-gray-500 text-center
                 overflow-ellipsis whitespace-nowrap
                 border-2 border-black border-r-0 border-double hover:text-white
@@ -172,5 +183,5 @@ function FactoriesSideBar() {
       </ul>
     </div>
 
-  </header>, [factories, selectedFactory, inputNewName, newName, expanded]);
+  </header>, [factories, selectedFactoryId, inputNewName, newName, expanded]);
 }

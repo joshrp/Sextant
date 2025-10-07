@@ -1,4 +1,4 @@
-import { loadData, type RecipeId } from "../graph/loadJsonData";
+import { loadData, type ProductId, type RecipeId } from "../graph/loadJsonData";
 import type { GraphCoreData, GraphImportData } from "../store";
 
 import hydration from "~/hydration";
@@ -148,11 +148,11 @@ class Unminify {
           type: EdgeTypes.find(e[0]) || "button-edge",
           source: e[2],
           target: e[3],
-          product: e[1],
+          product: e[1] as ProductId,
         }
       }),
       goals: min[4].map(g => ({
-        productId: g[0],
+        productId: g[0] as ProductId,
         qty: g[1],
         type: g[2],
         dir: g[3] ? "output" : "input",
@@ -174,7 +174,6 @@ export const compress = async (state: unknown): Promise<string> => {
     const jsonstr = JSON.stringify(state, hydration.replacer);
     const bytestream = new TextEncoder().encode(jsonstr);
     const writer = cs.writable.getWriter();
-    console.log('Starting compression of', bytestream.length, 'bytes');
     writer.write(bytestream);
     writer.close();
     
@@ -190,7 +189,6 @@ export const compress = async (state: unknown): Promise<string> => {
       binary += String.fromCharCode(code);
     });
     const b64 = btoa(binary);
-    console.log("Export Compression ratio:", bytestream.length, '->', b64.length, (b64.length / jsonstr.length).toFixed(2));
     return b64;
   } catch (e) {
     console.log("Compression error", e);
@@ -211,8 +209,8 @@ export const decompress = async (b64: string): Promise<unknown> => {
   }
   const ds = new DecompressionStream("gzip");
   const writer = ds.writable.getWriter();
-  await writer.write(uint8);
-  await writer.close();
+  writer.write(uint8);
+  writer.close();
   const reader = ds.readable.getReader();
   const out: number[] = [];
   while (true) {

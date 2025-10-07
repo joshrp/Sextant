@@ -123,14 +123,7 @@ function SideBar({ addNewRecipe }: props) {
                                     ${fulfilled ? "bg-green-900" : "bg-red-900"}
                                     `}
             >
-              <div className="flex-1 max-w-10 justify-self-start">
-                <img className="w-full" src={productIcon(product.icon)} />
-              </div>
-              <div className="flex-3 content-center-safe">{icons[goal.type]} {formatNumber(goal.qty, product.unit)}</div>
-              <div className="verticalRule self-stretch w-0.5 bg-neutral-500 opacity-50"></div>
-              <div className="w-full flex-2 content-center-safe justify-self-end-safe text-right text-nowrap">
-                {resultCount ? formatNumber(resultCount, product.unit) : ''}
-              </div>
+              <ProductGoal goal={goal} resultCount={resultCount} />
             </MenuButton>
             <MenuItems anchor="bottom" className="bg-gray-800 border-2 border-gray-500 rounded-sm shadow-lg -mt-2">
               {goalsMenuOptions.map(m =>
@@ -281,6 +274,20 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
   </>
 }
 
+export function ProductGoal({ goal, resultCount }: { goal: FactoryGoal, resultCount?: number }) {
+  const product = productData.get(goal.productId);
+  if (!product) return null;
 
+  return <>
+    <div className="flex-1 max-w-10 justify-self-start">
+      <img className="w-full" src={productIcon(product.icon)} />
+    </div>
+    <div className="flex-3 content-center-safe">{icons[goal.type]} {formatNumber(goal.qty, product.unit)}</div>
+    <div className="verticalRule self-stretch w-0.5 bg-neutral-500 opacity-50"></div>
+    <div className="w-full flex-2 content-center-safe justify-self-end-safe text-right text-nowrap">
+      {resultCount ? formatNumber(resultCount, product.unit) : ''}
+    </div>
+  </>;
+}
 
 export default SideBar;

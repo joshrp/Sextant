@@ -29,8 +29,8 @@ export interface GraphSolutionState extends GraphCoreData {
 }
 
 export interface GraphStoreActions {
-  graphUpdateAction: () => void;
-  solutionUpdateAction: (autoSolve?: boolean) => void;
+  graphUpdateAction: () => Promise<void>;
+  solutionUpdateAction: (autoSolve?: boolean) => Promise<void>;
   addNode: (node: CustomNodeType) => void;
   removeNode: (nodeId: string) => void;
   addEdge: (edge: CustomEdgeType) => void;
@@ -44,6 +44,7 @@ export interface GraphStoreActions {
   setManifold: (constraints: Constraint[], on: boolean) => void;
   setScoreMethod: (method: GraphStore["scoringMethod"]) => void;
   setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
+  importData: (data: GraphImportData) => Promise<void>;
 }
 
 export interface GraphStore extends GraphSolutionState, GraphStoreActions {
@@ -83,7 +84,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
 
               return (await idb).put("factories", str, name)
             },
-            removeItem: () => {},
+            removeItem: () => { },
           },
         }
       )
@@ -165,9 +166,8 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             get().graphUpdateAction();
 
           },
-          graphUpdateAction: () => {
+          graphUpdateAction: async () => {
             try {
-              console.log('graph update', get().nodes);
               set({
                 graph: createGraphModel(get().nodes, get().edges),
               }, false, "graphUpdateAction");
@@ -178,7 +178,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               return;
             }
 
-            get().solutionUpdateAction(true);
+            return get().solutionUpdateAction(true);
           },
           solutionUpdateAction: async (autoSolve: boolean = false) => {
             set({ solutionStatus: "Running" }, false, "solutionRunning");
@@ -253,7 +253,8 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
                 manifoldOptions: get().manifoldOptions.filter(m => constraints.findIndex(c => c.id == m.constraintId) == -1)
               });
             }
-            get().solutionUpdateAction();
+
+            return get().solutionUpdateAction();
           },
           setScoreMethod: (method: "infra" | "inputs" | "outputs" | "footprint") => {
             set({ scoringMethod: method }, false, "setScoreMethod");
@@ -290,6 +291,41 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             set({ baseWeights: weights }, false, "setWeights");
             get().solutionUpdateAction(false);
           },
+
+          importData: async (data: GraphImportData) => {
+            const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
+                id: n.id,
+                type: n.type,
+                position: n.position,
+                data: n.data,
+            }));
+
+            const newEdges: GraphCoreData["edges"] = data.edges.map(e => ({
+              id: `${e.source}-${e.target}-${e.product}`,
+              source: e.source,
+              target: e.target,
+              sourceHandle: e.product,
+              targetHandle: e.product,
+              type: "button-edge",
+              animated: true,
+            }))
+
+            const newGoals: GraphCoreData["goals"] = data.goals.map(g => ({
+              productId: g.productId,
+              qty: g.qty,
+              type: g.type,
+              dir: g.dir,
+            }));
+            
+            set({
+              name: data.name,
+              nodes: newNodes,
+              edges: newEdges,
+              goals: newGoals,
+            }, false, "importData");
+
+            await get().graphUpdateAction();
+          }
         }),
         { // Persisted state options
           name: id,
@@ -306,7 +342,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               const str = JSON.stringify(newValue, hydration.replacer);
               return (await idb).put("factories", str, name)
             },
-            removeItem: () => {},
+            removeItem: () => { },
           },
           migrate: (persistedState: unknown, currentVersion: number) => {
             if (!persistedState || !('id' in (persistedState as GraphStore))) {
@@ -350,10 +386,10 @@ export type GraphImportData = {
     type: string;
     source: string;
     target: string;
-    product: string;
+    product: ProductId;
   }[],
   goals: {
-    productId: string;
+    productId: ProductId;
     qty: number;
     type: "eq" | "lt" | "gt";
     dir: "input" | "output";
