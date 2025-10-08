@@ -96,7 +96,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
             className="inline-block w-20 min-w-8 p-1 pointer-events-none
           bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
           " data-flipped={props.data.ltr == false || null}/>
-          <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", 3)}</div>
+          <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
 
         </div>
         <HandleList data={props.data} products={props.data.ltr ? recipe.outputs : recipe.inputs} pos={Position.Right} inputs={!props.data.ltr} />

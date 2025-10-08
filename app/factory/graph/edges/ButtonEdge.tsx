@@ -45,6 +45,7 @@ export default function ButtonEdge({
   style = {},
   markerEnd,
   data,
+  selected
 }: EdgeProps<ButtonEdge>) {
   const { setEdges } = useReactFlow();
 
@@ -80,7 +81,7 @@ export default function ButtonEdge({
       style.strokeWidth = 8;
     }
   } else {
-    style.strokeWidth = 2;
+    style.strokeWidth = 4;
   }
 
   return (
@@ -89,6 +90,7 @@ export default function ButtonEdge({
       <EdgeLabelRenderer>
         <div
           style={{
+            display: selected ? "block" : "none",
             position: "absolute",
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
             fontSize: 12,

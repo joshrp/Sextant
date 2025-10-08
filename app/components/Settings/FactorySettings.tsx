@@ -29,7 +29,7 @@ const tabIds = settingsTabs.map(t => t.id);
 
 export default function FactorySettings() {
   const navigate = useNavigate();
-  const tabParam = useStableParam("tab");
+  const tabParam = useStableParam("tab", "");
 
   const plannerStore = usePlanner().store;
   const lastTab = plannerStore.getState().lastSettingsTab;

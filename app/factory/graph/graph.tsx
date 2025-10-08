@@ -48,8 +48,8 @@ export default function Graph({ addNewRecipe }: props) {
   const { fitBounds, getNodesBounds, screenToFlowPosition } = useReactFlow();
   useEffect(() => {
     fitBounds(getNodesBounds(nodes), {
-      padding: 0.2,
-      duration: 200
+      padding: 0.4,
+      duration: 400
     }); return;
   }, [fitBounds, fit]);
 
@@ -95,8 +95,7 @@ export default function Graph({ addNewRecipe }: props) {
     // snapToGrid={true}
     >
       <Background />
-      {/* <MiniMap /> */}
-      <Controls />
+      <Controls/>
     </ReactFlow>
   );
 }

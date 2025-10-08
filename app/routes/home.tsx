@@ -240,7 +240,7 @@ function ZoneSideBar({ selectedFactoryId }: { selectedFactoryId: string }) {
     }
   };
 
-  return useMemo(() => <header
+  return useMemo(() => <aside
     data-expanded={expanded || null}
     className="group h-full w-12 data-expanded:w-60 
     border-r-2 border-black
@@ -312,5 +312,5 @@ function ZoneSideBar({ selectedFactoryId }: { selectedFactoryId: string }) {
       </ul>
     </div>
 
-  </header>, [factories, selectedFactoryId, inputNewName, renameFactoryId, expanded]);
+  </aside>, [factories, selectedFactoryId, inputNewName, renameFactoryId, expanded]);
 }
