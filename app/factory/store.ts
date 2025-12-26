@@ -12,7 +12,7 @@ import type { ProductId, RecipeId } from "./graph/loadJsonData";
 import type { CustomNodeType, } from "./graph/nodes";
 import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraphModel, solve } from "./solver/solver";
-import type { Constraint, FactoryGoal, GraphModel, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
+import type { Constraint, FactoryGoal, GraphModel, GraphScoringMethod, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
 
 export interface GraphCoreData {
   name: string,
@@ -25,7 +25,7 @@ export interface GraphSolutionState extends GraphCoreData {
   graph?: GraphModel,
   solution?: Solution;
   solutionStatus?: SolutionStatus;
-  scoringMethod: "infra" | "inputs" | "footprint" | "outputs";
+  scoringMethod: GraphScoringMethod;
 }
 
 export interface GraphStoreActions {
@@ -185,7 +185,11 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             if (!graph) return
 
             const manifoldOptions = get().manifoldOptions;
-            const result = await solve(graph, get().goals, manifoldOptions, get().scoringMethod, autoSolve);
+            let previousSolution = get().solution || null;
+            if (previousSolution && previousSolution.scoringMethod !== get().scoringMethod) {
+              previousSolution = null;
+            }
+            const result = await solve(graph, get().goals, manifoldOptions, get().scoringMethod, autoSolve, previousSolution);
             if (result === "Error") {
               console.error("Solver Error");
               set({ solutionStatus: "Error" }, false, "solutionUpdateAction");

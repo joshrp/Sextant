@@ -1,10 +1,10 @@
 import highsLoader, { type Highs, type HighsOptions, type HighsSolution } from "highs";
 import { loadData, type ProductId, type Recipe } from "../graph/loadJsonData";
 
+import { maintenanceKey } from "~/uiUtils";
 import type { CustomEdgeType } from '../graph/edges';
 import type { CustomNodeType } from '../graph/nodes';
-import { type Constraint, type EqualityTypes, type FactoryGoal, type GraphModel, type ManifoldOptions, type NodeConnection, type NodeConnections, type OpenConnections, type Solution } from "./types";
-import { maintenanceKey } from "~/uiUtils";
+import { type Constraint, type EqualityTypes, type FactoryGoal, type GraphModel, type GraphScoringMethod, type ManifoldOptions, type NodeConnection, type NodeConnections, type OpenConnections, type Solution } from "./types";
 
 const recipeData = loadData().recipes;
 let highsProm: Promise<Highs>;
@@ -74,7 +74,7 @@ export function buildLpp(graph: GraphModel, goals: FactoryGoal[], freeConstraint
         return c.match(inputMatcher) !== null ? c : null;
       }).toArray().filter(x => x !== null);
       objectives.push("-0.01 " + infraConstraintId); // Slightly prefer solutions with less infrastructure and footprint
-      objectives.push("-0.01 in_footprint"); 
+      objectives.push("-0.01 in_footprint");
       break;
     case "infra":
       // I would use "infra_" here, but nothing can start with "inf" without causing Highs to error...
@@ -191,7 +191,13 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
   return res;
 }
 
-export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: ManifoldOptions[] = [], scoreMethod: string, autoSolve: boolean):
+export async function solve(
+  graph: GraphModel,
+  goals: FactoryGoal[], 
+  manifolds: ManifoldOptions[] = [], 
+  scoreMethod: GraphScoringMethod, 
+  autoSolve: boolean, 
+  previousSolution: Solution | null = null):
   Promise<{ solution: Solution, manifolds?: ManifoldOptions[] } | "Error" | "Infeasible"> {
   const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null).filter(x => x !== null));
   const res = await getHighsSolution(graph, goals, freeConstraints, scoreMethod);
@@ -199,7 +205,7 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
   if (!res) return "Error";
   if (res.Status == "Optimal")
     return {
-      solution: parseHighsSolution(res, graph, goals)
+      solution: parseHighsSolution(res, graph, goals, scoreMethod)
     }
   if (res.Status == "Time limit reached") {
     console.warn("Highs time limit reached, returning error");
@@ -207,7 +213,7 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
     return "Error";
   }
 
-  else if (false && autoSolve) {
+  else if (autoSolve) {
     const solutions: {
       constraintId: string,
       freeConstraints: Set<string>,
@@ -238,9 +244,11 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
         solution: await getHighsSolution(graph, goals, newFreeConstraints, scoreMethod)
       });
     }));
+    // Order working solutions by their distance from the previous solution result. Closer is better
+    const targetValue = previousSolution?.ObjectiveValue || 0;
     const working = solutions.filter(x => x.solution?.Status == "Optimal" && x.solution?.ObjectiveValue > 0).sort((a, b) => {
-      const aObj = a.solution?.ObjectiveValue || 0;
-      const bObj = b.solution?.ObjectiveValue || 0;
+      const aObj = Math.abs(targetValue - (a.solution?.ObjectiveValue || 0));
+      const bObj = Math.abs(targetValue - (b.solution?.ObjectiveValue || 0));
       return aObj - bObj;
     });
 
@@ -249,7 +257,7 @@ export async function solve(graph: GraphModel, goals: FactoryGoal[], manifolds: 
       const best = working[0];
       debug("Best solution found for constraint", best.constraintId, "with objective value", best.solution?.ObjectiveValue);
       return {
-        solution: parseHighsSolution(best.solution as HighsSolution, graph, goals),
+        solution: parseHighsSolution(best.solution as HighsSolution, graph, goals, scoreMethod),
         manifolds: Array.from(best.freeConstraints).map(c => {
           const constraint = graph.constraints[c];
           return {
@@ -270,7 +278,7 @@ function parseHighsNumberResult(num: number): number {
   return Math.round(num * 1e9) / 1e9;
 }
 
-function parseHighsSolution(res: HighsSolution, graph: GraphModel, goals: FactoryGoal[]): Solution {
+function parseHighsSolution(res: HighsSolution, graph: GraphModel, goals: FactoryGoal[], scoreMethod: GraphScoringMethod): Solution {
   if (res.Status !== "Optimal") throw new Error("Cannot parse solution, not optimal");
 
   const nodeResults: Solution["nodeCounts"] = [];
@@ -322,6 +330,7 @@ function parseHighsSolution(res: HighsSolution, graph: GraphModel, goals: Factor
         resultCount: res.Columns[columnPrefix + "_" + goal.productId]?.Primal
       };
     }),
+    scoringMethod: scoreMethod,
     products: productResults,
     nodeCounts: nodeResults,
     manifolds: manifoldResults,
@@ -340,13 +349,9 @@ export default class Solver {
   public graph: NodeConnections;
 
   public nodeIdToLabels: Record<string, string> = {};
-  private nodes: CustomNodeType[];
-  private edges: CustomEdgeType[];
   public itemConstraints: Map<ProductId, string> = new Map();
 
   constructor(nodes: CustomNodeType[], edges: CustomEdgeType[]) {
-    this.nodes = nodes;
-    this.edges = edges;
     this.graph = buildNodeConnections(nodes, edges);
     this.fillConstraints();
   }

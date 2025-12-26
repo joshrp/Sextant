@@ -46,6 +46,7 @@ export type Constraint = {
   children: string[]
 };
 
+export type GraphScoringMethod = "infra" | "inputs" | "footprint" | "outputs";
 export type SolutionStatus = "Solved" | "Running" | "Partial" | "Error" | "Infeasible";
 
 export interface Solution {
@@ -53,6 +54,7 @@ export interface Solution {
     goal: FactoryGoal,
     resultCount: number,
   }[],
+  scoringMethod: GraphScoringMethod,
   products: {
     inputs: { productId: ProductId, amount: number }[]
     outputs: { productId: ProductId, amount: number }[]
