@@ -3,10 +3,10 @@ import { ProductionZoneContext } from "./ZoneContext";
 import { createStore } from "zustand";
 import { devtools, persist, subscribeWithSelector, type StorageValue } from "zustand/middleware";
 import hydration from "~/hydration";
-import { openDB } from "idb";
 import type { ProductId } from "../factory/graph/loadJsonData";
 import type { GraphImportData } from "~/factory/store";
 import FactoryStore from "../factory/store";
+import { getIdb, zoneObjectStore, type IDB } from "./idb";
 
 const storeCache = {} as Record<string, { store: ProductionZoneStore, idb: IDB }>;
 
@@ -182,21 +182,4 @@ const Store = (idb: IDB, { id, name }: { id: string, name: string }) => {
   );
 }
 
-const zoneObjectStore = 'zone-settings';
-const isClient = typeof window !== "undefined";
-const indexedDBVersion = 2;
-export type IDB = ReturnType<typeof openDB>;
 
-const getIdb = (zoneId: string) => {
-  return isClient ? openDB("Zone_" + zoneId, indexedDBVersion, {
-    async upgrade(db, oldVersion) {
-      if (oldVersion < 1) {
-        await db.createObjectStore(zoneObjectStore);
-        await db.createObjectStore("factories");
-        await db.createObjectStore("factory-history");
-      }
-      else
-        throw new Error("Database version not supported, please clear site data for this site.");
-    }
-  }) : null;
-}

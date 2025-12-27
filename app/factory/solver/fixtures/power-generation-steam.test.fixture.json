@@ -1,0 +1,169 @@
+{
+  "description": "Power generation with steam turbines and coal",
+  "factory": [
+    1,
+    "Default Factory",
+    [
+      [
+        "n",
+        "PowerGeneratorT2_1764079649353",
+        -29.5,
+        -65.3408244996908,
+        "PowerGeneratorT2",
+        true
+      ],
+      [
+        "n",
+        "TurbineHighPressT2_1764079653508",
+        -531.0912535362849,
+        -59.28549970774385,
+        "TurbineHighPressT2",
+        true
+      ],
+      [
+        "n",
+        "TurbineLowPressT2_1764079668508",
+        -524.8193619165297,
+        323.28036815144975,
+        "TurbineLowPressT2",
+        false
+      ],
+      [
+        "n",
+        "SteamDepletedCondensation_1764079747204",
+        -1061.1596650394379,
+        320.8934599131834,
+        "SteamDepletedCondensation",
+        false
+      ],
+      [
+        "n",
+        "SteamGenerationCoal_1766835692211",
+        -1062.8189713362194,
+        -64.34082449969083,
+        "SteamGenerationCoal",
+        true
+      ],
+      [
+        "n",
+        "Balancer_Product_Water_1766835696006",
+        -1057.7703023244694,
+        -439.7053631696557,
+        "Balancer_Product_Water",
+        false
+      ]
+    ],
+    [
+      [
+        "b",
+        "Product_Virtual_MechPower",
+        "TurbineHighPressT2_1764079653508",
+        "PowerGeneratorT2_1764079649353"
+      ],
+      [
+        "b",
+        "Product_SteamLP",
+        "TurbineHighPressT2_1764079653508",
+        "TurbineLowPressT2_1764079668508"
+      ],
+      [
+        "b",
+        "Product_SteamDepleted",
+        "TurbineLowPressT2_1764079668508",
+        "SteamDepletedCondensation_1764079747204"
+      ],
+      [
+        "b",
+        "Product_SteamHi",
+        "SteamGenerationCoal_1766835692211",
+        "TurbineHighPressT2_1764079653508"
+      ],
+      [
+        "b",
+        "Product_Water",
+        "Balancer_Product_Water_1766835696006",
+        "SteamGenerationCoal_1766835692211"
+      ],
+      [
+        "b",
+        "Product_Water",
+        "SteamDepletedCondensation_1764079747204",
+        "SteamGenerationCoal_1766835692211"
+      ]
+    ],
+    [
+      [
+        "Product_Virtual_Electricity",
+        10000,
+        "eq",
+        true
+      ]
+    ]
+  ],
+  "manifoldOptions": [],
+  "scoringMethod": "inputs",
+  "expected": {
+    "objectiveValue": -56.1,
+    "nodeCounts": [
+      {
+        "nodeId": "PowerGeneratorT2_1764079649353",
+        "count": 0.666667
+      },
+      {
+        "nodeId": "TurbineHighPressT2_1764079653508",
+        "count": 1
+      },
+      {
+        "nodeId": "TurbineLowPressT2_1764079668508",
+        "count": 1
+      },
+      {
+        "nodeId": "SteamDepletedCondensation_1764079747204",
+        "count": 2
+      },
+      {
+        "nodeId": "SteamGenerationCoal_1766835692211",
+        "count": 1
+      },
+      {
+        "nodeId": "Balancer_Product_Water_1766835696006",
+        "count": 24
+      }
+    ],
+    "infrastructure": {
+      "workers": 8,
+      "electricity": 0,
+      "computing": 0,
+      "maintenance_1": 4,
+      "maintenance_2": 4,
+      "maintenance_3": 0,
+      "footprint": 158
+    },
+    "products": {
+      "inputs": [
+        {
+          "productId": "Product_Coal",
+          "amount": -30
+        },
+        {
+          "productId": "Product_Water",
+          "amount": -24
+        }
+      ],
+      "outputs": [
+        {
+          "productId": "Product_Virtual_Electricity",
+          "amount": 10000
+        },
+        {
+          "productId": "Product_Virtual_MechPower",
+          "amount": 6000
+        },
+        {
+          "productId": "Product_Exhaust",
+          "amount": 60
+        }
+      ]
+    }
+  }
+}

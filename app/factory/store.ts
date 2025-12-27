@@ -14,6 +14,7 @@ import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraphModel, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, GraphScoringMethod, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
 import * as reducers from "~/context/reducers/graphReducers";
+import { minify } from "./importexport/importexport";
 
 export interface GraphCoreData {
   name: string,
@@ -46,6 +47,7 @@ export interface GraphStoreActions {
   setScoreMethod: (method: GraphStore["scoringMethod"]) => void;
   setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
   importData: (data: GraphImportData) => Promise<void>;
+  exportTestData: () => string;
 }
 
 export interface GraphStore extends GraphSolutionState, GraphStoreActions {
@@ -170,7 +172,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               set({
                 graph: createGraphModel(get().nodes, get().edges),
               }, false, "graphUpdateAction");
-              console.log("Graph created", get().graph);
+              // console.log("Graph created", get().graph);
               get().validateManifolds();
             } catch (e) {
               console.error("Error in solver", e);
@@ -277,6 +279,28 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             }, false, "importData");
 
             await get().graphUpdateAction();
+          },
+          
+          exportTestData: () => {
+            const state = get();
+            
+            // Use minify to get the factory data in the same format as import/export
+            const minifiedFactory = minify(state);
+            
+            // Gather additional test inputs
+            const testData = {
+              factory: minifiedFactory,
+              manifoldOptions: state.manifoldOptions,
+              scoringMethod: state.scoringMethod,
+              expected: state.solution ? {
+                objectiveValue: state.solution.ObjectiveValue,
+                nodeCounts: state.solution.nodeCounts,
+                infrastructure: state.solution.infrastructure,
+                products: state.solution.products,
+              } : undefined,
+            };
+            
+            return JSON.stringify(testData, null, 2);
           }
         }),
         { // Persisted state options

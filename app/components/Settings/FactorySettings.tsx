@@ -355,8 +355,26 @@ function FactoryDebug() {
       labels: [{ text: e.sourceHandle }],
     })),
   };
+  
+  const testData = useFactory().store.getState().exportTestData();
+  
   return <div className="factory-debug">
     <Disclosure defaultOpen={true}>
+      <DisclosureButton className="group cursor-pointer flex w-full gap-4 justify-center-safe px-4 py-2">
+        Solver Test Data Export <ChevronDownIcon className="w-5 justify-self-end-safe group-data-open:rotate-180" />
+      </DisclosureButton>
+      <DisclosurePanel>
+        <p className="mb-4 text-sm text-gray-300">
+          Export the current factory state as a JSON test case for unit testing the solver.
+          This includes all inputs (nodes, edges, goals, manifolds, scoring method) and expected outputs (solution data).
+        </p>
+        <ClipboardCopyButton text={testData} />
+        <div className="p-4 mt-2 bg-gray-900 rounded-lg max-h-80 overflow-auto">
+          <pre className="text-xs text-left cursor-text select-all">
+            {testData}
+          </pre>
+        </div>
+      </DisclosurePanel>
       <DisclosureButton className="group cursor-pointer flex w-full gap-4 justify-center-safe px-4 py-2">
         Factory Store Data <ChevronDownIcon className="w-5 justify-self-end-safe group-data-open:rotate-180" />
       </DisclosureButton>
