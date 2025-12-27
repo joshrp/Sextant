@@ -5,7 +5,7 @@ import { addEdge, applyEdgeChanges, applyNodeChanges, getConnectedEdges, type On
 
 import type { StorageValue } from "zustand/middleware";
 import hydration from "~/hydration";
-import type { IDB, ProductionZoneStoreData } from "../context/ZoneProvider";
+import type { ProductionZoneStoreData } from "../context/ZoneProvider";
 import type { CustomEdgeType } from "./graph/edges";
 import type { ButtonEdge, ButtonEdgeData } from "./graph/edges/ButtonEdge";
 import type { ProductId, RecipeId } from "./graph/loadJsonData";
@@ -15,6 +15,8 @@ import { createGraphModel, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, GraphScoringMethod, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
 import * as reducers from "~/context/reducers/graphReducers";
 import { minify } from "./importexport/importexport";
+import type { SolverTestFixture } from "./solver/solver.integration.test";
+import type { IDB } from "~/context/idb";
 
 export interface GraphCoreData {
   name: string,
@@ -288,20 +290,22 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             const minifiedFactory = minify(state);
             
             // Gather additional test inputs
-            const testData = {
+            const testData: SolverTestFixture = {
               factory: minifiedFactory,
               manifoldOptions: state.manifoldOptions,
               scoringMethod: state.scoringMethod,
+              previousSolutionObjectiveValue: state.solution?.ObjectiveValue,
               expected: state.solution ? {
                 objectiveValue: state.solution.ObjectiveValue,
                 nodeCounts: state.solution.nodeCounts,
                 infrastructure: state.solution.infrastructure,
                 products: state.solution.products,
+                manifolds: state.solution.manifolds,
               } : undefined,
             };
             
             return JSON.stringify(testData, null, 2);
-          }
+          },
         }),
         { // Persisted state options
           name: id,

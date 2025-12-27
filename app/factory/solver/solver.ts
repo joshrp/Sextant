@@ -187,7 +187,7 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
     res = null;
   }
 
-  console.log("Highs solve time", performance.now() - t0, "ms", freeConstraints, res);
+  console.log("Highs `solve time`", performance.now() - t0, "ms", freeConstraints);
   return res;
 }
 
@@ -197,7 +197,7 @@ export async function solve(
   manifolds: ManifoldOptions[] = [], 
   scoreMethod: GraphScoringMethod, 
   autoSolve: boolean, 
-  previousSolution: Solution | null = null):
+  previousSolution: number | null = null):
   Promise<{ solution: Solution, manifolds?: ManifoldOptions[] } | "Error" | "Infeasible"> {
   const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null).filter(x => x !== null));
   const res = await getHighsSolution(graph, goals, freeConstraints, scoreMethod);
@@ -245,7 +245,7 @@ export async function solve(
       });
     }));
     // Order working solutions by their distance from the previous solution result. Closer is better
-    const targetValue = previousSolution?.ObjectiveValue || 0;
+    const targetValue = previousSolution || 0;
     const working = solutions.filter(x => x.solution?.Status == "Optimal" && x.solution?.ObjectiveValue > 0).sort((a, b) => {
       const aObj = Math.abs(targetValue - (a.solution?.ObjectiveValue || 0));
       const bObj = Math.abs(targetValue - (b.solution?.ObjectiveValue || 0));

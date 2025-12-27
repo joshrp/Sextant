@@ -1,0 +1,198 @@
+{
+  "factory": [
+    1,
+    "Coal Plant",
+    [
+      [
+        "n",
+        "PowerGeneratorT2_1762894639871",
+        270.5598389506648,
+        1.388582932095403,
+        "PowerGeneratorT2",
+        true
+      ],
+      [
+        "n",
+        "TurbineHighPressT2_1762894643141",
+        -439.79861476369774,
+        -3.704315364635164,
+        "TurbineHighPressT2",
+        true
+      ],
+      [
+        "n",
+        "SteamGenerationCoal_1762894650507",
+        -943.6020316212458,
+        -3.050079827863925,
+        "SteamGenerationCoal",
+        true
+      ],
+      [
+        "n",
+        "TurbineLowPressT2_1762894672067",
+        -447.0000000000002,
+        444,
+        "TurbineLowPressT2",
+        true
+      ],
+      [
+        "n",
+        "DesalinationFromDepleted_1762894728428",
+        -430.9056117755292,
+        884.0419503219871,
+        "DesalinationFromDepleted",
+        false
+      ]
+    ],
+    [
+      [
+        "b",
+        "Product_Virtual_MechPower",
+        "TurbineHighPressT2_1762894643141",
+        "PowerGeneratorT2_1762894639871"
+      ],
+      [
+        "b",
+        "Product_SteamHi",
+        "SteamGenerationCoal_1762894650507",
+        "TurbineHighPressT2_1762894643141"
+      ],
+      [
+        "b",
+        "Product_SteamLP",
+        "TurbineHighPressT2_1762894643141",
+        "TurbineLowPressT2_1762894672067"
+      ],
+      [
+        "b",
+        "Product_Virtual_MechPower",
+        "TurbineLowPressT2_1762894672067",
+        "PowerGeneratorT2_1762894639871"
+      ],
+      [
+        "b",
+        "Product_SteamDepleted",
+        "TurbineLowPressT2_1762894672067",
+        "DesalinationFromDepleted_1762894728428"
+      ],
+      [
+        "b",
+        "Product_Water",
+        "DesalinationFromDepleted_1762894728428",
+        "SteamGenerationCoal_1762894650507"
+      ]
+    ],
+    [
+      [
+        "Product_Virtual_Electricity",
+        80000,
+        "eq",
+        true
+      ]
+    ]
+  ],
+  "manifoldOptions": [],
+  "scoringMethod": "infra",
+  "previousSolutionObjectiveValue": 377.9566666666666,
+  "expected": {
+    "objectiveValue": 377.9566666666666,
+    "nodeCounts": [
+      {
+        "nodeId": "PowerGeneratorT2_1762894639871",
+        "count": 5.33333
+      },
+      {
+        "nodeId": "DesalinationFromDepleted_1762894728428",
+        "count": 8.53333
+      },
+      {
+        "nodeId": "PowerGeneratorT2_1762894639871",
+        "count": 5.33333
+      },
+      {
+        "nodeId": "TurbineHighPressT2_1762894643141",
+        "count": 5.86667
+      },
+      {
+        "nodeId": "SteamGenerationCoal_1762894650507",
+        "count": 5.86667
+      },
+      {
+        "nodeId": "TurbineLowPressT2_1762894672067",
+        "count": 4.26667
+      },
+      {
+        "nodeId": "DesalinationFromDepleted_1762894728428",
+        "count": 8.53333
+      },
+      {
+        "nodeId": "TurbineHighPressT2_1762894643141",
+        "count": 5.86667
+      },
+      {
+        "nodeId": "TurbineLowPressT2_1762894672067",
+        "count": 4.26667
+      },
+      {
+        "nodeId": "SteamGenerationCoal_1762894650507",
+        "count": 5.86667
+      }
+    ],
+    "infrastructure": {
+      "workers": 82,
+      "electricity": 3413.33,
+      "computing": 0,
+      "maintenance_1": 49.0667,
+      "maintenance_2": 20.2667,
+      "maintenance_3": 0,
+      "footprint": 1009,
+      "frastructure_total": 367.867
+    },
+    "products": {
+      "inputs": [
+        {
+          "productId": "Product_Coal",
+          "amount": -176
+        },
+        {
+          "productId": "Product_Seawater",
+          "amount": -128
+        }
+      ],
+      "outputs": [
+        {
+          "productId": "Product_Virtual_Electricity",
+          "amount": 80000
+        },
+        {
+          "productId": "Product_Exhaust",
+          "amount": 352
+        },
+        {
+          "productId": "Product_Brine",
+          "amount": 51.2
+        }
+      ]
+    },
+    "manifolds": {
+      "in_frastructure_total": 367.867,
+      "in_footprint": 1009,
+      "in_workers": 82,
+      "in_electricity": 3413.33,
+      "in_maintenance_1": 49.0667,
+      "in_maintenance_2": 20.2667,
+      "c0": 0,
+      "c1": 0,
+      "c2": 0,
+      "o_Product_Virtual_Electricity": 80000,
+      "c3": 0,
+      "c4": 76.8,
+      "c5": 0,
+      "i_Product_Coal": -176,
+      "o_Product_Exhaust": 352,
+      "c6": 0,
+      "i_Product_Seawater": -128,
+      "o_Product_Brine": 51.2
+    }
+  }
+}

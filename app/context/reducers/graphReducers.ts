@@ -127,11 +127,11 @@ export async function solutionUpdateAction<T extends SolutionUpdateStateInputs>(
   const resp: SolutionUpdateStateOutputs = { solutionStatus: "Running" };
 
   const manifoldOptions = state.manifoldOptions || [];
-  let previousSolution = state.solution || null;
-  if (previousSolution && previousSolution.scoringMethod !== state.scoringMethod) {
-    previousSolution = null;
+  let previousSolutionValue: number | undefined = undefined;
+  if (state.solution && state.solution.scoringMethod === state.scoringMethod) {
+    previousSolutionValue = state.solution.ObjectiveValue;
   }
-  const result = await solver(state.graph, state.goals, manifoldOptions, state.scoringMethod, autoSolve, previousSolution);
+  const result = await solver(state.graph, state.goals, manifoldOptions, state.scoringMethod, autoSolve, previousSolutionValue);
   if (result === "Error" || result === "Infeasible") {
     return { solutionStatus: result };
   }
