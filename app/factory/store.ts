@@ -13,6 +13,7 @@ import type { CustomNodeType, } from "./graph/nodes";
 import type { RecipeNodeData } from "./graph/RecipeNode";
 import { createGraphModel, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, GraphScoringMethod, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
+import * as reducers from "~/context/reducers/graphReducers";
 
 export interface GraphCoreData {
   name: string,
@@ -115,7 +116,6 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           },
           manifoldOptions: [],
           addNode: (node) => {
-            console.log("Add node", node, get().nodes.concat(node));
             set({ nodes: [...get().nodes.concat(node)] }, false, "addNode");
             get().graphUpdateAction();
           },
@@ -181,66 +181,29 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           },
           solutionUpdateAction: async (autoSolve: boolean = false) => {
             set({ solutionStatus: "Running" }, false, "solutionRunning");
-            const graph = get().graph
-            if (!graph) return
 
-            const manifoldOptions = get().manifoldOptions;
-            let previousSolution = get().solution || null;
-            if (previousSolution && previousSolution.scoringMethod !== get().scoringMethod) {
-              previousSolution = null;
-            }
-            const result = await solve(graph, get().goals, manifoldOptions, get().scoringMethod, autoSolve, previousSolution);
-            if (result === "Error") {
-              console.error("Solver Error");
-              set({ solutionStatus: "Error" }, false, "solutionUpdateAction");
-              return;
-            } else if (result === "Infeasible") {
-              set({ solutionStatus: "Infeasible" }, false, "solutionUpdateAction");
-              return;
-            }
-            let status: GraphSolutionState["solutionStatus"] = "Solved";
-            if (manifoldOptions.length > 0)
-              status = "Partial";
+            const solutionUpdate = await reducers.solutionUpdateAction({
+              state: get(),
+              solver: solve,
+              autoSolve
+            });
 
-            set({ solution: result.solution, solutionStatus: status }, false, "solutionUpdateAction");
+            set(solutionUpdate, false, "solutionUpdateAction");
+            
             const setNode = get().setNodeData;
-            result.solution.nodeCounts?.forEach(res => setNode(res.nodeId, {
+            solutionUpdate.solution?.nodeCounts?.forEach(res => setNode(res.nodeId, {
               solution: {
                 solved: true,
                 runCount: res.count
               }
             }));
-            if (result.manifolds) {
-              set({
-                manifoldOptions: result.manifolds
-              }, false, "solutionUpdateAction");
-            }
           },
           validateManifolds: () => {
-            set({
-              manifoldOptions: get().manifoldOptions.map(man => {
-                if (man.free == false) return false;
-                const constraint = get().graph?.constraints[man.constraintId]
-                if (constraint === undefined) return false;
-                const constraintEdges = new Set(Object.keys(constraint.edges));
-                const manifoldEdges = new Set(Object.keys(man.edges))
-                if (constraintEdges.symmetricDifference(manifoldEdges).size === 0) return man;
-
-                // Have a search across the other constraints and see if we can find a match.
-                const otherMatch = Object.keys(get().graph?.constraints || {}).find(id => {
-                  const edges = get().graph?.constraints[id].edges;
-                  return edges && new Set(Object.keys(edges)).symmetricDifference(manifoldEdges).size == 0
-                });
-                if (otherMatch) {
-                  return {
-                    constraintId: otherMatch,
-                    edges: man.edges,
-                    free: man.free
-                  }
-                }
-                return false;
-              }).filter(x => x !== false)
-            }, false, "validateManifolds");
+            const result = reducers.validateManifolds({
+              manifoldOptions: get().manifoldOptions,
+              graph: get().graph,
+            });
+            set({ manifoldOptions: result.manifoldOptions }, false, "validateManifolds");
           },
           setManifold: (constraints: Constraint[], on: boolean) => {
             if (on) {
@@ -260,38 +223,24 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             return get().solutionUpdateAction();
           },
           setScoreMethod: (method: "infra" | "inputs" | "outputs" | "footprint") => {
-            set({ scoringMethod: method }, false, "setScoreMethod");
+            set(state => reducers.updateScoringMethod(state, method), false, "setScoreMethod");
             get().solutionUpdateAction(false);
           },
           setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => {
-            set({
-              nodes: get().nodes.map(node => {
-                if (node.id === nodeId)
-                  return { ...node, data: { ...node.data, ...data } };
-                return node;
-              })
-            }, false, "setNodeData");
+            set(state => reducers.updateNodeData(state, nodeId, data), false, "setNodeData");
           },
           setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
-            set({
-              edges: get().edges.map(edge => {
-                if (edge.id === edgeId)
-                  return { ...edge, data: { ...edge.data, ...data } };
-                return edge;
-              })
-            }, false, "setEdgeData");
+            set(state => reducers.updateEdgeData(state, edgeId, data), false, "setEdgeData");
           },
           // Sometimes ReactFlow just needs a kick
           forceSetNodesEdges: () => {
             console.log('Forcing set nodes and edges', get().nodes.length, get().edges.length);
-            set({
-              nodes: [...get().nodes],
-              edges: [...get().edges]
-            }, false, "forceSetNodesEdges");
+            set(state => reducers.cloneNodesEdges(state), false, "forceSetNodesEdges");
           },
           setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => {
-            if (get().baseWeights !== weights) {
-              set({ baseWeights: weights }, false, "setWeights");
+            const newState = reducers.updateBaseWeights(get(), weights);
+            if (newState !== get()) {
+              set(newState, false, "setWeights");
               get().solutionUpdateAction(false);
             }
           },
