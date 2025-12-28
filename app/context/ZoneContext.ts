@@ -1,7 +1,8 @@
 import { createContext, useContext } from "react";
 import { useStore } from "zustand";
-import type { IDB, ProductionZoneStore, ProductionZoneStoreData } from "./ZoneProvider";
+import type { ProductionZoneStore, ProductionZoneStoreData } from "./ZoneProvider";
 import type { GraphImportData } from "~/factory/store";
+import type { IDB } from "./idb";
 
 type ProductionZoneContextType = {
   store: ProductionZoneStore;

@@ -6,10 +6,9 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [tailwindcss(), !process.env.VITEST && reactRouter(), tsconfigPaths()],
   test: {
-    // Default test configuration for fast unit tests
-    // No jsdom environment - runs in Node environment
-    // Exclude component tests from default run
-    exclude: ['**/*.component.test.{ts,tsx}', '**/node_modules/**'],
-    setupFiles: ['./app/test/setup/indexeddb.ts'],
+    // Component test configuration with jsdom
+    include: ['**/*.component.test.{ts,tsx}'],
+    setupFiles: ['./app/test/setup/indexeddb.ts', './app/test/setup/componentTests.ts'],
+    environment: 'jsdom',
   },
 });

@@ -9,7 +9,7 @@ import { buildNodeConnections, filterAndSortSolutions, findOptionalTerms, getEqu
 
 const recipeData = loadData().recipes;
 let highsProm: Promise<Highs>;
-if (typeof window === "undefined")
+if (typeof window === "undefined" || process.env.NODE_ENV === "test")
   highsProm = highsLoader();
 else
   highsProm = highsLoader({ locateFile: (file: string) => "https://lovasoa.github.io/highs-js/" + file });

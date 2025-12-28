@@ -33,6 +33,20 @@ type props = {
   addNewRecipe: (addRecipeNode: AddRecipeNode) => void
 };
 
+// TODO: Component Testing - This component manages complex graph state and needs refactoring:
+// 1. Extract connection drop logic (onConnectEnd handler) into a pure function
+//    - calculateDropPosition(event, connectionState, screenToFlowPosition)
+//    - determineRecipePosition(dropPosition, isAddingSource)
+// 2. Extract auto-fit viewport logic into a custom hook (useAutoFitViewport)
+// 3. Create integration tests that verify:
+//    - Node/edge changes propagate correctly to store
+//    - Connection drops create new recipe nodes at correct positions
+//    - Viewport auto-fits when nodes are added
+// 4. Consider splitting into:
+//    - GraphCanvas component (pure rendering)
+//    - GraphController component (state management)
+// 5. Add unit tests for position calculation logic
+// 6. Mock React Flow context for component testing
 export default function Graph({ addNewRecipe }: props) {
   const store = useFactory().store;
 

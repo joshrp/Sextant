@@ -27,6 +27,17 @@ export type ButtonEdge = Edge<ButtonEdgeData> & {
 };
 const products = loadData().products;
 
+// TODO: Component Testing - This component is complex and needs refactoring for testability:
+// 1. Extract product matching logic into a pure function (getAvailableProducts)
+// 2. Extract edge path calculation into a testable utility function
+// 3. Extract manifold state calculation into a pure function
+// 4. Separate edge rendering from edge selection/interaction logic
+// 5. Create smaller components:
+//    - EdgeLabel component (for displaying product info and manifold state)
+//    - EdgePathRenderer component (for rendering the visual edge)
+//    - ProductSelectionMenu component (if applicable)
+// 6. Add unit tests for extracted pure functions
+// 7. Add component tests for sub-components with mocked React Flow context
 export default function ButtonEdge({
   id,
   sourceX,

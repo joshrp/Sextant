@@ -24,6 +24,16 @@ const icons = {
   "eq": "\u003D"
 }
 
+// TODO: Component Testing - This component is complex and needs refactoring for testability:
+// 1. Extract goal management logic (addGoal, editGoal, removeGoal) into a custom hook or reducer
+// 2. Extract manifold filtering logic into a pure function
+// 3. Separate presentation from state management - create smaller sub-components for:
+//    - GoalsList component (displaying and editing goals)
+//    - ManifoldsList component (displaying manifolds)
+//    - SolutionSummary component (displaying solution results)
+// 4. Move menu configuration (goalsMenuOptions, inputsMenuOptions) to constants/config
+// 5. Add unit tests for extracted logic functions
+// 6. Add component tests for sub-components with mocked store
 function SideBar({ addNewRecipe }: props) {
 
   const store = useFactory().store;

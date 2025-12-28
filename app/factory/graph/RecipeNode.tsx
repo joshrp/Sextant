@@ -6,35 +6,35 @@ import { memo, useLayoutEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { formatNumber, machineIcon, maintenanceIcon, maintenanceName, productBackground, productIcon, uiIcon } from '~/uiUtils';
 import { useFactoryStore } from '../FactoryContext';
-import { loadData, type ProductId, type Recipe, type RecipeId } from './loadJsonData';
+import { loadData, type ProductId, type Recipe } from './loadJsonData';
 import type { ButtonEdge } from './edges/ButtonEdge';
+import { getQuantityDisplay, getRunCount, type RecipeNodeData } from './recipeNodeLogic';
 
 const { recipes } = loadData();
 
-export type RecipeNodeData = {
-  solution?: {
-    solved: true,
-    // Mult for the recipe
-    runCount: number,
-  } | {
-    solved: false
-  },
-  recipeId: RecipeId; // Unique identifier for the recipe
-  ltr?: boolean; // Left to right layout
-};
+// Re-export RecipeNodeData for other files that need it
+export type { RecipeNodeData };
 
 const handleStyle: React.CSSProperties = { width: "auto", height: "auto", position: "initial", transform: "initial", border: 'none', backgroundColor: 'transparent' }
 
 export type RecipeNode = Node<RecipeNodeData>;
-
-const getQuantityDisplay = (quantity: number, runCount: number, unit: string) => {
-  const amount = quantity * runCount;
-
-  return formatNumber(amount, unit);
-}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const zoomSelector = (s: any) => s?.transform?.[2] <= 0.2;
 
+// TODO: Component Testing - Partially refactored for testability:
+// ✅ DONE: Extracted pure logic functions to recipeNodeLogic.ts (getQuantityDisplay, getRunCount)
+// ✅ DONE: Added unit tests for extracted logic in recipeNodeLogic.test.ts
+// 
+// REMAINING WORK for full component testing:
+// 1. Extract HandleList sub-component to separate file for isolated testing
+// 2. Extract InfrastructureIcon sub-component to separate file
+// 3. Extract product edge connection logic into a testable function
+// 4. Create integration tests with mocked React Flow and Zustand context
+// 5. Test user interactions (flip button, remove button) with real store
+// 6. Add visual regression tests for different zoom levels and orientations
+// 
+// Note: Full component testing blocked by React Flow context requirements.
+// Focus on testing extracted logic and integration testing via solver tests.
 function RecipeNode(props: NodeProps<RecipeNode>) {
   const updateNodeInternals = useUpdateNodeInternals();
   if (props.data.ltr === undefined) props.data.ltr = true; // Default to left-to-right layout
@@ -84,7 +84,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
       throw new Error("Edge connected to recipe node with unknown product ID: " + edge.sourceHandle);
     }
   });
-  const runCount = props.data.solution?.solved ? props.data.solution.runCount : 1;
+  const runCount = getRunCount(props.data);
 
   return (
     <div className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
