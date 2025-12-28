@@ -12,15 +12,17 @@
     "test:all": "npm run test && npm run test:component",
     "lint": "eslint ./app",
     "formatData": "npx tsx ./data/reformat.ts",
-    "check": "npm run typecheck && npm run lint && npm run test:all"
+    "check": "npm run typecheck && npm run lint && npm run test:all",
+    "cosmos": "cosmos",
+    "cosmos-export": "cosmos-export"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
+    "@joshrp/react-flow-smart-edge": "^4.0.1",
     "@react-router/node": "^7.5.3",
     "@react-router/serve": "^7.5.3",
     "@redux-devtools/extension": "^3.3.0",
-    "@joshrp/react-flow-smart-edge": "^4.0.1",
     "@uidotdev/usehooks": "^2.4.1",
     "@xyflow/react": "12.3.3",
     "base85": "^3.2.0",
@@ -57,6 +59,8 @@
     "fake-indexeddb": "^6.2.5",
     "globals": "^16.3.0",
     "jsdom": "^27.4.0",
+    "react-cosmos": "^7.1.0",
+    "react-cosmos-plugin-vite": "^7.1.0",
     "tailwindcss": "^4.1.4",
     "ts-node": "^10.9.2",
     "tsx": "*",

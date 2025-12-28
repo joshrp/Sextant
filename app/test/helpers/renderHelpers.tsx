@@ -54,26 +54,40 @@ export function renderWithFactory(
   const testStore = store || createTestFactoryStore(factoryId, factoryName);
 
   function Wrapper({ children }: { children: ReactNode }) {
-    const content = (
-      <FactoryContext.Provider
-        value={{
-          store: testStore.Graph,
-          historical: testStore.Historical,
-          id: factoryId,
-          name: factoryName,
-        }}
-      >
-        {children}
-      </FactoryContext.Provider>
+    return getFactoryWrapper(
+      <>{children}</>,
+      { store: testStore, factoryId, factoryName, withReactFlow }
     );
-
-    // Optionally wrap with ReactFlowProvider for components that need it
-    if (withReactFlow) {
-      return <ReactFlowProvider>{content}</ReactFlowProvider>;
-    }
-
-    return content;
   }
 
   return { ...render(ui, { wrapper: Wrapper, ...options }), store: testStore };
+}
+
+export function getFactoryWrapper(
+  children: ReactElement,
+  {
+    store,
+    factoryId = 'test-factory',
+    factoryName = 'Test Factory',
+    withReactFlow = false,
+  }: RenderWithFactoryOptions = {}) {
+  const testStore = store || createTestFactoryStore(factoryId, factoryName);
+
+  const content = <FactoryContext.Provider
+    value={{
+      store: testStore.Graph,
+      historical: testStore.Historical,
+      id: factoryId,
+      name: factoryName,
+    }}
+  >
+    {children}
+  </FactoryContext.Provider>
+
+  // Optionally wrap with ReactFlowProvider for components that need it
+  if (withReactFlow) {
+    return <ReactFlowProvider>{content}</ReactFlowProvider>;
+  }
+
+  return content;
 }
