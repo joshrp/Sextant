@@ -29,9 +29,11 @@ export interface PlannerStoreData {
   }[],
   lastSettingsTab: string,
   lastZone: string | undefined,
+  sidebarWidth: number,
   newZone(name: string): void;
   renameZone(id: string, newName: string): void;
   setLastZone(zoneId: string): void;
+  setSidebarWidth(width: number): void;
 };
 
 const Store = () => {
@@ -48,6 +50,7 @@ const Store = () => {
           }],
           lastSettingsTab: "weights",
           lastZone: undefined,
+          sidebarWidth: 240, // Default width in pixels
 
           newZone: (name: string) => {
             const settings = get();
@@ -75,6 +78,9 @@ const Store = () => {
           },
           setLastZone: (zoneId: string) => {
             set({ lastZone: zoneId });
+          },
+          setSidebarWidth: (width: number) => {
+            set({ sidebarWidth: width });
           }
         })
       ),

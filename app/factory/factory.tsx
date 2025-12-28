@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 import { SelectorDialog } from 'app/components/Dialog';
 import Graph from "app/factory/graph/graph";
@@ -13,6 +13,8 @@ import {
 import { ReactFlowProvider } from "@xyflow/react";
 import useFactory, { useFactoryStore } from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
+import { usePlannerStore } from "~/context/PlannerContext";
+import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);
@@ -34,6 +36,58 @@ export function Factory() {
 
   const [addRecipeNode, setAddRecipeNode] = useState<AddRecipeNode | null>(null);
   const recipeSelectorProduct = addRecipeNode ? products.get(addRecipeNode.productId) : null
+
+  // Sidebar resize state
+  const sidebarWidth = usePlannerStore((state) => state.sidebarWidth);
+  const setSidebarWidth = usePlannerStore((state) => state.setSidebarWidth);
+  const [isResizing, setIsResizing] = useState(false);
+  const [currentWidth, setCurrentWidth] = useState(sidebarWidth);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Sync currentWidth with store value when it changes (e.g., after hydration)
+  useEffect(() => {
+    setCurrentWidth(sidebarWidth);
+  }, [sidebarWidth]);
+
+  // Handle mouse down on resize handle
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+  }, []);
+
+  // Handle mouse move for resizing
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (!sidebarRef.current) return;
+
+    const sidebarRect = sidebarRef.current.getBoundingClientRect();
+    const newWidth = e.clientX - sidebarRect.left;
+    // Constrain width between 200px and 600px
+    const constrainedWidth = Math.min(Math.max(newWidth, 200), 600);
+    setCurrentWidth(constrainedWidth);
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    setIsResizing(false);
+    // Save to store when done resizing
+    setSidebarWidth(currentWidth);
+  }, [currentWidth, setSidebarWidth]);
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      // Prevent text selection while resizing
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'col-resize';
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.userSelect = '';
+      document.body.style.cursor = '';
+    };
+  }, [isResizing, handleMouseMove, handleMouseUp]);
 
   const addNewRecipe = (recipe: AddRecipeNode) => {
     setAddRecipeNode(recipe);
@@ -76,27 +130,50 @@ export function Factory() {
   }
 
   return (<>
-      <div className="min-w-30 w-[15vw] resize-x overflow-x-hidden w-max-[50vw] overflow-y-scroll 
-                      flex flex-col bg-black">
+    <div className="
+      relative bg-transparent overflow-x-visible overflow-y-visible
+    "
+      style={{ width: `calc(${currentWidth}px`, minWidth: '200px', maxWidth: '600px' }}
+    >
+
+      {/* Custom resize handle */}
+      <div
+        className="absolute z-[1000] top-1/2 -right-7 w-6 h-6 cursor-col-resize hover:text-white text-gray-700 transition-colors"
+        onMouseDown={handleMouseDown}
+        style={{
+          // backgroundColor: isResizing ? 'rgb(59 130 246)' : 'transparent',
+        }}
+      ><ChevronDoubleRightIcon className="w-full h-full block" /></div>
+      <div
+        ref={sidebarRef}
+        className="
+          flex flex-col bg-black
+          overflow-y-scroll overflow-x-hidden
+          w-[calc(100%)] h-full
+          "
+            // w-[calc(100%-(var(--spacing)*2))] h-full
+      >
         <Sidebar addNewRecipe={addNewRecipe} />
+
       </div>
-      <div className="flex-1">
-        <div className="w-full h-full">
-          <ReactFlowProvider>
-            <Graph addNewRecipe={addNewRecipe} />
-          </ReactFlowProvider>
-        </div>
+    </div>
+    <div className="flex-1">
+      <div className="w-full h-full">
+        <ReactFlowProvider>
+          <Graph addNewRecipe={addNewRecipe} />
+        </ReactFlowProvider>
       </div>
-      {addRecipeNode ? (
-        <SelectorDialog widthClassName="" title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
-          <RecipePicker
-            productId={addRecipeNode.productId}
-            selectRecipe={(recipeId) => {
-              addProductToGraph(recipeId, addRecipeNode)
-            }}
-            productIs={addRecipeNode.produce ? "output" : "input"} />
-        </SelectorDialog>
-      ) : ("")}
-      </>
+    </div>
+    {addRecipeNode ? (
+      <SelectorDialog widthClassName="" title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
+        <RecipePicker
+          productId={addRecipeNode.productId}
+          selectRecipe={(recipeId) => {
+            addProductToGraph(recipeId, addRecipeNode)
+          }}
+          productIs={addRecipeNode.produce ? "output" : "input"} />
+      </SelectorDialog>
+    ) : ("")}
+  </>
   );
 }
