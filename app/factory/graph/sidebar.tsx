@@ -1,8 +1,9 @@
-import { Button, Field, Fieldset, Input, Label, Menu, MenuButton, MenuItem, MenuItems, Radio, RadioGroup } from '@headlessui/react';
+import { Button, Field, Fieldset, Input, Label, Radio, RadioGroup } from '@headlessui/react';
 import { ClockIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { SelectorDialog } from 'app/components/Dialog';
+import { SidebarPopover, PopoverMenuItem } from '~/components/SidebarPopover';
 import { useShallow } from 'zustand/shallow';
 import ProductSelector from '~/components/ProductSelector';
 import useFactory, { useFactoryStore } from '~/factory/FactoryContext';
@@ -104,6 +105,25 @@ function SideBar({ addNewRecipe }: props) {
       otherNode: "",
     }),
   }];
+  const byProductsMenuOptions = [{
+    label: "Add as Goal",
+    onClick: <T extends { productId: ProductId }>(output: T) => () => {
+      setEditGoal({
+        dir: "output",
+        type: "eq",
+        productId: output.productId,
+        qty: 10
+      });
+    }
+  }, {
+    label: "Add Consumer",
+    onClick: <T extends { productId: ProductId }>(output: T) => () => addNewRecipe({
+      productId: output.productId,
+      produce: false,
+      position: { x: 0, y: 0 }, // TODO: Get a better position
+      otherNode: "",
+    }),
+  }];
 
   return (<>
     <div className='sidebar flex flex-col p-2 h-full justify-start'>
@@ -125,26 +145,27 @@ function SideBar({ addNewRecipe }: props) {
             else if (goal.type == "gt")
               fulfilled = goal.qty <= resultCount;
           }
-          return <Menu key={"goal-" + i}>
-            <MenuButton key={"goal-" + i} as="div" className={`output-goal w-full gap-2 p-2 flex my-1
+          return <SidebarPopover 
+            key={"goal-" + i}
+            trigger={
+              <div className={`output-goal w-full gap-2 p-2 flex my-1
                                   hover:bg-gray-900
                                     rounded cursor-pointer 
                                     border-1 border-gray-500  text-xs 
                                     ${fulfilled ? "bg-green-900" : "bg-red-900"}
                                     `}
-            >
-              <ProductGoal goal={goal} resultCount={resultCount} />
-            </MenuButton>
-            <MenuItems anchor="bottom" className="bg-gray-800 border-2 border-gray-500 rounded-sm shadow-lg -mt-2">
-              {goalsMenuOptions.map(m =>
-                <MenuItem key={"goal-item-" + m.label} onClick={m.onClick(goal)} as="button"
-                  className="p-2 px-4 w-full block text-left border-b-1 border-gray-500 border-dotted cursor-pointer data-focus:bg-blue-900"
-                >
-                  {m.label}
-                </MenuItem>
-              )}
-            </MenuItems>
-          </Menu>
+              >
+                <ProductGoal goal={goal} resultCount={resultCount} />
+              </div>
+            }
+            anchor="bottom end"
+          >
+            {goalsMenuOptions.map(m =>
+              <PopoverMenuItem key={"goal-item-" + m.label} onClick={m.onClick(goal)}>
+                {m.label}
+              </PopoverMenuItem>
+            )}
+          </SidebarPopover>
         })}
         <button onClick={() => setSelectProductDialog(true)} className="cursor-pointer bg-gray-700 rounded hover:bg-gray-900 focus:bg-gray-900 active:bg-gray-900 ">
           <div className="inline-flex text-center w-8 align-middle">
@@ -171,15 +192,29 @@ function SideBar({ addNewRecipe }: props) {
           }
           if (amount <= 0) return;
 
-          return <div key={"output-" + i}
-            style={{ backgroundColor: productBackground(product) }}
-            className={`"output-goal flex justify-between items-center-safe w-full px-2 py-1 
-                        h-8 rounded cursor-pointer
-                        hover:brightness-110  
-                        ${isSurplus ? "bg-green-900" : ""}`}>
-            <img className="h-full " src={productIcon(product.icon)} />
-            <span className="flex-8 text-right text-sm ">{formatNumber(amount, product.unit)}</span>
-          </div>
+          return <SidebarPopover 
+            key={"output-" + i}
+            trigger={
+              <div
+                style={{ backgroundColor: productBackground(product) }}
+                className={`output-goal flex justify-between items-center-safe w-full px-2 py-1 
+                          h-8 rounded cursor-pointer
+                          hover:brightness-110  
+                          ${isSurplus ? "bg-green-900" : ""}`}
+              >
+                <img className="h-full " src={productIcon(product.icon)} />
+                <span className="flex-8 text-right text-sm ">{formatNumber(amount, product.unit)}</span>
+              </div>
+            }
+            anchor="bottom start"
+          >
+            {byProductsMenuOptions.map(m =>
+             <> <PopoverMenuItem key={"byproduct-menu-" + m.label} onClick={m.onClick(output)}>
+                {m.label}
+              </PopoverMenuItem>
+              </>
+            )}
+          </SidebarPopover>
         })}
       </div>
       <div className="subtitle mt-4">Inputs</div>
@@ -192,24 +227,27 @@ function SideBar({ addNewRecipe }: props) {
           }
           const amount = input.amount * -1;
           if (amount <= 0) return;
-          return <Menu key={"input-" + i}>
-            <MenuButton as="div"
-              style={{ backgroundColor: productBackground(product) }}
-              className={`"input-goal flex justify-between items-center-safe w-full px-2 py-1  
-                        h-8 rounded cursor-pointer
-                        hover:brightness-110`}
-            >
-              <img className="h-full drop-shadow-md/30 " src={productIcon(product.icon)} />
-              <span className="flex-8 text-right text-sm text-shadow-lg">{formatNumber(amount, product.unit)}</span>
-            </MenuButton>
-            <MenuItems anchor="bottom start" className="bg-gray-800 border-1 border-gray-600 rounded-sm shadow-xl">
-              {inputsMenuOptions.map(m =>
-                <MenuItem key={"input-menu-" + m.label} onClick={m.onClick(input)} as="button" className="p-2 px-4 w-full text-center block border-b-1 border-gray-600 cursor-pointer data-focus:bg-blue-900">
-                  {m.label}
-                </MenuItem>
-              )}
-            </MenuItems>
-          </Menu>
+          return <SidebarPopover 
+            key={"input-" + i}
+            trigger={
+              <div
+                style={{ backgroundColor: productBackground(product) }}
+                className={`input-goal flex justify-between items-center-safe w-full px-2 py-1  
+                          h-8 rounded cursor-pointer
+                          hover:brightness-110`}
+              >
+                <img className="h-full drop-shadow-md/30 " src={productIcon(product.icon)} />
+                <span className="flex-8 text-right text-sm text-shadow-lg">{formatNumber(amount, product.unit)}</span>
+              </div>
+            }
+            anchor="bottom start"
+          >
+            {inputsMenuOptions.map(m =>
+              <PopoverMenuItem key={"input-menu-" + m.label} onClick={m.onClick(input)}>
+                {m.label}
+              </PopoverMenuItem>
+            )}
+          </SidebarPopover>
         })}
       </div>
       <div className="subtitle justify-self-end-safe mt-auto">Manifolds</div>
