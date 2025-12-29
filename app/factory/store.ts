@@ -50,6 +50,26 @@ export interface GraphStoreActions {
   setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
   importData: (data: GraphImportData) => Promise<void>;
   exportTestData: () => string;
+  setHighlight: (highlight: GraphStore['highlight']) => void;
+}
+
+export type HighlightNone = {
+  mode: "none";
+}
+export type HighlightProduct = {
+  mode: "product";
+  productId: ProductId;
+  options: {
+    imports: boolean;
+    exports: boolean;
+    inputs: boolean;
+    outputs: boolean;
+    connections: boolean;
+  };
+}
+export type HighlightEdges = {
+  mode: "edges";
+  edgeIds: string[];
 }
 
 export interface GraphStore extends GraphSolutionState, GraphStoreActions {
@@ -58,6 +78,8 @@ export interface GraphStore extends GraphSolutionState, GraphStoreActions {
   baseWeights: ProductionZoneStoreData["weights"];
   weights: Pick<ProductionZoneStoreData["weights"], "infrastructure" | "products">;
   manifoldOptions: ManifoldOptions[];
+  highlight: HighlightNone | HighlightProduct | HighlightEdges;
+
 }
 
 // export type FactoryStore = UseBoundStore<StoreApi<GraphStore>>;
@@ -119,6 +141,9 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             products: new Map<ProductId, number>(),
           },
           manifoldOptions: [],
+
+          highlight: { mode: "none" },
+
           addNode: (node) => {
             set({ nodes: [...get().nodes.concat(node)] }, false, "addNode");
             get().graphUpdateAction();
@@ -248,7 +273,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               get().solutionUpdateAction(false);
             }
           },
-
+          setHighlight: (highlight) => set({ highlight }, false, "setHighlight"),
           importData: async (data: GraphImportData) => {
             const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
               id: n.id,

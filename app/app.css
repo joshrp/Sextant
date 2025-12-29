@@ -54,5 +54,11 @@ body {
   background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(37, 37, 37, 0.5) 5px, rgba(37, 45, 56, 0.5) 10px);
 }
 
+@utility column-rule-* {
+  column-rule-color: --value(--column-rule-color-*, --color-*, [color]);
+  column-rule-style: --value("hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset");
+  column-rule-width: --spacing(--value(integer));
+  column-rule-width: --value([length]);
+}
 
 @import "./nodes.css";

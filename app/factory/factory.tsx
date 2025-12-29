@@ -15,6 +15,7 @@ import useFactory, { useFactoryStore } from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
 import { usePlannerStore } from "~/context/PlannerContext";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
+import { FactoryOverlayBar } from "~/components/FactoryOverlayBar";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);
@@ -124,7 +125,6 @@ export function Factory() {
     setAddRecipeNode(null);
 
   }, [addNode, onConnect, store]);
-
   const blankRecipeSelectorProduct = () => {
     setAddRecipeNode(null);
   }
@@ -158,7 +158,8 @@ export function Factory() {
       </div>
     </div>
     <div className="flex-1">
-      <div className="w-full h-full">
+      <div className="w-full h-full relative">
+        <FactoryOverlayBar />
         <ReactFlowProvider>
           <Graph addNewRecipe={addNewRecipe} />
         </ReactFlowProvider>
