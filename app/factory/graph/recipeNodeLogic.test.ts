@@ -2,8 +2,7 @@
  * Unit tests for recipeNodeLogic pure functions
  */
 import { describe, expect, it } from 'vitest';
-import { getQuantityDisplay, getRunCount, type RecipeNodeData } from './recipeNodeLogic';
-import type { RecipeId } from './loadJsonData';
+import { getQuantityDisplay } from './recipeNodeLogic';
 
 describe('recipeNodeLogic', () => {
   describe('getQuantityDisplay', () => {
@@ -28,34 +27,4 @@ describe('recipeNodeLogic', () => {
     });
   });
 
-  describe('getRunCount', () => {
-    it('returns 1 when no solution exists', () => {
-      const data: RecipeNodeData = {
-        recipeId: 'TestRecipe' as RecipeId,
-        ltr: true,
-      };
-      expect(getRunCount(data)).toBe(1);
-    });
-
-    it('returns 1 when solution is not solved', () => {
-      const data: RecipeNodeData = {
-        recipeId: 'TestRecipe' as RecipeId,
-        ltr: true,
-        solution: { solved: false },
-      };
-      expect(getRunCount(data)).toBe(1);
-    });
-
-    it('returns run count when solution is solved', () => {
-      const data: RecipeNodeData = {
-        recipeId: 'TestRecipe' as RecipeId,
-        ltr: true,
-        solution: {
-          solved: true,
-          runCount: 5.5,
-        },
-      };
-      expect(getRunCount(data)).toBe(5.5);
-    });
-  });
 });

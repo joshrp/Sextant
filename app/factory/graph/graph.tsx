@@ -54,7 +54,7 @@ export default function Graph({ addNewRecipe }: props) {
     store,
     useShallow(selector),
   );
-  console.log("Rendering graph with nodes", nodes.length, "edges", edges.length);
+
   // Only fit viewport to nodes when we go from none to some,
   // This could fire other times, but mostly it's just the page loading
   const fit = nodes.length > 0;
@@ -67,8 +67,8 @@ export default function Graph({ addNewRecipe }: props) {
   }, [fitBounds, fit]);
 
   const onConnectEnd = useCallback((event: MouseEvent | TouchEvent, connectionState: FinalConnectionState) => {
-    const productId = connectionState.fromHandle?.id as ProductId | undefined;
     // when a connection is dropped on the pane it's not valid 
+    const productId = connectionState.fromHandle?.id as ProductId | undefined;
     if (!connectionState.isValid && connectionState.fromHandle && productId) {
       // we need to remove the wrapper bounds, in order to get the correct position
       const { clientX, clientY } =
@@ -83,7 +83,7 @@ export default function Graph({ addNewRecipe }: props) {
       addNewRecipe({
         productId,
         position: {
-          x: dropPosition.x + 200 * (addingSource ? -1 : 1),
+          x: dropPosition.x + 30 * (addingSource ? -10 : 1),
           y: dropPosition.y - 100
         },
         produce: addingSource,

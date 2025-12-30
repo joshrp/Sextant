@@ -1,13 +1,12 @@
+import { TrashIcon } from '@heroicons/react/24/outline';
 import { useStore, useUpdateNodeInternals, type Node, type NodeProps } from '@xyflow/react';
 import equal from 'fast-deep-equal';
 import { memo, useLayoutEffect } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { useFactoryStore } from '../FactoryContext';
 import { loadData, type ProductId } from './loadJsonData';
-import type { ButtonEdge } from './edges/ButtonEdge';
-import { getRunCount, type RecipeNodeData } from './recipeNodeLogic';
+import { type RecipeNodeData } from './recipeNodeLogic';
 import RecipeNodeView from './RecipeNodeView';
-import { TrashIcon } from '@heroicons/react/24/outline';
 
 const { recipes } = loadData();
 
@@ -16,7 +15,7 @@ export type { RecipeNodeData };
 
 export type RecipeNode = Node<RecipeNodeData>;
 
-type ProductEdges = Map<ProductId, ButtonEdge | null>;
+type ProductEdges = Map<ProductId, boolean | null>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const zoomSelector = (s: any) => s?.transform?.[2] <= 0.2;
@@ -46,6 +45,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
 
   const removeNode = useFactoryStore(state => state.removeNode);
   const setNodeData = useFactoryStore(state => state.setNodeData);
+  const highlight = useFactoryStore(useShallow(state => state.highlight));
   const flipNode = () => {
     setNodeData(props.id, { ltr: !props.data.ltr });
   };
@@ -74,28 +74,27 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   }
 
   const productEdges: ProductEdges = new Map();
-  recipe.inputs.forEach(input => productEdges.set(input.product.id, null));
-  recipe.outputs.forEach(output => productEdges.set(output.product.id, null));
+  recipe.inputs.forEach(input => productEdges.set(input.product.id, false));
+  recipe.outputs.forEach(output => productEdges.set(output.product.id, false));
   connectedEdges.forEach(edge => {
     const prodId = edge.sourceHandle as ProductId | undefined;
     if (prodId && productEdges.has(prodId)) {
-      productEdges.set(prodId, edge as ButtonEdge);
+      productEdges.set(prodId, true);
     } else {
       throw new Error("Edge connected to recipe node with unknown product ID: " + edge.sourceHandle);
     }
   });
-  const runCount = getRunCount(props.data);
 
   return (
     <RecipeNodeView
       recipe={recipe}
-      runCount={runCount}
       productEdges={productEdges}
       ltr={props.data.ltr}
       isFarZoom={isFarZoom}
       onFlip={flipNode}
       onRemove={() => removeNode(props.id)}
       solution={props.data.solution}
+      highlight={highlight}
     />
   );
 }

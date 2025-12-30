@@ -26,9 +26,3 @@ export function getQuantityDisplay(quantity: number, runCount: number, unit: str
   return formatNumber(amount, unit);
 }
 
-/**
- * Calculates the run count from solution data
- */
-export function getRunCount(data: RecipeNodeData): number {
-  return data.solution?.solved ? data.solution.runCount : 1;
-}

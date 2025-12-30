@@ -3,7 +3,7 @@ import { ClockIcon, PlusIcon } from '@heroicons/react/24/solid';
 import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { SelectorDialog } from 'app/components/Dialog';
-import { SidebarPopover, PopoverMenuItem } from '~/components/SidebarPopover';
+import { SidebarPopover, PopoverMenuItem, PopoverIconActions, PopoverIconAction } from '~/components/SidebarPopover';
 import { useShallow } from 'zustand/shallow';
 import ProductSelector from '~/components/ProductSelector';
 import useFactory, { useFactoryStore } from '~/factory/FactoryContext';
@@ -12,6 +12,7 @@ import type { AddRecipeNode } from '../factory';
 import type { FactoryGoal } from '../solver/types';
 import { loadData, type Product, type ProductId } from './loadJsonData';
 import Manifold from './Manifold';
+import { EyeIcon } from '@heroicons/react/24/outline';
 
 const productData = loadData()?.products;
 
@@ -43,7 +44,7 @@ function SideBar({ addNewRecipe }: props) {
   const goals = useFactoryStore(useShallow(state => state.goals));
   const model = useFactoryStore(useShallow(state => state.graph));
   const solutionUpdateAction = useFactoryStore(useShallow(state => state.solutionUpdateAction));
-
+  const setHighlight = useFactoryStore(useShallow(state => state.setHighlight));
   const [editGoal, setEditGoal] = useState<FactoryGoal | null>(null);
 
   const addGoal = useCallback((goal: FactoryGoal): void => {
@@ -145,7 +146,7 @@ function SideBar({ addNewRecipe }: props) {
             else if (goal.type == "gt")
               fulfilled = goal.qty <= resultCount;
           }
-          return <SidebarPopover 
+          return <SidebarPopover
             key={"goal-" + i}
             trigger={
               <div className={`output-goal w-full gap-2 p-2 flex my-1
@@ -192,7 +193,7 @@ function SideBar({ addNewRecipe }: props) {
           }
           if (amount <= 0) return;
 
-          return <SidebarPopover 
+          return <SidebarPopover
             key={"output-" + i}
             trigger={
               <div
@@ -209,7 +210,7 @@ function SideBar({ addNewRecipe }: props) {
             anchor="bottom start"
           >
             {byProductsMenuOptions.map(m =>
-             <> <PopoverMenuItem key={"byproduct-menu-" + m.label} onClick={m.onClick(output)}>
+              <> <PopoverMenuItem key={"byproduct-menu-" + m.label} onClick={m.onClick(output)}>
                 {m.label}
               </PopoverMenuItem>
               </>
@@ -227,7 +228,7 @@ function SideBar({ addNewRecipe }: props) {
           }
           const amount = input.amount * -1;
           if (amount <= 0) return;
-          return <SidebarPopover 
+          return <SidebarPopover
             key={"input-" + i}
             trigger={
               <div
@@ -247,7 +248,13 @@ function SideBar({ addNewRecipe }: props) {
                 {m.label}
               </PopoverMenuItem>
             )}
+            <PopoverIconActions>
+              <PopoverIconAction Icon={EyeIcon} label="Show Uses" onClick={() => {
+                setHighlight({ mode: 'product', productId: input.productId, options: { inputs: true, outputs: true } });
+              }} />
+            </PopoverIconActions>
           </SidebarPopover>
+
         })}
       </div>
       <div className="subtitle justify-self-end-safe mt-auto">Manifolds</div>

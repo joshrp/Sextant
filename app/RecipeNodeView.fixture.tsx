@@ -1,99 +1,91 @@
-import RecipeNodeView from './factory/graph/RecipeNodeView';
+import { ReactFlowProvider } from '@xyflow/react';
+import { useState } from 'react';
+import { useFixtureInput, useFixtureSelect } from 'react-cosmos/client';
+import { loadData, type ProductId, type RecipeId } from './factory/graph/loadJsonData';
 import type { RecipeNodeViewProps } from './factory/graph/RecipeNodeView';
-import { loadData, type RecipeId } from './factory/graph/loadJsonData';
+import RecipeNodeView from './factory/graph/RecipeNodeView';
+import type { HighlightNone, HighlightProduct } from './factory/store';
 
 const { recipes } = loadData();
 
-// Helper to create mock product edges
-const createMockProductEdges = (recipe: ReturnType<typeof recipes.get>) => {
-  const edges = new Map();
-  if (recipe) {
-    recipe.inputs.forEach(input => edges.set(input.product.id, null));
-    recipe.outputs.forEach(output => edges.set(output.product.id, null));
-  }
-  return edges;
-};
+const createFixture = (recipeIdStart: string, propsOverrides?: Partial<RecipeNodeViewProps>) => {
+  const [flipped, setFlipped] = useState(false);
+  const [removed, setRemoved] = useState(false);
+  const [isFarZoom] = useFixtureInput('Is Far Zoom', false);
+  const [runCount] = useFixtureInput('Run Count', 1);
+  const recipeId = useFixtureSelect('Recipe ID', {
+    options:  recipes.keys().toArray(),
+    defaultValue: recipeIdStart
+  })[0];
 
-// Helper to get a recipe and create base props
-const getRecipeProps = (recipeId: RecipeId, overrides?: Partial<RecipeNodeViewProps>): RecipeNodeViewProps => {
-  const recipe = recipes.get(recipeId);
+  const recipe = recipes.get(recipeId as RecipeId);
   if (!recipe) throw new Error(`Recipe ${recipeId} not found`);
   
-  return {
-    recipe,
-    runCount: 1,
-    productEdges: createMockProductEdges(recipe),
-    ltr: true,
-    isFarZoom: false,
-    onFlip: () => console.log('Flip clicked'),
-    onRemove: () => console.log('Remove clicked'),
-    ...overrides,
+  const highlightMode = useFixtureInput('Highlight', false)[0];
+  let highlight: HighlightProduct | HighlightNone = {
+    mode: "none"
   };
+
+  const highlightProduct: HighlightProduct = {
+    mode: "product",
+    productId: useFixtureSelect('Highlight Product ID', {
+      options: [...recipe.inputs.map(i => i.product.id), ...recipe.outputs.map(o => o.product.id)],
+    })[0],
+    options: {
+      connected: useFixtureInput('Highlight Connected', true)[0],
+      unconnected: useFixtureInput('Highlight Unconnected', true)[0],
+      inputs: useFixtureInput('Highlight Inputs', true)[0],
+      outputs: useFixtureInput('Highlight Outputs', true)[0],
+      edges: useFixtureInput('Highlight Edges', true)[0],
+    }
+  }
+
+  if (highlightMode) {
+    highlight = highlightProduct;
+  }
+  const connectedInputs = new Array(10).fill(false).map((_, i) => useFixtureInput(`Input ${i + 1} Connected`, false)[0]);
+  const connectedOutputs = new Array(10).fill(false).map((_, i) => useFixtureInput(`Output ${i + 1} Connected`, false)[0]);
+
+  const connectedProducts = new Map<ProductId, boolean>();
+  for (const [i, {product}] of recipe.inputs.entries()) {
+    connectedProducts.set(product.id, connectedInputs[i]);
+  }
+  for (const [i, {product}] of recipe.outputs.entries()) {
+    connectedProducts.set(product.id, connectedOutputs[i]);
+  }
+
+  return <ReactFlowProvider>
+    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}> 
+      {removed && <h2>Removed</h2>}      
+      <RecipeNodeView {...{
+          recipe,
+          productEdges: connectedProducts,
+          solution: { solved: propsOverrides?.solution?.solved ?? true, runCount },
+          
+          ltr: !flipped,
+          isFarZoom,
+          onFlip: () => setFlipped(!flipped),
+          onRemove: () => setRemoved(true),
+          highlight,
+          ...propsOverrides
+        }} />
+    </div>
+  </ReactFlowProvider>
 };
 
+
 export default {
-  'Basic - Power Generator': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('PowerGeneratorT2' as RecipeId)} />
-    </div>
-  ),
+  'Basic - Power Generator': () => createFixture('PowerGeneratorT2'),
   
-  'Basic - Fast Breeder Reactor': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('FastBreederReactorEnrichment2' as RecipeId)} />
-    </div>
-  ),
+  'Basic - Fast Breeder Reactor': () => createFixture('FastBreederReactorEnrichment2'),
 
-  'Layout - Right to Left': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('PowerGeneratorT2' as RecipeId, { ltr: false })} />
-    </div>
-  ),
+  'State - Unsolved Solution': () => createFixture('TurbineHighPressT2', {
+    solution: { solved: false }
+  }),
 
-  'Zoom - Far Zoom (No Machine Icon)': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('PowerGeneratorT2' as RecipeId, { isFarZoom: true })} />
-    </div>
-  ),
+  'Complex - Turbine High Press': () => createFixture('TurbineHighPressT2', {
+    solution: { solved: true, runCount: 3.5 }
+  }),
 
-  'State - With Solution (Low Count)': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('PowerGeneratorT2' as RecipeId, {
-        runCount: 2.5,
-        solution: { solved: true, runCount: 2.5 }
-      })} />
-    </div>
-  ),
-
-  'State - With Solution (High Count)': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('PowerGeneratorT2' as RecipeId, {
-        runCount: 15.75,
-        solution: { solved: true, runCount: 15.75 }
-      })} />
-    </div>
-  ),
-
-  'State - Unsolved Solution': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('TurbineHighPressT2' as RecipeId, {
-        solution: { solved: false }
-      })} />
-    </div>
-  ),
-
-  'Complex - Turbine High Press': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('TurbineHighPressT2' as RecipeId, {
-        runCount: 3.5,
-        solution: { solved: true, runCount: 3.5 }
-      })} />
-    </div>
-  ),
-
-  'Complex - Steam Depleted Condensation': () => (
-    <div style={{ background: '#1a1a1a', padding: '20px', resize: 'both', overflow: 'auto' }}>
-      <RecipeNodeView {...getRecipeProps('SteamDepletedCondensation' as RecipeId)} />
-    </div>
-  ),
+  'Balancer - Water': () => createFixture('Balancer_Product_Water'),
 };

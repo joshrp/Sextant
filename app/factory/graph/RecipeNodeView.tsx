@@ -2,8 +2,8 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { Handle, Position } from '@xyflow/react';
 import { formatNumber, machineIcon, maintenanceIcon, maintenanceName, productBackground, productIcon, uiIcon } from '~/uiUtils';
-import type { Recipe, ProductId } from './loadJsonData';
-import type { ButtonEdge } from './edges/ButtonEdge';
+import type { HighlightModes } from '../store';
+import type { ProductId, Recipe } from './loadJsonData';
 import { getQuantityDisplay } from './recipeNodeLogic';
 
 const handleStyle: React.CSSProperties = { 
@@ -15,11 +15,10 @@ const handleStyle: React.CSSProperties = {
   backgroundColor: 'transparent' 
 };
 
-type ProductEdges = Map<ProductId, ButtonEdge | null>;
+type ProductEdges = Map<ProductId, boolean | null>;
 
 export interface RecipeNodeViewProps {
   recipe: Recipe;
-  runCount: number;
   productEdges: ProductEdges;
   ltr: boolean;
   isFarZoom: boolean;
@@ -29,6 +28,7 @@ export interface RecipeNodeViewProps {
     solved: boolean;
     runCount?: number;
   };
+  highlight?: HighlightModes;
 }
 
 /**
@@ -37,14 +37,16 @@ export interface RecipeNodeViewProps {
  */
 export default function RecipeNodeView({
   recipe,
-  runCount,
   productEdges,
   ltr,
   isFarZoom,
   onFlip,
   onRemove,
   solution,
+  highlight,
 }: RecipeNodeViewProps) {
+  const runCount = solution?.runCount ? solution.runCount : 1;
+
   return (
     <div className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
       <div className="recipe-node-title-bar flex justify-between border-white/20 mb-8 pb-2 border-b-2 items-center-safe ">
@@ -73,6 +75,7 @@ export default function RecipeNodeView({
           inputs={ltr} 
           productEdges={productEdges}
           solution={solution}
+          highlight={highlight}
         />
         {!isFarZoom &&
           <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
@@ -90,6 +93,7 @@ export default function RecipeNodeView({
           inputs={!ltr} 
           productEdges={productEdges}
           solution={solution}
+          highlight={highlight}
         />
 
       </div>
@@ -129,12 +133,13 @@ type HandleListProps = {
     solved: boolean;
     runCount?: number;
   };
+  highlight?: HighlightModes;
 }
 
-function HandleList({ products, pos, inputs, productEdges, solution }: HandleListProps) {
+function HandleList({ products, pos, inputs, productEdges, solution, highlight }: HandleListProps) {
   const ltr = <T extends string, U extends string>(left: T, right: U) => pos === Position.Left ? left : right;
   const inOrOut = <T extends string, U extends string>(input: T, output: U) => inputs ? input : output;
-
+  console.log("Rendering HandleList", { products, pos, inputs, productEdges, solution });
   return (
     <div className={
       `recipe-${inOrOut("inputs", "outputs")} 
@@ -143,7 +148,7 @@ function HandleList({ products, pos, inputs, productEdges, solution }: HandleLis
         ${ltr("items-start -left-2", "justify-end-safe -right-2")}`
     }>
       {products.map(prod => {
-        const isConnected = productEdges.get(prod.product.id) !== null;
+        const isConnected = !!productEdges.get(prod.product.id);
         const productColor = productBackground(prod.product);
         const displayRunCount = solution?.solved && solution.runCount ? solution.runCount : 1;
 
@@ -169,6 +174,8 @@ function HandleList({ products, pos, inputs, productEdges, solution }: HandleLis
           className={`recipe-${inOrOut("input", "output")} recipe-handle text-nowrap relative ${ltr("pl-2", "pr-2")} flex mb-4 items-center-safe`}
           key={prod.product.id}
           data-connected={isConnected}
+          data-highlight={shouldHighlightProduct(highlight, prod.product.id, inputs, isConnected) ? true : null}
+          data-muted={shouldMuteProduct(highlight, prod.product.id) ? true : null}
         >
           {pos === Position.Left ? handle : null}
           <div className="flex-1 min-w-4 p-2 text-shadow-md/50">
@@ -179,4 +186,29 @@ function HandleList({ products, pos, inputs, productEdges, solution }: HandleLis
       })}
     </div>
   );
+}
+
+const shouldHighlightProduct = (highlight: HighlightModes | undefined, productId: ProductId, input: boolean, connected: boolean): boolean => {
+  if (!highlight) return false;
+  if (highlight.mode !== "product") return false;
+  if (highlight.productId !== productId) {
+    return false;
+  }
+  let inputType = false;
+  inputType ||= (highlight.options.inputs && input);
+  inputType ||= (highlight.options.outputs && !input);
+  let connectedType = false;
+  connectedType ||= (highlight.options.connected && connected);
+  connectedType ||= (highlight.options.unconnected && !connected);
+  return inputType && connectedType;
+}
+
+const shouldMuteProduct = (highlight: HighlightModes | undefined, productId: ProductId): boolean => {
+  if (!highlight) return false;
+  if (highlight.mode !== "product") return false;
+  if (highlight.productId === productId) {
+    return false;
+  }
+  
+  return true;
 }

@@ -31,7 +31,9 @@ export interface GraphSolutionState extends GraphCoreData {
   solutionStatus?: SolutionStatus;
   scoringMethod: GraphScoringMethod;
 }
-
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
 export interface GraphStoreActions {
   graphUpdateAction: () => Promise<void>;
   solutionUpdateAction: (autoSolve?: boolean) => Promise<void>;
@@ -50,7 +52,8 @@ export interface GraphStoreActions {
   setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
   importData: (data: GraphImportData) => Promise<void>;
   exportTestData: () => string;
-  setHighlight: (highlight: GraphStore['highlight']) => void;
+  setHighlight: (highlight: DeepPartial<GraphStore['highlight']>) => void;
+  getProductsInGraph: () => Set<ProductId> | undefined;
 }
 
 export type HighlightNone = {
@@ -60,25 +63,33 @@ export type HighlightProduct = {
   mode: "product";
   productId: ProductId;
   options: {
-    imports: boolean;
-    exports: boolean;
+    connected: boolean;
+    unconnected: boolean;
     inputs: boolean;
     outputs: boolean;
-    connections: boolean;
+    edges: boolean;
   };
 }
 export type HighlightEdges = {
   mode: "edges";
   edgeIds: string[];
+  options: object;
 }
-
+export type HighlightModes = HighlightNone | HighlightProduct | HighlightEdges;
+const defaultHighlightOptions: HighlightProduct["options"] = {
+  connected: true,
+  unconnected: true,
+  inputs: true,
+  outputs: true,
+  edges: true,
+};
 export interface GraphStore extends GraphSolutionState, GraphStoreActions {
   id: string,
 
   baseWeights: ProductionZoneStoreData["weights"];
   weights: Pick<ProductionZoneStoreData["weights"], "infrastructure" | "products">;
   manifoldOptions: ManifoldOptions[];
-  highlight: HighlightNone | HighlightProduct | HighlightEdges;
+  highlight: HighlightModes;
 
 }
 
@@ -218,7 +229,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             });
 
             set(solutionUpdate, false, "solutionUpdateAction");
-            
+
             const setNode = get().setNodeData;
             solutionUpdate.solution?.nodeCounts?.forEach(res => setNode(res.nodeId, {
               solution: {
@@ -273,7 +284,24 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               get().solutionUpdateAction(false);
             }
           },
-          setHighlight: (highlight) => set({ highlight }, false, "setHighlight"),
+          setHighlight: (highlight) => {
+            if (!highlight) {
+              return;
+            }
+            const current = get().highlight;
+            if (current.mode === highlight.mode) {
+              // Merge new with current
+              if (current.mode === "product" && highlight.mode === "product") {
+                set({ highlight: { ...current, ...highlight, options: { ...defaultHighlightOptions, ...current.options, ...highlight.options } } }, false, "setHighlight");
+              } else {
+                set({ highlight: highlight as HighlightModes }, false, "setHighlight");
+              }
+            } else {
+              set({                
+                highlight: highlight as HighlightModes
+              });
+            }
+          },
           importData: async (data: GraphImportData) => {
             const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
               id: n.id,
@@ -307,13 +335,29 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
 
             await get().graphUpdateAction();
           },
-          
+          getProductsInGraph: () => {
+            const productsSet = new Set<ProductId>();
+            if (!get().graph?.graph) return undefined;
+            
+            for (const node of Object.keys(get().graph!.graph)) {
+              const nodeConnections = get().graph?.graph[node];
+              if (!nodeConnections) continue;
+              for (const inputProductId of Object.keys(nodeConnections.inputs) as ProductId[]) {
+                productsSet.add(inputProductId);
+              }
+              for (const outputProductId of Object.keys(nodeConnections.outputs) as ProductId[]) {
+                productsSet.add(outputProductId);
+              }
+            }
+            return productsSet
+          },
+
           exportTestData: () => {
             const state = get();
-            
+
             // Use minify to get the factory data in the same format as import/export
             const minifiedFactory = minify(state);
-            
+
             // Gather additional test inputs
             const testData: SolverTestFixture = {
               factory: minifiedFactory,
@@ -328,7 +372,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
                 manifolds: state.solution.manifolds,
               } : undefined,
             };
-            
+
             return JSON.stringify(testData, null, 2);
           },
         }),

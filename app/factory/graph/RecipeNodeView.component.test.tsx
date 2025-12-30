@@ -25,12 +25,12 @@ const getRecipeProps = (recipeId: RecipeId, overrides?: Partial<RecipeNodeViewPr
   
   return {
     recipe,
-    runCount: 1,
     productEdges: createMockProductEdges(recipe),
     ltr: true,
     isFarZoom: false,
     onFlip: vi.fn(),
     onRemove: vi.fn(),
+    
     ...overrides,
   };
 };
@@ -50,7 +50,7 @@ describe('RecipeNodeView Component', () => {
     });
 
     it('renders run count', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { runCount: 5.5 });
+      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { solution: {runCount: 5.5, solved: true} });
       const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
       
       const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
@@ -132,27 +132,7 @@ describe('RecipeNodeView Component', () => {
 
   describe('Solution States', () => {
     it('displays default run count without solution', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { runCount: 1 });
-      const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
-      
-      const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
-      expect(runCountDisplay?.textContent).toContain('1');
-    });
-
-    it('displays solution run count when provided', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, {
-        runCount: 5.5,
-        solution: { solved: true, runCount: 5.5 }
-      });
-      const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
-      
-      const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
-      expect(runCountDisplay?.textContent).toContain('5.5');
-    });
-
-    it('displays unsolved solution state with default run count', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, {
-        runCount: 1,
+      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { 
         solution: { solved: false }
       });
       const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
@@ -161,8 +141,18 @@ describe('RecipeNodeView Component', () => {
       expect(runCountDisplay?.textContent).toContain('1');
     });
 
+    it('displays solution run count when provided', () => {
+      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, {
+        solution: { solved: true, runCount: 5.5 }
+      });
+      const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
+      
+      const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
+      expect(runCountDisplay?.textContent).toContain('5.5');
+    });
+
     it('displays high precision for low run counts', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { runCount: 2.567 });
+      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { solution: { solved: true, runCount: 2.567442 } });
       const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
       
       const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
@@ -171,7 +161,7 @@ describe('RecipeNodeView Component', () => {
     });
 
     it('displays low precision for high run counts', () => {
-      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { runCount: 15.567 });
+      const props = getRecipeProps('PowerGeneratorT2' as RecipeId, { solution: { solved: true, runCount: 15.567888 } });
       const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);
       
       const runCountDisplay = container.querySelector('.w-full.my-1.text-2xl');
@@ -250,7 +240,6 @@ describe('RecipeNodeView Component', () => {
 
     it('displays product quantities with solution', () => {
       const props = getRecipeProps('PowerGeneratorT2' as RecipeId, {
-        runCount: 2.5,
         solution: { solved: true, runCount: 2.5 }
       });
       const { container } = renderWithReactFlow(<RecipeNodeView {...props} />);

@@ -1,16 +1,21 @@
-import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useFactoryStore } from "~/factory/FactoryContext";
-import { loadData } from "~/factory/graph/loadJsonData";
+import { loadData, type ProductId } from "~/factory/graph/loadJsonData";
 import type { HighlightProduct } from "~/factory/store";
 import { productIcon } from "~/uiUtils";
 
 const products = loadData().products;
 
 export function FactoryOverlayBar() {
+
   const currentHighlight = useFactoryStore(state => state.highlight);
 
   const setHighlight = useFactoryStore(state => state.setHighlight);
+  const getProducts = useFactoryStore(state => state.getProductsInGraph);
   if (!currentHighlight) return null;
+  const productsInGraph = Array.from(getProducts() ?? new Set<ProductId>());
 
   const { mode } = currentHighlight;
   let setOptions: (options: HighlightProduct['options']) => void;
@@ -28,6 +33,7 @@ export function FactoryOverlayBar() {
     };
     const open = true;
 
+
     const product = products.get(productId);
     if (!product) return null;
     const productImg = productIcon(product.icon);
@@ -42,14 +48,58 @@ export function FactoryOverlayBar() {
             bg-zinc-900/70 backdrop-blur-sm"
     >
       <div className="flex flex-row gap-2 items-center justify-center border-b-1 border-gray-500 p-2">
-        Viewing product: <img src={productImg} className="h-6 inline -mr-1" title={productName} /> {productName}
+        <div className="flex-1 justify-self-start">&nbsp;</div>
+        <div className="flex-1 flex flex-row gap-2 mx-auto items-center justify-center whitespace-nowrap">
+          <div className="h-full">Show:</div>
+          <div className="w-8 -mr-1 border-1 border-gray-600/40 rounded p-1">
+            <img src={productImg} className="h-full" title={productName} />
+          </div>
+          <div>{productName}</div>
+          <Menu>
+            <MenuButton className="text-sm cursor-pointer">
+              <ChevronDownIcon className="inline h-4 w-4" />
+            </MenuButton>
+            <MenuItems anchor="bottom start" className="
+              z-[10000] overflow-auto max-h-[50vh]
+              bg-zinc-800/80 backdrop-blur-sm border border-gray-600 rounded-md shadow-lg 
+            ">
+            {productsInGraph.map(pid => {
+              const p = products.get(pid);
+              if (!p) return null;
+              const img = productIcon(p.icon);
+              return <MenuItem key={pid}>
+                <div
+                  className="flex flex-row items-center gap-2 p-2 hover:bg-zinc-700 cursor-pointer"
+                  onClick={() => {
+                    setHighlight({
+                      mode: "product",
+                      productId: pid,
+                      options: currentHighlight.options
+                    });
+                  }}
+                >
+                  <img src={img} className="h-6 inline -mr-1" title={p.name} />
+                  <span>{p.name}</span>
+                </div>
+              </MenuItem>;
+            })}
+            </MenuItems>
+          </Menu>
+        </div>
+        <div className="flex-1  justify-self-end-safe items-center flex justify-end-safe">
+          <button
+            className="cursor-pointer text-red-500/50 hover:text-white/80 hover:bg-red-500/50 p-1 rounded"
+            onClick={() => setHighlight({ mode: "none" })}>
+            <XMarkIcon className='w-6' />
+          </button>
+        </div>
       </div>
       <div className="actions-row flex flex-row justify-center">
-        <ProductViewOptionButton label="Imports" active={options.imports} onClick={() => { setOptions({ ...options, imports: !options.imports }) }} />
-        <ProductViewOptionButton label="Exports" active={options.exports} onClick={() => { setOptions({ ...options, exports: !options.exports }) }} />
         <ProductViewOptionButton label="Inputs" active={options.inputs} onClick={() => { setOptions({ ...options, inputs: !options.inputs }) }} />
         <ProductViewOptionButton label="Outputs" active={options.outputs} onClick={() => { setOptions({ ...options, outputs: !options.outputs }) }} />
-        <ProductViewOptionButton label="Connections" active={options.connections} onClick={() => { setOptions({ ...options, connections: !options.connections }) }} />
+        <ProductViewOptionButton label="Connected" active={options.connected} onClick={() => { setOptions({ ...options, connected: !options.connected }) }} />
+        <ProductViewOptionButton label="Unconnected" active={options.unconnected} onClick={() => { setOptions({ ...options, unconnected: !options.unconnected }) }} />
+        <ProductViewOptionButton label="Lines" active={options.edges} onClick={() => { setOptions({ ...options, edges: !options.edges }) }} />
       </div>
     </div>)
   } else {
@@ -65,7 +115,7 @@ function ProductViewOptionButton(props: {
   return <div
     className={
       "button-inline h-full flex flex-row cursor-pointer items-center-safe transition-colors duration-100 " +
-      "py-2 px-3 not-first:border-l-1 border-gray-500 hover:bg-zinc-800 " +
+      "py-2 px-3 not-first:border-l-1 border-gray-500 " +
       (props.active ?
         "text-white bg-zinc-800 hover:text-gray-300"
         :
@@ -74,7 +124,7 @@ function ProductViewOptionButton(props: {
     onClick={props.onClick}
   >
     <div className="mr-1">
-      {props.active ? <EyeIcon className="h-4" /> : <EyeSlashIcon className="h-4" />}
+      {props.active ? <CheckIcon className="h-4" /> : <XMarkIcon className="h-4" />}
     </div>
     <div className="">
       {props.label}

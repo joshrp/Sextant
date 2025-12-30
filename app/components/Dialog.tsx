@@ -16,8 +16,8 @@ export function SelectorDialog({
 }: SelectorDialogProps) {
 
   return <Dialog open={isOpen} onClose={setIsOpen} className="">
-    <DialogBackdrop className="fixed z-10 inset-0 bg-gray-500/75 transition-opacity data-open:opacity-60 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in" />
-    <div className="fixed flex inset-0 z-10">
+    <DialogBackdrop className="fixed z-2000 inset-0 bg-gray-500/75 transition-opacity data-open:opacity-60 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in" />
+    <div className="fixed flex inset-0 z-2000">
       <DialogPanel className={`
         m-auto grid grid-rows-[min-content_1fr] 
         ${widthClassName} ${heightClassName}        

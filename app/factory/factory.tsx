@@ -135,8 +135,6 @@ export function Factory() {
     "
       style={{ width: `calc(${currentWidth}px`, minWidth: '200px', maxWidth: '600px' }}
     >
-
-      {/* Custom resize handle */}
       <div
         className="absolute z-[1000] top-1/2 -right-7 w-6 h-6 cursor-col-resize hover:text-white text-gray-700 transition-colors"
         onMouseDown={handleMouseDown}

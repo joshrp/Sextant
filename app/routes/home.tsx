@@ -83,7 +83,7 @@ export default function Home() {
   }, [selectedZone, zone, setLastZone]);
 
   return <>
-    <main className="h-[100vh] w-[100vw] overflow-hidden bg-gray-500">
+    <main className="h-[100vh] w-[100vw] overflow-hidden bg-gray-800">
       <div className="max-w-[100vw] h-10 p-2 ml-10 flex flex-row gap-4 items-center text-gray-300">
         <ZoneHeader selectedZone={selectedZone} />
       </div>
@@ -152,12 +152,12 @@ function ZoneHeader({ selectedZone }: { selectedZone?: string }) {
           } />
       </div> : <>
         <Menu>
-          <MenuButton className="text-white items-middle h-full px-2 shrink-1 rounded-sm bg-gray-600 cursor-pointer">
+          <MenuButton className="text-white items-middle h-full px-2 shrink-1 rounded-sm bg-gray-700 cursor-pointer">
             <span>{zone?.name}</span>
             <ChevronDownIcon className="w-6 h-full inline-block ml-2 mb-1" />
           </MenuButton>
-          <MenuItems anchor={"bottom"}
-            className="border-2 border-gray-400 shadow-2xl absolute rounded z-10 bg-gray-500  text-white">
+          <MenuItems anchor={"bottom start"}
+            className="border-2 border-gray-400 shadow-2xl absolute rounded z-10 bg-gray-700  text-white">
             {zones.map(z => (
               <MenuItem key={z.id}>
                 <div className="flex flex-row items-center-safe justify-between not-last:border-b-2  border-gray-400">

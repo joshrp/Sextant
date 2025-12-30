@@ -1,6 +1,7 @@
 import { FactoryOverlayBar } from "./FactoryOverlayBar";
 import { createTestFactoryStore, getFactoryWrapper } from '../test/helpers/renderHelpers';
-import type { ProductId } from "~/factory/graph/loadJsonData";
+import { loadData, type ProductId } from "~/factory/graph/loadJsonData";
+import { useFixtureInput, useFixtureSelect } from "react-cosmos/client";
 
 export type FactoryOverlayBarProps = {
   open: boolean;
@@ -38,21 +39,43 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
+const {products } = loadData();
 
+const testStore = createTestFactoryStore('test', 'Test Factory');
 export default {
   ProductHighlight() {
-const testStore = createTestFactoryStore('test', 'Test Factory');
+    const states = {
+      Visible: useFixtureInput("Visible", true),
+      Connected: useFixtureInput("Connected", true),
+      Unconnected: useFixtureInput("Unconnected", false),
+      Inputs: useFixtureInput("Inputs", true),
+      Outputs: useFixtureInput("Outputs", false),
+      Edges: useFixtureInput("Edges", true),
+      ProductId: useFixtureSelect("ProductId", {
+        options: products.keys().toArray(),
+        defaultValue: 'Product_Acid' as ProductId
+      }),
+    }
+    console.log("Setting highlight with states", states);
+    
     testStore.Graph.getState().setHighlight({
-      mode: "product",
-      productId: 'Product_Acid' as ProductId,
+      mode: states.Visible[0] ? "product" : "none",
+      productId: states.ProductId[0],
       options: {
-        imports: true,
-        exports: false,
-        inputs: true,
-        outputs: false,
-        connections: true,
+        connected: states.Connected[0],
+        unconnected: states.Unconnected[0],
+        inputs: states.Inputs[0],
+        outputs: states.Outputs[0],
+        edges: states.Edges[0],
       }
-    }); 
+    });
+
+    testStore.Graph.setState({
+      getProductsInGraph: () => {
+        console.log("Getting products in graph, returning", states.ProductId[0]);
+        return new Set(products.keys().toArray());
+      }
+    })
 
     return getFactoryWrapper(<Wrapper><FactoryOverlayBar /></Wrapper>,
       {

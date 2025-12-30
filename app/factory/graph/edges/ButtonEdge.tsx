@@ -8,10 +8,10 @@ import {
   useOnSelectionChange,
   useReactFlow
 } from "@xyflow/react";
-import { useStore } from "zustand";
-import useFactory from "~/factory/FactoryContext";
-import { loadData, type ProductId } from "../loadJsonData";
 import { useCallback, useState } from "react";
+import useFactory, { useFactoryStore } from "~/factory/FactoryContext";
+import type { HighlightModes } from "~/factory/store";
+import { loadData, type ProductId } from "../loadJsonData";
 
 export type ManifoldState = "Under" | "Neutral" | "Over"
 
@@ -56,11 +56,12 @@ export default function ButtonEdge({
 }: EdgeProps<ButtonEdge>) {
   const { setEdges } = useReactFlow();
 
-  const manifoldOptions = useStore(useFactory().store, state => state.manifoldOptions);
+  const manifoldOptions = useFactoryStore(state => state.manifoldOptions);
+
   const nodes = useFactory().store.getState().nodes;
+  const highlight = useFactoryStore(state => state.highlight);
 
   const [hasSelectedHandle, setHasSelectedHandle] = useState(false);
-
   useOnSelectionChange({
     onChange: useCallback(({ nodes }) => {
       if (nodes.some(n => (n.id === source || n.id === target) && n.selected)) {
@@ -117,8 +118,16 @@ export default function ButtonEdge({
   const productColor = products.get(sourceHandleId as ProductId)?.color || "#333";
 
   const classes = ["baseEdge"];
-  if (data?.highlight || hasSelectedHandle)
+  
+  const highlightEdge = shouldHighlightProduct(highlight, sourceHandleId as ProductId);
+  const shouldMute = shouldMuteProduct(highlight, sourceHandleId as ProductId);
+
+
+  if (data?.highlight || hasSelectedHandle || highlightEdge)
     classes.push("highlightFlow");
+
+  if (shouldMute)
+    classes.push("mutedFlow");
 
   if (man?.free === true)
     classes.push("edgeAlert", "highlightFlow");
@@ -151,4 +160,25 @@ export default function ButtonEdge({
       </EdgeLabelRenderer>
     </>
   );
+}
+
+const shouldHighlightProduct = (highlight: HighlightModes | undefined, productId: ProductId): boolean => {
+  if (!highlight) return false;
+  if (highlight.mode !== "product") return false;
+  if (highlight.productId !== productId) {
+    return false;
+  }
+  if (highlight.options.edges !== true) {
+    return false;
+  }
+  return true;
+}
+
+const shouldMuteProduct = (highlight: HighlightModes | undefined, productId: ProductId): boolean => {
+  if (!highlight) return false;
+  if (highlight.mode !== "product") return false;
+  if (highlight.productId !== productId) {
+    return true;
+  }
+  return false;
 }
