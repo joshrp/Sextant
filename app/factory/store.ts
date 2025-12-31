@@ -15,8 +15,8 @@ import { createGraphModel, solve } from "./solver/solver";
 import type { Constraint, FactoryGoal, GraphModel, GraphScoringMethod, ManifoldOptions, Solution, SolutionStatus } from "./solver/types";
 import * as reducers from "~/context/reducers/graphReducers";
 import { minify } from "./importexport/importexport";
-import type { SolverTestFixture } from "./solver/solver.integration.test";
 import type { IDB } from "~/context/idb";
+import type { FactoryFixture } from "./fixtures";
 
 export interface GraphCoreData {
   name: string,
@@ -359,7 +359,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             const minifiedFactory = minify(state);
 
             // Gather additional test inputs
-            const testData: SolverTestFixture = {
+            const testData: FactoryFixture = {
               factory: minifiedFactory,
               manifoldOptions: state.manifoldOptions,
               scoringMethod: state.scoringMethod,

@@ -1,125 +1,19 @@
 import "fake-indexeddb/auto";
 
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { describe, expect, test } from 'vitest';
-
-import { unminify } from '../importexport/importexport';
-import Store from '../store';
-import { setDebugSolver } from './solver';
-import type { GraphScoringMethod, ManifoldOptions, Solution } from './types';
-import { getIdb } from "~/context/idb";
-
-/**
- * Test data format for solver tests using the import/export system
- */
-export interface SolverTestFixture {
-  /** Optional description of what this test fixture represents */
-  description?: string;
-  /** Minified factory data (same format as import/export) */
-  factory: unknown; // MinifiedState
-  /** Manifold options for the test */
-  manifoldOptions?: ManifoldOptions[];
-  /** Scoring method to use */
-  scoringMethod: GraphScoringMethod;
-  /** Objective value of previous solution for autosolving */
-  previousSolutionObjectiveValue?: number;
-  /** Expected solution outputs */
-  expected?: {
-    objectiveValue: number;
-    nodeCounts?: Array<{ nodeId: string; count: number }>;
-    infrastructure?: Partial<Solution["infrastructure"]>;
-    products?: Solution["products"];
-    manifolds?: Solution["manifolds"];
-  };
-}
-
-/**
- * Load all test fixtures from the fixtures directory
- */
-function loadTestFixtures(): Array<{ name: string; fixture: SolverTestFixture }> {
-  const fixturesDir = join(__dirname, 'fixtures');
-
-  try {
-    const files = readdirSync(fixturesDir).filter(f => f.endsWith('.test.fixture.json'));
-
-    return files.map(file => {
-      const filePath = join(fixturesDir, file);
-      const content = readFileSync(filePath, 'utf-8');
-      const fixture = JSON.parse(content) as SolverTestFixture;
-
-      // Validate fixture structure
-      if (!fixture.factory || !Array.isArray(fixture.factory)) {
-        throw new Error(`Invalid fixture ${file}: factory must be an array`);
-      }
-      if (!fixture.scoringMethod) {
-        throw new Error(`Invalid fixture ${file}: scoringMethod is required`);
-      }
-
-      return {
-        name: file.replace('.test.fixture.json', ''),
-        fixture,
-      };
-    });
-  } catch (error) {
-    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-      // Fixtures directory doesn't exist yet
-      return [];
-    }
-    throw error;
-  }
-}
+import { fixtures, getTestStoreRunner, type FactoryFixture } from "../fixtures";
 
 /**
  * Helper function to run a test case using a real store
  * @param fixture The test fixture with factory data and options
  */
-export async function runTestCase(name: string, fixture: SolverTestFixture) {
-  setDebugSolver(true);
+export async function runTestCase(name: string, fixture: FactoryFixture) {
   console.log('Starting test case:', name);
-  // Create a mock IDB for testing
-  const mockIDB = getIdb('test-zone');
-  if (!mockIDB) {
-    throw new Error("Failed to create mock IndexedDB for testing");
-  }
+  const [store, prom] = await getTestStoreRunner('test', fixture);
 
-  // Clear existing data
-  await (await mockIDB)?.clear('factories');
+  await prom; 
 
-  // Unminify the factory data
-  const factoryData = unminify(fixture.factory);
-  // Create a new store instance
-  const store = Store(mockIDB, { id: 'test', name: factoryData.name }).Graph;
-  
-  store.setState({
-    scoringMethod: fixture.scoringMethod,
-    manifoldOptions: fixture.manifoldOptions ? fixture.manifoldOptions : undefined,
-    solution: (fixture.previousSolutionObjectiveValue ? {
-      ObjectiveValue: fixture.previousSolutionObjectiveValue,
-      infrastructure: {
-        workers: 0,
-        electricity: 0,
-        computing: 0,
-        maintenance_1: 0,
-        maintenance_2: 0,
-        maintenance_3: 0,
-        footprint: 0,
-      },
-      nodeCounts: [],
-      products: { inputs: [], outputs: [] },
-      goals: [],
-      scoringMethod: fixture.scoringMethod,
-      manifolds: {}
-    } : undefined)
-  }, false, 'set previous solution');
-  
-  // Import the factory data
-  await store.getState().importData(factoryData);
-
-  // Wait for solution to be computed
-  await new Promise(resolve => setTimeout(resolve, 100));
-
-  const state = store.getState();
+  const state = store.Graph.getState();
   console.log('Starting expectations for test case', name);
   // Verify the solution was computed
   expect(state.solution).toBeDefined();
@@ -198,27 +92,21 @@ export async function runTestCase(name: string, fixture: SolverTestFixture) {
  */
 
 describe("Store Solver Integration Tests", () => {
-  // Load all test fixtures
-  const testFixtures = loadTestFixtures();
-
   test("Test fixtures directory exists and contains valid fixtures", () => {
-    // At minimum we should have at least one fixture
-    expect(testFixtures.length).toBeGreaterThanOrEqual(0);
-
     // If fixtures exist, validate they all have required fields
-    testFixtures.forEach(({ fixture }) => {
-      expect(fixture).toHaveProperty("factory");
-      expect(fixture).toHaveProperty("scoringMethod");
-      expect(Array.isArray(fixture.factory)).toBe(true);
+    Object.entries(fixtures).forEach(([name, fixture]) => {
+      expect(fixture, `Fixture ${name} is missing "factory" property`).toHaveProperty("factory");
+      expect(fixture, `Fixture ${name} is missing "scoringMethod" property`).toHaveProperty("scoringMethod");
+      expect(Array.isArray(fixture.factory), `Fixture ${name} factory property is not an array`).toBe(true);
     });
   });
 
   /**
    * Run all fixtures as individual tests
    */
-  test.each(testFixtures)(
-    "$name",
-    async ({ name, fixture }) => {
+  test.each(Object.entries(fixtures))(
+    "$0",
+    async (name: string, fixture: FactoryFixture) => {
       await runTestCase(name, fixture);
     }
   );

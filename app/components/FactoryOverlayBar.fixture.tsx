@@ -7,6 +7,53 @@ export type FactoryOverlayBarProps = {
   open: boolean;
 };
 
+const {products } = loadData();
+
+const testStore = createTestFactoryStore('test', 'Test Factory');
+export default {
+  ProductHighlight() {
+    const states = {
+      Visible: useFixtureInput("Visible", true),
+      Inputs: useFixtureInput("Inputs", true),
+      Outputs: useFixtureInput("Outputs", false),
+      Connected: useFixtureInput("Connected", true),
+      Unconnected: useFixtureInput("Unconnected", false),
+      Edges: useFixtureInput("Lines", true),
+      ProductId: useFixtureSelect("ProductId", {
+        options: products.keys().toArray(),
+        defaultValue: 'Product_Acid' as ProductId
+      }),
+    }
+    
+    testStore.Graph.getState().setHighlight({
+      mode: states.Visible[0] ? "product" : "none",
+      productId: states.ProductId[0],
+      options: {
+        connected: states.Connected[0],
+        unconnected: states.Unconnected[0],
+        inputs: states.Inputs[0],
+        outputs: states.Outputs[0],
+        edges: states.Edges[0],
+      }
+    });
+
+    testStore.Graph.setState({
+      getProductsInGraph: () => {
+        console.log("Getting products in graph, returning", states.ProductId[0]);
+        return new Set(products.keys().toArray());
+      }
+    })
+
+    return getFactoryWrapper(<Wrapper><FactoryOverlayBar /></Wrapper>,
+      {
+        store: testStore,
+        factoryId: 'test',
+        factoryName: 'Test Factory',
+      }
+    );
+  }
+}
+
 export function Wrapper({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-screen h-screen black flex overflow-hidden items-start justify-center">
@@ -37,52 +84,4 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
       {children}
     </div>
   );
-}
-
-const {products } = loadData();
-
-const testStore = createTestFactoryStore('test', 'Test Factory');
-export default {
-  ProductHighlight() {
-    const states = {
-      Visible: useFixtureInput("Visible", true),
-      Connected: useFixtureInput("Connected", true),
-      Unconnected: useFixtureInput("Unconnected", false),
-      Inputs: useFixtureInput("Inputs", true),
-      Outputs: useFixtureInput("Outputs", false),
-      Edges: useFixtureInput("Edges", true),
-      ProductId: useFixtureSelect("ProductId", {
-        options: products.keys().toArray(),
-        defaultValue: 'Product_Acid' as ProductId
-      }),
-    }
-    console.log("Setting highlight with states", states);
-    
-    testStore.Graph.getState().setHighlight({
-      mode: states.Visible[0] ? "product" : "none",
-      productId: states.ProductId[0],
-      options: {
-        connected: states.Connected[0],
-        unconnected: states.Unconnected[0],
-        inputs: states.Inputs[0],
-        outputs: states.Outputs[0],
-        edges: states.Edges[0],
-      }
-    });
-
-    testStore.Graph.setState({
-      getProductsInGraph: () => {
-        console.log("Getting products in graph, returning", states.ProductId[0]);
-        return new Set(products.keys().toArray());
-      }
-    })
-
-    return getFactoryWrapper(<Wrapper><FactoryOverlayBar /></Wrapper>,
-      {
-        store: testStore,
-        factoryId: 'test',
-        factoryName: 'Test Factory',
-      }
-    );
-  }
 }

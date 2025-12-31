@@ -7,6 +7,8 @@ import { useShallow } from "zustand/shallow";
 import { formatNumber, maintenanceIcon, productIcon, uiIcon } from "~/uiUtils";
 import { useFactoryStore } from "../factory/FactoryContext";
 import { loadData, type ProductId } from "../factory/graph/loadJsonData";
+import InfrastructurePopover from "~/components/InfrastructurePopover";
+import type { InfrastructureType } from "~/factory/infrastructure/calculations";
 
 const productData = loadData()?.products;
 
@@ -19,29 +21,41 @@ export default function FactoryControls() {
 
   // if (solution?.infrastructure == undefined) useFactory().store.getState().solutionUpdateAction(false);
   const setScoreMethod = useFactoryStore(state => state.setScoreMethod);
-  const infraScores = [{
+  const infraScores: Array<{
+    name: string;
+    type: InfrastructureType;
+    icon: string;
+    amount?: number;
+    unit?: string;
+  }> = [{
     name: 'Electricity',
+    type: 'electricity',
     icon: uiIcon('Electricity'),
     amount: solution?.infrastructure['electricity'],
     unit: 'kW'
   }, {
-    name: 'Worker',
+    name: 'Workers',
+    type: 'workers',
     icon: uiIcon('Worker'),
     amount: solution?.infrastructure['workers']
   }, {
-    name: 'Maintenance',
+    name: 'Maintenance 1',
+    type: 'maintenance_1',
     icon: maintenanceIcon('Product_Virtual_MaintenanceT1' as ProductId),
     amount: solution?.infrastructure['maintenance_1']
   }, {
     name: 'Maintenance 2',
+    type: 'maintenance_2',
     icon: maintenanceIcon('Product_Virtual_MaintenanceT2' as ProductId),
     amount: solution?.infrastructure['maintenance_2']
   }, {
     name: 'Maintenance 3',
+    type: 'maintenance_3',
     icon: maintenanceIcon('Product_Virtual_MaintenanceT3' as ProductId),
     amount: solution?.infrastructure['maintenance_3']
   }, {
     name: 'Computing',
+    type: 'computing',
     icon: uiIcon('Computing'),
     amount: solution?.infrastructure['computing'],
     unit: 'TFlops'
@@ -196,25 +210,28 @@ export default function FactoryControls() {
     <div className="costs pl-4 mt-0.5 align-middle flex-1 h-full grid auto-cols-fr grid-flow-col grid-rows-1 py-0.5 gap-1 justify-around content-start">
       {solutionStatus == "Solved" && solution ? (<>
         {infraScores.map((i) => {
-          return (<div key={i.name}
-            className="grid gap-0.5 grid-rows-[minmax(0,2fr)_min-content]
-            text-center text-xs text-gray-400 data-zero:opacity-20 data-zero:grayscale"
-            title={i.name + (i.unit ? (" (" + i.unit + ")") : "")}>
-            <div className="">
-              <img src={i.icon} alt={i.name} className="mx-auto h-full inline-block" />
-            </div>
-            <div className="text-nowrap ">{formatNumber(i.amount || 0, i.unit, 0)}</div>
-          </div>)
+          return (
+            <InfrastructurePopover
+              key={i.name}
+              type={i.type}
+              icon={i.icon}
+              name={i.name}
+              unit={i.unit}
+              totalAmount={i.amount}
+            />
+          );
         })}
 
-        {solution?.infrastructure['footprint'] != undefined ? (<>
-          <div key="footprint"
-            className="grid gap-0.5 grid-rows-[minmax(0,2fr)_min-content]
-            text-center text-xs text-gray-400 data-zero:opacity-20 data-zero:grayscale" title={"Machine Footprint (tiles)"}>
-            <div className=""><ArrowsPointingOutIcon className="inline-block h-full mx-auto" /></div>
-            <div className="text-nowrap">{formatNumber(solution?.infrastructure['footprint'] || 0, "t", 0)}</div>
-          </div>
-        </>) : null}
+        {solution?.infrastructure['footprint'] != undefined ? (
+          <InfrastructurePopover
+            key="footprint"
+            type="footprint"
+            icon="/assets/ui/Move128.png"
+            name="Machine Footprint"
+            unit="tiles"
+            totalAmount={solution?.infrastructure['footprint']}
+          />
+        ) : null}
 
       </>) : null}
     </div>

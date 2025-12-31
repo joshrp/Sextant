@@ -44,7 +44,7 @@ export function FactoryOverlayBar() {
               min-w-2/5 translate-x-[-50%] data-open:opacity-100 data-open:visible
               opacity-0 invisible
             
-              rounded-lg text-white border-2 border-white/20
+              rounded-lg text-white border-2 border-double border-white/20
             bg-zinc-900/70 backdrop-blur-sm"
     >
       <div className="flex flex-row gap-2 items-center justify-center border-b-1 border-gray-500 p-2">
@@ -94,7 +94,7 @@ export function FactoryOverlayBar() {
           </button>
         </div>
       </div>
-      <div className="actions-row flex flex-row justify-center">
+      <div className="actions-row flex flex-row justify-stretch">
         <ProductViewOptionButton label="Inputs" active={options.inputs} onClick={() => { setOptions({ ...options, inputs: !options.inputs }) }} />
         <ProductViewOptionButton label="Outputs" active={options.outputs} onClick={() => { setOptions({ ...options, outputs: !options.outputs }) }} />
         <ProductViewOptionButton label="Connected" active={options.connected} onClick={() => { setOptions({ ...options, connected: !options.connected }) }} />
@@ -113,14 +113,13 @@ function ProductViewOptionButton(props: {
   active: boolean;
 }) {
   return <div
-    className={
-      "button-inline h-full flex flex-row cursor-pointer items-center-safe transition-colors duration-100 " +
-      "py-2 px-3 not-first:border-l-1 border-gray-500 " +
-      (props.active ?
-        "text-white bg-zinc-800 hover:text-gray-300"
-        :
-        "text-gray-600 ")
-    }
+    data-active={props.active ? true : null}
+    className="h-full flex-1 flex flex-row cursor-pointer justify-center items-center-safe text-center
+      py-2 px-3 transition-colors duration-100 
+      text-gray-600
+      not-first:border-l-1 border-gray-500 first:rounded-bl-md last:rounded-br-md
+      data-active:text-white data-active:bg-zinc-800 data-active:hover:text-gray-300
+      "
     onClick={props.onClick}
   >
     <div className="mr-1">
