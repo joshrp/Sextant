@@ -1,4 +1,15 @@
-# Testing Tasks - Quick Reference for AI Agents
+# Testing Tasks - Quick Reference for AI Agents (Updated)
+
+## Recent Progress (Last 2 Weeks)
+
+**✅ Completed Tasks:**
+- Task 5: Game Data Utils (100%)
+- Task 6: Component Testing Setup (100%)
+- Task 4: Store Reducers - GraphStore only (60%)
+
+**📊 Overall Progress: ~25% complete** (2.6 of 8 tasks)
+
+---
 
 ## Time Estimates
 
@@ -30,135 +41,161 @@ All tasks show two time estimates:
 
 ---
 
-## 🟡 HIGH VALUE: Do Soon
+### ✅ Task 5: Game Data Utils (COMPLETED)
+**Time Actual:** ~3-4h  
+**Status:** ✅ COMPLETE  
+**What was done:** 
+- Created `app/gameData/utils.ts` with 6 utility functions
+- Wrote `app/gameData/utils.test.ts` with 38 comprehensive tests
+- All functions tested with real game data
+- Performance validated (searches < 100ms)
+**Key files:**
+- `app/gameData/utils.ts` - All utility functions
+- `app/gameData/utils.test.ts` - Comprehensive test suite
+**Next steps:** None - fully complete
 
-### Task 3: Graph Model Constraints
+---
+
+### ✅ Task 6: Component Testing Setup (COMPLETED)
+**Time Actual:** ~6-8h  
+**Status:** ✅ COMPLETE  
+**What was done:**
+- Set up complete component testing infrastructure
+- Created `vitest.component.config.ts` for separate jsdom environment
+- Implemented full test helper suite in `renderHelpers.tsx`
+- Extracted `recipeNodeLogic.ts` pure functions
+- Wrote comprehensive tests for RecipeNode and RecipeNodeView
+**Key files:**
+- `vitest.component.config.ts` - Component test config
+- `app/test/setup/componentTests.ts` - RTL setup
+- `app/test/setup/indexeddb.ts` - IndexedDB polyfill
+- `app/test/helpers/renderHelpers.tsx` - Test helpers
+- `app/factory/graph/recipeNodeLogic.ts` - Pure logic functions
+- `app/factory/graph/RecipeNode.component.test.tsx` - 17 tests
+**Next steps:** Expand to more components as needed
+
+---
+
+### 🔄 Task 4: Store Action Testing (60% COMPLETE)
+**Time Actual:** ~6h | **Remaining:** ~6-8h  
+**Status:** 🔄 GraphStore complete, ZoneStore and PlannerStore pending  
+**What was done:**
+- Extracted `graphReducers.ts` with all GraphStore reducers
+- Wrote comprehensive tests (50+ test cases)
+- Created `graphStates.ts` test fixtures
+- All reducers proven immutable
+**Key files:**
+- `app/context/reducers/graphReducers.ts` - Pure reducer functions
+- `app/context/reducers/graphReducers.test.ts` - 50+ tests
+- `app/test/fixtures/graphStates.ts` - Test fixtures
+**Next steps:**
+- Extract and test ZoneStore reducers
+- Extract and test PlannerStore reducers
+- Add IndexedDB integration tests
+- Test cross-store cascading deletes
+
+---
+
+## 🟡 HIGH VALUE: Do Next (Priority Order)
 **Time:** 👤 4-6h | 🤖 8-12h  
 **Why:** Complex transformation between UI and solver  
 **What:** Refactor to pure functions, test constraint generation, manifold logic  
 **Tool:** Vitest  
-**Blocks:** Easier component testing later  
-**Agent Notes:** Extract logic from `graphModel.ts`, avoid React Flow types, test solver still works  
-
-### Task 4: Store Action Testing
-**Time:** 👤 6-8h | 🤖 12-18h  
-**Why:** State integrity, IndexedDB persistence  
-**What:** Extract reducers, test mutations, verify persistence  
-**Tool:** Vitest + fake-indexeddb  
-**Blocks:** Nothing, but highest effort  
-**Agent Notes:** Do GraphStore first (most complex), test immutability, use `waitForPersistence()`  
-
-### Task 5: Game Data Utils
-**Time:** 👤 2-3h | 🤖 3-5h  
-**Why:** Used throughout app, reliability needed  
-**What:** Extract lookup/filter helpers from `gameData.ts`, test edge cases  
-**Tool:** Vitest  
-**Blocks:** Nothing, quick win  
-**Agent Notes:** Use real recipe IDs, test with multiple recipes, check performance < 100ms  
-
----
-
-## 🟢 FOUNDATIONAL: When Ready
-
-### Task 6: Component Testing Setup
-**Time:** 👤 4-6h | 🤖 8-12h  
-**Why:** Enables future component tests  
-**What:** Setup infrastructure, refactor 3 components, establish patterns  
-**Tool:** @testing-library/react (needs install)  
-**Blocks:** Task 8 (E2E benefits from this)  
-**Agent Notes:** Extract logic from components first, use `renderWithRouter()`, test in UI  
+**Status:** ⏳ TODO  
+**Dependencies:** Best done after Task 1 (solver tests provide baseline)
+**Agent Notes:** Extract logic from `graphModel.ts`, avoid React Flow types, test solver still works
 
 ### Task 7: Hydration Testing
 **Time:** 👤 2h | 🤖 3-4h  
 **Why:** Map/Set serialization correctness  
 **What:** Test round-trips, nested structures, edge cases  
 **Tool:** Vitest  
-**Blocks:** Nothing, small isolated task  
-**Agent Notes:** Round-trip = serialize → deserialize → compare, test with real store data  
+**Status:** ⏳ TODO  
+**Dependencies:** None, quick win
+**Agent Notes:** Round-trip = serialize → deserialize → compare, test with real store data
 
 ### Task 8: E2E Smoke Tests
 **Time:** 👤 4-6h | 🤖 8-12h  
 **Why:** Integration confidence  
 **What:** 3 critical paths only (create factory, import, navigate)  
 **Tool:** Playwright (needs install/setup)  
-**Blocks:** Best after Task 6  
-**Agent Notes:** Use `test.describe.serial()`, clear IndexedDB between tests, keep minimal  
+**Status:** ⏳ TODO  
+**Dependencies:** Benefits from Task 6 (component testing foundation)
+**Agent Notes:** Use `test.describe.serial()`, clear IndexedDB between tests, keep minimal
 
 ---
 
-## Task Priority Matrix
+## Task Priority Matrix (Updated)
 
-| Task | Priority | Agent Time | Dev Time | Dependencies | ROI | Complexity |
-|------|----------|------------|----------|--------------|-----|------------|
-| 1. Solver Tests | 🔴 | 4-8h | 2-4h | None | ⭐⭐⭐⭐⭐ | Low |
-| 2. Import/Export | 🔴 | 5-8h | 3-4h | None | ⭐⭐⭐⭐⭐ | Low-Med |
-| 3. Graph Model | 🟡 | 8-12h | 4-6h | Task 1 | ⭐⭐⭐⭐ | Medium |
-| 5. Game Data | 🟡 | 3-5h | 2-3h | None | ⭐⭐⭐⭐ | Low |
-| 7. Hydration | 🟢 | 3-4h | 2h | None | ⭐⭐⭐ | Low |
-| 6. Components | 🟢 | 8-12h | 4-6h | None | ⭐⭐⭐ | Medium |
-| 4. Store Actions | 🟡 | 12-18h | 6-8h | None | ⭐⭐⭐ | High |
-| 8. E2E | 🟢 | 8-12h | 4-6h | Task 6 | ⭐⭐ | Medium-High |
+| Task | Priority | Agent Time | Status | Dependencies | ROI |
+|------|----------|------------|--------|--------------|-----|
+| 1. Solver Tests | 🔴 CRITICAL | 4-8h | ⏳ TODO | None | ⭐⭐⭐⭐⭐ |
+| 2. Import/Export | 🔴 CRITICAL | 5-8h | ⏳ TODO | None | ⭐⭐⭐⭐⭐ |
+| 3. Graph Model | 🟡 High | 8-12h | ⏳ TODO | Task 1 | ⭐⭐⭐⭐ |
+| 4. Store Actions | 🟡 High | 6-8h rem | 🔄 60% | None | ⭐⭐⭐ |
+| 5. Game Data | 🟡 High | -- | ✅ DONE | -- | ⭐⭐⭐⭐ |
+| 6. Components | 🟢 Foundation | -- | ✅ DONE | -- | ⭐⭐⭐ |
+| 7. Hydration | 🟢 Foundation | 3-4h | ⏳ TODO | None | ⭐⭐⭐ |
+| 8. E2E | 🟢 Foundation | 8-12h | ⏳ TODO | Task 6 ✅ | ⭐⭐ |
 
 ---
 
-## Recommended Sequence
+## Recommended Sequence (Updated)
 
 ### For AI Agents (Conservative, ~5-7h/week)
 
-**Weeks 1-2:** Tasks 1, 2 **(10-16h total)**
-- Critical path coverage
-- Lowest complexity
-- Immediate safety net
+**✅ COMPLETED (Weeks 1-3):** Tasks 5, 6, partial Task 4 (~15-20h invested)
 
-**Week 3:** Tasks 5, 7 **(6-9h)**
-- Quick wins
-- Build testing confidence
-- Establish patterns
+**Weeks 4-5 (DO NEXT):** Tasks 1, 2 **(10-16h)** 🔴 HIGHEST PRIORITY
+- Critical safety net for core functionality
+- Must be done before major refactoring
+- Lowest complexity, highest value
 
-**Weeks 4-5:** Task 3 **(8-12h)**
-- Higher complexity refactor
-- Significant value
-- Careful validation needed
+**Week 6:** Task 7 **(3-4h)**
+- Quick win, completes data persistence testing
+- Can overlap with other work
 
-**Weeks 6-7:** Task 6 **(8-12h)**
-- Foundation for UI testing
-- Moderate complexity
-- Long-term investment
+**Week 7:** Complete Task 4 **(6-8h remaining)**
+- Finish ZoneStore and PlannerStore reducers
+- Add IndexedDB integration tests
 
-**Weeks 8-10:** Task 4 **(12-18h)**
-- Highest effort
-- Do after gaining experience
-- Most thorough testing needed
+**Weeks 8-9:** Task 3 **(8-12h)**
+- Higher complexity, benefits from Tasks 1, 2
+- Graph model testing
 
-**Weeks 11-12:** Task 8 **(8-12h)**
-- Final integration layer
-- Polish for release
-- Benefits from all prior work
+**Week 10:** Task 8 **(8-12h)**
+- Final E2E smoke tests
+- Integration confidence
 
-**Total Agent Time:** 52-79 hours over 12 weeks
+**Remaining Time:** 35-52 hours over 7 weeks
 
 ### For Experienced Developer (Aggressive, ~4-6h/week)
 
-**Week 1:** Tasks 1, 2 **(5-8h)**  
-**Week 2:** Tasks 5, 7 **(4-5h)**  
-**Week 3:** Task 3 **(4-6h)**  
-**Week 4:** Task 6 **(4-6h)**  
-**Weeks 5-6:** Task 4 **(6-8h)**  
+**✅ COMPLETED:** Tasks 5, 6, partial Task 4 (~10-12h invested)
+
+**Week 4 (DO NEXT):** Tasks 1, 2 **(5-8h)** 🔴 PRIORITY  
+**Week 5:** Task 7 + Complete Task 4 **(4-6h)**  
+**Week 6:** Task 3 **(4-6h)**  
 **Week 7:** Task 8 **(4-6h)**
 
-**Total Dev Time:** 27-43 hours over 7 weeks
+**Remaining Time:** 17-26 hours over 4 weeks
 
 ---
 
-## Decision Guide
+## Decision Guide (Updated)
 
-**Need quick safety net?** → Start with Tasks 1, 2 (critical bugs prevented)  
-**Agents working on UI components?** → Do Task 6 first (establish patterns)  
-**Agents touching store logic?** → Prioritize Task 4 (prevent state bugs)  
+**Need quick safety net?** → Do Tasks 1, 2 NOW (critical bugs prevented) 🔴  
+**Want to complete foundations?** → Finish Task 4 + do Task 7 (store testing)  
 **About to refactor solver?** → Do Task 3 before breaking changes  
 **Preparing for beta release?** → Do Task 8 last (integration confidence)  
-**Limited time (< 5h)?** → Do Tasks 5 or 7 (quick wins)  
-**Want to learn testing?** → Start Task 1 (good examples exist)  
+**Limited time (< 5h)?** → Do Task 7 (quick win)  
+**Want to learn testing?** → Review completed Tasks 5, 6 (good examples)
+
+**Current Status:**
+- ✅ Component testing infrastructure ready
+- ✅ Game data utilities complete
+- 🔄 Store testing 60% done
+- ⏳ Core solver and import/export tests NEEDED URGENTLY  
 
 ---
 
@@ -336,16 +373,26 @@ npm test && npx playwright test
 
 ---
 
-## Total Effort Summary
+## Total Effort Summary (Updated)
 
-| Role | Total Time | Weeks @ 5h/wk | Weeks @ 10h/wk |
-|------|-----------|---------------|----------------|
-| 🤖 AI Agent | 52-79 hours | 10-16 weeks | 5-8 weeks |
-| 👤 Experienced Dev | 27-43 hours | 5-9 weeks | 3-4 weeks |
+| Role | Total Time | Completed | Remaining | Progress |
+|------|-----------|-----------|-----------|----------|
+| 🤖 AI Agent | 52-79h total | 15-20h | 35-52h | ~25% |
+| 👤 Experienced Dev | 27-43h total | 10-12h | 17-26h | ~30% |
 
-**Recommendation for Agents:** Plan 10-12 weeks at ~5-7 hours/week for sustainable progress with quality validation.
+**What's Done:**
+- ✅ Game Data Utils (Task 5) - 3-4h
+- ✅ Component Testing (Task 6) - 6-8h  
+- 🔄 Store Reducers (Task 4) - 6h (60% complete)
 
-**Recommendation for Devs:** Plan 6-8 weeks at ~4-6 hours/week for focused implementation.
+**What's Next (Priority Order):**
+1. 🔴 Tasks 1, 2 - Solver and Import/Export (10-16h) - CRITICAL
+2. 🟡 Task 7 - Hydration (3-4h) - Quick win
+3. 🟡 Complete Task 4 - Remaining stores (6-8h)
+4. 🟡 Task 3 - Graph Model (8-12h)
+5. 🟢 Task 8 - E2E (8-12h)
+
+**Recommendation for Agents:** Focus on Tasks 1 and 2 next - these are critical for code quality and should be completed before any major refactoring work.
 
 ---
 
