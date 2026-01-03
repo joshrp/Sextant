@@ -9,7 +9,7 @@ import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/shallow';
 import { formatNumber } from '~/uiUtils';
-import { useFactoryStore } from '~/factory/FactoryContext';
+import useFactory, { useFactoryStore } from '~/factory/FactoryContext';
 import { loadData, type MachineId } from '~/factory/graph/loadJsonData';
 import type { CustomNodeType } from '~/factory/graph/nodes';
 import type { Solution } from '~/factory/solver/types';
@@ -83,7 +83,7 @@ export default function InfrastructurePopover({
   unit,
   totalAmount,
 }: InfrastructurePopoverProps) {
-  const nodes = useFactoryStore(useShallow(state => state.nodes));
+  const nodes = useFactory().store.getState().nodes;
   const solution = useFactoryStore(useShallow(state => state.solution));
   const solutionStatus = useFactoryStore(useShallow(state => state.solutionStatus));
 

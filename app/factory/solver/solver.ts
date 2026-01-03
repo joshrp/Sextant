@@ -1,4 +1,4 @@
-import highsLoader, { type Highs, type HighsOptions, type HighsSolution } from "highs";
+import { type HighsOptions, type HighsSolution } from "highs";
 import { loadData, type ProductId } from "../graph/loadJsonData";
 
 import { maintenanceKey } from "~/uiUtils";
@@ -6,13 +6,9 @@ import type { CustomEdgeType } from '../graph/edges';
 import type { CustomNodeType } from '../graph/nodes';
 import { type Constraint, type FactoryGoal, type GraphModel, type GraphScoringMethod, type ManifoldOptions, type NodeConnections, type Solution } from "./types";
 import { buildNodeConnections, filterAndSortSolutions, findOptionalTerms, getEquality, getInfrastructureWeight, inputMatcher, makeVertexId, outputMatcher, parseHighsSolution, shouldSkipConstraint } from "./solverUtils";
+import { solveWithHighs } from "./solverClient";
 
 const recipeData = loadData().recipes;
-let highsProm: Promise<Highs>;
-if (typeof window === "undefined" || process.env.NODE_ENV === "test")
-  highsProm = highsLoader();
-else
-  highsProm = highsLoader({ locateFile: (file: string) => "https://lovasoa.github.io/highs-js/" + file });
 
 const highsOptions: HighsOptions = { time_limit: 2, small_matrix_value: 1e-4 };
 /** 
@@ -171,12 +167,10 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
   const lpp = buildLpp(graph, goals, freeConstraints, scoreMethod);
   debug(lpp);
 
-  const highs = await highsProm;
-  let res: ReturnType<typeof highs.solve> | null = null;
+  let res: HighsSolution | null = null;
   try {
-    res = highs.solve(lpp, highsOptions);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (e: any) {
+    res = await solveWithHighs(lpp, highsOptions);
+  } catch (e: unknown) {
     console.error('Error solving LPP');
     console.error(e);
     res = null;

@@ -139,7 +139,6 @@ type HandleListProps = {
 function HandleList({ products, pos, inputs, productEdges, solution, highlight }: HandleListProps) {
   const ltr = <T extends string, U extends string>(left: T, right: U) => pos === Position.Left ? left : right;
   const inOrOut = <T extends string, U extends string>(input: T, output: U) => inputs ? input : output;
-  console.log("Rendering HandleList", { products, pos, inputs, productEdges, solution });
   return (
     <div className={
       `recipe-${inOrOut("inputs", "outputs")} 
