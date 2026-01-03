@@ -1,0 +1,90 @@
+/**
+ * COI Calculator Custom Theme
+ * 
+ * This file defines CSS custom properties for the color palette
+ * and overrides Tailwind's default colors with the COI-themed colors.
+ * 
+ * See doc/UI_COLORS.md for usage guidelines.
+ */
+
+@layer base {
+  :root {
+    /* ===================================
+     * COI Color Palette Variables
+     * =================================== */
+    
+    /* Major base colors */
+    --color-hud: #12151A;           /* Very dark slate background */
+    --color-panel: #1E242B;         /* Dark steel gray */
+    --color-ui: #2B333D;            /* Medium gray for secondary UI */
+    --color-fill: #D0D6DE;          /* Light desaturated panel fill */
+    --color-text: #F3F5F7;          /* Neutral text white */
+    
+    /* Minor/supporting colors */
+    --color-blueprint: #5AA1CC;     /* Soft blueprint blue */
+    --color-grass: #6FA362;         /* Muted grass green */
+    --color-rock: #7E858C;          /* Rock/limestone gray */
+    --color-disabled: #9AA3B0;      /* Low-priority/disabled text */
+    --color-border: #3C4653;        /* Divider/border gray */
+    
+    /* Accent / status colors */
+    --color-accent: #2FA8A3;        /* Primary action teal */
+    --color-info: #3F8FD9;          /* Secondary info blue */
+    --color-positive: #5FBF5A;      /* Positive/OK green */
+    --color-warning: #D9A933;       /* Warning amber */
+    --color-error: #D9534F;         /* Error/critical red */
+    
+    /* Override gray scale with COI palette */
+    --color-gray-950: #12151A;      /* Darkest background (hud) */
+    --color-gray-900: #1E242B;      /* Dark panel backgrounds (panel) */
+    --color-gray-800: #2B333D;      /* Secondary UI elements (ui) */
+    --color-gray-700: #3C4653;      /* Borders and dividers (border) */
+    --color-gray-600: #7E858C;      /* Muted elements (rock) */
+    --color-gray-500: #9AA3B0;      /* Disabled text (disabled) */
+    --color-gray-400: #9AA3B0;      /* Low priority text (disabled) */
+    --color-gray-300: #D0D6DE;      /* Light panel fill (fill) */
+    --color-gray-200: #D0D6DE;      /* Lighter fill (fill) */
+    --color-gray-100: #D0D6DE;      /* Lightest fill (fill) */
+    
+    /* Override zinc scale (similar to gray but used in some components) */
+    --color-zinc-950: #12151A;      /* hud */
+    --color-zinc-900: #1E242B;      /* panel */
+    --color-zinc-800: #2B333D;      /* ui */
+    --color-zinc-700: #3C4653;      /* border */
+    --color-zinc-600: #7E858C;      /* rock */
+    --color-zinc-500: #9AA3B0;      /* disabled */
+    --color-zinc-400: #9AA3B0;      /* disabled */
+    
+    /* Override blue scale with info blue and blueprint */
+    --color-blue-900: #1F476C;      /* Darker info blue */
+    --color-blue-800: #3F8FD9;      /* Info blue */
+    --color-blue-700: #3F8FD9;      /* Info blue */
+    --color-blue-600: #3F8FD9;      /* Info blue */
+    --color-blue-500: #5AA1CC;      /* Blueprint blue */
+    --color-blue-400: #5AA1CC;      /* Blueprint blue */
+    
+    /* Override green scale with positive green and grass */
+    --color-green-700: #488F44;     /* Darker positive green */
+    --color-green-600: #5FBF5A;     /* Positive green */
+    --color-green-500: #5FBF5A;     /* Positive green */
+    --color-green-400: #6FA362;     /* Grass green for accents */
+    
+    /* Override red scale with error red */
+    --color-red-700: #AD423F;       /* Darker error red */
+    --color-red-600: #D9534F;       /* Error red */
+    --color-red-500: #D9534F;       /* Error red */
+    --color-red-400: #D9534F;       /* Error red */
+    --color-red-300: #E58380;       /* Lighter error red */
+    
+    /* Override orange/amber scale with warning amber */
+    --color-orange-700: #D9A933;    /* Warning amber */
+    --color-amber-700: #D9A933;     /* Warning amber */
+    --color-amber-600: #D9A933;     /* Warning amber */
+    --color-amber-500: #D9A933;     /* Warning amber */
+    
+    /* Override teal/cyan for accent */
+    --color-teal-600: #2FA8A3;      /* Accent teal */
+    --color-teal-500: #2FA8A3;      /* Accent teal */
+    --color-cyan-500: #2FA8A3;      /* Accent teal */
+  }
+}

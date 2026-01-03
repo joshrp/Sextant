@@ -208,7 +208,7 @@ export default function FactoryControls() {
     </Menu >
 
     <div className="costs pl-4 mt-0.5 align-middle flex-1 h-full grid auto-cols-fr grid-flow-col grid-rows-1 py-0.5 gap-1 justify-around content-start">
-      {solutionStatus == "Solved" && solution ? (<>
+      {solution ? (<>
         {infraScores.map((i) => {
           return (
             <InfrastructurePopover

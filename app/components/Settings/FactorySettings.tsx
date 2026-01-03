@@ -403,7 +403,7 @@ function FactoryDebug() {
 
 function ClipboardCopyButton({ text }: { text: string }) {
 
-  return <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded duration-500 transition-all data-done:bg-black mb-4 ml-4 cursor-pointer"
+  return <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded duration-500 transition-all data-done:bg-zinc-950 mb-4 ml-4 cursor-pointer"
     onClick={e => {
       navigator.clipboard.writeText(text)
         .then(() => {

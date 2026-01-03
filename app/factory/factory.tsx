@@ -145,7 +145,7 @@ export function Factory() {
       <div
         ref={sidebarRef}
         className="
-          flex flex-col bg-black
+          flex flex-col bg-zinc-950
           overflow-y-scroll overflow-x-hidden
           w-[calc(100%)] h-full
           "
