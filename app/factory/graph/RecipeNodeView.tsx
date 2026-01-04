@@ -22,7 +22,7 @@ export interface RecipeNodeViewProps {
   recipe: Recipe;
   productEdges: ProductEdges;
   ltr: boolean;
-  isFarZoom: boolean;
+  zoomLevel: 0 | 1 | 2 | 3;
   onFlip: () => void;
   onRemove: () => void;
   solution?: {
@@ -40,16 +40,19 @@ export default function RecipeNodeView({
   recipe,
   productEdges,
   ltr,
-  isFarZoom,
   onFlip,
   onRemove,
   solution,
   highlight,
+  zoomLevel,
 }: RecipeNodeViewProps) {
   const runCount = solution?.runCount ? solution.runCount : 1;
 
+
   return (
-    <div className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+    <div 
+    data-zoomlevel={zoomLevel}
+    className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md ">
       <div className="recipe-node-title-bar flex justify-between border-white/20 mb-8 pb-2 border-b-2 items-center-safe ">
         <div className="flex-1 text-left p-1">
           <button
@@ -81,16 +84,14 @@ export default function RecipeNodeView({
           solution={solution}
           highlight={highlight}
         />
-        {!isFarZoom &&
-          <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
-            <img src={machineIcon(recipe.machine)} alt={recipe.machine.name}
-              className="inline-block w-20 min-w-8 p-1 pointer-events-none
-          bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
-          " data-flipped={ltr == false || null} />
-            <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
+        <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
+          <img src={machineIcon(recipe.machine)} alt={recipe.machine.name}
+            className="inline-block w-20 min-w-8 p-1 pointer-events-none
+        bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
+        " data-flipped={ltr == false || null} />
+          <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
 
-          </div>
-        }
+        </div>
         <HandleList 
           products={ltr ? recipe.outputs : recipe.inputs}
           pos={Position.Right} 
@@ -101,6 +102,7 @@ export default function RecipeNodeView({
         />
 
       </div>
+    
       <div className="recipe-node-infra-bar flex justify-start align-start gap-2 border-white/20 pt-4 mb-1 pb-0 border-t-2">
         <InfrastructureIcon name="Electricity Used" icon={uiIcon("Electricity")}
           amount={getQuantityDisplay(recipe.machine.electricity_consumed, runCount, "kW") /*TODO:: Modify by recipe? */} />
@@ -115,6 +117,7 @@ export default function RecipeNodeView({
       </div>
     </div>
   );
+
 }
 
 function InfrastructureIcon({ name, icon, amount, iconClassName }: { name: string, icon: string, amount: string, iconClassName?: string }) {
@@ -148,7 +151,8 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
       `recipe-${inOrOut("inputs", "outputs")} 
         recipe-list
         flex-2 relative 
-        ${ltr("items-start -left-2", "justify-end-safe -right-2")}`
+        ${ltr("-left-2", "justify-end-safe -right-2")}
+        `
     }>
       {products.map(prod => {
         const isConnected = !!productEdges.get(prod.product.id);
@@ -159,11 +163,12 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
           position={pos}
           id={prod.product.id}
           style={handleStyle}
-          className="handle py-2 text-center">
+          className={`handle py-2 text-center`}>
           <img data-optional={prod.optional ? true : null} src={productIcon(prod.product.icon)} alt={prod.product.name}
-            className="drop-shadow-md/30 pointer-events-none block max-w-8 
+            title={prod.product.name}
+            className={`drop-shadow-md/30 pointer-events-none block mx-auto max-w-8
             data-optional:p-0.5 data-optional:box-content data-optional:border-1 border-dashed border-gray-400 border-0
-          " />
+          `} />
           <div
             style={{
               backgroundColor: productColor,
@@ -174,14 +179,14 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
         </Handle>
 
         return (<div style={{ backgroundColor: productColor }}
-          className={`recipe-${inOrOut("input", "output")} recipe-handle text-nowrap relative ${ltr("pl-2", "pr-2")} flex mb-4 items-center-safe`}
+          className={`recipe-${inOrOut("input", "output")} recipe-handle relative text-nowrap ${ltr("pl-2", "pr-2")} flex mb-4 items-center-safe`}
           key={prod.product.id}
           data-connected={isConnected}
           data-highlight={shouldHighlightProduct(highlight, prod.product.id, inputs, isConnected) ? true : null}
           data-muted={shouldMuteProduct(highlight, prod.product.id) ? true : null}
         >
           {pos === Position.Left ? handle : null}
-          <div className="flex-1 min-w-4 p-2 text-shadow-md/50">
+          <div className={`flex-1 min-w-4 p-2 text-shadow-md/50`}>
             {getQuantityDisplay(prod.quantity, displayRunCount, prod.product.unit)}
           </div>
           {pos === Position.Left ? null : handle}

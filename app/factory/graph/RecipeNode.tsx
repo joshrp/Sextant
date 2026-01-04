@@ -18,7 +18,17 @@ export type RecipeNode = Node<RecipeNodeData>;
 type ProductEdges = Map<ProductId, boolean | null>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const zoomSelector = (s: any) => s?.transform?.[2] <= 0.2;
+const zoomSelector = (s: any) => {
+  const zoom = s?.transform?.[2];
+  if (zoom === undefined || zoom === null || zoom > 0.28) return 0;
+  if (zoom > 0.2) {
+    return 1;
+  } else if (zoom > 0.12) {
+    return 2;
+  } else {
+    return 3;
+  }
+}
 
 // TODO: Component Testing - Refactored for testability:
 // ✅ DONE: Extracted pure logic functions to recipeNodeLogic.ts (getQuantityDisplay, getRunCount)
@@ -51,7 +61,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   };
 
   const connectedEdges = useFactoryStore(useShallow(state => state.edges.filter(e => e.source === props.id || e.target === props.id)));
-  const isFarZoom = useStore(zoomSelector);
+  const zoomLevel = useStore(zoomSelector);
 
   const recipe = recipes.get(props.data.recipeId);
   if (!recipe) {
@@ -90,7 +100,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
       recipe={recipe}
       productEdges={productEdges}
       ltr={props.data.ltr}
-      isFarZoom={isFarZoom}
+      zoomLevel={zoomLevel}
       onFlip={flipNode}
       onRemove={() => removeNode(props.id)}
       solution={props.data.solution}

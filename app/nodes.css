@@ -9,6 +9,22 @@
   scale: 1.5
 }
 
+.react-flow__node:hover {
+  z-index: 2000 !important;
+   & [data-zoomlevel] {
+    transition: scale 0.1s ease-out
+  }
+  & [data-zoomlevel="1"] {
+    scale: 1.5;
+  }
+  & [data-zoomlevel="2"] {
+    scale: 2.5;
+  }
+  & [data-zoomlevel="3"] {
+    scale: 3.5;
+  }
+}
+
 .recipe-input {
   &[data-highlight="true"] {
     @apply productHighlight;
