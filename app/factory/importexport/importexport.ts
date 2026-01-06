@@ -42,7 +42,8 @@ type MinifiedState = [
     number, // qty
     "eq" | "lt" | "gt", // type
     boolean, // isOutput
-  ][]
+  ][],
+  string?, // icon (optional)
 ]
 
 
@@ -53,8 +54,8 @@ const currentVersion = 1;
  * Any change to the data here needs to be versioned. 
  * Increase the currentVersion and make a migration for the old one in unminifyVersion
  */
-export function minify<T extends GraphCoreData>(state: T): MinifiedState {
-  return [
+export function minify<T extends GraphCoreData>(state: T, icon?: string): MinifiedState {
+  const baseArray: MinifiedState = [
     currentVersion,
     state.name,
     Object.values(state.nodes).map(n => [
@@ -78,6 +79,13 @@ export function minify<T extends GraphCoreData>(state: T): MinifiedState {
       g.dir === "output",
     ])
   ];
+  
+  // Only include icon if it's provided (maintains backward compatibility)
+  if (icon) {
+    baseArray.push(icon);
+  }
+  
+  return baseArray;
 }
 
 export const unminify = (data: unknown): GraphImportData => {
@@ -97,7 +105,7 @@ class Unminify {
 
   validate(data: unknown): data is MinifiedState {
     if (!Array.isArray(data)) throw new Error("Invalid data: not an array");
-    if (data.length < 4) throw new Error("Invalid data: wrong length");
+    if (data.length < 5) throw new Error("Invalid data: wrong length (expected at least 5 elements)");
     if (typeof data[0] !== "number") throw new Error("Invalid data: version number missing");
     if (data[0] < 1) throw new Error("Unsupported version: " + data[0]);
     if (data[0] > currentVersion) throw new Error("Unsupported version: " + data[0]);
@@ -118,6 +126,7 @@ class Unminify {
     const nodes: Map<string, RecipeId> = new Map();
     return {
       name: min[1],
+      icon: min.length > 5 ? min[5] : undefined, // Extract icon only if present
       nodes: min[2].map(n => {
         const recipeId = n[4] as RecipeId;
         if (recipes.has(recipeId) === false) {

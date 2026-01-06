@@ -44,7 +44,7 @@ export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId:
         const newStore = FactoryStore(idbRef.current!, { id, name: data.name })
         newStore.Graph.getState().importData(data);
 
-        storeRef.current.getState().newFactory(data.name, id);
+        storeRef.current.getState().newFactory(data.name, id, data.icon);
       }
     }}>
       {children}

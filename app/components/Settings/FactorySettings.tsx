@@ -17,10 +17,11 @@ import type { GraphImportData } from "~/factory/store";
 import { getRecipeInputs, getRecipeOutputs } from "~/gameData/utils";
 import hydration from "~/hydration";
 import { useStableParam } from "~/routes";
-import { productIcon } from "~/uiUtils";
+import { getAllIcons, productIcon } from "~/uiUtils";
 import { SelectorDialog } from "../Dialog";
+import IconSelector, { type IconInfo } from "../IconSelector";
 
-const { products } = loadData();
+const { products, machines } = loadData();
 
 const settingsTabs = [
   { id: "weights", name: "Weights" },
@@ -111,6 +112,7 @@ function FactoryImport() {
   const [importStr, setImportStr] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [newFactoryData, setNewFactoryData] = useState<GraphImportData | null>(null);
+  const [showIconSelector, setShowIconSelector] = useState(false);
   const zone = useProductionZone();
   const currentFactories = useProductionZoneStore(state => state.factories);
   const [importingWait, setImportingWait] = useState(false);
@@ -158,6 +160,30 @@ function FactoryImport() {
       <span className="font-medium">Error:</span> {error}
     </div>}
     {newFactoryData && <>
+      {/* Icon selector section */}
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">Icon</label>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowIconSelector(true)}
+            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded border border-gray-600 cursor-pointer"
+          >
+            {newFactoryData.icon ? "Change Icon" : "Select Icon"}
+          </button>
+          {newFactoryData.icon && (
+            <div className="flex items-center gap-2">
+              <img src={newFactoryData.icon} alt="Factory icon" className="w-12 h-12" />
+              <button
+                onClick={() => setNewFactoryData({ ...newFactoryData, icon: undefined })}
+                className="text-red-400 hover:text-red-300 text-sm cursor-pointer"
+              >
+                Remove
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
       <input type="text" className="inline-block mx-auto p-2 bg-gray-700 rounded text-white"
         value={newFactoryData.name}
         onChange={e => setNewFactoryData({ ...newFactoryData, name: e.target.value })}
@@ -181,13 +207,35 @@ function FactoryImport() {
           zone.importFactory(newFactoryData);
         }}
       >Import as New Factory</button>
+      
+      {/* Icon selector dialog */}
+      {showIconSelector && (
+        <IconSelector
+          isOpen={showIconSelector}
+          setIsOpen={setShowIconSelector}
+          icons={getAllIcons(products, machines)}
+          onSelect={(iconInfo: IconInfo) => {
+            setNewFactoryData({ ...newFactoryData, icon: iconInfo.path });
+            setShowIconSelector(false);
+          }}
+          selectedIcon={newFactoryData.icon}
+        />
+      )}
     </>}
   </div>
 }
 
 
 function FactoryExport() {
-  const minState = minify(useFactoryStore(useShallow(state => state)));
+  const factoryState = useFactoryStore(useShallow(state => state));
+  const zone = useProductionZone();
+  const factoryId = factoryState.id;
+  
+  // Get icon from zone store
+  const factoryInfo = zone.store.getState().factories.find(f => f.id === factoryId);
+  const icon = factoryInfo?.icon;
+  
+  const minState = minify(factoryState, icon);
   const [exportedStr, setExportedStr] = useState("Something went wrong exporting Factory");
 
   useEffect(() => {

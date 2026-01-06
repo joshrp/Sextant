@@ -817,6 +817,7 @@ exports[`Import Export > Importing basic-nodes > Decompress and unminify 2`] = `
       "type": "gt",
     },
   ],
+  "icon": undefined,
   "name": "Default Factory",
   "nodes": [
     {
@@ -1806,6 +1807,7 @@ exports[`Import Export > Importing steam-large > Decompress and unminify 2`] = `
       "type": "gt",
     },
   ],
+  "icon": undefined,
   "name": "Default Factory",
   "nodes": [
     {

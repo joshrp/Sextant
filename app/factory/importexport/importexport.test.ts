@@ -60,6 +60,53 @@ describe("Import Export", () => {
     });
 
   });
+
+  describe('Icon Export/Import', () => {
+    test('Export with icon and import preserves it', async () => {
+      const testIcon = '/assets/products/Product_Iron.png';
+      const testData: GraphCoreData = {
+        name: "Test Factory with Icon",
+        nodes: [],
+        edges: [],
+        goals: []
+      };
+      
+      // Export with icon
+      const minified = imex.minify(testData, testIcon);
+      expect(minified[5]).toBe(testIcon);
+      
+      // Compress and decompress
+      const compressed = await imex.compress(minified);
+      const decompressed = await imex.decompress(compressed);
+      
+      // Import and verify icon is preserved
+      const imported = imex.unminify(decompressed);
+      expect(imported.icon).toBe(testIcon);
+      expect(imported.name).toBe("Test Factory with Icon");
+    });
+
+    test('Export without icon works correctly', async () => {
+      const testData: GraphCoreData = {
+        name: "Test Factory without Icon",
+        nodes: [],
+        edges: [],
+        goals: []
+      };
+      
+      // Export without icon
+      const minified = imex.minify(testData);
+      expect(minified[5]).toBeUndefined();
+      
+      // Compress and decompress
+      const compressed = await imex.compress(minified);
+      const decompressed = await imex.decompress(compressed);
+      
+      // Import and verify icon is undefined
+      const imported = imex.unminify(decompressed);
+      expect(imported.icon).toBeUndefined();
+      expect(imported.name).toBe("Test Factory without Icon");
+    });
+  });
 });
 
 const getIdb = () => {

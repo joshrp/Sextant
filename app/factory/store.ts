@@ -425,6 +425,7 @@ export default Store;
 
 export type GraphImportData = {
   name: string;
+  icon?: string;
   nodes: {
     id: string;
     type: string;
