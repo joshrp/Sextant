@@ -5,7 +5,7 @@ import { useShallow } from "zustand/shallow";
 import { ChevronDownIcon, ClipboardIcon, FolderArrowDownIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import usePlanner from "~/context/PlannerContext";
+import usePlanner, { usePlannerStore } from "~/context/PlannerContext";
 import { default as useProductionMatrix, default as useProductionZone, useProductionZoneStore } from "~/context/ZoneContext";
 import type { ProductionZoneStoreData } from "~/context/ZoneProvider";
 import useFactory, { useFactoryStore } from "~/factory/FactoryContext";
@@ -338,6 +338,12 @@ function FactoryWeights() {
 
 function FactoryDebug() {
   const factoryStore = useFactory().store.getState();
+  const plannerStore = usePlanner().store;
+  const debugSolverEnabled = usePlannerStore(state => state.debugSolver);
+
+  const toggleDebugSolver = () => {
+    plannerStore.getState().setDebugSolver(!debugSolverEnabled);
+  };
 
   const graphData = {
     id: "root",
@@ -405,6 +411,26 @@ function FactoryDebug() {
   const testData = useFactory().store.getState().exportTestData();
   
   return <div className="factory-debug">
+    <div className="mb-6 p-4 bg-gray-800 rounded-lg">
+      <div className="flex items-center justify-between">
+        <div>
+          <h3 className="text-lg font-medium mb-1">Solver Debug Logging</h3>
+          <p className="text-sm text-gray-400">Enable verbose console logging for the linear programming solver</p>
+        </div>
+        <button
+          onClick={toggleDebugSolver}
+          className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+            debugSolverEnabled ? 'bg-blue-600' : 'bg-gray-600'
+          }`}
+        >
+          <span
+            className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+              debugSolverEnabled ? 'translate-x-7' : 'translate-x-1'
+            }`}
+          />
+        </button>
+      </div>
+    </div>
     <Disclosure defaultOpen={true}>
       <DisclosureButton className="group cursor-pointer flex w-full gap-4 justify-center-safe px-4 py-2">
         Solver Test Data Export <ChevronDownIcon className="w-5 justify-self-end-safe group-data-open:rotate-180" />

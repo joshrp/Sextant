@@ -175,27 +175,34 @@ async function getHighsSolution(graph: GraphModel, goals: FactoryGoal[], freeCon
     console.error(e);
     res = null;
   }
-
   console.log("Highs `solve time`", performance.now() - t0, "ms", freeConstraints);
+  if (DEBUG_SOLVER) {
+    console.debug("Highs Result:", res);
+  }
   return res;
 }
 
 export async function solve(
   graph: GraphModel,
-  goals: FactoryGoal[], 
-  manifolds: ManifoldOptions[] = [], 
-  scoreMethod: GraphScoringMethod, 
-  autoSolve: boolean, 
+  goals: FactoryGoal[],
+  manifolds: ManifoldOptions[] = [],
+  scoreMethod: GraphScoringMethod,
+  autoSolve: boolean,
   previousSolution: number | null = null):
   Promise<{ solution: Solution, manifolds?: ManifoldOptions[] } | "Error" | "Infeasible"> {
   const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null).filter(x => x !== null));
   const res = await getHighsSolution(graph, goals, freeConstraints, scoreMethod);
 
   if (!res) return "Error";
-  if (res.Status == "Optimal")
-    return {
-      solution: parseHighsSolution(res, graph, goals, scoreMethod)
+  if (res.Status == "Optimal") {
+    const solution = parseHighsSolution(res, graph, goals, scoreMethod);
+    if(DEBUG_SOLVER) {
+      console.debug("Parsed Solution:", solution);
     }
+    return {
+      solution: solution
+    }
+  }
   if (res.Status == "Time limit reached") {
     console.warn("Highs time limit reached, returning error");
     // TODO:: Let them know it's likely Unbounded
@@ -213,7 +220,7 @@ export async function solve(
       // Start with the original free constraints, then add the rest
       const newFreeConstraints = new Set(freeConstraints);
       const constraint = graph.constraints[c];
-      
+
       if (shouldSkipConstraint(constraint, newFreeConstraints)) {
         debug("Skipping constraint", constraint.id, "as it or it's parent is already free");
         return;
@@ -589,7 +596,7 @@ export default class Solver {
 }
 
 // Instead of exporting a variable, export a setter function
-let DEBUG_SOLVER = false;
+let DEBUG_SOLVER = true;
 export function setDebugSolver(val: boolean) {
   DEBUG_SOLVER = val;
 }

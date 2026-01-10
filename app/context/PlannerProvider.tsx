@@ -4,6 +4,7 @@ import { createStore } from "zustand";
 
 import { devtools, persist, type StorageValue } from "zustand/middleware";
 import hydration from "~/hydration";
+import { setDebugSolver } from "~/factory/solver/solver";
 import { PlannerContext } from "./PlannerContext";
 import { deleteIdb } from "./idb";
 import { clearCachedZoneStore } from "./zoneCache";
@@ -14,6 +15,11 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
   if (!storeRef.current) {
     // Initialize store only once
     storeRef.current = Store();
+    
+    // Sync initial debug state after hydration
+    storeRef.current.persist.onFinishHydration((state) => {
+      setDebugSolver(state.debugSolver);
+    });
   }
   return (
     <PlannerContext.Provider value={{ store: storeRef.current }}>
@@ -34,12 +40,14 @@ export interface PlannerStoreData {
   lastSettingsTab: string,
   lastZone: string | undefined,
   sidebarWidth: number,
+  debugSolver: boolean,
   newZone(name: string, icon?: string, description?: string): string;
   renameZone(id: string, newName: string): void;
   updateZone(id: string, updates: { name?: string; icon?: string; description?: string }): void;
   deleteZone(id: string): void;
   setLastZone(zoneId: string): void;
   setSidebarWidth(width: number): void;
+  setDebugSolver(enabled: boolean): void;
 };
 
 const Store = () => {
@@ -55,6 +63,7 @@ const Store = () => {
             order: 0,
           }],
           lastSettingsTab: "weights",
+          debugSolver: false,
           lastZone: undefined,
           sidebarWidth: 240, // Default width in pixels
 
@@ -120,7 +129,12 @@ const Store = () => {
           },
           setSidebarWidth: (width: number) => {
             set({ sidebarWidth: width });
-          }
+          },
+          setDebugSolver: (enabled: boolean) => {
+            set({ debugSolver: enabled });
+            // Sync to solver
+            setDebugSolver(enabled);
+          },
         })
       ),
       {

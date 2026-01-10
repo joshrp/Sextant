@@ -137,7 +137,7 @@ function SideBar({ addNewRecipe }: props) {
         {goals.map((goal, i) => {
           const resultCount = solution?.goals?.find(g => g.goal.productId == goal.productId && g.goal.dir == goal.dir)?.resultCount;
           const product = productData.get(goal.productId);
-          if (!product) {
+        if (!product) {
             console.warn("Product not found for goal", goal);
             return null;
           }
@@ -311,6 +311,13 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
     setGoalData(d => ({ ...d, [prop]: newVal }));
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addGoal(goalData);
+    }
+  }
+
   return <>
     <Fieldset className="w-full min-h-50 flex flex-col gap-4">
       <RadioGroup name="type" value={goalData.type} onChange={v => setGoalData(d => ({ ...d, type: v }))} className="flex justify-stretch w-full gap-2">
@@ -324,7 +331,15 @@ function NewProductOptions({ goal, addGoal }: NewProductOptionsProps) {
       </RadioGroup>
       <Field className="flex gap-2 justify-center align-middle">
         <Label className="p-1">Amount</Label>
-        <Input value={goalData.qty} onChange={updateState} className="bg-gray-600 p-1 w-[6rem]" name="qty" type="number" placeholder="50" />
+        <Input 
+          value={goalData.qty} 
+          onChange={updateState} 
+          onKeyDown={handleKeyDown}
+          className="bg-gray-600 p-1 w-[6rem]" 
+          name="qty" 
+          type="number" 
+          placeholder="50" 
+        />
         <span className="text-xs mt-2 text-gray-400">
           60 <ClockIcon className="inline w-4 pb-1  text-gray-500" />
         </span>

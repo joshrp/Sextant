@@ -46,8 +46,7 @@ export default function RecipeNodeView({
   highlight,
   zoomLevel,
 }: RecipeNodeViewProps) {
-  const runCount = solution?.runCount ? solution.runCount : 1;
-
+  const runCount = solution?.runCount !== undefined ? solution.runCount : 1;
 
   return (
     <div 
@@ -157,7 +156,7 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
       {products.map(prod => {
         const isConnected = !!productEdges.get(prod.product.id);
         const productColor = productBackground(prod.product);
-        const displayRunCount = solution?.solved && solution.runCount ? solution.runCount : 1;
+        const displayRunCount = solution?.solved && solution.runCount !== undefined ? solution.runCount : 1;
 
         const handle = <Handle type={inOrOut("target", "source")}
           position={pos}
