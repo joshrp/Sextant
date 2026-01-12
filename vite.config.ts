@@ -21,8 +21,8 @@ export default defineConfig({
   test: {
     // Default test configuration for fast unit tests
     // No jsdom environment - runs in Node environment
-    // Exclude component tests from default run
-    exclude: ['**/*.component.test.{ts,tsx}', '**/node_modules/**'],
+    // Exclude component tests and e2e tests from default run
+    exclude: ['**/*.component.test.{ts,tsx}', '**/node_modules/**', '**/e2e/**'],
     setupFiles: ['./app/test/setup/indexeddb.ts'],
   },
 });

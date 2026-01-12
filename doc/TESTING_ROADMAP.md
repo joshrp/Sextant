@@ -659,45 +659,43 @@ describe('Store persistence', () => {
 
 **Tool:** Playwright  
 **Time:** 👤 4-6 hours | 🤖 8-12 hours  
+**Time Actual:** ~2 hours (Phase 1 complete)  
+**Status:** 🔄 IN PROGRESS - Setup complete, basic tests implemented  
 **Dependencies:** Best done after Task 6 (component refactoring helps stability)
 
 ### What This Covers
 Critical user paths only. Minimal E2E coverage for integration confidence. Heavy setup but high value for catching breaking changes.
 
-### Phase 1: Setup Playwright
-👤 1 hour | 🤖 2-3 hours
+### Phase 1: Setup Playwright ✅ COMPLETE
 
-Install Playwright:
-```bash
-npm install -D @playwright/test
-npx playwright install chromium
-```
+Installed and configured Playwright with production build serving:
 
-Create configuration:
-```typescript
-// Create: playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+✅ Installed `@playwright/test` dependency
+✅ Created `playwright.config.ts` with:
+  - Production build serving via `npm run preview`
+  - Chromium-only for fast CI runs
+  - Screenshot on failure
+  - Trace on retry
+  - CI-aware configuration (retries, reporter)
 
-export default defineConfig({
-  testDir: './e2e',
-  fullyParallel: false, // Run sequentially (IndexedDB state issues)
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: 1, // Single worker to avoid state conflicts
-  reporter: 'html',
-  use: {
-    baseURL: 'http://localhost:5173',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-  },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
-  webServer: {
-    command: 'npm run dev',
+✅ Added npm scripts:
+  - `npm run preview` - Serve production build on port 4173
+  - `npm run test:e2e` - Run Playwright tests
+
+✅ Updated `.gitignore` to exclude Playwright artifacts
+
+✅ Created initial smoke test (`e2e/app.spec.ts`):
+  - Tests zone selector visibility
+  - Tests factory goals section visibility
+  - Tests sidebar factory tabs
+  - Tests sidebar expansion
+
+**Configuration Notes:**
+- Uses `vite preview` instead of dev server for production-like testing
+- Single chromium project for simplicity (add more browsers as needed)
+- `fullyParallel: true` enabled since tests don't share IndexedDB state
+
+### Phase 2: Implement Critical Path Tests ⏳ TODO
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120000, // 2 min for slow starts
@@ -885,21 +883,22 @@ npx playwright show-report
 | 7. Hydration | 🟢 | 3-4h | 2h | None | ⭐⭐⭐ | ⏳ TODO |
 | 6. Components | 🟢 | 8-12h | 4-6h | None | ⭐⭐⭐ | ✅ **DONE** |
 | 4. Store Actions | 🟡 | 12-18h | 6-8h | None | ⭐⭐⭐ | 🔄 60% DONE |
-| 8. E2E | 🟢 | 8-12h | 4-6h | Task 6 | ⭐⭐ | ⏳ TODO |
+| 8. E2E | 🟢 | 8-12h | 4-6h | Task 6 | ⭐⭐ | 🔄 30% DONE |
 
 **Progress Summary:**
 - ✅ 2 tasks fully complete (Tasks 5, 6)
-- 🔄 1 task partially complete (Task 4 - 60%)
-- ⏳ 5 tasks remaining (Tasks 1, 2, 3, 7, 8)
-- **Total Progress: ~25% complete** (2.6 of 8 tasks)
+- 🔄 2 tasks partially complete (Task 4 - 60%, Task 8 - 30%)
+- ⏳ 4 tasks remaining (Tasks 1, 2, 3, 7)
+- **Total Progress: ~30% complete** (3.1 of 8 tasks)
 
 ## Recommended Sequence (Updated for Remaining Work)
 
 ### For AI Agents (Conservative Path)
 
-**✅ COMPLETED (Weeks 1-3):** Tasks 5, 6, partial Task 4 (~15-20h invested)
+**✅ COMPLETED (Weeks 1-3):** Tasks 5, 6, partial Task 4, partial Task 8 (~17-22h invested)
 - Task 5: Game Data Utils - COMPLETE
 - Task 6: Component Testing Setup - COMPLETE  
+- Task 8: E2E Setup - COMPLETE (basic smoke tests working)
 - Task 4: GraphStore reducers - COMPLETE (60% of task)
 
 **Week 4-5 (NEXT):** Tasks 1, 2 **(10-16h total)** - PRIORITY
