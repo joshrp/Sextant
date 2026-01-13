@@ -1,13 +1,17 @@
 import { openDB } from "idb";
-import { useRef, type ReactNode } from "react";
+import { useCallback, useRef, type ReactNode } from "react";
 import { createStore } from "zustand";
 
-import { devtools, persist, type StorageValue } from "zustand/middleware";
-import hydration from "~/hydration";
+import { devtools, persist, subscribeWithSelector, type StorageValue } from "zustand/middleware";
 import { setDebugSolver } from "~/factory/solver/solver";
-import { PlannerContext } from "./PlannerContext";
-import { deleteIdb } from "./idb";
-import { clearCachedZoneStore } from "./zoneCache";
+import FactoryStore from "~/factory/store";
+import hydration from "~/hydration";
+import type { ExportableFactory, ExportableZone } from "~/types/bulkOperations";
+import { PlannerContext, type BulkImportItem } from "./PlannerContext";
+import type { ProductionZoneStore, ProductionZoneStoreData } from "./ZoneProvider";
+import { deleteIdb, getIdb as getZoneIdb, zoneObjectStore } from "./idb";
+import { factoryIdFromName } from "./utils";
+import { clearCachedZoneStore, getCachedZoneStore, setCachedZoneStore } from "./zoneCache";
 
 export const PlannerProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<PlannerStore | null>(null);
@@ -15,18 +19,272 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
   if (!storeRef.current) {
     // Initialize store only once
     storeRef.current = Store();
-    
-    // Sync initial debug state after hydration
-    storeRef.current.persist.onFinishHydration((state) => {
-      setDebugSolver(state.debugSolver);
-    });
   }
+
+  /**
+   * Bulk import factories across zones
+   * Creates new zones as needed and imports factories into their target zones
+   */
+  const bulkImport = useCallback(async (items: BulkImportItem[]) => {
+    if (!storeRef.current) throw new Error("Planner store not initialized");
+    const store = storeRef.current;
+
+    // Group items by target zone
+    const itemsByZone = new Map<string, BulkImportItem[]>();
+    const newZones = new Map<string, string>(); // newZoneName -> generated zoneId
+
+    for (const item of items) {
+      if (item.newZoneName) {
+        // Need to create a new zone
+        if (!newZones.has(item.newZoneName)) {
+          // Create the zone and cache the ID
+          const newZoneId = store.getState().newZone(item.newZoneName);
+          newZones.set(item.newZoneName, newZoneId);
+        }
+        const zoneId = newZones.get(item.newZoneName)!;
+        const existing = itemsByZone.get(zoneId) || [];
+        existing.push({ ...item, targetZoneId: zoneId });
+        itemsByZone.set(zoneId, existing);
+      } else {
+        // Use existing zone
+        const existing = itemsByZone.get(item.targetZoneId) || [];
+        existing.push(item);
+        itemsByZone.set(item.targetZoneId, existing);
+      }
+    }
+
+    // Import factories into each zone
+    for (const [zoneId, zoneItems] of itemsByZone) {
+      // Get or create the zone IDB
+      const zoneIdb = getZoneIdb(zoneId);
+      if (!zoneIdb) throw new Error("Failed to get IDB for zone: " + zoneId);
+
+      // Check if we have a cached zone store
+      let zoneStore = getCachedZoneStore(zoneId)?.store;
+      
+      // If not cached, we need to create a zone store and wait for hydration
+      if (!zoneStore) {
+        // We need to create a new zone store
+        const zone = store.getState().zones.find(z => z.id === zoneId);
+        if (!zone) throw new Error("Zone not found: " + zoneId);
+        
+        // Create and await hydration of the zone store
+        zoneStore = await createMinimalZoneStoreAsync(zoneIdb, zoneId, zone.name);
+        setCachedZoneStore(zoneId, zoneStore, zoneIdb);
+      }
+
+      // Import each factory into the zone
+      for (const item of zoneItems) {
+        const factoryName = item.data.name;
+        // Use factoryIdFromName to get base ID
+        const baseFactoryId = factoryIdFromName(factoryName);
+
+        // Add factory to zone's factory list first - this handles ID collision and returns actual ID
+        const actualFactoryId = zoneStore.getState().newFactory(factoryName, baseFactoryId);
+
+        // Create the factory store with the actual ID and import data without running solver
+        const factoryStore = FactoryStore(zoneIdb, { id: actualFactoryId, name: factoryName });
+        await factoryStore.Graph.getState().importData(item.data, { skipSolver: true });
+        
+        // Wait for factory store to persist to IDB
+        await waitForStorePersist();
+      }
+      
+      // Wait for zone store to persist after all factories are added
+      await waitForStorePersist();
+    }
+  }, []);
+
+  /**
+   * Get all zones and their factories for bulk export
+   */
+  const getExportableData = useCallback(async (): Promise<ExportableZone[]> => {
+    if (!storeRef.current) return [];
+    const store = storeRef.current;
+    
+    const zones = store.getState().zones;
+    const exportableZones: ExportableZone[] = [];
+
+    for (const zone of zones) {
+      const zoneIdb = getZoneIdb(zone.id);
+      if (!zoneIdb) continue;
+
+      // Try to get cached zone store or read from IDB
+      let factories: ProductionZoneStoreData['factories'] = [];
+      const cached = getCachedZoneStore(zone.id);
+      
+      if (cached?.store) {
+        factories = cached.store.getState().factories;
+      } else {
+        // Read factory list from IDB directly
+        try {
+          const db = await zoneIdb;
+          const zoneData = await db.get(zoneObjectStore, 'current-state');
+          if (zoneData) {
+            const parsed = JSON.parse(zoneData, hydration.reviver);
+            factories = parsed.state?.factories || [];
+          }
+        } catch (err) {
+          console.warn("Failed to read zone data for export:", zone.id, err);
+          continue;
+        }
+      }
+
+      // Get factory data for each factory
+      const exportableFactories: ExportableFactory[] = [];
+      
+      for (const factory of factories) {
+        try {
+          const db = await zoneIdb;
+          const factoryData = await db.get('factories', factory.id);
+          
+          if (factoryData) {
+            const parsed = JSON.parse(factoryData, hydration.reviver);
+            const state = parsed.state || parsed;
+            
+            exportableFactories.push({
+              id: factory.id,
+              zoneId: zone.id,
+              zoneName: zone.name,
+              zoneIcon: zone.icon,
+              name: state.name || factory.name,
+              icon: factory.icon,
+              nodeCount: state.nodes?.length || 0,
+              edgeCount: state.edges?.length || 0,
+              goalCount: state.goals?.length || 0,
+              data: {
+                name: state.name || factory.name,
+                nodes: state.nodes || [],
+                edges: state.edges || [],
+                goals: state.goals || [],
+              },
+            });
+          }
+        } catch (err) {
+          console.warn("Failed to read factory data for export:", factory.id, err);
+        }
+      }
+
+      exportableZones.push({
+        id: zone.id,
+        name: zone.name,
+        icon: zone.icon,
+        factories: exportableFactories,
+      });
+    }
+
+    return exportableZones;
+  }, []);
+
   return (
-    <PlannerContext.Provider value={{ store: storeRef.current }}>
+    <PlannerContext.Provider value={{ 
+      store: storeRef.current,
+      bulkImport,
+      getExportableData,
+    }}>
       {children}
     </PlannerContext.Provider>
   );
 };
+
+/**
+ * Wait for a zustand store with persist middleware to finish persisting
+ * This is needed to ensure data is written to IDB before continuing.
+ * 
+ * Note: Zustand's persist middleware doesn't expose a "persisted" event,
+ * so we use a small delay to allow the async IDB writes to complete.
+ * The middleware calls setItem() when state changes, which returns a Promise,
+ * but that Promise isn't awaited by zustand internally.
+ */
+async function waitForStorePersist(): Promise<void> {
+  // Small delay to allow persist middleware to write to storage
+  // The persist middleware batches writes, so we need to give it time
+  return new Promise(resolve => setTimeout(resolve, 50));
+}
+
+/**
+ * Create a minimal zone store for import operations and wait for hydration
+ * This avoids the full ProductionZoneProvider machinery
+ */
+async function createMinimalZoneStoreAsync(
+  idb: ReturnType<typeof getZoneIdb>, 
+  zoneId: string, 
+  zoneName: string
+): Promise<ProductionZoneStore> {
+  return new Promise((resolve) => {
+    const store: ProductionZoneStore = createStore<ProductionZoneStoreData>()(
+      subscribeWithSelector(
+        persist(
+          devtools(
+            (set, get) => ({
+              id: zoneId,
+              name: zoneName,
+              factories: [],
+              weights: {
+                base: "early" as const,
+                products: new Map(),
+                infrastructure: new Map(),
+              },
+              lastFactory: undefined,
+              productDisplayMode: "icons" as const,
+              setProductDisplayMode: () => {},
+              newFactory: (name: string, id?: string) => {
+                const settings = get();
+                if (!id) id = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                if (settings.factories.some(f => f.id === id)) {
+                  id = id + "-" + Date.now().toString().slice(-4);
+                }
+                set({
+                  factories: [...settings.factories, {
+                    id: id,
+                    name: name.trim(),
+                    order: settings.factories.length,
+                  }]
+                });
+                return id;
+              },
+              renameFactory: () => {},
+              updateFactory: () => {},
+              setLastFactory: () => {},
+              removeFactory: () => {},
+            })
+          ),
+          {
+            name: "current-state",
+            storage: {
+              getItem: async (name: string) => {
+                if (!idb) return null;
+                const str = await (await idb).get(zoneObjectStore, name);
+                if (!str) return null;
+                return JSON.parse(str, hydration.reviver);
+              },
+              setItem: async (name: string, newValue: StorageValue<ProductionZoneStoreData>) => {
+                if (!idb) return;
+                const str = JSON.stringify(newValue, hydration.replacer);
+                return (await idb).put(zoneObjectStore, str, name);
+              },
+              removeItem: async (name: string) => {
+                if (!idb) return;
+                return (await idb).delete(zoneObjectStore, name);
+              }
+            },
+          }
+        )
+      )
+    );
+    
+    // Wait for hydration to complete before resolving
+    // For new zones, the hydration will complete quickly since there's no data to load
+    store.persist.onFinishHydration(() => {
+      resolve(store);
+    });
+    
+    // If hydration has already completed (synchronously), resolve immediately
+    if (store.persist.hasHydrated()) {
+      resolve(store);
+    }
+  });
+}
 
 export type PlannerStore = ReturnType<typeof Store>;
 export interface PlannerStoreData {
@@ -69,7 +327,8 @@ const Store = () => {
 
           newZone: (name: string, icon?: string, description?: string): string => {
             const settings = get();
-            const newId = name.trim().toLowerCase().replace(/\s+/g, "-");
+            // Generate URL-safe zone ID (strip all non-alphanumeric characters)
+            const newId = name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
             if (settings.zones.some(z => z.id === newId))
               throw new Error("Zone with this name already exists");
             set({

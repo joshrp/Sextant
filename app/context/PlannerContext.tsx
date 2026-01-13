@@ -1,9 +1,16 @@
 import { createContext, useContext } from "react";
 import { useStore } from "zustand";
 import type { PlannerStoreData, PlannerStore } from "./PlannerProvider";
+import type { ExportableZone, BulkImportItem } from "~/types/bulkOperations";
+
+export type { BulkImportItem } from "~/types/bulkOperations";
 
 type PlannerContextType = {
   store: PlannerStore;
+  /** Bulk import factories across zones */
+  bulkImport: (items: BulkImportItem[]) => Promise<void>;
+  /** Get all zones and factories for bulk export */
+  getExportableData: () => Promise<ExportableZone[]>;
 };
 
 export const PlannerContext = createContext<PlannerContextType | undefined>(undefined);

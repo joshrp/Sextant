@@ -14,6 +14,7 @@ import {
   deleteArchivedFactory as deleteArchivedFactoryFromIdb,
 } from "./factoryArchive";
 import { getCachedZoneStore, setCachedZoneStore } from "./zoneCache";
+import { factoryIdFromName } from "./utils";
 
 export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId: string, zoneName: string, children: ReactNode }) => {
   const storeRef = useRef<ProductionZoneStore | null>(null);
@@ -61,7 +62,7 @@ export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId:
         const factory = storeRef.current.getState().factories.find(f => f.id === factoryId);
         if (!factory) throw new Error("Factory not found: " + factoryId);
 
-        return archiveFactoryToIdb(idbRef.current, factoryData, {
+        return archiveFactoryToIdb(idbRef.current, factoryData, zoneName, {
           id: factory.id,
           icon: factory.icon,
           description: factory.description,
@@ -113,10 +114,6 @@ export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId:
 };
 
 
-
-function factoryIdFromName(name: string) {
-  return name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-}
 
 export type ProductionZoneStore = ReturnType<typeof Store>;
 export interface ProductionZoneStoreData {

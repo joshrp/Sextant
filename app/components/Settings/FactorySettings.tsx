@@ -1,31 +1,28 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router";
-import { useShallow } from "zustand/shallow";
 
-import { ChevronDownIcon, ClipboardIcon, FolderArrowDownIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ClipboardIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import usePlanner, { usePlannerStore } from "~/context/PlannerContext";
-import { default as useProductionMatrix, default as useProductionZone, useProductionZoneStore } from "~/context/ZoneContext";
+import usePlanner from "~/context/PlannerContext";
+import { default as useProductionMatrix } from "~/context/ZoneContext";
 import type { ProductionZoneStoreData } from "~/context/ZoneProvider";
 import useFactory, { useFactoryStore } from "~/factory/FactoryContext";
 import { loadData, type ProductId } from "~/factory/graph/loadJsonData";
-import { ProductGoal } from "~/factory/graph/sidebar";
-import { compress, decompress, minify, unminify } from "~/factory/importexport/importexport";
-import type { FactoryGoal } from "~/factory/solver/types";
-import type { GraphImportData } from "~/factory/store";
 import { getRecipeInputs, getRecipeOutputs } from "~/gameData/utils";
 import hydration from "~/hydration";
 import { useStableParam } from "~/routes";
-import { getAllIcons, productIcon } from "~/uiUtils";
+import { productIcon } from "~/uiUtils";
 import { SelectorDialog } from "../Dialog";
-import IconSelector, { type IconInfo } from "../IconSelector";
+import ExportPane from "./ExportPane";
+import ImportPane from "./ImportPane";
 
-const { products, machines } = loadData();
+const { products } = loadData();
 
 const settingsTabs = [
   { id: "weights", name: "Weights" },
-  { id: "importexport", name: "Import/Export" },
+  { id: "export", name: "Export" },
+  { id: "import", name: "Import" },
   { id: "debug", name: "Debug" },
   { id: "advanced", name: "Advanced" },
 ];
@@ -63,12 +60,11 @@ export default function FactorySettings() {
     case "weights":
       content = <FactoryWeights />;
       break;
-    case "importexport":
-      content = <>
-        <FactoryExport />
-        <hr className="my-4 border-t border-gray-300" />
-        <FactoryImport />
-      </>;
+    case "export":
+      content = <ExportPane />;
+      break;
+    case "import":
+      content = <ImportPane />;
       break;
     case "debug":
       content = <FactoryDebug />;
@@ -106,167 +102,6 @@ export default function FactorySettings() {
       </div>
     </SelectorDialog>
   );
-}
-
-function FactoryImport() {
-  const [importStr, setImportStr] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [newFactoryData, setNewFactoryData] = useState<GraphImportData | null>(null);
-  const [showIconSelector, setShowIconSelector] = useState(false);
-  const zone = useProductionZone();
-  const currentFactories = useProductionZoneStore(state => state.factories);
-  const [importingWait, setImportingWait] = useState(false);
-  const nav = useNavigate();
-
-  useEffect(() => {
-    if (importingWait && !newFactoryData) {
-      setImportingWait(false);
-    }
-    if (importingWait && newFactoryData) {
-      const newFactory = currentFactories.find(f => f.name == newFactoryData.name);
-      // If it's been added to the array, it will be available to see, even if some parts don't work
-      if (newFactory) {
-        setImportStr("");
-        setError(null);
-        setNewFactoryData(null);
-        setImportingWait(false);
-        nav(`/zones/${zone.id}/${newFactory.id}`);
-      }
-    }
-  }, [importingWait, newFactoryData]);
-
-
-  useEffect(() => {
-    setError(null);
-    if (importStr.length < 10) return; // Too short to be valid
-    decompress(importStr).then(minData => {
-      const data = unminify(minData);
-
-      setNewFactoryData(data)
-      setError(null);
-    }).catch(e => {
-      console.error("Error importing factory:", e);
-      setError("Error importing factory: " + e);
-    });
-  }, [importStr, setError]);
-
-  return <div className="factory-import flex flex-col gap-2">
-    <h2 className="text-lg font-medium mb-2">Import Factory</h2>
-
-    <p className="mb-4">Paste in a previously exported factory string below to import it.</p>
-    <textarea key="factoryImportStr" value={importStr} onChange={e => setImportStr(e.target.value)}
-      className="w-full h-48 p-4 overflow-ellipsis field-sizing-content bg-gray-700 rounded text-xs font-mono mb-4" />
-    {error && <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-      <span className="font-medium">Error:</span> {error}
-    </div>}
-    {newFactoryData && <>
-      {/* Icon selector section */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Icon</label>
-        <div className="flex items-center gap-4">
-          <button
-            onClick={() => setShowIconSelector(true)}
-            className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded border border-gray-600 cursor-pointer"
-          >
-            {newFactoryData.icon ? "Change Icon" : "Select Icon"}
-          </button>
-          {newFactoryData.icon && (
-            <div className="flex items-center gap-2">
-              <img src={newFactoryData.icon} alt="Factory icon" className="w-12 h-12" />
-              <button
-                onClick={() => setNewFactoryData({ ...newFactoryData, icon: undefined })}
-                className="text-red-400 hover:text-red-300 text-sm cursor-pointer"
-              >
-                Remove
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <input type="text" className="inline-block mx-auto p-2 bg-gray-700 rounded text-white"
-        value={newFactoryData.name}
-        onChange={e => setNewFactoryData({ ...newFactoryData, name: e.target.value })}
-        placeholder="Factory Name" />
-      {currentFactories.find(f => f.name == newFactoryData.name) &&
-        <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
-          A factory with this name already exists in this zone.
-        </div>
-      }
-      <h3>{newFactoryData.nodes.length} Nodes / {newFactoryData.edges.length} Edges / {newFactoryData.goals.length} Goals:</h3>
-      <div className="goals w-full max-w-70 flex flex-col gap-2 justify-center-safe mx-auto">
-        {newFactoryData.goals.map((g, i) => <div key={i} className="flex flex-1 flex-row border-1 rounded p-2 bg-gray-900 border-gray-600">
-          <ProductGoal goal={g as FactoryGoal} />
-        </div>
-        )}
-      </div>
-      <button className="import mx-auto inline-block p-4 px-8 bg-green-600 text-white rounded hover:bg-green-700 cursor-pointer"
-        onClick={() => {
-          if (!importingWait && !newFactoryData) return;
-          setImportingWait(true);
-          zone.importFactory(newFactoryData);
-        }}
-      >Import as New Factory</button>
-      
-      {/* Icon selector dialog */}
-      {showIconSelector && (
-        <IconSelector
-          isOpen={showIconSelector}
-          setIsOpen={setShowIconSelector}
-          icons={getAllIcons(products, machines)}
-          onSelect={(iconInfo: IconInfo) => {
-            setNewFactoryData({ ...newFactoryData, icon: iconInfo.path });
-            setShowIconSelector(false);
-          }}
-          selectedIcon={newFactoryData.icon}
-        />
-      )}
-    </>}
-  </div>
-}
-
-
-function FactoryExport() {
-  const factoryState = useFactoryStore(useShallow(state => state));
-  const zone = useProductionZone();
-  const factoryId = factoryState.id;
-  
-  // Get icon from zone store
-  const factoryInfo = zone.store.getState().factories.find(f => f.id === factoryId);
-  const icon = factoryInfo?.icon;
-  
-  const minState = minify(factoryState, icon);
-  const [exportedStr, setExportedStr] = useState("Something went wrong exporting Factory");
-
-  useEffect(() => {
-    compress(minState).then(setExportedStr)
-      .catch(e => setExportedStr("Error Exporting Factory: " + e));
-  }, [minState, setExportedStr]);
-  const { name } = useFactoryStore(useShallow(state => ({ id: state.id, name: state.name })));
-
-  return <div>
-    {/* download button */}
-    <button className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 mb-4 cursor-pointer"
-      onClick={() => {
-        const blob = new Blob([exportedStr], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${name} Export.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }}
-    >
-      <FolderArrowDownIcon className="inline-block w-5" /> Download File
-    </button>
-    {/* Copy to clipboard */}
-    <ClipboardCopyButton text={exportedStr} />
-    <textarea key="factoryExportStr" value={exportedStr} readOnly onClick={e => (e.target as HTMLTextAreaElement).select()}
-      className="w-full max-h-[80vh] p-4 overflow-ellipsis field-sizing-content bg-gray-700 rounded text-xs font-mono" />
-
-  </div>;
 }
 
 function FactoryWeights() {

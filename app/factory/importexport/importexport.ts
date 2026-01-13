@@ -9,6 +9,20 @@ export const getBasicB64 = (state: any) => {
   return btoa(JSON.stringify(state, hydration.replacer));
 }
 const { recipes } = loadData();
+
+/**
+ * Metadata for a factory in bulk export/import operations
+ */
+export interface FactoryExportMetadata {
+  id: string;
+  name: string;
+  zoneName: string;
+  zoneId: string;
+  icon?: string;
+  nodeCount: number;
+  edgeCount: number;
+  goalCount: number;
+}
 const NodeTypes = {
   "recipe-node": "n",
   get: function (id?: string) { return this[(id ?? "recipe-node") as keyof typeof NodeTypes] },
@@ -20,9 +34,11 @@ const EdgeTypes = {
   find: function (val: string): string | undefined { return Object.entries(this).find(([, v]) => v === val)?.[0] }
 }
 
-type MinifiedState = [
+export type MinifiedStateV2 = [
   number, // version
   string, // name
+  string, // zone
+  string, // icon (optional)
   [ // nodes
     string, // type
     string, // id
@@ -43,21 +59,21 @@ type MinifiedState = [
     "eq" | "lt" | "gt", // type
     boolean, // isOutput
   ][],
-  string?, // icon (optional)
 ]
 
-
-const currentVersion = 1;
+const currentVersion = 2;
 /**
  * Take Graph Store data and strip it to the basics needed to import
  * Strips out all keys in favor of an array with strict positions.
  * Any change to the data here needs to be versioned. 
  * Increase the currentVersion and make a migration for the old one in unminifyVersion
  */
-export function minify<T extends GraphCoreData>(state: T, icon?: string): MinifiedState {
-  const baseArray: MinifiedState = [
+export function minify<T extends GraphCoreData>(state: T, zone: string, icon?: string): MinifiedStateV2 {
+  return [
     currentVersion,
     state.name,
+    zone,
+    icon || "",
     Object.values(state.nodes).map(n => [
       NodeTypes.get(n.type) as string,
       n.id,
@@ -79,13 +95,6 @@ export function minify<T extends GraphCoreData>(state: T, icon?: string): Minifi
       g.dir === "output",
     ])
   ];
-  
-  // Only include icon if it's provided (maintains backward compatibility)
-  if (icon) {
-    baseArray.push(icon);
-  }
-  
-  return baseArray;
 }
 
 export const unminify = (data: unknown): GraphImportData => {
@@ -95,15 +104,20 @@ export const unminify = (data: unknown): GraphImportData => {
   return unmin.unminify(data);
 }
 
-type UnminifyFunc = (m: MinifiedState) => GraphImportData;
+type MinifiedStateBase = [
+  number, // version
+  ...unknown[]
+]
+
 class Unminify {
-  public versions: { [k: number]: UnminifyFunc } = {
-    1: this.one,
+  public versions = {
+    1: this.one.bind(this),
+    2: this.two.bind(this),
   };
 
   constructor() { }
 
-  validate(data: unknown): data is MinifiedState {
+  validate(data: unknown): data is MinifiedStateBase {
     if (!Array.isArray(data)) throw new Error("Invalid data: not an array");
     if (data.length < 5) throw new Error("Invalid data: wrong length (expected at least 5 elements)");
     if (typeof data[0] !== "number") throw new Error("Invalid data: version number missing");
@@ -115,18 +129,22 @@ class Unminify {
   }
 
   hasVersion(v: number): boolean {
-    return this.versions[v] !== undefined;
+    return v in this.versions;
   }
 
-  unminify(m: MinifiedState): GraphImportData {
-    return this.versions[m[0]](m);
+  unminify(m: MinifiedStateBase): GraphImportData {
+    if (this.hasVersion(m[0]) === false) throw new Error("Unsupported version: " + m[0]);
+
+    return this.versions[m[0] as keyof typeof this.versions](m);
   }
 
-  one(min: MinifiedState): GraphImportData {
+  one(data: MinifiedStateBase): GraphImportData {
+    const min = data as MinifiedStateV1;
     const nodes: Map<string, RecipeId> = new Map();
     return {
       name: min[1],
-      icon: min.length > 5 ? min[5] : undefined, // Extract icon only if present
+      zoneName: "",
+      icon: "",
       nodes: min[2].map(n => {
         const recipeId = n[4] as RecipeId;
         if (recipes.has(recipeId) === false) {
@@ -171,6 +189,22 @@ class Unminify {
         type: g[2],
         dir: g[3] ? "output" : "input",
       }))
+    }
+  }
+
+  two(data: MinifiedStateBase): GraphImportData {
+    const min = data as MinifiedStateV2;
+    const minV1: MinifiedStateV1 = [
+      1,
+      min[1],
+      min[4],
+      min[5],
+      min[6],
+    ]
+    return {
+      ...this.versions[1](minV1),
+      zoneName: min[2],
+      icon: min[3],
     }
   }
 }
@@ -234,4 +268,129 @@ export const decompress = async (b64: string): Promise<unknown> => {
   }
   const decoded = new TextDecoder().decode(new Uint8Array(out));
   return JSON.parse(decoded, hydration.reviver);
+}
+
+
+export type MinifiedStateV1 = [
+  number, // version
+  string, // name
+  [ // nodes
+    string, // type
+    string, // id
+    number, // x
+    number, // y
+    string, // recipeId
+    boolean, // ltr,
+  ][],
+  [ // edges
+    string, // type
+    string, // productId
+    string, // source
+    string, // target
+  ][],
+  [ // goals
+    string, // productId
+    number, // qty
+    "eq" | "lt" | "gt", // type
+    boolean, // isOutput
+  ][],
+  string?, // icon (optional)
+]
+
+/**
+ * Bulk export format: flat array of V2 minified factories
+ */
+export type BulkExportData = MinifiedStateV2[];
+
+/**
+ * Result of parsing a bulk import - contains all factories and grouped by zone
+ */
+export interface BulkImportData {
+  factories: GraphImportData[];
+  /** Map of zone name to list of factory indices in the factories array */
+  zoneGroups: Map<string, number[]>;
+  /** Whether all factories belong to a single zone */
+  isSingleZone: boolean;
+}
+
+/**
+ * Minify multiple factories for bulk export
+ * Returns a flat array of V2 minified factories
+ */
+export function minifyBulk(
+  factories: Array<{ state: GraphCoreData; zoneName: string; icon?: string }>
+): BulkExportData {
+  return factories.map(f => minify(f.state, f.zoneName, f.icon));
+}
+
+/**
+ * Unminify bulk import data (array of factories)
+ * Supports both single factory (backward compatible) and array of factories
+ */
+export function unminifyBulk(data: unknown): BulkImportData {
+  // Detect if this is a single factory (v1 or v2) or an array of factories
+  if (Array.isArray(data) && data.length > 0) {
+    // If first element is a number, it's a single factory (version number)
+    if (typeof data[0] === 'number') {
+      const factory = unminify(data);
+      return {
+        factories: [factory],
+        zoneGroups: new Map([[factory.zoneName || '', [0]]]),
+        isSingleZone: true,
+      };
+    }
+    
+    // Otherwise, it's an array of factories
+    const factories: GraphImportData[] = [];
+    const zoneGroups = new Map<string, number[]>();
+    
+    for (let i = 0; i < data.length; i++) {
+      const factory = unminify(data[i]);
+      factories.push(factory);
+      
+      const zoneName = factory.zoneName || '';
+      const indices = zoneGroups.get(zoneName) || [];
+      indices.push(i);
+      zoneGroups.set(zoneName, indices);
+    }
+    
+    return {
+      factories,
+      zoneGroups,
+      isSingleZone: zoneGroups.size === 1,
+    };
+  }
+  
+  throw new Error(`Invalid bulk import data: expected an array of factory objects or a single factory object. Received: ${typeof data}${Array.isArray(data) ? ' (empty array)' : ''}`);
+}
+
+/**
+ * Compress multiple factories for export
+ */
+export async function compressBulk(data: BulkExportData): Promise<string> {
+  return compress(data);
+}
+
+/**
+ * Decompress and parse bulk import data
+ */
+export async function decompressBulk(b64: string): Promise<BulkImportData> {
+  const data = await decompress(b64);
+  return unminifyBulk(data);
+}
+
+/**
+ * Extract metadata from minified factory data without fully unminifying
+ */
+export function getFactoryMetadataFromMinified(min: MinifiedStateV2): FactoryExportMetadata {
+  return {
+    id: '', // ID is not stored in export, will be assigned on import
+    name: min[1],
+    zoneName: min[2],
+    zoneId: '', // Will be resolved on import
+    icon: min[3] || undefined,
+    nodeCount: min[4].length,
+    edgeCount: min[5].length,
+    goalCount: min[6].length,
+  };
 }

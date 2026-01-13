@@ -29,13 +29,14 @@ export interface ArchivedFactory extends ArchivedFactoryMetadata {
 export async function archiveFactory(
   idb: IDB,
   factoryData: GraphCoreData,
+  zoneName: string,
   metadata: {
     id: string;
     icon?: string;
     description?: string;
   }
 ): Promise<ArchivedFactoryMetadata> {
-  const minified = minify(factoryData);
+  const minified = minify(factoryData, zoneName, metadata.icon);
   const compressed = await compress(minified);
 
   const archived: ArchivedFactory = {

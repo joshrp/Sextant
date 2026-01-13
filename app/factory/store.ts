@@ -50,7 +50,7 @@ export interface GraphStoreActions {
   setManifold: (constraints: Constraint[], on: boolean) => void;
   setScoreMethod: (method: GraphStore["scoringMethod"]) => void;
   setBaseWeights: (weights: ProductionZoneStoreData["weights"]) => void;
-  importData: (data: GraphImportData) => Promise<void>;
+  importData: (data: GraphImportData, options?: { skipSolver?: boolean }) => Promise<void>;
   exportTestData: () => string;
   setHighlight: (highlight: DeepPartial<GraphStore['highlight']>) => void;
   getProductsInGraph: () => Set<ProductId> | undefined;
@@ -302,7 +302,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               });
             }
           },
-          importData: async (data: GraphImportData) => {
+          importData: async (data: GraphImportData, options?: { skipSolver?: boolean }) => {
             const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
               id: n.id,
               type: n.type,
@@ -333,7 +333,9 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
               goals: newGoals,
             }, false, "importData");
 
-            await get().graphUpdateAction();
+            if (!options?.skipSolver) {
+              await get().graphUpdateAction();
+            }
           },
           getProductsInGraph: () => {
             const productsSet = new Set<ProductId>();
@@ -356,7 +358,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             const state = get();
 
             // Use minify to get the factory data in the same format as import/export
-            const minifiedFactory = minify(state);
+            const minifiedFactory = minify(state, "test-zone");
 
             // Gather additional test inputs
             const testData: FactoryFixture = {
@@ -425,7 +427,8 @@ export default Store;
 
 export type GraphImportData = {
   name: string;
-  icon?: string;
+  icon: string;
+  zoneName: string;
   nodes: {
     id: string;
     type: string;
