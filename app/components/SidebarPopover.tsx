@@ -31,7 +31,7 @@ export function SidebarPopover({
       </PopoverButton>
       <PopoverPanel 
         anchor={anchor}
-        className={`bg-gray-800 border-2 border-gray-500 rounded-sm shadow-lg z-50 ${className}`}
+        className={`bg-gray-800 border-2 border-gray-500 rounded-sm shadow-lg z-50 texture-embossed ${className}`}
       >
         {children}
       </PopoverPanel>
@@ -61,7 +61,7 @@ export function PopoverMenuItem({ onClick, children }: PopoverMenuItemProps) {
 
 export function PopoverIconActions({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-row justify-between gap-1 border-t-2 border-gray-500">
+    <div className="flex flex-row justify-between gap-1 border-t-2 border-gray-500 texture-embossed">
       {children}
     </div>
   );

@@ -88,3 +88,61 @@
     --color-cyan-500: #2FA8A3;      /* Accent teal */
   }
 }
+
+/**
+ * Subtle Textures for Industrial Feel
+ * Matches Captain of Industry game UI style
+ */
+/* Brushed metal texture for headers and primary bars */
+@utility texture-brushed-metal {
+  background-image: 
+    linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.02) 50%, transparent 100%),
+    repeating-linear-gradient(90deg, 
+      transparent 0px, 
+      rgba(255, 255, 255, 0.015) 1px, 
+      transparent 2px, 
+      transparent 4px
+    );
+}
+
+/* Subtle diagonal stripe pattern for panels */
+@utility texture-panel {
+  background-image: 
+    repeating-linear-gradient(45deg, 
+      transparent, 
+      transparent 8px, 
+      rgba(0, 0, 0, 0.03) 8px, 
+      rgba(0, 0, 0, 0.05) 9px
+    );
+}
+
+/* Riveted metal texture for buttons and tabs */
+@utility texture-riveted {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.03) 30%, transparent 50%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Subtle grid pattern for technical feel */
+@utility texture-grid {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Light embossed texture for subtle depth */
+@utility texture-embossed {
+  background-image: 
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, transparent 50%, rgba(0, 0, 0, 0.04) 100%);
+}
+
+/* Composite texture for heavy industrial elements */
+@utility texture-industrial {
+  background-image: 
+    repeating-linear-gradient(90deg, 
+      transparent 0px, 
+      rgba(255, 255, 255, 0.01) 1px, 
+      transparent 2px, 
+      transparent 8px
+    );
+}

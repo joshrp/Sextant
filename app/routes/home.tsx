@@ -55,7 +55,7 @@ export default function Home() {
 
   return <>
     <main className="h-[100vh] w-[100vw] overflow-hidden bg-gray-800">
-      <div className="max-w-[100vw] h-10 p-2 ml-10 flex flex-row gap-4 items-center text-gray-300">
+      <div className="max-w-[100vw] h-10 p-2 ml-10 flex flex-row gap-4 items-center text-gray-300 texture-panel">
         <ZoneHeader selectedZone={selectedZone} />
       </div>
       {zone && (
@@ -111,11 +111,11 @@ function ZoneHeader({ selectedZone }: { selectedZone?: string }) {
 
   const handleDeleteZone = () => {
     if (!editingZoneId) return;
-    
+
     // Delete the zone
     deleteZone(editingZoneId);
     setEditingZoneId(null);
-    
+
     // Navigate to another zone if the deleted zone was selected
     if (editingZoneId === selectedZone) {
       const remainingZones = zones.filter(z => z.id !== editingZoneId);
@@ -136,7 +136,7 @@ function ZoneHeader({ selectedZone }: { selectedZone?: string }) {
     <h1 className="shrink-1 border-r-2 border-gray-400 pr-8">Factory Planner</h1>
     <h2 className="shrink-1">Zone:</h2>
     <Menu>
-      <MenuButton className="text-white items-middle flex-row flex h-full px-2 shrink-1 rounded-sm bg-gray-700 cursor-pointer">
+      <MenuButton className="text-white items-middle flex-row flex h-full px-2 shrink-1 rounded-sm bg-gray-700 cursor-pointer texture-embossed">
         {zone?.icon && <img src={zone.icon} alt="" className="flex-1 block mr-2" />}
         <span>{zone?.name}</span>
         <ChevronDownIcon className="w-6 flex-1 h-full inline-block ml-2 mb-1" />
@@ -167,8 +167,8 @@ function ZoneHeader({ selectedZone }: { selectedZone?: string }) {
       <PencilSquareIcon className="w-5 h-full inline-block" />
     </Button>
     <div className="flex-1" />
-    <Link 
-      to="help?topic=introduction" 
+    <Link
+      to="help?topic=introduction"
       className="shrink-1 cursor-pointer hover:text-white text-gray-400 flex items-center gap-2"
       title="Help"
     >
@@ -213,21 +213,21 @@ function Zone() {
   const selectedFactory = factories.find(f => f.id === selectedFactoryId);
   store.getState().setLastFactory(selectedFactoryId);
   const idb = useProductionZone().idb;
-  
+
   // State for archiving the selected factory
   const [archiveRequested, setArchiveRequested] = useState(false);
 
   return useMemo(() => <>
     <div className="shrink-1 h-full">
-      <ZoneSideBar 
-        selectedFactoryId={selectedFactoryId} 
+      <ZoneSideBar
+        selectedFactoryId={selectedFactoryId}
         onArchiveSelected={() => setArchiveRequested(true)}
       />
     </div>
     {selectedFactory &&
       <FactoryProvider idb={idb} zoneId={zoneId} id={selectedFactoryId} name={selectedFactory?.name || "Default Factory"} weights={baseWeights}>
         <div className="flex-1 flex flex-col h-full">
-          <div className="factoryActions flex flex-row w-full h-10 bg-zinc-950">
+          <div className="factoryActions flex flex-row w-full h-10 bg-zinc-950 texture-industrial">
             <FactoryControls />
           </div>
           <div className="justify-self-stretch flex flex-row w-full h-[calc(100%-calc(10*var(--spacing)))]">
@@ -236,7 +236,7 @@ function Zone() {
         </div>
 
         <Outlet />
-        
+
         {/* Archive handler - inside FactoryProvider so it can access factory data */}
         {archiveRequested && (
           <FactoryArchiveHandler
@@ -293,7 +293,7 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
     setIsCreatingNew(false);
     setEditingFactoryId(null);
   };
-  
+
   const handleArchive = () => {
     // Only allow archiving the currently selected factory
     if (editingFactoryId === selectedFactoryId && onArchiveSelected) {
@@ -310,15 +310,15 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
     data-expanded={expanded || null}
     className="group h-full w-12 data-expanded:w-60 
     after:content-[''] after:absolute after:top-0 after:right-0 after:h-full after:w-4
-    after:shadow-[inset_-4px_0_4px_0_rgba(0,0,0,0.3)] relative z-10
+    after:shadow-[inset_-4px_0_4px_0_rgba(0,0,0,0.3)] relative z-10 after:pointer-events-none
     transition-[width] duration-200 ease-out
-    flex flex-col shrink-0">
+    flex flex-col shrink-0 texture-panel">
 
     <div className="factoryTabs w-full overflow-hidden flex flex-col h-full">
       <ul className="pl-1 flex flex-col gap-1 text-center flex-1">
         {/* Zone Hub Tab - Top level with prominent styling */}
         <li title="Zone Hub" className="flex flex-row justify-center-safe gap-2 p-2 
-         text-white bg-zinc-950 hover:bg-zinc-800
+         text-white bg-zinc-950 hover:bg-zinc-800 texture-embossed
         border-2 border-transparent border-r-0 rounded-l font-semibold
         group-data-expanded:text-left
         ">
@@ -334,11 +334,12 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
         {factories.map(f => (
           <li key={f.id} data-is-selected={f.id == selectedFactoryId || null}
 
-            className="flex flex-row gap-1 bg-gray-800 rounded-l text-gray-400 border-1 
+            className="group/li flex flex-row gap-1 bg-gray-800 rounded-l text-gray-400 border-1 
                       border-gray-700 border-r-0 hover:text-white hover:bg-gray-700
                       data-is-selected:border-amber-600 data-is-selected:text-white
                       data-is-selected:bg-zinc-950 data-is-selected:cursor-default 
-                      whitespace-nowrap items-center-safe
+
+                      whitespace-nowrap items-center-safe texture-riveted
                       p-1 pr-0 justify-center relative text-left
                       shadow-[2px_0_4px_0_rgba(0,0,0,0.25)]
                       data-is-selected:shadow-none
@@ -352,22 +353,22 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
               {f.name}
             </Link>
 
-            {expanded && <>
-              <button
-                onClick={() => setEditingFactoryId(f.id)}
-                className="shrink-1 justify-self-end-safe -mt-1 cursor-pointer hover:text-gray-700 mr-3"
-                title="Edit Factory"
-              >
-                <PencilIcon className="w-4 h-full inline-block" />
-              </button>
-            </>
-            }
+            <button
+              onClick={() => setEditingFactoryId(f.id)}
+              data-is-selected={f.id == selectedFactoryId || null}
+              className="shrink-1 justify-self-end-safe -mt-1 cursor-pointer hover:text-gray-700 pr-2 group-expanded:mr-3
+                  group-data-expanded:block hidden data-is-selected:group-hover/li:block hover:block bg-transparent
+                "
+              title="Edit Factory"
+            >
+              <PencilIcon className="w-4 h-full inline-block" />
+            </button>
           </li>)
         )}
 
         {/* New & Import & Archive Controls */}
         <li className="p-1 mt-2 bg-gray-800 flex flex-row justify-center-safe gap-4 text-white group-data-expanded:text-left
-        border-2 border-gray-700 border-r-0 rounded-l
+        border-2 border-gray-700 border-r-0 rounded-l texture-embossed
         ml-2
         ">
           <button
@@ -400,7 +401,7 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
 
       {/* Expansion toggle button moved to bottom */}
       <button
-        className="h-10 block cursor-pointer text-xl text-bold text-center w-full mt-auto border-t-2 border-gray-700 text-gray-400 hover:text-white"
+        className="h-10 block cursor-pointer text-xl text-bold text-center w-full mt-auto border-t-2 border-gray-700 text-gray-400 hover:text-white texture-embossed"
         onClick={() => {
           setExpanded(!expanded);
         }}>

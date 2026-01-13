@@ -1,6 +1,7 @@
 .selected .recipe-node {
   box-shadow: 0 0 8px 4px rgba(59, 130, 246, 0.5), 0 0 12px 4px rgba(59, 130, 246, 0.3) inset;
   outline: 2px solid rgb(147, 197, 253);
+  @apply texture-riveted;
 }
 
 @utility productHighlight {

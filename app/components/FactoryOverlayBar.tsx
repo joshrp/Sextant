@@ -45,9 +45,9 @@ export function FactoryOverlayBar() {
               opacity-0 invisible
             
               rounded-lg text-white border-2 border-double border-white/20
-            bg-zinc-900/70 backdrop-blur-sm"
+            bg-zinc-900/70 backdrop-blur-sm texture-industrial"
     >
-      <div className="flex flex-row gap-2 items-center justify-center border-b-1 border-gray-500 p-2">
+      <div className="flex flex-row gap-2 items-center justify-center border-b-1 border-gray-500 p-2 texture-embossed">
         <div className="flex-1 justify-self-start">&nbsp;</div>
         <div className="flex-1 flex flex-row gap-2 mx-auto items-center justify-center whitespace-nowrap">
           <div className="h-full">Show:</div>
