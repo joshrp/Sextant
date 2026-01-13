@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router";
 import { ChevronDownIcon, ClipboardIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import usePlanner from "~/context/PlannerContext";
+import usePlanner, { usePlannerStore } from "~/context/PlannerContext";
 import { default as useProductionMatrix } from "~/context/ZoneContext";
 import type { ProductionZoneStoreData } from "~/context/ZoneProvider";
 import useFactory, { useFactoryStore } from "~/factory/FactoryContext";

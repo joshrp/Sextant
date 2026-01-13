@@ -166,10 +166,10 @@ class Unminify {
         if (nodes.has(e[3]) === false) {
           throw new Error("Unknown target node in edge: " + e[3]);
         }
-        
+
         const sourceOutputs = getRecipeOutputs(nodes.get(e[2])!);
         const targetInputs = getRecipeInputs(nodes.get(e[3])!);
-        
+
         if (!sourceOutputs.some(p => p.id === e[1])) {
           throw new Error("Product " + e[1] + " for edge not found in source recipe outputs in " + nodes.get(e[2]));
         }
@@ -215,16 +215,14 @@ class Unminify {
  * @returns 
  */
 export const compress = async (state: unknown): Promise<string> => {
-  
   try {
     const cs = new CompressionStream("gzip");
-    
+
     const jsonstr = JSON.stringify(state, hydration.replacer);
     const bytestream = new TextEncoder().encode(jsonstr);
     const writer = cs.writable.getWriter();
     writer.write(bytestream);
     writer.close();
-    
     const reader = cs.readable.getReader();
     const uint8 = [] as number[];
     while (true) {
@@ -232,11 +230,17 @@ export const compress = async (state: unknown): Promise<string> => {
       if (value) uint8.push(...value);
       if (done) break;
     }
+    reader.cancel();
     let binary = '';
     uint8.forEach(code => {
       binary += String.fromCharCode(code);
     });
     const b64 = btoa(binary);
+    try {
+      await writer.close();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (_) { /* Make sure it's closed. Throws an error if already closed */ }
+
     return b64;
   } catch (e) {
     console.log("Compression error", e);
@@ -266,7 +270,12 @@ export const decompress = async (b64: string): Promise<unknown> => {
     if (value) out.push(...value);
     if (done) break;
   }
+  await reader.cancel();
   const decoded = new TextDecoder().decode(new Uint8Array(out));
+  try {
+    await writer.close();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_) { /* Make sure it's closed. Throws an error if already closed */ }
   return JSON.parse(decoded, hydration.reviver);
 }
 
@@ -339,28 +348,28 @@ export function unminifyBulk(data: unknown): BulkImportData {
         isSingleZone: true,
       };
     }
-    
+
     // Otherwise, it's an array of factories
     const factories: GraphImportData[] = [];
     const zoneGroups = new Map<string, number[]>();
-    
+
     for (let i = 0; i < data.length; i++) {
       const factory = unminify(data[i]);
       factories.push(factory);
-      
+
       const zoneName = factory.zoneName || '';
       const indices = zoneGroups.get(zoneName) || [];
       indices.push(i);
       zoneGroups.set(zoneName, indices);
     }
-    
+
     return {
       factories,
       zoneGroups,
       isSingleZone: zoneGroups.size === 1,
     };
   }
-  
+
   throw new Error(`Invalid bulk import data: expected an array of factory objects or a single factory object. Received: ${typeof data}${Array.isArray(data) ? ' (empty array)' : ''}`);
 }
 
