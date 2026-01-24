@@ -12,6 +12,7 @@ import { useCallback, useState } from "react";
 import useFactory, { useFactoryStore } from "~/factory/FactoryContext";
 import type { HighlightModes } from "~/factory/store";
 import { loadData, type ProductId } from "../loadJsonData";
+import { productIcon } from "~/uiUtils";
 
 export type ManifoldState = "Under" | "Neutral" | "Over"
 
@@ -117,6 +118,7 @@ export default function ButtonEdge({
   });
 
   const productColor = products.get(sourceHandleId as ProductId)?.color || "#333";
+  const product = products.get(sourceHandleId as ProductId);
 
   const classes = ["baseEdge"];
 
@@ -143,7 +145,7 @@ export default function ButtonEdge({
       <EdgeLabelRenderer>
         <div
           style={{
-            display: selected ? "block" : "none",
+            display: selected ? "flex" : "none",
             position: "absolute",
             transform: `translate(-50%, -50%) translate(${edgeCenterX}px,${edgeCenterY}px)`,
             fontSize: 16,
@@ -151,11 +153,34 @@ export default function ButtonEdge({
             // everything inside EdgeLabelRenderer has no pointer events by default
             // if you have an interactive element, set pointer-events: all
             pointerEvents: "all",
+            alignItems: "center",
+            gap: "4px",
           }}
           className="nodrag nopan edgeDeleteButton"
         >
+          {product && (
+            <div 
+              style={{
+                width: "24px",
+                height: "24px",
+                padding: "4px",
+                borderRadius: "4px",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img 
+                src={productIcon(product.icon)} 
+                alt={product.name}
+                title={product.name}
+                style={{ width: "100%", height: "100%" }}
+              />
+            </div>
+          )}
           <button style={buttonStyle} onClick={onEdgeClick}>
-            × {classes.join(',')}
+            ×
           </button>
         </div>
       </EdgeLabelRenderer>
