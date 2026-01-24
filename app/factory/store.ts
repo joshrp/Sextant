@@ -70,12 +70,15 @@ export type HighlightProduct = {
     edges: boolean;
   };
 }
-export type HighlightEdges = {
-  mode: "edges";
-  edgeIds: string[];
-  options: object;
+export type HighlightEdge = {
+  mode: "edge";
+  edgeId: string;
+  sourceNodeId: string;
+  targetNodeId: string;
+  sourceHandle: ProductId;
+  targetHandle: ProductId;
 }
-export type HighlightModes = HighlightNone | HighlightProduct | HighlightEdges;
+export type HighlightModes = HighlightNone | HighlightProduct | HighlightEdge;
 const defaultHighlightOptions: HighlightProduct["options"] = {
   connected: true,
   unconnected: true,
@@ -185,6 +188,32 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             set({
               edges: applyEdgeChanges(changes, get().edges) as CustomEdgeType[],
             }, false, "onEdgesChange");
+
+            // Handle edge selection to activate highlight mode
+            const selectChanges = changes.filter(change => change.type === "select");
+            if (selectChanges.length > 0) {
+              // Find the first selected edge
+              const selectedChange = selectChanges.find(change => change.selected === true);
+              if (selectedChange && selectedChange.type === "select") {
+                const edge = get().edges.find(e => e.id === selectedChange.id) as ButtonEdge | undefined;
+                if (edge) {
+                  get().setHighlight({
+                    mode: "edge",
+                    edgeId: edge.id,
+                    sourceNodeId: edge.source,
+                    targetNodeId: edge.target,
+                    sourceHandle: edge.sourceHandle,
+                    targetHandle: edge.targetHandle,
+                  });
+                }
+              } else {
+                // No selected edge found, clear highlight if all are deselected
+                const hasAnySelected = selectChanges.some(change => change.selected === true);
+                if (!hasAnySelected) {
+                  get().setHighlight({ mode: "none" });
+                }
+              }
+            }
 
             if (changes.filter(change => change.type === "remove").length > 0) {
               get().graphUpdateAction();

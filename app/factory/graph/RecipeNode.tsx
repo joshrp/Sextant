@@ -105,6 +105,7 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
       onRemove={() => removeNode(props.id)}
       solution={props.data.solution}
       highlight={highlight}
+      nodeId={props.id}
     />
   );
 }

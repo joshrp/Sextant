@@ -30,6 +30,7 @@ export interface RecipeNodeViewProps {
     runCount?: number;
   };
   highlight?: HighlightModes;
+  nodeId?: string;
 }
 
 /**
@@ -45,6 +46,7 @@ export default function RecipeNodeView({
   solution,
   highlight,
   zoomLevel,
+  nodeId,
 }: RecipeNodeViewProps) {
   const runCount = solution?.runCount !== undefined ? solution.runCount : 1;
 
@@ -82,6 +84,7 @@ export default function RecipeNodeView({
           productEdges={productEdges}
           solution={solution}
           highlight={highlight}
+          nodeId={nodeId}
         />
         <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
           <img src={machineIcon(recipe.machine)} alt={recipe.machine.name}
@@ -98,6 +101,7 @@ export default function RecipeNodeView({
           productEdges={productEdges}
           solution={solution}
           highlight={highlight}
+          nodeId={nodeId}
         />
 
       </div>
@@ -140,9 +144,10 @@ type HandleListProps = {
     runCount?: number;
   };
   highlight?: HighlightModes;
+  nodeId?: string;
 }
 
-function HandleList({ products, pos, inputs, productEdges, solution, highlight }: HandleListProps) {
+function HandleList({ products, pos, inputs, productEdges, solution, highlight, nodeId }: HandleListProps) {
   const ltr = <T extends string, U extends string>(left: T, right: U) => pos === Position.Left ? left : right;
   const inOrOut = <T extends string, U extends string>(input: T, output: U) => inputs ? input : output;
   return (
@@ -181,8 +186,8 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
           className={`recipe-${inOrOut("input", "output")} recipe-handle relative text-nowrap ${ltr("pl-2", "pr-2")} flex mb-4 items-center-safe`}
           key={prod.product.id}
           data-connected={isConnected}
-          data-highlight={shouldHighlightProduct(highlight, prod.product.id, inputs, isConnected) ? true : null}
-          data-muted={shouldMuteProduct(highlight, prod.product.id) ? true : null}
+          data-highlight={shouldHighlightProduct(highlight, prod.product.id, inputs, isConnected, nodeId) ? true : null}
+          data-muted={shouldMuteProduct(highlight, prod.product.id, nodeId) ? true : null}
         >
           {pos === Position.Left ? handle : null}
           <div className={`flex-1 min-w-4 p-2 text-shadow-md/50`}>
@@ -195,8 +200,20 @@ function HandleList({ products, pos, inputs, productEdges, solution, highlight }
   );
 }
 
-const shouldHighlightProduct = (highlight: HighlightModes | undefined, productId: ProductId, input: boolean, connected: boolean): boolean => {
+const shouldHighlightProduct = (highlight: HighlightModes | undefined, productId: ProductId, input: boolean, connected: boolean, nodeId?: string): boolean => {
   if (!highlight) return false;
+  
+  if (highlight.mode === "edge") {
+    // For edge mode, highlight the handle if it matches the edge's source or target
+    if (nodeId === highlight.sourceNodeId && productId === highlight.sourceHandle) {
+      return true;
+    }
+    if (nodeId === highlight.targetNodeId && productId === highlight.targetHandle) {
+      return true;
+    }
+    return false;
+  }
+  
   if (highlight.mode !== "product") return false;
   if (highlight.productId !== productId) {
     return false;
@@ -210,8 +227,16 @@ const shouldHighlightProduct = (highlight: HighlightModes | undefined, productId
   return inputType && connectedType;
 }
 
-const shouldMuteProduct = (highlight: HighlightModes | undefined, productId: ProductId): boolean => {
+const shouldMuteProduct = (highlight: HighlightModes | undefined, productId: ProductId, nodeId?: string): boolean => {
   if (!highlight) return false;
+  
+  if (highlight.mode === "edge") {
+    // For edge mode, mute handles that are not part of the selected edge
+    const isSourceHandle = nodeId === highlight.sourceNodeId && productId === highlight.sourceHandle;
+    const isTargetHandle = nodeId === highlight.targetNodeId && productId === highlight.targetHandle;
+    return !(isSourceHandle || isTargetHandle);
+  }
+  
   if (highlight.mode !== "product") return false;
   if (highlight.productId === productId) {
     return false;
