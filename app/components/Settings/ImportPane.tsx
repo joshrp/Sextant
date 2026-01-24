@@ -505,6 +505,8 @@ export default function ImportPane() {
           onChange={e => setImportString(e.target.value)}
           placeholder="Paste your factory export string here..."
           className="w-full h-16 p-2 bg-gray-700 rounded text-[10px] font-mono resize-none"
+          data-testid="import-textarea"
+          aria-label="Paste your factory export"
         />
       </div>
 
@@ -761,6 +763,7 @@ export default function ImportPane() {
             onClick={handleImport}
             disabled={!canImport || isImporting}
             className="w-full px-4 py-3 bg-green-600 hover:bg-green-500 disabled:bg-gray-600 disabled:cursor-not-allowed rounded cursor-pointer font-medium"
+            data-testid="import-factories-button"
           >
             {isImporting
               ? 'Importing...'

@@ -73,7 +73,6 @@ export default function ButtonEdge({
   })
 
   let svgPathString, edgeCenterX, edgeCenterY;
-
   const getSmartEdgeResponse = getSmartEdge({
     sourceX,
     sourceY,
@@ -90,7 +89,8 @@ export default function ButtonEdge({
   });
 
   if (getSmartEdgeResponse instanceof Error) {
-    console.error('Error finding Smart Edge Path', getSmartEdgeResponse);
+    console.error('Error finding Smart Edge Path for', id, getSmartEdgeResponse);
+   
     const bezier = getSimpleBezierPath({
       sourceX,
       sourceY,
@@ -113,12 +113,13 @@ export default function ButtonEdge({
   };
   const man = manifoldOptions.find(man => {
     return new Set(Object.keys(man.edges)).has(id)
+    
   });
 
   const productColor = products.get(sourceHandleId as ProductId)?.color || "#333";
 
   const classes = ["baseEdge"];
-  
+
   const highlightEdge = shouldHighlightProduct(highlight, sourceHandleId as ProductId);
   const shouldMute = shouldMuteProduct(highlight, sourceHandleId as ProductId);
 

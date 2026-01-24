@@ -384,6 +384,7 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
             <Link className="text-xs text-gray-400 hover:text-white cursor-pointer"
               to={`./settings/importexport`}
               title="Import Factory"
+              data-testid="import-factory-link"
             >
               <InboxArrowDownIcon className="w-6" />
             </Link>
@@ -402,6 +403,7 @@ export function ZoneSideBar({ selectedFactoryId, onArchiveSelected }: { selected
       {/* Expansion toggle button moved to bottom */}
       <button
         className="h-10 block cursor-pointer text-xl text-bold text-center w-full mt-auto border-t-2 border-gray-700 text-gray-400 hover:text-white texture-embossed"
+        data-testid="zone-sidebar-expand-toggle"
         onClick={() => {
           setExpanded(!expanded);
         }}>

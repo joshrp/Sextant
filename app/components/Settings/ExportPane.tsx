@@ -6,6 +6,14 @@ import usePlanner from '~/context/PlannerContext';
 import { compressBulk, minifyBulk } from '~/factory/importexport/importexport';
 import type { ExportableZone } from '~/types/bulkOperations';
 
+// Helper functions for composite key management (zoneId:factoryId)
+const makeCompositeKey = (zoneId: string, factoryId: string) => `${zoneId}:${factoryId}`;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const parseCompositeKey = (key: string): { zoneId: string; factoryId: string } => {
+  const [zoneId, factoryId] = key.split(':');
+  return { zoneId, factoryId };
+};
+
 export default function ExportPane() {
   const [exportableZones, setExportableZones] = useState<ExportableZone[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,25 +48,31 @@ export default function ExportPane() {
     return () => { cancelled = true; };
   }, [planner]);
 
-  // Track selected factory IDs
+  // Track selected factory IDs using composite keys (zoneId:factoryId)
   const [selectedFactoryIds, setSelectedFactoryIds] = useState<Set<string>>(new Set());
   const [exportString, setExportString] = useState<string>('');
   const [isExporting, setIsExporting] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
 
-  // Get all factories across all zones
+  // Get all factories across all zones with their composite keys
   const allFactories = useMemo(() => {
-    return exportableZones.flatMap(z => z.factories);
+    return exportableZones.flatMap(z => 
+      z.factories.map(f => ({ ...f, compositeKey: makeCompositeKey(z.id, f.id) }))
+    );
   }, [exportableZones]);
 
   // Check if a zone is fully selected
   const isZoneSelected = useCallback((zone: ExportableZone) => {
-    return zone.factories.length > 0 && zone.factories.every(f => selectedFactoryIds.has(f.id));
+    return zone.factories.length > 0 && zone.factories.every(f => 
+      selectedFactoryIds.has(makeCompositeKey(zone.id, f.id))
+    );
   }, [selectedFactoryIds]);
 
   // Check if a zone is partially selected
   const isZonePartiallySelected = useCallback((zone: ExportableZone) => {
-    const selectedCount = zone.factories.filter(f => selectedFactoryIds.has(f.id)).length;
+    const selectedCount = zone.factories.filter(f => 
+      selectedFactoryIds.has(makeCompositeKey(zone.id, f.id))
+    ).length;
     return selectedCount > 0 && selectedCount < zone.factories.length;
   }, [selectedFactoryIds]);
 
@@ -67,22 +81,23 @@ export default function ExportPane() {
     setSelectedFactoryIds(prev => {
       const next = new Set(prev);
       if (isZoneSelected(zone)) {
-        zone.factories.forEach(f => next.delete(f.id));
+        zone.factories.forEach(f => next.delete(makeCompositeKey(zone.id, f.id)));
       } else {
-        zone.factories.forEach(f => next.add(f.id));
+        zone.factories.forEach(f => next.add(makeCompositeKey(zone.id, f.id)));
       }
       return next;
     });
   }, [isZoneSelected]);
 
   // Toggle individual factory selection
-  const toggleFactorySelection = useCallback((factoryId: string) => {
+  const toggleFactorySelection = useCallback((zoneId: string, factoryId: string) => {
+    const compositeKey = makeCompositeKey(zoneId, factoryId);
     setSelectedFactoryIds(prev => {
       const next = new Set(prev);
-      if (next.has(factoryId)) {
-        next.delete(factoryId);
+      if (next.has(compositeKey)) {
+        next.delete(compositeKey);
       } else {
-        next.add(factoryId);
+        next.add(compositeKey);
       }
       return next;
     });
@@ -90,7 +105,7 @@ export default function ExportPane() {
 
   // Select all factories
   const selectAll = useCallback(() => {
-    setSelectedFactoryIds(new Set(allFactories.map(f => f.id)));
+    setSelectedFactoryIds(new Set(allFactories.map(f => f.compositeKey)));
   }, [allFactories]);
 
   // Deselect all factories
@@ -105,7 +120,7 @@ export default function ExportPane() {
       return;
     }
 
-    const selectedFactories = allFactories.filter(f => selectedFactoryIds.has(f.id));
+    const selectedFactories = allFactories.filter(f => selectedFactoryIds.has(f.compositeKey));
     if (selectedFactories.length === 0) {
       setExportString('');
       return;
@@ -145,7 +160,7 @@ export default function ExportPane() {
 
   // Download as file
   const downloadFile = useCallback(() => {
-    const selectedFactories = allFactories.filter(f => selectedFactoryIds.has(f.id));
+    const selectedFactories = allFactories.filter(f => selectedFactoryIds.has(f.compositeKey));
     let filename = 'factory-export.txt';
     
     if (selectedFactories.length === 1) {
@@ -210,7 +225,7 @@ export default function ExportPane() {
       </div>
 
       {/* Zone and factory selection */}
-      <div className="flex-1 overflow-y-auto border border-gray-600 rounded min-h-[200px] max-h-[400px]">
+      <div className="flex-1 overflow-y-auto border border-gray-600 rounded min-h-50 max-h-100">
         <div className="p-2 space-y-3">
           {exportableZones.map(zone => (
             <div key={zone.id} className="rounded border border-gray-600">
@@ -239,18 +254,21 @@ export default function ExportPane() {
 
               {/* Factories in zone */}
               <div className="p-2 space-y-1 bg-gray-800/50">
-                {zone.factories.map(factory => (
+                {zone.factories.map(factory => {
+                  const compositeKey = makeCompositeKey(zone.id, factory.id);
+                  const isSelected = selectedFactoryIds.has(compositeKey);
+                  return (
                   <div
                     key={factory.id}
                     className="flex items-center gap-2 p-2 bg-gray-800 rounded cursor-pointer hover:bg-gray-700"
-                    onClick={() => toggleFactorySelection(factory.id)}
+                    onClick={() => toggleFactorySelection(zone.id, factory.id)}
                   >
                     <div className={`w-4 h-4 border-2 rounded flex items-center justify-center shrink-0 ${
-                      selectedFactoryIds.has(factory.id)
+                      isSelected
                         ? 'bg-blue-500 border-blue-500'
                         : 'border-gray-500'
                     }`}>
-                      {selectedFactoryIds.has(factory.id) && (
+                      {isSelected && (
                         <CheckIcon className="w-3 h-3 text-white" />
                       )}
                     </div>
@@ -260,7 +278,8 @@ export default function ExportPane() {
                       {factory.nodeCount} nodes
                     </span>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           ))}

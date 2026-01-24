@@ -133,7 +133,7 @@ function SideBar({ addNewRecipe }: props) {
         <span>Goals</span>
         <HelpLink topic="goals" title="Learn about Goals" />
       </div>
-      <div className="">
+      <div className="goals" data-testid="sidebar-goals-list">
         {goals.map((goal, i) => {
           const resultCount = solution?.goals?.find(g => g.goal.productId == goal.productId && g.goal.dir == goal.dir)?.resultCount;
           const product = productData.get(goal.productId);
@@ -181,7 +181,7 @@ function SideBar({ addNewRecipe }: props) {
       </div>
       <div className="subtitle mt-4">By Products</div>
 
-      <div className="byproducts grid grid-cols-2 gap-2">
+      <div className="byproducts grid grid-cols-2 gap-2" data-testid="sidebar-byproducts-list">
         {solution?.products?.outputs.map((output, i) => {
           const goal = goals.find(g => g.productId === output.productId && g.dir == "output");
           const product = productData.get(output.productId);
@@ -223,7 +223,7 @@ function SideBar({ addNewRecipe }: props) {
         })}
       </div>
       <div className="subtitle mt-4">Inputs</div>
-      <div className="inputs-list grid grid-cols-2 gap-2 mb-2 bg-gray-800 rounded">
+      <div className="inputs-list grid grid-cols-2 gap-2 mb-2 bg-gray-800 rounded" data-testid="sidebar-inputs-list">
         {solution?.products?.inputs.map((input, i) => {
           const product = productData.get(input.productId);
           if (!product) {

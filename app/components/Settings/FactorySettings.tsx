@@ -87,6 +87,7 @@ export default function FactorySettings() {
           <Link
             key={tab.id}
             to={`../settings/${tab.id}`}
+            data-testid={`settings-tab-${tab.id}`}
             // onClick={() => {
             //   // setSelectedTab(tab.id);
             //   navigate(`${parentUrl}/settings/${tab.id}`, { replace: true });

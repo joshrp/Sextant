@@ -66,10 +66,10 @@ export default function FactoryControls() {
 
   const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
   return (<div className="factoryControls px-2 flex justify-stretch w-full">
-    <button className="p-1 block cursor-pointer" onClick={graphUpdateAction}><ArrowPathRoundedSquareIcon className="mx-auto h-full" /></button>
+    <button className="p-1 block cursor-pointer" onClick={graphUpdateAction} data-testid="factory-controls-graph-update-button"><ArrowPathRoundedSquareIcon className="mx-auto h-full" /></button>
 
     <Menu key="factory-menu" as="div" className="relative">
-      <MenuButton className="cursor-pointer h-full">
+      <MenuButton className="cursor-pointer h-full" data-testid="factory-controls-solution-method-menu-button">
         <div
           data-solved={solutionStatus == "Solved" || null}
           data-blocked={solutionStatus != "Solved" || null}
