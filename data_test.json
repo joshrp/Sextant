@@ -10,6 +10,7 @@
       "unit": "kW",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "BasicServerRack",
           "Balancer_Product_Virtual_Electricity"
         ],
@@ -70,6 +71,7 @@
       "unit": "TFlops",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_Virtual_Computing"
         ],
         "output": [
@@ -3865,6 +3867,7 @@
           "ResearchLab31",
           "ResearchLab41",
           "ResearchLab51",
+          "Housing_Workers",
           "Balancer_Product_Recyclables"
         ]
       },
@@ -4539,6 +4542,7 @@
           "AnimalFeedFromPotatoT2",
           "AnimalFeedFromPotato",
           "PotatoDigestion",
+          "Housing_Workers",
           "Balancer_Product_Potato"
         ],
         "output": [
@@ -4578,6 +4582,7 @@
           "AnimalFeedFromCornT2",
           "AnimalFeedFromCorn",
           "CornDigestion",
+          "Housing_Workers",
           "Balancer_Product_Corn"
         ],
         "output": [
@@ -4761,6 +4766,7 @@
           "FoodPackAssemblyTofuT2",
           "FoodPackAssemblyTofu",
           "VegetablesDigestion",
+          "Housing_Workers",
           "Balancer_Product_Vegetables"
         ],
         "output": [
@@ -4797,6 +4803,7 @@
         "input": [
           "CakeProduction",
           "FruitDigestion",
+          "Housing_Workers",
           "Balancer_Product_Fruit"
         ],
         "output": [
@@ -4865,6 +4872,7 @@
           "FoodPackAssemblyEggsT2",
           "FoodPackAssemblyMeat",
           "FoodPackAssemblyEggs",
+          "Housing_Workers",
           "Balancer_Product_Bread"
         ],
         "output": [
@@ -4998,6 +5006,7 @@
           "FoodPackAssemblyEggsT2",
           "FoodPackAssemblyEggs",
           "EggsDigestion",
+          "Housing_Workers",
           "Balancer_Product_Eggs"
         ],
         "output": [
@@ -5026,6 +5035,7 @@
           "FoodPackAssemblyTofuT3",
           "FoodPackAssemblyTofuT2",
           "FoodPackAssemblyTofu",
+          "Housing_Workers",
           "Balancer_Product_Tofu"
         ],
         "output": [
@@ -5086,6 +5096,7 @@
           "FoodPackAssemblyMeatT3",
           "FoodPackAssemblyMeatT2",
           "FoodPackAssemblyMeat",
+          "Housing_Workers",
           "Balancer_Product_Meat"
         ],
         "output": [
@@ -5111,6 +5122,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_Sausage"
         ],
         "output": [
@@ -5136,6 +5148,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_Snack"
         ],
         "output": [
@@ -5162,6 +5175,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_Cake"
         ],
         "output": [
@@ -5416,6 +5430,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_HouseholdAppliances"
         ],
         "output": [
@@ -5443,6 +5458,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_ConsumerElectronics"
         ],
         "output": [
@@ -5468,6 +5484,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_LuxuryGoods"
         ],
         "output": [
@@ -5668,6 +5685,7 @@
           "MedicalSupplies2AssemblyT3",
           "MedicalSupplies2AssemblyT2",
           "MedicalSupplies2AssemblyT1",
+          "Housing_Workers",
           "Balancer_Product_MedicalSupplies"
         ],
         "output": [
@@ -5701,6 +5719,7 @@
           "CrewSuppliesAssemblyT2",
           "MedicalSupplies3AssemblyT1",
           "CrewSuppliesAssemblyT1",
+          "Housing_Workers",
           "Balancer_Product_MedicalSupplies2"
         ],
         "output": [
@@ -5728,6 +5747,7 @@
       "unit": "",
       "recipes": {
         "input": [
+          "Housing_Workers",
           "Balancer_Product_MedicalSupplies3"
         ],
         "output": [
@@ -28266,6 +28286,82 @@
         {
           "id": "Product_HouseholdGoods",
           "quantity": 0.8
+        },
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 0.56
+        },
+        {
+          "id": "Product_Virtual_Electricity",
+          "quantity": 88
+        },
+        {
+          "id": "Product_Virtual_Computing",
+          "quantity": 4.608
+        },
+        {
+          "id": "Product_LuxuryGoods",
+          "quantity": 0.288
+        },
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 0.288
+        },
+        {
+          "id": "Product_MedicalSupplies",
+          "quantity": 0.4
+        },
+        {
+          "id": "Product_MedicalSupplies2",
+          "quantity": 0.4
+        },
+        {
+          "id": "Product_MedicalSupplies3",
+          "quantity": 0.4
+        },
+        {
+          "id": "Product_Potato",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Corn",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Bread",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Meat",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Eggs",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Tofu",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Sausage",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Vegetables",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Fruit",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Snack",
+          "quantity": 0
+        },
+        {
+          "id": "Product_Cake",
+          "quantity": 0
         }
       ],
       "outputs": [
@@ -28279,11 +28375,15 @@
         },
         {
           "id": "Product_Waste",
-          "quantity": 2.3440000000000003
+          "quantity": 2.344
         },
         {
           "id": "Product_Biomass",
-          "quantity": 0.664
+          "quantity": 0
+        },
+        {
+          "id": "Product_Recyclables",
+          "quantity": 0
         }
       ]
     },

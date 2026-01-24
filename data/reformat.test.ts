@@ -85,15 +85,18 @@ describe("Check refomatted data", () => {
     const { recipes } = allData;
     for (const recipe of recipes.values()) {
       const isBreeder0x = recipe.id === "FastBreederReactorEnrichment1" as RecipeId;
+      const isHousing = recipe.id.startsWith("Housing");
       for (const input of recipe.inputs) {
         const isBlanketOrEnriched = ["Product_BlanketFuel", "Product_BlanketFuelEnriched"].includes(input.id);
         if (isBreeder0x && isBlanketOrEnriched) continue; // There's always an exception to the rule...
+        if (isHousing) continue; // Housing recipes have zero inputs
           expect(input.quantity, `Input ${input.id} in recipe ${recipe.id} has invalid quantity`).toBeGreaterThan(0);
       }
       for (const output of recipe.outputs) {
         const isBlanketOrEnriched = ["Product_BlanketFuel", "Product_BlanketFuelEnriched"].includes(output.id);
 
         if (isBreeder0x && isBlanketOrEnriched) continue; // There's always an exception to the rule...
+        if (isHousing) continue; // Housing recipes have zero outputs
         expect(output.quantity, `Output ${output.id} in recipe ${recipe.id} has invalid quantity`).toBeGreaterThan(0);
       }
     }

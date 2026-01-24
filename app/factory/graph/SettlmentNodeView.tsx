@@ -5,8 +5,9 @@ import HelpLink from '~/components/HelpLink';
 import { formatNumber, machineIcon, productBackground } from '~/uiUtils';
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
-import type { ProductId, Recipe } from './loadJsonData';
+import type { ProductId, Recipe, RecipeProduct } from './loadJsonData';
 import { SettlementCalculator, type SettlementNodeData } from './recipeNodeLogic';
+import { groupProductsByCategory, CATEGORY_INFO, isFoodCategory } from './settlementCategories';
 
 type ProductEdges = Map<ProductId, boolean | null>;
 
@@ -28,8 +29,22 @@ export interface SettlementNodeViewProps {
 }
 
 /**
- * Pure presentational component for rendering a recipe node.
- * All calculations and state management should be done by the parent component.
+ * Category header component for separating product groups
+ */
+function CategoryHeader({ label }: { label: string; isFood?: boolean }) {
+  return (
+    <div className={`settlement-category-header text-xs uppercase tracking-wide font-semibold 
+      
+      mt-2 mb-1 mx-2 first:mt-0`}>
+      {label}
+    </div>
+  );
+}
+
+/**
+ * Pure presentational component for rendering a settlement node.
+ * Inputs are organized into categories: Utilities, Commodities, Health, and Food
+ * (with Food subdivided into Carbs, Protein, Vitamins, and Treats).
  */
 export default function SettlementNodeView({
   recipe,
@@ -45,13 +60,11 @@ export default function SettlementNodeView({
   nodeId,
 }: SettlementNodeViewProps) {
 
-  console.log("Rendering SettlementNodeView", { recipe, settlementOptions, productEdges, ltr, zoomLevel, solution, highlight });
   const runCount = solution?.runCount !== undefined ? solution.runCount : 1;
   const Calculator = SettlementCalculator(recipe, settlementOptions, runCount);
 
   const displayRunCount = solution?.solved && solution.runCount ? solution.runCount : 1;
 
-  const leftProducts = ltr ? recipe.inputs : recipe.outputs;
   const rightProducts = ltr ? recipe.outputs : recipe.inputs;
   const toggleSwitch = (prodId: ProductId, isInput: boolean) => () =>
     isInput ? setOptions({
@@ -66,12 +79,64 @@ export default function SettlementNodeView({
         ...settlementOptions.outputs,
         [prodId]: !(settlementOptions.outputs[prodId]),
       }
-    })
+    });
+
+  // Group inputs by category
+  const inputGroups = groupProductsByCategory(recipe.inputs);
+
+  const renderProductHandle = (prod: RecipeProduct, position: Position, isInput: boolean) => {
+    const isConnected = !!productEdges.get(prod.product.id);
+    const productColor = productBackground(prod.product);
+
+    return (
+      <ProductHandle
+        key={prod.product.id}
+        product={prod.product}
+        quantity={isInput ? Calculator.productInput(prod.product.id) : Calculator.productOutput(prod.product.id)}
+        optional={prod.optional}
+        position={position}
+        isInput={isInput}
+        isConnected={isConnected}
+        productColor={productColor}
+        ltr={position === Position.Left}
+        displayRunCount={displayRunCount}
+        highlight={highlight}
+        hasSwitch={true}
+        switchToggle={toggleSwitch(prod.product.id, isInput)}
+        switchTitle={`Toggle ${prod.product.name} ${isInput ? 'Usage' : 'Production'}`}
+        switchState={isInput ? settlementOptions.inputs[prod.product.id] : settlementOptions.outputs[prod.product.id]}
+        nodeId={nodeId}
+      />
+    );
+  };
+
+  const renderCategorizedInputs = () => {
+    const elements: React.ReactNode[] = [];
+    
+    for (const [category, products] of inputGroups) {
+      const categoryInfo = CATEGORY_INFO[category];
+      const isFood = isFoodCategory(category);
+      
+      elements.push(
+        <CategoryHeader 
+          key={`header-${category}`} 
+          label={categoryInfo.label} 
+          isFood={isFood} 
+        />
+      );
+      
+      elements.push(
+        ...products.map(prod => renderProductHandle(prod, Position.Left, ltr))
+      );
+    }
+    
+    return elements;
+  };
 
   return (
     <div
       data-zoomlevel={zoomLevel}
-      className="recipe-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
+      className="recipe-node settlement-node min-w-10 min-h-20 relative p-2 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
       <div className="recipe-node-title-bar flex justify-between border-white/20 mb-8 pb-2 border-b-2 items-center-safe ">
         <div className="flex-1 text-left p-1">
           <button
@@ -99,30 +164,7 @@ export default function SettlementNodeView({
           pos={Position.Left}
           inputs={ltr}
         >
-          {leftProducts.map(prod => {
-            const isConnected = !!productEdges.get(prod.product.id);
-            const productColor = productBackground(prod.product);
-
-            return (<>
-              <ProductHandle
-                key={prod.product.id}
-                product={prod.product}
-                quantity={Calculator.productInput(prod.product.id)}
-                optional={prod.optional}
-                position={Position.Left}
-                isInput={ltr}
-                isConnected={isConnected}
-                productColor={productColor}
-                ltr={true}
-                displayRunCount={displayRunCount}
-                highlight={highlight}
-                hasSwitch={true}
-                switchToggle={toggleSwitch(prod.product.id, ltr)}
-                switchTitle={`Toggle ${prod.product.name} Usage`}
-                switchState={settlementOptions.inputs[prod.product.id]}
-              />
-            </>);
-          })}
+          {ltr ? renderCategorizedInputs() : rightProducts.map(prod => renderProductHandle(prod, Position.Left, false))}
         </HandleList>
         <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
           <img src={machineIcon(recipe.machine)} alt={recipe.machine.name}
@@ -136,31 +178,7 @@ export default function SettlementNodeView({
           pos={Position.Right}
           inputs={!ltr}
         >
-          {rightProducts.map(prod => {
-            const isConnected = !!productEdges.get(prod.product.id);
-            const productColor = productBackground(prod.product);
-
-            return (
-              <ProductHandle
-                key={prod.product.id}
-                product={prod.product}
-                quantity={Calculator.productOutput(prod.product.id)}
-                optional={prod.optional}
-                position={Position.Right}
-                isInput={!ltr}
-                isConnected={isConnected}
-                productColor={productColor}
-                ltr={false}
-                displayRunCount={displayRunCount}
-                highlight={highlight}
-                hasSwitch={true}
-                switchToggle={toggleSwitch(prod.product.id, !ltr)}
-                switchTitle={`Toggle ${prod.product.name} Production`}
-                switchState={settlementOptions.outputs[prod.product.id]}
-                nodeId={nodeId}
-              />
-            );
-          })}
+          {ltr ? rightProducts.map(prod => renderProductHandle(prod, Position.Right, false)) : renderCategorizedInputs()}
         </HandleList>
 
       </div>
