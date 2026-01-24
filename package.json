@@ -79,5 +79,10 @@
     "vite": "^6.3.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
+  },
+  "overrides": {
+    "lodash": "^4.17.22",
+    "lodash-es": "^4.17.23",
+    "diff": "^5.0.0"
   }
 }
