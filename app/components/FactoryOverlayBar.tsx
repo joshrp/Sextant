@@ -6,11 +6,12 @@ import { loadData, type ProductId } from "~/factory/graph/loadJsonData";
 import type { HighlightProduct } from "~/factory/store";
 import { productIcon } from "~/uiUtils";
 
-const products = loadData().products;
+const { products, recipes } = loadData();
 
 export function FactoryOverlayBar() {
 
   const currentHighlight = useFactoryStore(state => state.highlight);
+  const nodes = useFactoryStore(state => state.nodes);
 
   const setHighlight = useFactoryStore(state => state.setHighlight);
   const getProducts = useFactoryStore(state => state.getProductsInGraph);
@@ -102,6 +103,53 @@ export function FactoryOverlayBar() {
         <ProductViewOptionButton label="Lines" active={options.edges} onClick={() => { setOptions({ ...options, edges: !options.edges }) }} />
       </div>
     </div>)
+  } else if (mode === "edge") {
+    // Edge highlight mode
+    const product = products.get(currentHighlight.sourceHandle);
+    const sourceNode = nodes.find(n => n.id === currentHighlight.sourceNodeId);
+    const targetNode = nodes.find(n => n.id === currentHighlight.targetNodeId);
+    
+    if (!product || !sourceNode || !targetNode) return null;
+
+    const sourceRecipe = recipes.get(sourceNode.data.recipeId);
+    const targetRecipe = recipes.get(targetNode.data.recipeId);
+
+    if (!sourceRecipe || !targetRecipe) return null;
+
+    const productImg = productIcon(product.icon);
+    const productName = product.name;
+
+    return (<div data-open={true}
+      className="absolute left-1/2 top-4 mx-auto z-[2000]
+              min-w-2/5 translate-x-[-50%] data-open:opacity-100 data-open:visible
+              opacity-0 invisible
+            
+              rounded-lg text-white border-2 border-double border-white/20
+            bg-zinc-900/70 backdrop-blur-sm texture-industrial"
+    >
+      <div className="flex flex-row gap-2 items-center justify-center border-b-1 border-gray-500 p-2 texture-embossed">
+        <div className="flex-1 justify-self-start">&nbsp;</div>
+        <div className="flex-1 flex flex-row gap-2 mx-auto items-center justify-center whitespace-nowrap">
+          <div className="h-full">Edge:</div>
+          <div className="w-8 -mr-1 border-1 border-gray-600/40 rounded p-1">
+            <img src={productImg} className="h-full" title={productName} />
+          </div>
+          <div>{productName}</div>
+        </div>
+        <div className="flex-1  justify-self-end-safe items-center flex justify-end-safe">
+          <button
+            className="cursor-pointer text-red-500/50 hover:text-white/80 hover:bg-red-500/50 p-1 rounded"
+            onClick={() => setHighlight({ mode: "none" })}>
+            <XMarkIcon className='w-6' />
+          </button>
+        </div>
+      </div>
+      <div className="actions-row flex flex-row justify-stretch text-sm">
+        <EdgeInfoSection label="From" machineName={sourceRecipe.machine.name} />
+        <div className="border-l-1 border-gray-500" />
+        <EdgeInfoSection label="To" machineName={targetRecipe.machine.name} />
+      </div>
+    </div>)
   } else {
     return null;
   }
@@ -128,5 +176,15 @@ function ProductViewOptionButton(props: {
     <div className="">
       {props.label}
     </div>
+  </div>
+}
+
+function EdgeInfoSection(props: {
+  label: string;
+  machineName: string;
+}) {
+  return <div className="flex-1 flex flex-col items-center justify-center py-2 px-3 text-gray-300">
+    <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">{props.label}</div>
+    <div className="font-medium">{props.machineName}</div>
   </div>
 }
