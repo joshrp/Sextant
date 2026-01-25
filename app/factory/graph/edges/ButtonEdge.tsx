@@ -91,7 +91,7 @@ export default function ButtonEdge({
 
   if (getSmartEdgeResponse instanceof Error) {
     console.error('Error finding Smart Edge Path for', id, getSmartEdgeResponse);
-   
+
     const bezier = getSimpleBezierPath({
       sourceX,
       sourceY,
@@ -114,7 +114,7 @@ export default function ButtonEdge({
   };
   const man = manifoldOptions.find(man => {
     return new Set(Object.keys(man.edges)).has(id)
-    
+
   });
 
   const productColor = products.get(sourceHandleId as ProductId)?.color || "#333";
@@ -137,12 +137,41 @@ export default function ButtonEdge({
 
   style.stroke = productColor;
   const buttonStyle: Record<string, string> = {
-    borderColor: productColor
+    borderColor: productColor,
+    border: 'none'
   };
   return (
     <>
       <BaseEdge path={svgPathString} markerEnd={markerEnd} style={style} className={classes.join(' ')} />
       <EdgeLabelRenderer>
+        {product && (<div
+          style={{
+            display: selected ? "flex" : "none",
+            position: "absolute",
+            transform: `translate(-50%, -50%) translate(calc(${edgeCenterX}px - 60px),${edgeCenterY}px)`,
+            fontSize: 16,
+            zIndex: 1500,
+            // everything inside EdgeLabelRenderer has no pointer events by default
+            // if you have an interactive element, set pointer-events: all
+            pointerEvents: "all",
+            alignItems: "center",
+            gap: "4px",
+            width: "50px",
+            padding: "4px",
+            borderRadius: "4px",
+            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            justifyContent: "center",
+          }}
+          className="nodrag nopan"
+        >
+          <img
+            src={productIcon(product.icon)}
+            alt={product.name}
+            title={product.name}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+        )}
         <div
           style={{
             display: selected ? "flex" : "none",
@@ -158,28 +187,7 @@ export default function ButtonEdge({
           }}
           className="nodrag nopan edgeDeleteButton"
         >
-          {product && (
-            <div 
-              style={{
-                width: "24px",
-                height: "24px",
-                padding: "4px",
-                borderRadius: "4px",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <img 
-                src={productIcon(product.icon)} 
-                alt={product.name}
-                title={product.name}
-                style={{ width: "100%", height: "100%" }}
-              />
-            </div>
-          )}
-          <button style={buttonStyle} onClick={onEdgeClick}>
+          <button style={buttonStyle} title="Delete Line" onClick={onEdgeClick}>
             ×
           </button>
         </div>

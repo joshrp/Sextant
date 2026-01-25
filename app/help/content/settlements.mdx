@@ -1,0 +1,13 @@
+# Settlements
+
+Settlements "Make" workers. In game they provide space, here we assume they are filled and providing a workforce.
+
+In game some inputs are optional and can be partially fulfilled. Here they can be toggled on or off to adjust demand, but if enabled they must be fully supplied.
+
+Partial supply of items is NOT supported, due to the nature of the graph solver, if an item is enabled, it needs to be fully supplied. In game, partially supplied inputs usually result in problems (low unity / health etc.) so this is not modelled here.
+
+## Food
+
+The amount of food consumed depends on how many different categories of food are provided, and how many items in each category. Use the toggles to adjust which food items are provided. 
+
+See: https://wiki.coigame.com/Settlement

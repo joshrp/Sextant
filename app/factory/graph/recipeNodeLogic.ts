@@ -4,6 +4,7 @@
  */
 import { formatNumber } from '~/uiUtils';
 import { ProductId, type Recipe, type RecipeId } from './loadJsonData';
+import { getProductCategory, isFoodCategory, type SettlementCategory } from './settlementCategories';
 
 export type NodeBaseData = {
   ltr?: boolean; // Left to right layout
@@ -49,12 +50,39 @@ export function getQuantityDisplay(quantity: number, runCount: number, unit: str
 }
 
 export const SettlementCalculator = (recipeId: Recipe, options: SettlementNodeData["options"], runCount: number) => {
+  const foodCategoriesMet = new Set<SettlementCategory>();
+  const categoryItemsMet = new Map<SettlementCategory, number>();
+
+  recipeId.inputs.forEach(input => {
+    const category = getProductCategory(input.product.id);
+    if (category && isFoodCategory(category)) {
+      if (options.inputs?.[input.product.id] === true) {
+        foodCategoriesMet.add(category);
+        categoryItemsMet.set(category, (categoryItemsMet.get(category) || 0) + 1);
+      }
+    }
+  });
+  console.log("Food categories met:", foodCategoriesMet);
+  console.log("Category items met:", categoryItemsMet);
+
   return {
     productInput: (productId: ProductId): number => {
       const product = recipeId.inputs.find(input => input.product.id === productId);
       if (!product) return 0;
-
+      if (options.inputs?.[productId] === false) {
+        return 0;
+      }
       let baseQty = product.quantity;
+
+      const category = getProductCategory(product.product.id);
+      if (category && isFoodCategory(category)) {
+        // Reduce the amount of food based on how many categories of food are delivered, 
+        //  and how many items in the same category are delivered
+        console.log(`Adjusting quantity for food product ${product.product.id}: baseQty=${baseQty}`);
+        console.log(`  foodCategoriesMet.size=${foodCategoriesMet.size}, categoryItemsMet=${categoryItemsMet.get(category)}`);
+        baseQty /= foodCategoriesMet.size * (categoryItemsMet.get(category) || 1);
+      }
+
       switch (product.product.id) {
         case ProductId("Product_Water"):
           if (options?.outputs?.[ProductId("Product_WasteWater")] === false) {
@@ -62,9 +90,7 @@ export const SettlementCalculator = (recipeId: Recipe, options: SettlementNodeDa
           }
           break;
       }
-      if (options.inputs?.[productId] === false) {
-        baseQty = 0;
-      }
+
       return baseQty * runCount;
     },
     productOutput: (productId: ProductId): number => {

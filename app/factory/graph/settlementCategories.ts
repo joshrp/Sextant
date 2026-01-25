@@ -4,16 +4,14 @@
  */
 import type { ProductId, RecipeProduct } from './loadJsonData';
 
+export type FoodSubCategory = 'carbs' | 'protein' | 'vitamins' | 'treats';
+
 export type SettlementCategory = 
   | 'utilities'
   | 'commodities' 
   | 'health'
-  | 'food-carbs'
-  | 'food-protein'
-  | 'food-vitamins'
-  | 'food-treats';
+  | `food-${FoodSubCategory}`
 
-export type FoodSubCategory = 'carbs' | 'protein' | 'vitamins' | 'treats';
 
 export interface CategoryInfo {
   id: SettlementCategory;

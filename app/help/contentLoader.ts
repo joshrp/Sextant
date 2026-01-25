@@ -15,6 +15,7 @@ import * as ScoringContent from './content/scoring.mdx';
 import * as ManifoldsContent from './content/manifolds.mdx';
 import * as ComparingChainsContent from './content/comparing-chains.mdx';
 import * as AdvancedBalancersContent from './content/advanced-balancers.mdx';
+import * as SettlementsContent from './content/settlements.mdx';
 
 
 // Map topic IDs to their content components
@@ -30,6 +31,7 @@ export const contentMap = {
   manifolds: ManifoldsContent.default,
   'comparing-chains': ComparingChainsContent.default,
   'advanced-balancers': AdvancedBalancersContent.default,
+  settlements: SettlementsContent.default,
 } as const;
 
 /**

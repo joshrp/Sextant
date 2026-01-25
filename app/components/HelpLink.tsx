@@ -31,7 +31,7 @@ export default function HelpLink({
   return (
     <Link 
       to={`help?topic=${topic}`}
-      className={`cursor-pointer hover:text-white text-gray-400 ${className}`}
+      className={`cursor-pointer text-white hover:text-gray-400 ${className}`}
       title={defaultTitle}
     >
       <QuestionMarkCircleIcon className={iconSize} />
