@@ -1,9 +1,10 @@
 import { Position } from '@xyflow/react';
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface HandleListProps {
   /** The position of handles (left or right) */
   pos: Position;
+  className?: HTMLAttributes<HTMLDivElement>['className'];
   /** Whether these are input handles (true) or output handles (false) */
   inputs: boolean;
   /** Child ProductHandle components to render */
@@ -18,6 +19,7 @@ export interface HandleListProps {
 export default function HandleList({ 
   pos, 
   inputs, 
+  className = '',
   children 
 }: HandleListProps) {
   const ltr = <T extends string>(left: T, right: T) => pos === Position.Left ? left : right;
@@ -27,8 +29,9 @@ export default function HandleList({
     <div className={
       `recipe-${inOrOut("inputs", "outputs")} 
         recipe-list
-        flex-2 relative 
-        ${ltr("items-start -left-2", "justify-end-safe -right-2")}`
+        flex-2 flex flex-col relative 
+        ${ltr("-left-2", "-right-2")}
+        ${className}`
     }>
       {children}
     </div>

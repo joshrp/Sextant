@@ -77,7 +77,7 @@ export default function ProductHandle(props: ProductHandleProps) {
   let switchElement = null;
   if (props.hasSwitch) {
     switchElement =
-      <div className="flex-1 h-full">
+      <div className="flex-1 h-full flex items-center justify-center">
         <Switch
           onChange={props.switchToggle}
           checked={props.switchState}
@@ -97,7 +97,10 @@ export default function ProductHandle(props: ProductHandleProps) {
   return (
     <div
       style={{ backgroundColor: productColor }}
-      className={`recipe-${inOrOut("input", "output")} recipe-handle text-nowrap relative ${isLeft ? "pl-2" : "pr-2"} flex mb-4 items-center-safe`}
+      className={`recipe-${inOrOut("input", "output")} flex flex-row recipe-handle relative 
+                text-nowrap  ${isLeft ? "pl-2" : "pr-2"} mt-4 first:mt-0 items-center-safe
+                align-middle
+                `}
       data-connected={isConnected}
       data-highlight={shouldHighlightProduct(highlight, product.id, isInput, isConnected, nodeId) ? true : null}
       data-muted={shouldMuteProduct(highlight, product.id, nodeId) ? true : null}

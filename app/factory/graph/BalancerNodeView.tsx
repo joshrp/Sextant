@@ -2,7 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { Position } from '@xyflow/react';
 import HelpLink from '~/components/HelpLink';
-import { formatNumber, machineIcon, productBackground } from '~/uiUtils';
+import { machineIcon, productBackground } from '~/uiUtils';
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
 import type { ProductId, Recipe } from './loadJsonData';
@@ -40,7 +40,6 @@ export default function BalancerNodeView({
   highlight,
   nodeId,
 }: BalancerNodeViewProps) {
-  const runCount = solution?.runCount ? solution.runCount : 1;
   const displayRunCount = solution?.solved && solution.runCount ? solution.runCount : 1;
 
   const leftProducts = ltr ? recipe.inputs : recipe.outputs;
@@ -82,9 +81,10 @@ export default function BalancerNodeView({
         </div>
       </div>
 
-      <div className="products flex flex-row gap-2 text-xl justify-between mt-4">
+      <div className="products flex flex-row gap-2 text-xl  justify-center mt-4 mb-8">
         <HandleList
           pos={Position.Left}
+          className='justify-center'
           inputs={ltr}
         >
           {leftProducts.map(prod => {
@@ -114,11 +114,10 @@ export default function BalancerNodeView({
             className="inline-block w-20 min-w-8 p-1 pointer-events-none
                   bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
                   " data-flipped={ltr == false || null} />
-          <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
-
         </div>
         <HandleList
           pos={Position.Right}
+          className='justify-center'
           inputs={!ltr}
         >
           {rightProducts.map(prod => {

@@ -33,9 +33,8 @@ export interface SettlementNodeViewProps {
  */
 function CategoryHeader({ label }: { label: string; isFood?: boolean }) {
   return (
-    <div className={`settlement-category-header text-xs uppercase tracking-wide font-semibold 
-      
-      mt-2 mb-1 mx-2 first:mt-0`}>
+    <div className={`settlement-category-header text-md uppercase tracking-wide font-semibold 
+      mt-6 mx-2 first:mt-0 border-b border-gray-300/30 pb-1`}>
       {label}
     </div>
   );
@@ -147,7 +146,7 @@ export default function SettlementNodeView({
           </button>
         </div>
         <div className="flex-10 text-center text-xl flex items-center justify-center gap-2">
-          <span>Settlement</span>
+          <span className="tracking-wide font-semibold text-3xl">Settlement</span>
           {recipe.machine.isBalancer && <HelpLink topic="balancer" title="Learn about Balancers" iconSize="w-5 h-5" />}
         </div>
         <div className="flex-1 justify-end-safe text-right ">
@@ -166,9 +165,9 @@ export default function SettlementNodeView({
         >
           {ltr ? renderCategorizedInputs() : rightProducts.map(prod => renderProductHandle(prod, Position.Left, false))}
         </HandleList>
-        <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30">
+        <div className="recipe-machine flex-2 flex-col items-center text-center min-w-30 mx-8">
           <img src={machineIcon(recipe.machine)} alt={recipe.machine.name}
-            className="inline-block w-20 min-w-8 p-1 pointer-events-none
+            className="inline-block w-50 min-w-8 p-1 pointer-events-none
                   bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
                   " data-flipped={ltr == false || null} />
           <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>

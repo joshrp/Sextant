@@ -309,37 +309,37 @@ function modifyMachineData(rawMachine: RawMachine): RawMachine {
         // Food inputs, default to 0 because it depends what else is provided
         {
           name: "Potato",
-          quantity: 0,
+          quantity: inputRatio.mul(42).toNumber(),
         },{
           name: "Corn",
-          quantity: 0,
+          quantity: inputRatio.mul(30).toNumber(),
         },{
           name: "Bread",
-          quantity: 0, 
+          quantity: inputRatio.mul(20).toNumber(), 
         },{
           name: "Meat",
-          quantity: 0,
+          quantity: inputRatio.mul(27).toNumber(),
         },{
           name: "Eggs",
-          quantity: 0,
+          quantity: inputRatio.mul(30).toNumber(),
         },{
           name: "Tofu",
-          quantity: 0,
+          quantity: inputRatio.mul(18).toNumber(),
         },{
           name: "Sausage",
-          quantity: 0,
+          quantity: inputRatio.mul(33.5).toNumber(),
         },{
           name: "Vegetables",
-          quantity: 0,
+          quantity: inputRatio.mul(42).toNumber(),
         },{
           name: "Fruit",
-          quantity: 0,
+          quantity: inputRatio.mul(31.5).toNumber(),
         },{
           name: "Snack",
-          quantity: 0,
+          quantity: inputRatio.mul(26).toNumber(),
         },{
           name: "Cake",
-          quantity: 0,
+          quantity: inputRatio.mul(25).toNumber(),
         }
       ],
         outputs: [{

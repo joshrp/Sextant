@@ -308,6 +308,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           },
           setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => {
             set(state => reducers.updateSettlementOptions(state, nodeId, options), false, "setSettlementOptions");
+            get().graphUpdateAction();
           },
           setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
             set(state => reducers.updateEdgeData(state, edgeId, data), false, "setEdgeData");

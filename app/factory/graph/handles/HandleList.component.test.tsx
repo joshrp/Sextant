@@ -160,7 +160,6 @@ describe('HandleList Component', () => {
 
       const list = container.querySelector('.recipe-list');
       expect(list?.classList.contains('-left-2')).toBe(true);
-      expect(list?.classList.contains('items-start')).toBe(true);
     });
 
     it('applies right positioning for right position', () => {
@@ -175,7 +174,6 @@ describe('HandleList Component', () => {
 
       const list = container.querySelector('.recipe-list');
       expect(list?.classList.contains('-right-2')).toBe(true);
-      expect(list?.classList.contains('justify-end-safe')).toBe(true);
     });
   });
 
