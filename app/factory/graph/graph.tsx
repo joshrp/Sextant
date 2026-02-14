@@ -8,15 +8,19 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
-import { useCallback, useEffect } from "react";
+import { type MutableRefObject, useCallback, useEffect, useRef } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
 import type { AddRecipeNode } from "../factory";
 import useFactory from "../FactoryContext";
 import { type GraphStore } from "../store";
 import { edgeTypes, type CustomEdgeType } from "./edges";
-import type { ProductId } from "./loadJsonData";
+import { loadData, type ProductId, type RecipeId } from "./loadJsonData";
 import { nodeTypes, type CustomNodeType } from "./nodes";
+import { shouldFlipNode, estimateNodeSize, findAvailableSlot, getExistingNodeRects, getExistingNodeWidths } from "./nodePositioning";
+import { getViewportBounds } from "./viewportHelpers";
+
+const { recipes } = loadData();
 
 const selector = (state: GraphStore) => ({
   nodes: state.nodes,
@@ -30,7 +34,8 @@ const selector = (state: GraphStore) => ({
 
 
 type props = {
-  addNewRecipe: (addRecipeNode: AddRecipeNode) => void
+  addNewRecipe: (addRecipeNode: AddRecipeNode) => void;
+  smartPositionRef: MutableRefObject<((recipeId: RecipeId) => { x: number; y: number }) | null>;
 };
 
 // TODO: Component Testing - This component manages complex graph state and needs refactoring:
@@ -47,7 +52,7 @@ type props = {
 //    - GraphController component (state management)
 // 5. Add unit tests for position calculation logic
 // 6. Mock React Flow context for component testing
-export default function Graph({ addNewRecipe }: props) {
+export default function Graph({ addNewRecipe, smartPositionRef }: props) {
   const store = useFactory().store;
 
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
@@ -58,13 +63,57 @@ export default function Graph({ addNewRecipe }: props) {
   // Only fit viewport to nodes when we go from none to some,
   // This could fire other times, but mostly it's just the page loading
   const fit = nodes.length > 0;
-  const { fitBounds, getNodesBounds, screenToFlowPosition } = useReactFlow();
+  const { fitBounds, getNodesBounds, screenToFlowPosition, getViewport } = useReactFlow();
+  
+  // Cache container reference for dimension queries
+  const containerRef = useRef<HTMLElement | null>(null);
+  useEffect(() => {
+    containerRef.current = document.querySelector('.react-flow');
+  }, []);
+  
   useEffect(() => {
     fitBounds(getNodesBounds(nodes), {
       padding: 0.4,
       duration: 400
     }); return;
   }, [fitBounds, fit]);
+
+  // Calculate smart position for button-placed nodes
+  const getSmartPositionForRecipe = useCallback((recipeId: RecipeId): { x: number; y: number } => {
+    const recipe = recipes.get(recipeId);
+    if (!recipe) {
+      console.warn('Recipe not found for smart positioning:', recipeId);
+      // Return viewport center as fallback
+      const viewport = getViewport();
+      return {
+        x: -viewport.x / viewport.zoom + (window.innerWidth / 2) / viewport.zoom,
+        y: -viewport.y / viewport.zoom + (window.innerHeight / 2) / viewport.zoom,
+      };
+    }
+    
+    const handleCount = Math.max(recipe.inputs.length, recipe.outputs.length);
+    const viewport = getViewport();
+    
+    // Use cached container or fallback to window dimensions
+    const containerWidth = containerRef.current?.clientWidth ?? window.innerWidth;
+    const containerHeight = containerRef.current?.clientHeight ?? window.innerHeight;
+    
+    // Read nodes directly from the store to get the latest state
+    const currentNodes = store.getState().nodes;
+    
+    const viewportBounds = getViewportBounds(viewport, containerWidth, containerHeight);
+    const existingRects = getExistingNodeRects(currentNodes);
+    const existingWidths = getExistingNodeWidths(currentNodes);
+    const candidateSize = estimateNodeSize(handleCount, existingWidths);
+    
+    return findAvailableSlot(existingRects, candidateSize, viewportBounds);
+  }, [store, getViewport]);
+
+  // Register smart position callback with Factory via ref
+  useEffect(() => {
+    smartPositionRef.current = getSmartPositionForRecipe;
+    return () => { smartPositionRef.current = null; };
+  }, [smartPositionRef, getSmartPositionForRecipe]);
 
   const onConnectEnd = useCallback((event: MouseEvent | TouchEvent, connectionState: FinalConnectionState) => {
     // when a connection is dropped on the pane it's not valid 
@@ -79,18 +128,33 @@ export default function Graph({ addNewRecipe }: props) {
         y: clientY,
       });
 
+      // Find source node to get its position and ltr for flip calculation
+      const sourceNodeId = connectionState.fromHandle.nodeId;
+      const sourceNode = nodes.find(n => n.id === sourceNodeId);
+      const sourceNodePos = sourceNode?.position ?? { x: 0, y: 0 };
+      const sourceLtr = sourceNode?.data.ltr ?? true;
+
       const addingSource = connectionState.fromHandle.type == "target";
+      // "target" = input handle, "source" = output handle
+      const sourceHandleType: 'input' | 'output' = connectionState.fromHandle.type === "target" ? "input" : "output";
+      
+      const newNodePosition = {
+        x: dropPosition.x + 30 * (addingSource ? -10 : 1),
+        y: dropPosition.y - 100
+      };
+
+      // Calculate ltr for new node based on relative position to source
+      const ltr = !shouldFlipNode(sourceHandleType, sourceNodePos, newNodePosition, sourceLtr);
+
       addNewRecipe({
         productId,
-        position: {
-          x: dropPosition.x + 30 * (addingSource ? -10 : 1),
-          y: dropPosition.y - 100
-        },
+        position: newNodePosition,
         produce: addingSource,
-        otherNode: connectionState.fromHandle.nodeId
+        otherNode: sourceNodeId,
+        ltr,
       });
     }
-  }, [screenToFlowPosition, addNewRecipe]);
+  }, [screenToFlowPosition, addNewRecipe, nodes]);
 
   return (
     <ReactFlow<CustomNodeType, CustomEdgeType>

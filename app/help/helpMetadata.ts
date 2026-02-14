@@ -98,6 +98,14 @@ export const helpTopics: HelpTopic[] = [
     order: 3,
   },
   {
+    id: 'settlements',
+    title: 'Settlements',
+    description: 'Making Workers',
+    contentKey: 'settlements',
+    category: 'reference',
+    order: 4,
+  },
+  {
     id: 'scoring',
     title: 'Scoring Methods',
     description: 'Understanding different scoring methods for optimization',

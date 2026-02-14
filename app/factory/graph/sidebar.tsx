@@ -94,7 +94,7 @@ function SideBar({ addNewRecipe }: props) {
     onClick: (goal: FactoryGoal) => () => addNewRecipe({
       productId: goal.productId,
       produce: goal.dir == "output",
-      position: { x: 0, y: 0 }, // TODO: Get a better position
+      position: { x: 0, y: 0 },
       otherNode: "",
     }),
   }]
@@ -103,7 +103,7 @@ function SideBar({ addNewRecipe }: props) {
     onClick: <T extends { productId: ProductId }>(input: T) => () => addNewRecipe({
       productId: input.productId,
       produce: true,
-      position: { x: 0, y: 0 }, // TODO: Get a better position
+      position: { x: 0, y: 0 },
       otherNode: "",
     }),
   }];
@@ -122,7 +122,7 @@ function SideBar({ addNewRecipe }: props) {
     onClick: <T extends { productId: ProductId }>(output: T) => () => addNewRecipe({
       productId: output.productId,
       produce: false,
-      position: { x: 0, y: 0 }, // TODO: Get a better position
+      position: { x: 0, y: 0 },
       otherNode: "",
     }),
   }];

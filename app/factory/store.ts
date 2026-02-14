@@ -17,6 +17,13 @@ import * as reducers from "~/context/reducers/graphReducers";
 import { minify } from "./importexport/importexport";
 import type { IDB } from "~/context/idb";
 import type { FactoryFixture } from "./fixtures";
+import type { BalancerNodeData, NodeDataTypes, SettlementNodeData } from "./graph/recipeNodeLogic";
+
+// Default empty settlement options for backward compatibility when importing settlements without options
+const EMPTY_SETTLEMENT_OPTIONS: SettlementNodeData["options"] = { 
+  inputs: {} as Record<ProductId, boolean>, 
+  outputs: {} as Record<ProductId, boolean> 
+};
 
 export interface GraphCoreData {
   name: string,
@@ -54,6 +61,7 @@ export interface GraphStoreActions {
   exportTestData: () => string;
   setHighlight: (highlight: DeepPartial<GraphStore['highlight']>) => void;
   getProductsInGraph: () => Set<ProductId> | undefined;
+  setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => void;
 }
 
 export type HighlightNone = {
@@ -295,8 +303,12 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
             set(state => reducers.updateScoringMethod(state, method), false, "setScoreMethod");
             get().solutionUpdateAction(false);
           },
-          setNodeData: (nodeId: string, data: Partial<RecipeNodeData>) => {
+          setNodeData: (nodeId: string, data: Partial<RecipeNodeData | BalancerNodeData | SettlementNodeData>) => {
             set(state => reducers.updateNodeData(state, nodeId, data), false, "setNodeData");
+          },
+          setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => {
+            set(state => reducers.updateSettlementOptions(state, nodeId, options), false, "setSettlementOptions");
+            get().graphUpdateAction();
           },
           setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
             set(state => reducers.updateEdgeData(state, edgeId, data), false, "setEdgeData");
@@ -326,18 +338,53 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
                 set({ highlight: highlight as HighlightModes }, false, "setHighlight");
               }
             } else {
-              set({                
+              set({
                 highlight: highlight as HighlightModes
               });
             }
           },
           importData: async (data: GraphImportData, options?: { skipSolver?: boolean }) => {
-            const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => ({
-              id: n.id,
-              type: n.type,
-              position: n.position,
-              data: n.data,
-            }));
+
+            const newNodes: GraphCoreData["nodes"] = data.nodes.map(n => {
+              if (!('recipeId' in n.data)) {
+                throw new Error(`Node data for node ${n.id} is missing recipeId`);
+              }
+              if (n.type !== 'recipe-node') {
+                throw new Error(`Unsupported node type ${n.type} for node ${n.id}`);
+              }
+              // Default to "recipe" type if not specified for backwards compatibility
+              const nodeType = n.data.type ?? "recipe";
+              
+              // Construct properly typed node data based on node type
+              let nodeData: NodeDataTypes;
+              if (nodeType === "settlement") {
+                nodeData = {
+                  type: "settlement",
+                  recipeId: n.data.recipeId,
+                  ltr: n.data.ltr,
+                  options: n.data.options ?? EMPTY_SETTLEMENT_OPTIONS,
+                };
+              } else if (nodeType === "balancer") {
+                nodeData = {
+                  type: "balancer",
+                  recipeId: n.data.recipeId,
+                  ltr: n.data.ltr,
+                };
+              } else {
+                nodeData = {
+                  type: "recipe",
+                  recipeId: n.data.recipeId,
+                  ltr: n.data.ltr,
+                };
+              }
+              
+              return {
+                id: n.id,
+                type: 'recipe-node' as const,
+                position: n.position,
+                data: nodeData,
+              }
+            });
 
             const newEdges: GraphCoreData["edges"] = data.edges.map(e => ({
               id: `${e.source}-${e.target}-${e.product}`,
@@ -369,7 +416,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           getProductsInGraph: () => {
             const productsSet = new Set<ProductId>();
             if (!get().graph?.graph) return undefined;
-            
+
             for (const node of Object.keys(get().graph!.graph)) {
               const nodeConnections = get().graph?.graph[node];
               if (!nodeConnections) continue;
@@ -462,7 +509,12 @@ export type GraphImportData = {
     id: string;
     type: string;
     position: { x: number; y: number; };
-    data: { recipeId: RecipeId, ltr?: boolean };
+    data: { 
+      type?: "recipe" | "balancer" | "settlement"; 
+      recipeId: RecipeId, 
+      ltr?: boolean;
+      options?: { inputs: Record<ProductId, boolean>; outputs: Record<ProductId, boolean>; };
+    };
   }[],
   edges: {
     type: string;

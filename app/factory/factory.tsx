@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { SelectorDialog } from 'app/components/Dialog';
 import Graph from "app/factory/graph/graph";
@@ -10,12 +10,15 @@ import {
   type RecipeId
 } from "./graph/loadJsonData";
 
-import { ReactFlowProvider } from "@xyflow/react";
-import useFactory, { useFactoryStore } from "./FactoryContext";
-import RecipePicker from "./RecipePicker";
-import { usePlannerStore } from "~/context/PlannerContext";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
+import { ReactFlowProvider } from "@xyflow/react";
 import { FactoryOverlayBar } from "~/components/FactoryOverlayBar";
+import FactoryControls from "~/context/FactoryControls";
+import { usePlannerStore } from "~/context/PlannerContext";
+import { useFactoryStore } from "./FactoryContext";
+import RecipePicker from "./RecipePicker";
+import type { RecipeNode } from "./graph/RecipeNode";
+import { isSentinelPosition } from "./graph/nodePositioning";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);
@@ -27,11 +30,11 @@ export type AddRecipeNode = {
   position: { x: number; y: number };
   produce: boolean; // true = produce this item, false = consume
   otherNode: string; // The node that this is connecting to, if any
+  ltr?: boolean;
+  getSmartPosition?: (recipeId: RecipeId) => { x: number; y: number };
 };
 
 export function Factory() {
-  const store = useFactory().store
-
   const addNode = useFactoryStore(state => state.addNode);
   const onConnect = useFactoryStore(state => state.onConnect);
 
@@ -90,23 +93,69 @@ export function Factory() {
     };
   }, [isResizing, handleMouseMove, handleMouseUp]);
 
-  const addNewRecipe = (recipe: AddRecipeNode) => {
-    setAddRecipeNode(recipe);
-  };
+  // Ref for Graph to register its smart positioning callback
+  const smartPositionRef = useRef<((recipeId: RecipeId) => { x: number; y: number }) | null>(null);
 
-  const addProductToGraph = useCallback((id: RecipeId, recipeAdd: AddRecipeNode) => {
+  const addNewRecipe = useCallback((recipe: AddRecipeNode) => {
+    // For sidebar/controls calls with sentinel position, inject the smart positioning callback from Graph
+    if (isSentinelPosition(recipe.position) && !recipe.getSmartPosition && smartPositionRef.current) {
+      recipe = { ...recipe, getSmartPosition: smartPositionRef.current };
+    }
+    setAddRecipeNode(recipe);
+  }, []);
+
+  const addProductToGraph = useCallback((id: RecipeId, isBalancer: boolean, recipeAdd: AddRecipeNode) => {
 
     if (!recipeAdd.productId) return;
-    const newNode = {
-      id: id + "_" + (new Date().getTime()),
-      position: recipeAdd.position ?? { x: 100, y: 100 },
-      type: "recipe-node",
-      data: {
-        recipeId: id,
-        ltr: true,
-      },
-    };
-
+    const recipe = recipes.get(id);
+    if (!recipe) {
+      console.error('Recipe not found:', id);
+      return;
+    }
+    
+    // Calculate position - use smart positioning for button-placed nodes (sentinel position)
+    let position = recipeAdd.position;
+    if (isSentinelPosition(position) && smartPositionRef.current) {
+      // Always read from ref to get the latest callback with current nodes state
+      position = smartPositionRef.current(id);
+    } else if (isSentinelPosition(position) && recipeAdd.getSmartPosition) {
+      position = recipeAdd.getSmartPosition(id);
+    } else if (isSentinelPosition(position)) {
+      // Fallback if callback not available
+      position = { x: 100, y: 100 };
+    }
+    
+    // Use ltr from recipeAdd if provided (e.g., from connection-drop), otherwise default to true
+    const ltr = recipeAdd.ltr ?? true;
+    
+    let newNode: RecipeNode;
+    if (recipe.type === "settlement") {
+      newNode = {
+        id: id + "_" + (new Date().getTime()),
+        position,
+        type: 'recipe-node',
+        data: {
+          type: recipe.type,
+          recipeId: id,
+          ltr,
+          options: {
+            inputs: Object.fromEntries(recipe.inputs.map(input => [input.product.id, true])) as Record<ProductId, boolean>,
+            outputs: Object.fromEntries(recipe.outputs.map(output => [output.product.id, true])) as Record<ProductId, boolean>,
+          }
+        },
+      };
+    } else {
+      newNode = {
+        id: id + "_" + (new Date().getTime()),
+        position,
+        type: 'recipe-node',
+        data: {
+          type: recipe.type,
+          recipeId: id,
+          ltr,
+        },
+      };
+    }
     addNode(newNode);
     if (recipeAdd.produce)
       onConnect({
@@ -124,55 +173,60 @@ export function Factory() {
       });
     setAddRecipeNode(null);
 
-  }, [addNode, onConnect, store]);
+  }, [addNode, onConnect]);
   const blankRecipeSelectorProduct = () => {
     setAddRecipeNode(null);
   }
 
   return (<>
-    <div className="
+    <div className="factoryActions flex flex-row w-full h-10 bg-zinc-950">
+      <FactoryControls addNewRecipe={addNewRecipe} />
+    </div>
+    <div className="justify-self-stretch flex flex-row w-full h-[calc(100%-calc(10*var(--spacing)))]">
+      <div className="
       relative bg-transparent overflow-x-visible overflow-y-visible
     "
-      style={{ width: `calc(${currentWidth}px`, minWidth: '200px', maxWidth: '600px' }}
-    >
-      <div
-        className="absolute z-[1000] top-1/2 -right-7 w-6 h-6 cursor-col-resize hover:text-white text-gray-700 transition-colors"
-        onMouseDown={handleMouseDown}
-        style={{
-          // backgroundColor: isResizing ? 'rgb(59 130 246)' : 'transparent',
-        }}
-      ><ChevronDoubleRightIcon className="w-full h-full block" /></div>
-      <div
-        ref={sidebarRef}
-        className="
+        style={{ width: `calc(${currentWidth}px`, minWidth: '200px', maxWidth: '600px' }}
+      >
+        <div
+          className="absolute z-[1000] top-1/2 -right-7 w-6 h-6 cursor-col-resize hover:text-white text-gray-700 transition-colors"
+          onMouseDown={handleMouseDown}
+          style={{
+            // backgroundColor: isResizing ? 'rgb(59 130 246)' : 'transparent',
+          }}
+        ><ChevronDoubleRightIcon className="w-full h-full block" /></div>
+        <div
+          ref={sidebarRef}
+          className="
           flex flex-col bg-zinc-950
           overflow-y-scroll overflow-x-hidden
           w-[calc(100%)] h-full
           "
-            // w-[calc(100%-(var(--spacing)*2))] h-full
-      >
-        <Sidebar addNewRecipe={addNewRecipe} />
+        // w-[calc(100%-(var(--spacing)*2))] h-full
+        >
+          <Sidebar addNewRecipe={addNewRecipe} />
 
+        </div>
       </div>
-    </div>
-    <div className="flex-1">
-      <div className="w-full h-full relative">
-        <FactoryOverlayBar />
-        <ReactFlowProvider>
-          <Graph addNewRecipe={addNewRecipe} />
-        </ReactFlowProvider>
+      <div className="flex-1">
+        <div className="w-full h-full relative">
+          <FactoryOverlayBar />
+          <ReactFlowProvider>
+            <Graph addNewRecipe={addNewRecipe} smartPositionRef={smartPositionRef} />
+          </ReactFlowProvider>
+        </div>
       </div>
+      {addRecipeNode ? (
+        <SelectorDialog widthClassName="" title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
+          <RecipePicker
+            productId={addRecipeNode.productId}
+            selectRecipe={(recipeId, isBalancer) => {
+              addProductToGraph(recipeId, isBalancer, addRecipeNode)
+            }}
+            productIs={addRecipeNode.produce ? "output" : "input"} />
+        </SelectorDialog>
+      ) : ("")}
     </div>
-    {addRecipeNode ? (
-      <SelectorDialog widthClassName="" title={recipeSelectorProduct?.name} isOpen={addRecipeNode !== null} setIsOpen={blankRecipeSelectorProduct}>
-        <RecipePicker
-          productId={addRecipeNode.productId}
-          selectRecipe={(recipeId) => {
-            addProductToGraph(recipeId, addRecipeNode)
-          }}
-          productIs={addRecipeNode.produce ? "output" : "input"} />
-      </SelectorDialog>
-    ) : ("")}
   </>
   );
 }
