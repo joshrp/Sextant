@@ -36,15 +36,140 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   const updateNodeInternals = useUpdateNodeInternals();
   if (props.data.ltr === undefined) props.data.ltr = true; // Default to left-to-right layout
 
+  const removeNode = useFactoryStore(state => state.removeNode);
+  const setNodeData = useFactoryStore(state => state.setNodeData);
+  const onNodesChange = useFactoryStore(state => state.onNodesChange);
+  const nodePosition = useFactoryStore(state => state.nodes.find(n => n.id === props.id)?.position);
+  const alignToDrop = props.data.alignToDrop;
+  const setSettlementOptions = useFactoryStore(state => state.setSettlementOptions);
+  const highlight = useFactoryStore(useShallow(state => state.highlight));
+
   // whenever we toggle collapsed, re‐measure _after_ layout
   useLayoutEffect(() => {
     updateNodeInternals(props.id);
   }, [props.data.ltr, props.id, updateNodeInternals]);
 
-  const removeNode = useFactoryStore(state => state.removeNode);
-  const setNodeData = useFactoryStore(state => state.setNodeData);
-  const setSettlementOptions = useFactoryStore(state => state.setSettlementOptions);
-  const highlight = useFactoryStore(useShallow(state => state.highlight));
+  useLayoutEffect(() => {
+    if (!alignToDrop || !nodePosition) return;
+    if (typeof window === 'undefined') return;
+
+    let cancelled = false;
+    let attempts = 0;
+
+    const tryAlign = () => {
+      if (cancelled || !alignToDrop) return;
+
+      const nodeEl = document.querySelector(`.react-flow__node[data-id="${props.id}"]`) as HTMLElement | null;
+      if (!nodeEl) {
+        attempts += 1;
+        if (attempts < 6) {
+          requestAnimationFrame(tryAlign);
+        } else {
+          setNodeData(props.id, { alignToDrop: undefined });
+        }
+        return;
+      }
+
+      const handleSelector = `.react-flow__handle[data-handleid="${alignToDrop.productId}"]` +
+        `.react-flow__handle-${alignToDrop.handleType === 'input' ? 'target' : 'source'}`;
+      let handleEl = nodeEl.querySelector(handleSelector) as HTMLElement | null;
+
+      const viewportEl = document.querySelector('.react-flow__viewport') as HTMLElement | null;
+      if (!viewportEl) {
+        setNodeData(props.id, { alignToDrop: undefined });
+        return;
+      }
+
+      const transform = viewportEl.style.transform;
+      const translateMatch = transform.match(/translate\(([^,]+),\s*([^)]+)\)/);
+      const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+      const translateX = translateMatch ? parseFloat(translateMatch[1]) : 0;
+      const translateY = translateMatch ? parseFloat(translateMatch[2]) : 0;
+      const zoom = scaleMatch ? parseFloat(scaleMatch[1]) : 1;
+
+      const dropScreen = {
+        x: alignToDrop.x * zoom + translateX,
+        y: alignToDrop.y * zoom + translateY,
+      };
+
+      if (alignToDrop.sourceHandleX !== undefined && alignToDrop.sourceHandleType) {
+        const shouldFlip = alignToDrop.sourceHandleType === 'output'
+          ? alignToDrop.x < alignToDrop.sourceHandleX
+          : alignToDrop.x > alignToDrop.sourceHandleX;
+        const desiredLtr = !shouldFlip;
+
+        if (desiredLtr !== props.data.ltr) {
+          setNodeData(props.id, { ltr: desiredLtr });
+          requestAnimationFrame(tryAlign);
+          return;
+        }
+      }
+
+      if (!handleEl) {
+        const desiredClass = alignToDrop.handleType === 'input'
+          ? 'react-flow__handle-target'
+          : 'react-flow__handle-source';
+        const handles = Array.from(nodeEl.querySelectorAll(`.react-flow__handle.${desiredClass}`)) as HTMLElement[];
+        if (handles.length === 0) {
+          attempts += 1;
+          if (attempts < 6) {
+            requestAnimationFrame(tryAlign);
+          } else {
+            setNodeData(props.id, { alignToDrop: undefined });
+          }
+          return;
+        }
+
+        let closest = handles[0];
+        let minDistance = Number.POSITIVE_INFINITY;
+        for (const handle of handles) {
+          const rect = handle.getBoundingClientRect();
+          const center = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+          const distance = Math.hypot(center.x - dropScreen.x, center.y - dropScreen.y);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closest = handle;
+          }
+        }
+        handleEl = closest;
+      }
+
+      if (!handleEl) {
+        setNodeData(props.id, { alignToDrop: undefined });
+        return;
+      }
+
+      const handleRect = handleEl.getBoundingClientRect();
+      const handleCenter = {
+        x: handleRect.x + handleRect.width / 2,
+        y: handleRect.y + handleRect.height / 2,
+      };
+
+      const deltaFlow = {
+        x: (dropScreen.x - handleCenter.x) / zoom,
+        y: (dropScreen.y - handleCenter.y) / zoom,
+      };
+
+      onNodesChange([{
+        id: props.id,
+        type: 'position',
+        position: {
+          x: nodePosition.x + deltaFlow.x,
+          y: nodePosition.y + deltaFlow.y,
+        },
+        dragging: false,
+      }]);
+
+      setNodeData(props.id, { alignToDrop: undefined });
+    };
+
+    requestAnimationFrame(tryAlign);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [alignToDrop, nodePosition, props.data.ltr, props.id, onNodesChange, setNodeData]);
+
   const flipNode = () => {
     setNodeData(props.id, { ltr: !props.data.ltr });
   };
