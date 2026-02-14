@@ -6,6 +6,9 @@ In game some inputs are optional and can be partially fulfilled. Here they can b
 
 Partial supply of items is NOT supported, due to the nature of the graph solver, if an item is enabled, it needs to be fully supplied. In game, partially supplied inputs usually result in problems (low unity / health etc.) so this is not modelled here.
 
+## Housing Type
+In game, housing can be mixed tiers in a single settlement, here we assume a single tier per settlement for simplicity. Increasing housing types apply increasing demands on resources (See: https://wiki.coigame.com/Settlement), but not linearly, it appears to be proportionally applied, only after 80% of settlement is of that tier. 
+
 ## Food
 
 The amount of food consumed depends on how many different categories of food are provided, and how many items in each category. Use the toggles to adjust which food items are provided. 

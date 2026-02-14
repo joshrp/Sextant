@@ -6,7 +6,7 @@ import { formatNumber, machineIcon, productBackground } from '~/uiUtils';
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
 import type { ProductId, Recipe, RecipeProduct } from './loadJsonData';
-import { SettlementCalculator, type SettlementNodeData } from './recipeNodeLogic';
+import { SettlementCalculator, isOptionEnabled, type SettlementNodeData } from './recipeNodeLogic';
 import { groupProductsByCategory, CATEGORY_INFO, isFoodCategory } from './settlementCategories';
 
 type ProductEdges = Map<ProductId, boolean | null>;
@@ -65,19 +65,20 @@ export default function SettlementNodeView({
   const displayRunCount = solution?.solved && solution.runCount ? solution.runCount : 1;
 
   const rightProducts = ltr ? recipe.outputs : recipe.inputs;
+  const toggleOption = (
+    map: Partial<Record<ProductId, boolean>>,
+    id: ProductId,
+  ): Partial<Record<ProductId, boolean>> => ({
+    ...map,
+    [id]: isOptionEnabled(map, id) ? false : true,
+  });
+
   const toggleSwitch = (prodId: ProductId, isInput: boolean) => () =>
-    isInput ? setOptions({
+    setOptions({
       ...settlementOptions,
-      inputs: {
-        ...settlementOptions.inputs,
-        [prodId]: !(settlementOptions.inputs[prodId]),
-      }
-    }) : setOptions({
-      ...settlementOptions,
-      outputs: {
-        ...settlementOptions.outputs,
-        [prodId]: !(settlementOptions.outputs[prodId]),
-      }
+      ...(isInput
+        ? { inputs: toggleOption(settlementOptions.inputs, prodId) }
+        : { outputs: toggleOption(settlementOptions.outputs, prodId) }),
     });
 
   // Group inputs by category
@@ -103,7 +104,7 @@ export default function SettlementNodeView({
         hasSwitch={true}
         switchToggle={toggleSwitch(prod.product.id, isInput)}
         switchTitle={`Toggle ${prod.product.name} ${isInput ? 'Usage' : 'Production'}`}
-        switchState={isInput ? settlementOptions.inputs[prod.product.id] : settlementOptions.outputs[prod.product.id]}
+        switchState={isInput ? isOptionEnabled(settlementOptions.inputs, prod.product.id) : isOptionEnabled(settlementOptions.outputs, prod.product.id)}
         nodeId={nodeId}
       />
     );

@@ -5,7 +5,8 @@ let LANG = "en-GB";
 if (typeof window !== "undefined")
   LANG = window.navigator.language;
 
-export function unitAbbreviation(unit: string, value: number = 0): string {
+export function unitAbbreviation(unit: string, origValue: number = 0): string {
+  let value = origValue + 0;
   if (!isNaN(value) || !isFinite(value) || value === 0) {
     value = 0
   }

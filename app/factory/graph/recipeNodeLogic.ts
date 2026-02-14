@@ -5,6 +5,8 @@
 import { formatNumber } from '~/uiUtils';
 import { ProductId, type Recipe, type RecipeId } from './loadJsonData';
 import { getProductCategory, isFoodCategory, type SettlementCategory } from './settlementCategories';
+import { recyclablesProductId, totalRecyclablesOutput } from './recyclables';
+import Big from "big.js"
 
 export type NodeBaseData = {
   ltr?: boolean; // Left to right layout
@@ -34,8 +36,8 @@ export type SettlementNodeData = NodeBaseData & {
   type: "settlement";
   recipeId: RecipeId; // Unique identifier for the settlement recipe
   options: {
-    inputs: Record<ProductId, boolean>;
-    outputs: Record<ProductId, boolean>;
+    inputs: Partial<Record<ProductId, boolean>>;
+    outputs: Partial<Record<ProductId, boolean>>;
   }
 };
 
@@ -49,11 +51,23 @@ export function getQuantityDisplay(quantity: number, runCount: number, unit: str
   return formatNumber(amount, unit);
 }
 
-export const SettlementCalculator = (recipeId: Recipe, options: SettlementNodeData["options"], runCount: number) => {
+export const isOptionEnabled = (
+  map: Partial<Record<ProductId, boolean>> | undefined,
+  id: ProductId,
+): boolean => map?.[id] !== false;
+
+// Pairs of (input, output) that are linked: disabling one zeros the other
+const linkedProducts: Array<[ProductId, ProductId]> = [
+  [ProductId("Product_Water"), ProductId("Product_WasteWater")],
+];
+
+export const SettlementCalculator = (recipe: Recipe, options: SettlementNodeData["options"], runCount: number) => {
   const foodCategoriesMet = new Set<SettlementCategory>();
   const categoryItemsMet = new Map<SettlementCategory, number>();
+  const inputRatios = {} as Record<ProductId, Big>;
+  const outputRatios = {} as Record<ProductId, Big>;
 
-  recipeId.inputs.forEach(input => {
+  recipe.inputs.forEach(input => {
     const category = getProductCategory(input.product.id);
     if (category && isFoodCategory(category)) {
       if (options.inputs?.[input.product.id] === true) {
@@ -62,51 +76,67 @@ export const SettlementCalculator = (recipeId: Recipe, options: SettlementNodeDa
       }
     }
   });
-  console.log("Food categories met:", foodCategoriesMet);
-  console.log("Category items met:", categoryItemsMet);
+
+  recipe.inputs.forEach(input => {
+    let baseQty = Big(input.quantity);
+    const category = getProductCategory(input.product.id);
+    const isFoodInput = category !== null && isFoodCategory(category);
+
+    if (isFoodInput && options.inputs?.[input.product.id] !== true) {
+      inputRatios[input.product.id] = Big(0);
+      return;
+    }
+
+    if (!isFoodInput && !isOptionEnabled(options.inputs, input.product.id)) {
+      inputRatios[input.product.id] = Big(0);
+      return;
+    }
+
+    if (category !== null && isFoodCategory(category)) {
+      // Reduce the amount of food based on how many categories of food are delivered, 
+      //  and how many items in the same category are delivered
+      baseQty = baseQty.div(foodCategoriesMet.size * (categoryItemsMet.get(category) || 1));
+    }
+
+    inputRatios[input.product.id] = baseQty;
+  });
+
+  recipe.outputs.forEach(output => {
+    let baseQty = Big(output.quantity);
+    if (!isOptionEnabled(options.outputs, output.product.id)) {
+      outputRatios[output.product.id] = Big(0);
+      return;
+    }
+
+    switch (output.product.id) {
+      case recyclablesProductId:
+        baseQty = baseQty.plus(totalRecyclablesOutput(inputRatios));
+        break;
+    }
+
+    outputRatios[output.product.id] = baseQty;
+  });
+
+  // Apply linked product rules: disabling one side zeros the other
+  for (const [inputId, outputId] of linkedProducts) {
+    if (!isOptionEnabled(options.outputs, outputId)) {
+      inputRatios[inputId] = Big(0);
+    }
+    if (!isOptionEnabled(options.inputs, inputId)) {
+      outputRatios[outputId] = Big(0);
+    }
+  }
+
+  // Waste here, after everything else is known
+  // If Biomass is not enabled add it to waste and turn it's output to 0
+  // If recycling is not enabled, add recycled products to waste and turn their outputs to 0
 
   return {
     productInput: (productId: ProductId): number => {
-      const product = recipeId.inputs.find(input => input.product.id === productId);
-      if (!product) return 0;
-      if (options.inputs?.[productId] === false) {
-        return 0;
-      }
-      let baseQty = product.quantity;
-
-      const category = getProductCategory(product.product.id);
-      if (category && isFoodCategory(category)) {
-        // Reduce the amount of food based on how many categories of food are delivered, 
-        //  and how many items in the same category are delivered
-        console.log(`Adjusting quantity for food product ${product.product.id}: baseQty=${baseQty}`);
-        console.log(`  foodCategoriesMet.size=${foodCategoriesMet.size}, categoryItemsMet=${categoryItemsMet.get(category)}`);
-        baseQty /= foodCategoriesMet.size * (categoryItemsMet.get(category) || 1);
-      }
-
-      switch (product.product.id) {
-        case ProductId("Product_Water"):
-          if (options?.outputs?.[ProductId("Product_WasteWater")] === false) {
-            baseQty = 0;
-          }
-          break;
-      }
-
-      return baseQty * runCount;
+      return (inputRatios[productId] ?? 0).mul(runCount).toNumber();
     },
     productOutput: (productId: ProductId): number => {
-      const product = recipeId.outputs.find(output => output.product.id === productId);
-      if (!product) return 0;
-
-      let baseQty = product.quantity;
-
-      switch (product.product.id) {
-        case ProductId("Product_WasteWater"):
-          if (options?.inputs?.[ProductId("Product_Water")] === false) {
-            baseQty = 0;
-          }
-          break;
-      }
-      return baseQty * runCount;
+      return (outputRatios[productId] ?? 0).mul(runCount).toNumber();
     },
   }
 }

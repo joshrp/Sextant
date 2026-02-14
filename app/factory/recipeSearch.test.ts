@@ -142,7 +142,7 @@ describe('recipeSearch', () => {
       const result = searchRecipes(prepared, 'Iron');
 
       expect(result.matchedRecipes).toHaveLength(1);
-      expect(result.matchedRecipes[0].id).toBe('smelt-steel');
+      expect(result.matchedRecipes[0].recipe.id).toBe('smelt-steel');
       expect(result.unmatchedRecipes).toHaveLength(1);
       expect(result.unmatchedRecipes[0].id).toBe('smelt-copper');
     });
@@ -152,7 +152,7 @@ describe('recipeSearch', () => {
       const result = searchRecipes(prepared, 'Gold');
 
       expect(result.matchedRecipes).toHaveLength(1);
-      expect(result.matchedRecipes[0].id).toBe('smelt-copper');
+      expect(result.matchedRecipes[0].recipe.id).toBe('smelt-copper');
       expect(result.unmatchedRecipes).toHaveLength(1);
     });
 
@@ -161,7 +161,7 @@ describe('recipeSearch', () => {
       const result = searchRecipes(prepared, 'Stel'); // typo for Steel
 
       expect(result.matchedRecipes).toHaveLength(1);
-      expect(result.matchedRecipes[0].id).toBe('smelt-steel');
+      expect(result.matchedRecipes[0].recipe.id).toBe('smelt-steel');
     });
 
     it('ranks recipes with more matches higher', () => {
@@ -186,8 +186,8 @@ describe('recipeSearch', () => {
       // Both should match since both have "Ore" in product names
       expect(result.matchedRecipes).toHaveLength(2);
       // Multi-match recipe should be first (has Iron Ore AND Copper Ore)
-      expect(result.matchedRecipes[0].id).toBe('multi-ore');
-      expect(result.matchedRecipes[1].id).toBe('single-ore');
+      expect(result.matchedRecipes[0].recipe.id).toBe('multi-ore');
+      expect(result.matchedRecipes[1].recipe.id).toBe('single-ore');
     });
 
     it('extracts balancer recipe separately', () => {
@@ -195,7 +195,7 @@ describe('recipeSearch', () => {
       const result = searchRecipes(prepared, '');
 
       expect(result.matchedRecipes).toHaveLength(1);
-      expect(result.matchedRecipes[0].id).toBe('smelt-steel');
+      expect(result.matchedRecipes[0].recipe.id).toBe('smelt-steel');
       expect(result.balancerRecipe).toBe(balancerRecipe);
     });
 
@@ -213,22 +213,29 @@ describe('recipeSearch', () => {
       const recipe2 = createMockRecipe({ id: 'recipe-t2', tiersLink: 'recipe-tier' });
       const recipe3 = createMockRecipe({ id: 'other-recipe' });
 
-      const result = groupRecipesByTier([recipe1, recipe2, recipe3]);
+      const result = groupRecipesByTier([
+        { recipe: recipe1, matchedTerms: new Set<string>() },
+        { recipe: recipe2, matchedTerms: new Set<string>() },
+        { recipe: recipe3, matchedTerms: new Set<string>() },
+      ]);
 
       expect(result.size).toBe(2);
-      expect(result.get('recipe-tier')).toEqual([recipe1, recipe2]);
-      expect(result.get('other-recipe')).toEqual([recipe3]);
+      expect(result.get('recipe-tier')?.map(item => item.recipe)).toEqual([recipe1, recipe2]);
+      expect(result.get('other-recipe')?.map(item => item.recipe)).toEqual([recipe3]);
     });
 
     it('uses recipe id when no tiersLink', () => {
       const recipe1 = createMockRecipe({ id: 'recipe-1' });
       const recipe2 = createMockRecipe({ id: 'recipe-2' });
 
-      const result = groupRecipesByTier([recipe1, recipe2]);
+      const result = groupRecipesByTier([
+        { recipe: recipe1, matchedTerms: new Set<string>() },
+        { recipe: recipe2, matchedTerms: new Set<string>() },
+      ]);
 
       expect(result.size).toBe(2);
-      expect(result.get('recipe-1')).toEqual([recipe1]);
-      expect(result.get('recipe-2')).toEqual([recipe2]);
+      expect(result.get('recipe-1')?.map(item => item.recipe)).toEqual([recipe1]);
+      expect(result.get('recipe-2')?.map(item => item.recipe)).toEqual([recipe2]);
     });
 
     it('handles empty list', () => {

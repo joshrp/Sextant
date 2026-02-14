@@ -28321,47 +28321,47 @@
         },
         {
           "id": "Product_Potato",
-          "quantity": 0
+          "quantity": 3.36
         },
         {
           "id": "Product_Corn",
-          "quantity": 0
+          "quantity": 2.4
         },
         {
           "id": "Product_Bread",
-          "quantity": 0
+          "quantity": 1.6
         },
         {
           "id": "Product_Meat",
-          "quantity": 0
+          "quantity": 2.1600000000000006
         },
         {
           "id": "Product_Eggs",
-          "quantity": 0
+          "quantity": 2.4
         },
         {
           "id": "Product_Tofu",
-          "quantity": 0
+          "quantity": 1.44
         },
         {
           "id": "Product_Sausage",
-          "quantity": 0
+          "quantity": 2.68
         },
         {
           "id": "Product_Vegetables",
-          "quantity": 0
+          "quantity": 3.36
         },
         {
           "id": "Product_Fruit",
-          "quantity": 0
+          "quantity": 2.52
         },
         {
           "id": "Product_Snack",
-          "quantity": 0
+          "quantity": 2.08
         },
         {
           "id": "Product_Cake",
-          "quantity": 0
+          "quantity": 2
         }
       ],
       "outputs": [

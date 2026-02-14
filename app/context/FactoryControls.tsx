@@ -79,10 +79,11 @@ export default function FactoryControls({
       <MenuButton className="cursor-pointer h-full" data-testid="factory-controls-solution-method-menu-button">
         <div
           data-solved={solutionStatus == "Solved" || null}
-          data-blocked={solutionStatus != "Solved" || null}
+          data-blocked={["Infeasible", "Error"].includes(solutionStatus ?? '') || null}
+          data-running={solutionStatus == "Running" || null}
           className="pl-12 text-bold text-md text-center h-full
         border-zinc-400 border-2 rounded  content-center-safe
-        
+        data-running:border-blue-500
         data-solved:border-green-700 data-blocked:bg-red-700
         ">
           {(solutionStatus == "Infeasible") ? (<>
