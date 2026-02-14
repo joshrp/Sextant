@@ -6,10 +6,20 @@ import { formatNumber } from '~/uiUtils';
 import { ProductId, type Recipe, type RecipeId } from './loadJsonData';
 import { getProductCategory, isFoodCategory, type SettlementCategory } from './settlementCategories';
 
+export type HandleDropAlignment = {
+  x: number;
+  y: number;
+  productId: ProductId;
+  handleType: 'input' | 'output';
+  sourceHandleX?: number;
+  sourceHandleType?: 'input' | 'output';
+};
+
 export type NodeBaseData = {
   ltr?: boolean; // Left to right layout
   // Type of the node, rendering and calculations may differ based on type. Default is "recipe".
   type?: "recipe" | "settlement" | "balancer";
+  alignToDrop?: HandleDropAlignment;
   solution?: {
     solved: true,
     // Mult for the recipe

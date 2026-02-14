@@ -8,5 +8,8 @@
     "**/.git/**": true,
     "**/node_modules/**": true,
     "**/.vscode/**": true
+  },
+  "chat.tools.terminal.autoApprove": {
+    "npx playwright": true
   }
 }

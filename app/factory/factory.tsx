@@ -15,9 +15,10 @@ import { ReactFlowProvider } from "@xyflow/react";
 import { FactoryOverlayBar } from "~/components/FactoryOverlayBar";
 import FactoryControls from "~/context/FactoryControls";
 import { usePlannerStore } from "~/context/PlannerContext";
-import useFactory, { useFactoryStore } from "./FactoryContext";
+import { useFactoryStore } from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
 import type { RecipeNode } from "./graph/RecipeNode";
+import { isSentinelPosition } from "./graph/nodePositioning";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);
@@ -29,11 +30,11 @@ export type AddRecipeNode = {
   position: { x: number; y: number };
   produce: boolean; // true = produce this item, false = consume
   otherNode: string; // The node that this is connecting to, if any
+  ltr?: boolean;
+  getSmartPosition?: (recipeId: RecipeId) => { x: number; y: number };
 };
 
 export function Factory() {
-  const store = useFactory().store
-
   const addNode = useFactoryStore(state => state.addNode);
   const onConnect = useFactoryStore(state => state.onConnect);
 
@@ -92,9 +93,16 @@ export function Factory() {
     };
   }, [isResizing, handleMouseMove, handleMouseUp]);
 
-  const addNewRecipe = (recipe: AddRecipeNode) => {
+  // Ref for Graph to register its smart positioning callback
+  const smartPositionRef = useRef<((recipeId: RecipeId) => { x: number; y: number }) | null>(null);
+
+  const addNewRecipe = useCallback((recipe: AddRecipeNode) => {
+    // For sidebar/controls calls with sentinel position, inject the smart positioning callback from Graph
+    if (isSentinelPosition(recipe.position) && !recipe.getSmartPosition && smartPositionRef.current) {
+      recipe = { ...recipe, getSmartPosition: smartPositionRef.current };
+    }
     setAddRecipeNode(recipe);
-  };
+  }, []);
 
   const addProductToGraph = useCallback((id: RecipeId, isBalancer: boolean, recipeAdd: AddRecipeNode) => {
 
@@ -104,16 +112,32 @@ export function Factory() {
       console.error('Recipe not found:', id);
       return;
     }
+    
+    // Calculate position - use smart positioning for button-placed nodes (sentinel position)
+    let position = recipeAdd.position;
+    if (isSentinelPosition(position) && smartPositionRef.current) {
+      // Always read from ref to get the latest callback with current nodes state
+      position = smartPositionRef.current(id);
+    } else if (isSentinelPosition(position) && recipeAdd.getSmartPosition) {
+      position = recipeAdd.getSmartPosition(id);
+    } else if (isSentinelPosition(position)) {
+      // Fallback if callback not available
+      position = { x: 100, y: 100 };
+    }
+    
+    // Use ltr from recipeAdd if provided (e.g., from connection-drop), otherwise default to true
+    const ltr = recipeAdd.ltr ?? true;
+    
     let newNode: RecipeNode;
     if (recipe.type === "settlement") {
       newNode = {
         id: id + "_" + (new Date().getTime()),
-        position: recipeAdd.position ?? { x: 100, y: 100 },
+        position,
         type: 'recipe-node',
         data: {
           type: recipe.type,
           recipeId: id,
-          ltr: true,
+          ltr,
           options: {
             inputs: Object.fromEntries(recipe.inputs.map(input => [input.product.id, true])) as Record<ProductId, boolean>,
             outputs: Object.fromEntries(recipe.outputs.map(output => [output.product.id, true])) as Record<ProductId, boolean>,
@@ -123,12 +147,12 @@ export function Factory() {
     } else {
       newNode = {
         id: id + "_" + (new Date().getTime()),
-        position: recipeAdd.position ?? { x: 100, y: 100 },
+        position,
         type: 'recipe-node',
         data: {
           type: recipe.type,
           recipeId: id,
-          ltr: true,
+          ltr,
         },
       };
     }
@@ -149,7 +173,7 @@ export function Factory() {
       });
     setAddRecipeNode(null);
 
-  }, [addNode, onConnect, store]);
+  }, [addNode, onConnect]);
   const blankRecipeSelectorProduct = () => {
     setAddRecipeNode(null);
   }
@@ -188,7 +212,7 @@ export function Factory() {
         <div className="w-full h-full relative">
           <FactoryOverlayBar />
           <ReactFlowProvider>
-            <Graph addNewRecipe={addNewRecipe} />
+            <Graph addNewRecipe={addNewRecipe} smartPositionRef={smartPositionRef} />
           </ReactFlowProvider>
         </div>
       </div>

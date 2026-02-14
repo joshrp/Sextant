@@ -51,6 +51,7 @@ export default function RFHandle({
       type={handleType}
       position={position}
       id={product.id}
+      data-handle-type={handleType}
       style={handleStyle}
       className="handle py-2 text-center"
     >
@@ -59,14 +60,14 @@ export default function RFHandle({
         src={productIcon(product.icon)} 
         alt={product.name}
         className="drop-shadow-md/30 pointer-events-none block max-w-8 
-          data-optional:p-0.5 data-optional:box-content data-optional:border-1 border-dashed border-gray-400 border-0"
+          data-optional:p-0.5 data-optional:box-content data-optional:border border-dashed border-gray-400 border-0"
       />
       <div
         style={{
           backgroundColor: productColor,
           borderColor: productColor,
         }}
-        className={`clipped hidden pointer-events-none w-6 top-0 h-[101%] absolute border-1 ${isLeft ? "-left-5" : "-right-5"} ${connectorClass}`}
+        className={`clipped hidden pointer-events-none w-6 top-0 h-[101%] absolute border ${isLeft ? "-left-5" : "-right-5"} ${connectorClass}`}
       ></div>
     </Handle>
   );
