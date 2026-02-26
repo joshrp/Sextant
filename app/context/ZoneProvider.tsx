@@ -6,7 +6,7 @@ import hydration from "~/hydration";
 import type { ProductId } from "../factory/graph/loadJsonData";
 import type { GraphCoreData, GraphImportData } from "~/factory/store";
 import FactoryStore from "../factory/store";
-import { getIdb, zoneObjectStore, type IDB } from "./idb";
+import { getIdb, zoneObjectStore, deleteFactoryFromIdb, type IDB } from "./idb";
 import {
   archiveFactory as archiveFactoryToIdb,
   listArchivedFactories as listArchivedFactoriesFromIdb,
@@ -91,8 +91,10 @@ export const ProductionZoneProvider = ({ zoneId, zoneName, children }: { zoneId:
       },
 
       // Remove factory from active list (does not archive)
-      deleteFactory: (factoryId: string) => {
+      deleteFactory: async (factoryId: string) => {
         if (!storeRef.current) return;
+        if (!idbRef.current) return;
+        await deleteFactoryFromIdb(idbRef.current, factoryId);
         storeRef.current.getState().removeFactory(factoryId);
       },
 

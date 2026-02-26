@@ -33,3 +33,9 @@ export const deleteIdb = (zoneId: string) => {
     return indexedDB.deleteDatabase("Zone_" + zoneId);
   }
 }
+
+export async function deleteFactoryFromIdb(idb: IDB, factoryId: string): Promise<void> {
+  const db = await idb;
+  await db.delete("factories", factoryId);
+  await db.delete("factories", factoryId + "_historical");
+}

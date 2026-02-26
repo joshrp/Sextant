@@ -12,6 +12,17 @@ This document identifies critical issues, blockers, and missing user journeys th
 - Bulk export/import UI exists (not yet positioned as full backup/restore)
 - Factory archive/restore flow exists
 
+**Status Update (2026-02-26)**:
+- Smart node placement from sidebar/controls is implemented (no longer stacks by default)
+- Recipe picker search/grouping improvements landed
+- E2E coverage exists for app load, import flow, and node placement
+- Factory deletion persistence leak remains (factory data/history not removed from IDB)
+- Weights settings remain incomplete/non-functional
+- Planner IndexedDB upgrade path still hard-fails on version increments
+- Solver user-facing error feedback is still minimal
+- Recycling help content still includes unfinished TODO text
+- HiGHS worker still depends on CDN-hosted wasm (offline concern remains)
+
 ---
 
 ## 🔴 CRITICAL ISSUES (Must Fix)
@@ -109,10 +120,10 @@ This document identifies critical issues, blockers, and missing user journeys th
 
 **Location**: `app/context/idb.ts`, `app/context/PlannerProvider.tsx`
 
-**Problem**: If `oldVersion >= 1` in upgrade handler, it throws an error asking user to clear site data. This is not user-friendly and will cause data loss.
+**Problem**: Zone DB migration now supports versioned upgrades, but planner DB upgrade still throws and asks users to clear site data when `oldVersion >= 1`.
 
 **Impact**:
-- Any future IndexedDB schema changes will break the app for existing users
+- Any future planner IndexedDB schema changes will break the app for existing users
 - Users forced to lose all data on upgrades
 
 **Solution**:
@@ -204,16 +215,12 @@ This document identifies critical issues, blockers, and missing user journeys th
 
 **Location**: `app/factory/graph/sidebar.tsx`
 
-**Problem**: When adding producers/consumers from sidebar menus, position is hardcoded to `{x: 0, y: 0}`.
+**Status**: ✅ Implemented (2026-02)
 
-**Impact**:
-- New nodes stack on top of each other
-- User must manually move them
+**Current Behavior**: Sidebar still emits a sentinel `{x: 0, y: 0}`, but graph placement now resolves this into smart non-overlapping in-viewport coordinates.
 
-**Solution**:
-- Calculate smart placement based on existing nodes
- - Can be a simple algorithm to just find space somewhere. 
- - Highlight the node once it's placed
+**Notes**:
+- Keep E2E coverage for overlap avoidance and viewport placement current
 
 ---
 
@@ -233,7 +240,9 @@ This document identifies critical issues, blockers, and missing user journeys th
 
 **Location**: `app/factory/RecipePicker.tsx`
 
-**Problem**: Recipe grouping uses first recipe as parent with no intelligent sorting: "TODO better sort here? Fastest first? Preference?"
+**Status**: ✅ Improved (2026-02)
+
+**Current Behavior**: Recipe picker now includes search/filtering and grouped tier presentation. Further ranking refinements are optional UX polish, not a launch blocker.
 
 **Impact**:
 - Suboptimal recipe suggestions for users
@@ -311,11 +320,27 @@ From TODO comments found in codebase:
 
 ## TESTING GAPS
 
-The test suite is solid for the solver but lacks:
-- E2E tests for user journeys
+The test suite is solid for the solver and now includes baseline E2E tests for core journeys (app load, import, node placement), but still lacks:
 - Tests for store hydration edge cases
 - Tests for error boundaries
 - Tests for IndexedDB operations
+
+---
+
+## Intervening Commits Delta (2026-01-24 → 2026-02-15)
+
+### Addressed Since Last Report
+- Smart node placement implemented and covered by E2E
+- Recipe picker search/grouping improvements
+- Expanded fixture/component test work and test maintenance
+
+### Newly Confirmed / Still Open
+- Factory deletion still does not delete factory graph/history persisted entries
+- Weights UI remains incomplete/non-functional
+- Planner DB upgrade path still hard-fails on schema version increments
+- Solver error messaging remains high-level and non-actionable
+- Help content contains unfinished TODO text
+- HiGHS worker still pulls wasm from CDN (offline/PWA concern remains)
 
 ---
 

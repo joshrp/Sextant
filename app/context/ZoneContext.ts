@@ -13,7 +13,7 @@ type ProductionZoneContextType = {
   importFactory(data: GraphImportData): void;
   archiveFactory(factoryId: string, factoryData: GraphCoreData): Promise<ArchivedFactoryMetadata>;
   restoreFactory(archiveId: string): Promise<string>;
-  deleteFactory(factoryId: string): void;
+  deleteFactory(factoryId: string): Promise<void>;
   listArchivedFactories(): Promise<ArchivedFactoryMetadata[]>;
   deleteArchivedFactory(archiveId: string): Promise<void>;
 };

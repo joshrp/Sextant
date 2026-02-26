@@ -47,7 +47,7 @@ export default function FactoryArchiveHandler({ factoryId, onComplete }: Factory
       await zone.archiveFactory(factoryId, factoryDataRef.current);
 
       // Remove from active factories
-      zone.deleteFactory(factoryId);
+      await zone.deleteFactory(factoryId);
 
       // Navigate to another factory or create a new one
       const remainingFactories = factories.filter(f => f.id !== factoryId);
