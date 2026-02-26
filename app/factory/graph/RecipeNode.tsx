@@ -50,35 +50,69 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   }, [props.data.ltr, props.id, updateNodeInternals]);
 
   useLayoutEffect(() => {
+    // Run only for nodes that were created from a drag/drop gesture with a pending
+    // target alignment request, and only once we know the current node position.
     if (!alignToDrop || !nodePosition) return;
+    // Guard SSR/tests: this effect measures DOM geometry and needs the browser.
     if (typeof window === 'undefined') return;
 
+    // Cancellation flag prevents late rAF callbacks from mutating state after unmount
+    // or after dependencies change.
     let cancelled = false;
+    // Retry counter for transient DOM timing (React Flow node/handles may not exist
+    // on the first frame after insertion).
     let attempts = 0;
 
     const tryAlign = () => {
+      console.log(`Attempting to align node ${props.id} to drop position (attempt ${attempts + 1}) with alignToDrop:`, alignToDrop);
+      // Short-circuit work when this alignment request is no longer valid.
       if (cancelled || !alignToDrop) return;
 
+      // Resolve the node element first; if React Flow has not painted it yet, retry
+      // next frame instead of failing immediately.
       const nodeEl = document.querySelector(`.react-flow__node[data-id="${props.id}"]`) as HTMLElement | null;
       if (!nodeEl) {
         attempts += 1;
         if (attempts < 6) {
           requestAnimationFrame(tryAlign);
         } else {
+          // Give up after bounded retries so we don't loop forever.
+          console.warn(`Failed to find node element for alignment after ${attempts} attempts:`, props.id);
           setNodeData(props.id, { alignToDrop: undefined });
         }
         return;
       }
 
+      // Preferred fast path: exact product+side handle (avoids nearest-handle search).
       const handleSelector = `.react-flow__handle[data-handleid="${alignToDrop.productId}"]` +
-        `.react-flow__handle-${alignToDrop.handleType === 'input' ? 'target' : 'source'}`;
-      let handleEl = nodeEl.querySelector(handleSelector) as HTMLElement | null;
+        `.${alignToDrop.handleType === 'input' ? 'target' : 'source'}`;
+      const handleEl = nodeEl.querySelector(handleSelector) as HTMLElement | null;
 
-      const viewportEl = document.querySelector('.react-flow__viewport') as HTMLElement | null;
-      if (!viewportEl) {
+      if (!handleEl) {
+        console.warn(`Failed to find handle element for alignment using selector "${handleSelector}":`, props.id, nodeEl);
+        // Defensive guard: no handle means nothing to align to.
         setNodeData(props.id, { alignToDrop: undefined });
         return;
       }
+
+      // Read viewport transform so we can convert flow coordinates to current screen
+      // coordinates under pan/zoom.
+      const viewportEl = document.querySelector('.react-flow__viewport') as HTMLElement | null;
+      if (!viewportEl) {
+        // Without viewport transform we cannot do a reliable coordinate conversion.
+        setNodeData(props.id, { alignToDrop: undefined });
+        return;
+      }
+
+      // Flow transform is relative to the React Flow container, while
+      // getBoundingClientRect() gives absolute screen coordinates.
+      // Include container offset so both values share the same coordinate space.
+      const flowContainerEl = nodeEl.closest('.react-flow') as HTMLElement | null;
+      if (!flowContainerEl) {
+        setNodeData(props.id, { alignToDrop: undefined });
+        return;
+      }
+      const flowContainerRect = flowContainerEl.getBoundingClientRect();
 
       const transform = viewportEl.style.transform;
       const translateMatch = transform.match(/translate\(([^,]+),\s*([^)]+)\)/);
@@ -87,69 +121,51 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
       const translateY = translateMatch ? parseFloat(translateMatch[2]) : 0;
       const zoom = scaleMatch ? parseFloat(scaleMatch[1]) : 1;
 
+      // `alignToDrop` is stored in flow space; convert to screen space to compare
+      // against measured DOM handle centers.
       const dropScreen = {
-        x: alignToDrop.x * zoom + translateX,
-        y: alignToDrop.y * zoom + translateY,
+        x: alignToDrop.x * zoom + translateX + flowContainerRect.left,
+        y: alignToDrop.y * zoom + translateY + flowContainerRect.top,
       };
 
-      if (alignToDrop.sourceHandleX !== undefined && alignToDrop.sourceHandleType) {
-        const shouldFlip = alignToDrop.sourceHandleType === 'output'
+      // Optional orientation heuristic: flip node direction if the drop location implies
+      // the opposite left/right side relative to the source handle. This avoids routing
+      // a connection across the node after creation.
+      if (alignToDrop.sourceHandleX !== undefined) {
+        // Prefer explicit source handle type when available; otherwise infer from
+        // the new-node handle side (new input => source was output, and vice-versa).
+        const sourceHandleType = alignToDrop.sourceHandleType
+          ?? (alignToDrop.handleType === 'input' ? 'output' : 'input');
+        const shouldFlip = sourceHandleType === 'output'
           ? alignToDrop.x < alignToDrop.sourceHandleX
           : alignToDrop.x > alignToDrop.sourceHandleX;
         const desiredLtr = !shouldFlip;
 
         if (desiredLtr !== props.data.ltr) {
+          console.log(`Flipping node ${props.id} to ${desiredLtr ? 'LTR' : 'RTL'} based on drop position relative to source handle`);
+          // Flip first, then retry next frame so handle geometry reflects the new layout.
           setNodeData(props.id, { ltr: desiredLtr });
           requestAnimationFrame(tryAlign);
           return;
         }
       }
 
-      if (!handleEl) {
-        const desiredClass = alignToDrop.handleType === 'input'
-          ? 'react-flow__handle-target'
-          : 'react-flow__handle-source';
-        const handles = Array.from(nodeEl.querySelectorAll(`.react-flow__handle.${desiredClass}`)) as HTMLElement[];
-        if (handles.length === 0) {
-          attempts += 1;
-          if (attempts < 6) {
-            requestAnimationFrame(tryAlign);
-          } else {
-            setNodeData(props.id, { alignToDrop: undefined });
-          }
-          return;
-        }
-
-        let closest = handles[0];
-        let minDistance = Number.POSITIVE_INFINITY;
-        for (const handle of handles) {
-          const rect = handle.getBoundingClientRect();
-          const center = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
-          const distance = Math.hypot(center.x - dropScreen.x, center.y - dropScreen.y);
-          if (distance < minDistance) {
-            minDistance = distance;
-            closest = handle;
-          }
-        }
-        handleEl = closest;
-      }
-
-      if (!handleEl) {
-        setNodeData(props.id, { alignToDrop: undefined });
-        return;
-      }
-
+      // Measure chosen handle center in screen space.
       const handleRect = handleEl.getBoundingClientRect();
       const handleCenter = {
         x: handleRect.x + handleRect.width / 2,
         y: handleRect.y + handleRect.height / 2,
       };
 
+      // Convert screen-space offset back to flow-space delta so node position update
+      // is correct regardless of zoom level.
       const deltaFlow = {
         x: (dropScreen.x - handleCenter.x) / zoom,
         y: (dropScreen.y - handleCenter.y) / zoom,
       };
 
+      // Apply a single position change that moves the chosen handle onto the original
+      // drop location.
       onNodesChange([{
         id: props.id,
         type: 'position',
@@ -160,12 +176,15 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
         dragging: false,
       }]);
 
+      // One-shot behavior: clear request so future renders do not keep re-aligning.
       setNodeData(props.id, { alignToDrop: undefined });
     };
 
+    // Defer first measurement to next frame so DOM/layout has settled.
     requestAnimationFrame(tryAlign);
 
     return () => {
+      // Prevent stale callback from touching state after cleanup.
       cancelled = true;
     };
   }, [alignToDrop, nodePosition, props.data.ltr, props.id, onNodesChange, setNodeData]);

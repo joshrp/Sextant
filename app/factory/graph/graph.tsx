@@ -17,7 +17,7 @@ import { type GraphStore } from "../store";
 import { edgeTypes, type CustomEdgeType } from "./edges";
 import { loadData, type ProductId, type RecipeId } from "./loadJsonData";
 import { nodeTypes, type CustomNodeType } from "./nodes";
-import { shouldFlipNode, estimateNodeSize, findAvailableSlot, getExistingNodeRects, getExistingNodeWidths } from "./nodePositioning";
+import { estimateNodeSize, findAvailableSlot, getExistingNodeRects, getExistingNodeWidths } from "./nodePositioning";
 import { getViewportBounds } from "./viewportHelpers";
 
 const { recipes } = loadData();
@@ -150,24 +150,37 @@ export default function Graph({ addNewRecipe, smartPositionRef }: props) {
       const sourceNodePos = sourceNode?.position ?? { x: 0, y: 0 };
       const sourceLtr = sourceNode?.data.ltr ?? true;
 
+      // Prefer the actual source handle center X for orientation decisions.
+      // Node top-left is a coarse proxy and is inaccurate for RTL nodes / right-side inputs.
+      const sourceHandleSelector = `.react-flow__node[data-id="${sourceNodeId}"] ` +
+        `.react-flow__handle[data-handleid="${productId}"]` +
+        `.react-flow__handle-${connectionState.fromHandle.type}`;
+      const sourceHandleEl = document.querySelector(sourceHandleSelector) as HTMLElement | null;
+      const sourceHandleScreenCenterX = sourceHandleEl
+        ? sourceHandleEl.getBoundingClientRect().x + sourceHandleEl.getBoundingClientRect().width / 2
+        : undefined;
+      const sourceHandleFlowX = sourceHandleScreenCenterX !== undefined
+        ? screenToFlowPosition({ x: sourceHandleScreenCenterX, y: clientY }).x
+        : sourceNodePos.x;
+
       const addingSource = connectionState.fromHandle.type == "target";
       // "target" = input handle, "source" = output handle
       const sourceHandleType: 'input' | 'output' = connectionState.fromHandle.type === "target" ? "input" : "output";
-      
-      const newNodePosition = {
-        x: dropPosition.x + 30 * (addingSource ? -10 : 1),
-        y: dropPosition.y - 100
-      };
-
-      // Calculate ltr for new node based on relative position to source
-      const ltr = !shouldFlipNode(sourceHandleType, sourceNodePos, newNodePosition, sourceLtr);
 
       addNewRecipe({
         productId,
-        position: newNodePosition,
+        position: dropPosition,
         produce: addingSource,
         otherNode: sourceNodeId,
-        ltr,
+        ltr: sourceLtr,
+        alignToDrop: {
+          x: dropPosition.x,
+          y: dropPosition.y,
+          productId,
+          handleType: addingSource ? 'output' : 'input',
+          sourceHandleX: sourceHandleFlowX,
+          sourceHandleType,
+        },
       });
     }
   }, [screenToFlowPosition, addNewRecipe, nodes]);
