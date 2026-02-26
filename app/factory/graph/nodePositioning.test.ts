@@ -5,7 +5,6 @@ import {
   getExistingNodeWidths,
   rectsOverlap,
   findAvailableSlot,
-  shouldFlipNode,
   type Rect,
   type ViewportBounds,
 } from './nodePositioning';
@@ -147,64 +146,6 @@ describe('nodePositioning', () => {
       const result = findAvailableSlot(existingRects, size, viewport);
       // Should return viewport center as fallback
       expect(result).toEqual({ x: 400, y: 325 });
-    });
-  });
-
-  describe('shouldFlipNode', () => {
-    const sourcePos = { x: 500, y: 300 };
-
-    describe('with sourceLtr = true', () => {
-      it('returns false when dragging from output to the right', () => {
-        const newPos = { x: 700, y: 300 }; // to the right
-        expect(shouldFlipNode('output', sourcePos, newPos, true)).toBe(false);
-      });
-
-      it('returns true when dragging from output to the left', () => {
-        const newPos = { x: 200, y: 300 }; // to the left
-        expect(shouldFlipNode('output', sourcePos, newPos, true)).toBe(true);
-      });
-
-      it('returns false when dragging from input to the left', () => {
-        const newPos = { x: 200, y: 300 }; // to the left
-        expect(shouldFlipNode('input', sourcePos, newPos, true)).toBe(false);
-      });
-
-      it('returns true when dragging from input to the right', () => {
-        const newPos = { x: 700, y: 300 }; // to the right
-        expect(shouldFlipNode('input', sourcePos, newPos, true)).toBe(true);
-      });
-    });
-
-    describe('with sourceLtr = false (source node is flipped)', () => {
-      // When source node is flipped, handles are mirrored:
-      // - output is now on the LEFT
-      // - input is now on the RIGHT
-      // So the logic inverts
-
-      it('returns true when dragging from output to the right (inverted)', () => {
-        const newPos = { x: 700, y: 300 };
-        expect(shouldFlipNode('output', sourcePos, newPos, false)).toBe(true);
-      });
-
-      it('returns false when dragging from output to the left (inverted)', () => {
-        const newPos = { x: 200, y: 300 };
-        expect(shouldFlipNode('output', sourcePos, newPos, false)).toBe(false);
-      });
-
-      it('returns true when dragging from input to the left (inverted)', () => {
-        const newPos = { x: 200, y: 300 };
-        expect(shouldFlipNode('input', sourcePos, newPos, false)).toBe(true);
-      });
-
-      it('returns false when dragging from input to the right (inverted)', () => {
-        const newPos = { x: 700, y: 300 };
-        expect(shouldFlipNode('input', sourcePos, newPos, false)).toBe(false);
-      });
-    });
-
-    it('defaults sourceLtr to true if not provided', () => {
-      const newPos = { x: 200, y: 300 };
-      expect(shouldFlipNode('output', sourcePos, newPos)).toBe(true);
     });
   });
 });

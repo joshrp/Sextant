@@ -19,6 +19,7 @@ import { useFactoryStore } from "./FactoryContext";
 import RecipePicker from "./RecipePicker";
 import type { RecipeNode } from "./graph/RecipeNode";
 import { isSentinelPosition } from "./graph/nodePositioning";
+import type { HandleDropAlignment } from "./graph/recipeNodeLogic";
 
 const { products, machines, recipes } = loadData();
 console.log("Loaded products", products);
@@ -31,6 +32,7 @@ export type AddRecipeNode = {
   produce: boolean; // true = produce this item, false = consume
   otherNode: string; // The node that this is connecting to, if any
   ltr?: boolean;
+  alignToDrop?: HandleDropAlignment;
   getSmartPosition?: (recipeId: RecipeId) => { x: number; y: number };
 };
 
@@ -138,6 +140,7 @@ export function Factory() {
           type: recipe.type,
           recipeId: id,
           ltr,
+          alignToDrop: recipeAdd.alignToDrop,
           options: {
             inputs: Object.fromEntries(recipe.inputs.map(input => [input.product.id, true])) as Record<ProductId, boolean>,
             outputs: Object.fromEntries(recipe.outputs.map(output => [output.product.id, true])) as Record<ProductId, boolean>,
@@ -153,6 +156,7 @@ export function Factory() {
           type: recipe.type,
           recipeId: id,
           ltr,
+          alignToDrop: recipeAdd.alignToDrop,
         },
       };
     }
