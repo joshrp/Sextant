@@ -1,5 +1,5 @@
 import { openDB } from "idb";
-import { useCallback, useRef, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { createStore } from "zustand";
 
 import { devtools, persist, subscribeWithSelector, type StorageValue } from "zustand/middleware";
@@ -12,6 +12,7 @@ import type { ProductionZoneStore, ProductionZoneStoreData } from "./ZoneProvide
 import { deleteIdb, getIdb as getZoneIdb, zoneObjectStore } from "./idb";
 import { factoryIdFromName } from "./utils";
 import { clearCachedZoneStore, getCachedZoneStore, setCachedZoneStore } from "./zoneCache";
+import { loadTemplateFactory } from "~/onboarding/templateFactory";
 
 export const PlannerProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<PlannerStore | null>(null);
@@ -72,6 +73,7 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
         zoneStore = await createMinimalZoneStoreAsync(zoneIdb, zoneId, zone.name);
         setCachedZoneStore(zoneId, zoneStore, zoneIdb);
       }
+      const solvers = [];
 
       // Import each factory into the zone
       for (const item of zoneItems) {
@@ -85,13 +87,18 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
         // Create the factory store with the actual ID and import data without running solver
         const factoryStore = FactoryStore(zoneIdb, { id: actualFactoryId, name: factoryName });
         await factoryStore.Graph.getState().importData(item.data, { skipSolver: true });
-        
+        solvers.push(factoryStore.Graph.getState().graphUpdateAction);
         // Wait for factory store to persist to IDB
         await waitForStorePersist();
       }
       
       // Wait for zone store to persist after all factories are added
       await waitForStorePersist();
+
+      // Run solvers after all factories are imported and persisted
+      for (const solve of solvers) {
+        await solve();
+      }
     }
   }, []);
 
@@ -176,11 +183,56 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
     return exportableZones;
   }, []);
 
+  const importWelcomeFactory = useCallback(async () => {
+    const store = storeRef.current!;
+    try {
+      const templateData = await loadTemplateFactory();
+      const items: BulkImportItem[] = [
+        // All template factories go into the default zone
+        ...templateData.factories.map(f => ({
+          data: f,
+          targetZoneId: "main",
+        })),
+        // Empty factory for the user to work in
+        {
+          data: { name: "My Factory", zoneName: "", icon: "", nodes: [], edges: [], goals: [] },
+          targetZoneId: "main",
+        },
+      ];
+      await bulkImport(items);
+    } catch (err) {
+      console.warn("Failed to load template factory:", err);
+    } finally {
+      store.getState().setHasCompletedFirstVisit(true);
+    }
+  }, [bulkImport]);
+
+  // First-visit: load template factory once for new users
+  useEffect(() => {
+    const store = storeRef.current!;
+
+    const check = (state: PlannerStoreData) => {
+      if (!state.hasCompletedFirstVisit) {
+        importWelcomeFactory();
+      }
+    };
+
+    if (store.persist.hasHydrated()) {
+      check(store.getState());
+    } else {
+      const unsub = store.persist.onFinishHydration((state) => {
+        unsub();
+        check(state);
+      });
+    }
+  }, [importWelcomeFactory]);
+
   return (
     <PlannerContext.Provider value={{ 
       store: storeRef.current,
       bulkImport,
       getExportableData,
+      importWelcomeFactory,
     }}>
       {children}
     </PlannerContext.Provider>
@@ -199,7 +251,8 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
 async function waitForStorePersist(): Promise<void> {
   // Small delay to allow persist middleware to write to storage
   // The persist middleware batches writes, so we need to give it time
-  return new Promise(resolve => setTimeout(resolve, 50));
+  // TODO:: There may be a better way to do this with store promises
+  return new Promise(resolve => setTimeout(resolve, 100));
 }
 
 /**
@@ -299,6 +352,8 @@ export interface PlannerStoreData {
   lastZone: string | undefined,
   sidebarWidth: number,
   debugSolver: boolean,
+  /** True once the first-visit template factory has been loaded. Persisted in IndexedDB. */
+  hasCompletedFirstVisit: boolean,
   newZone(name: string, icon?: string, description?: string): string;
   renameZone(id: string, newName: string): void;
   updateZone(id: string, updates: { name?: string; icon?: string; description?: string }): void;
@@ -306,6 +361,7 @@ export interface PlannerStoreData {
   setLastZone(zoneId: string): void;
   setSidebarWidth(width: number): void;
   setDebugSolver(enabled: boolean): void;
+  setHasCompletedFirstVisit(value: boolean): void;
 };
 
 const Store = () => {
@@ -324,6 +380,7 @@ const Store = () => {
           debugSolver: false,
           lastZone: undefined,
           sidebarWidth: 240, // Default width in pixels
+          hasCompletedFirstVisit: false,
 
           newZone: (name: string, icon?: string, description?: string): string => {
             const settings = get();
@@ -394,6 +451,9 @@ const Store = () => {
             // Sync to solver
             setDebugSolver(enabled);
           },
+          setHasCompletedFirstVisit: (value: boolean) => {
+            set({ hasCompletedFirstVisit: value });
+          },
         })
       ),
       {
@@ -418,13 +478,18 @@ const Store = () => {
             return (await idb).delete(mainObjectStore, name);
           }
         },
-        version: 2,
-        migrate: (persistedState: unknown) => {//, currentVersion: number) => {
+        version: 3,
+        migrate: (persistedState: unknown, fromVersion: number) => {
           if (!persistedState || !('zones' in (persistedState as PlannerStoreData))) {
             console.error("No persisted state found, or invalid, something is weird in migrate.");
             return persistedState as PlannerStoreData;
           }
-          const newState = persistedState as PlannerStoreData;          
+          const newState = persistedState as PlannerStoreData;
+
+          // v2 -> v3: existing users already have factories; skip the first-visit template load
+          if (fromVersion < 3) {
+            newState.hasCompletedFirstVisit = true;
+          }
 
           return newState;
         }

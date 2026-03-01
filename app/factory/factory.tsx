@@ -243,7 +243,7 @@ export function Factory() {
             </div>
           )}
           <ReactFlowProvider>
-            <Graph addNewRecipe={addNewRecipe} addAnnotationNode={addAnnotationNode} smartPositionRef={smartPositionRef} />
+            <Graph addNewRecipe={addNewRecipe} smartPositionRef={smartPositionRef} />
           </ReactFlowProvider>
         </div>
       </div>

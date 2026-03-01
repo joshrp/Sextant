@@ -35,7 +35,6 @@ const selector = (state: GraphStore) => ({
 
 type props = {
   addNewRecipe: (addRecipeNode: AddRecipeNode) => void;
-  addAnnotationNode: (position: { x: number; y: number }) => void;
   smartPositionRef: MutableRefObject<((recipeId: RecipeId) => { x: number; y: number }) | null>;
 };
 
@@ -53,7 +52,7 @@ type props = {
 //    - GraphController component (state management)
 // 5. Add unit tests for position calculation logic
 // 6. Mock React Flow context for component testing
-export default function Graph({ addNewRecipe, addAnnotationNode, smartPositionRef }: props) {
+export default function Graph({ addNewRecipe, smartPositionRef }: props) {
   const store = useFactory().store;
 
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
@@ -188,20 +187,6 @@ export default function Graph({ addNewRecipe, addAnnotationNode, smartPositionRe
     }
   }, [screenToFlowPosition, addNewRecipe, nodes]);
 
-  /** Double-click on empty canvas creates an annotation node at the click position. */
-  const onPaneDoubleClick = useCallback((event: React.MouseEvent) => {
-    // Only create if the double-click is on the pane background, not on a node or edge
-    const target = event.target as HTMLElement;
-    if (target.closest('.react-flow__node') || target.closest('.react-flow__edge')) {
-      return;
-    }
-    const position = screenToFlowPosition({
-      x: event.clientX,
-      y: event.clientY,
-    });
-    addAnnotationNode(position);
-  }, [screenToFlowPosition, addAnnotationNode]);
-
   return (
     <ReactFlow<CustomNodeType, CustomEdgeType>
       nodes={nodes}
@@ -212,7 +197,6 @@ export default function Graph({ addNewRecipe, addAnnotationNode, smartPositionRe
       onEdgesChange={onEdgesChange}
       onConnectEnd={onConnectEnd}
       onConnect={onConnect}
-      onDoubleClick={onPaneDoubleClick}
       minZoom={0.1}
       elevateEdgesOnSelect={true}
       colorMode="dark"

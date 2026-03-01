@@ -11,6 +11,8 @@ type PlannerContextType = {
   bulkImport: (items: BulkImportItem[]) => Promise<void>;
   /** Get all zones and factories for bulk export */
   getExportableData: () => Promise<ExportableZone[]>;
+  /** Import the welcome factory into the default zone */
+  importWelcomeFactory: () => Promise<void>;
 };
 
 export const PlannerContext = createContext<PlannerContextType | undefined>(undefined);
