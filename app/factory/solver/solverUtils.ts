@@ -204,10 +204,16 @@ export function buildNodeConnections(
         options: node.data.options,
         type: "settlement",
       }
+    } else if (node.data.type === "recipe") {
+      nodeConnections[node.id] = {
+        ...nodeData,
+        type: "recipe",
+        options: node.data.options,
+      };
     } else {
       nodeConnections[node.id] = {
         ...nodeData,
-        type: node.data.type,
+        type: node.data.type ?? "recipe",
       };
     }
   });
@@ -225,6 +231,11 @@ export function buildNodeConnections(
       console.error("Error matching source", edge.sourceHandle, "and target", edge.targetHandle);
       throw new Error("Source and Target type do not match, something is wrong");
     }
+
+    // Skip edges where the product isn't registered on either side
+    const sourceOutputsRegistered = productId in (nodeConnections[edge.source]?.outputs ?? {});
+    const targetInputsRegistered = productId in (nodeConnections[edge.target]?.inputs ?? {});
+    if (!sourceOutputsRegistered || !targetInputsRegistered) return;
 
     (nodeConnections[edge.target].inputs[productId] ||= []).push({ nodeId: edge.source, edgeId: edge.id });
     (nodeConnections[edge.source].outputs[productId] ||= []).push({ nodeId: edge.target, edgeId: edge.id });

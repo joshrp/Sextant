@@ -6,7 +6,8 @@ import { calculateElectricityNet, calculateComputingNet } from '~/factory/infras
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
 import type { ProductId, Recipe } from './loadJsonData';
-import { getQuantityDisplay } from './recipeNodeLogic';
+import { getQuantityDisplay, RecipeNodeCalculator } from './recipeNodeLogic';
+import type { RecipeNodeOptions } from './recipeNodeLogic';
 import type { HTMLAttributes } from 'react';
 
 type ProductEdges = Map<ProductId, boolean | null>;
@@ -24,6 +25,8 @@ export interface RecipeNodeViewProps {
   };
   highlight?: HighlightModes;
   nodeId?: string;
+  nodeOptions?: RecipeNodeOptions;
+  setOptions?: (options: RecipeNodeOptions) => void;
 }
 
 /**
@@ -40,13 +43,25 @@ export default function RecipeNodeView({
   highlight,
   zoomLevel,
   nodeId,
+  nodeOptions,
+  setOptions,
 }: RecipeNodeViewProps) {
   const runCount = solution?.runCount ?? 1;
 
   const displayRunCount = solution?.solved && solution.runCount !== undefined ? solution.runCount : 1;
 
-  const leftProducts = ltr ? recipe.inputs : recipe.outputs;
-  const rightProducts = ltr ? recipe.outputs : recipe.inputs;
+  const Calculator = RecipeNodeCalculator(recipe, nodeOptions, 1);
+
+  // Check if this recipe has optional (recycling breakdown) outputs
+  const hasRecyclingOutputs = recipe.outputs.some(p => p.product.isScrap);
+  const recyclingEnabled = nodeOptions?.useRecycling !== false;
+
+  const allProducts = ltr
+    ? { left: recipe.inputs, right: recipe.outputs }
+    : { left: recipe.outputs, right: recipe.inputs };
+
+  const leftProducts = allProducts.left;
+  const rightProducts = allProducts.right;
 
   return (
     <div
@@ -85,7 +100,7 @@ export default function RecipeNodeView({
               <ProductHandle
                 key={prod.product.id}
                 product={prod.product}
-                quantity={prod.quantity}
+                quantity={ltr ? Calculator.productInput(prod.product.id) : Calculator.productOutput(prod.product.id)}
                 optional={prod.optional}
                 position={Position.Left}
                 isInput={ltr}
@@ -107,7 +122,19 @@ export default function RecipeNodeView({
         bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
         " data-flipped={ltr == false || null} />
           <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
-
+          {hasRecyclingOutputs && setOptions && (
+            <button
+              title={recyclingEnabled ? 'Disable recycling breakdown' : 'Enable recycling breakdown'}
+              onClick={() => setOptions({ useRecycling: !recyclingEnabled })}
+              className={`text-xs px-2 py-0.5 rounded border transition-colors cursor-pointer
+                ${recyclingEnabled
+                  ? 'border-green-500/60 text-green-400 hover:bg-green-500/20'
+                  : 'border-gray-500/40 text-gray-500 hover:bg-gray-500/20'
+                }`}
+            >
+              Scrap {recyclingEnabled ? 'on' : 'off'}
+            </button>
+          )}
         </div>
         <HandleList
           pos={Position.Right}
@@ -121,7 +148,7 @@ export default function RecipeNodeView({
               <ProductHandle
                 key={prod.product.id}
                 product={prod.product}
-                quantity={prod.quantity}
+                quantity={ltr ? Calculator.productOutput(prod.product.id) : Calculator.productInput(prod.product.id)}
                 optional={prod.optional}
                 position={Position.Right}
                 isInput={!ltr}

@@ -89,6 +89,8 @@ export type ProductBase = {
   color: string; // Hex color code
   unit: string; // "{0} kW" | "{0} TFlops" | ""
   transport: "Flat" | "Loose" | "Pipe" | "Molten" | "Virtual"; // How this product is transported
+  /** Whether this product is a scrap material (iron scrap, copper scrap, etc.) */
+  isScrap?: boolean;
 }
 
 export type ProductSerialized = ProductBase & {

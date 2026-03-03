@@ -176,7 +176,7 @@
 
 /* Annotation node markdown content styles */
 .annotation-content {
-
+  text-align: center;
   @apply text-xl p-4;
 
   & h1 {

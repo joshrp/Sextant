@@ -36,6 +36,11 @@ export type NodeBaseData = {
 export type RecipeNodeData = NodeBaseData & {
   type: "recipe";
   recipeId: RecipeId; // Unique identifier for the recipe
+  options?: {
+    /** Whether recycling breakdown outputs are included in calculations.
+     *  Defaults to true (enabled) when absent. */
+    useRecycling?: boolean;
+  };
 };
 
 export type BalancerNodeData = NodeBaseData & {
@@ -156,6 +161,27 @@ export const SettlementCalculator = (recipe: Recipe, options: SettlementNodeData
       return (outputRatios[productId] ?? 0).mul(runCount).toNumber();
     },
   }
+}
+
+
+
+export type RecipeNodeOptions = RecipeNodeData['options'];
+
+export const RecipeNodeCalculator = (recipe: Recipe, nodeOptions: RecipeNodeOptions, runCount: number) => {
+  return {
+    productInput: (productId: ProductId): number => {
+      const input = recipe.inputs.find(i => i.product.id === productId);
+      if (!input) return 0;
+      return input.quantity * runCount;
+    },
+    productOutput: (productId: ProductId): number => {
+      const output = recipe.outputs.find(o => o.product.id === productId);
+      if (!output) return 0;
+      // When recycling is disabled, scrap outputs are zeroed
+      if (nodeOptions?.useRecycling === false && output.product.isScrap) return 0;
+      return output.quantity * runCount;
+    },
+  };
 }
 
 export const BalancerCalculator = () => {

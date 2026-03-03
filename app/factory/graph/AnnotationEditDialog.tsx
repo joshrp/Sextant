@@ -70,22 +70,13 @@ export default function AnnotationEditDialog({
         {/* Preview */}
         <div className="flex-1 flex flex-col gap-1 overflow-auto">
           <label className="text-xs text-disabled font-medium">Preview</label>
-          <div className="flex-1 bg-gray-900/50 border border-border rounded p-2 text-sm text-text overflow-auto
-            prose prose-sm prose-invert max-w-none
-            [&_h1]:text-base [&_h1]:font-bold [&_h1]:mb-1 [&_h1]:mt-0
-            [&_h2]:text-sm [&_h2]:font-semibold [&_h2]:mb-1 [&_h2]:mt-0
-            [&_h3]:text-xs [&_h3]:font-semibold [&_h3]:mb-1 [&_h3]:mt-0
-            [&_p]:mb-1 [&_p]:last:mb-0 [&_p]:mt-0
-            [&_ul]:mb-1 [&_ul]:pl-4 [&_ol]:mb-1 [&_ol]:pl-4
-            [&_li]:mb-0
-            [&_code]:text-xs [&_code]:bg-gray-800 [&_code]:px-1 [&_code]:rounded
-            [&_a]:text-blueprint [&_a]:underline
-            [&_blockquote]:border-l-2 [&_blockquote]:border-border [&_blockquote]:pl-2 [&_blockquote]:text-disabled [&_blockquote]:italic
-          ">
+          <div className="flex-1 bg-gray-900/50 border border-border rounded overflow-auto">
             {text ? (
-              <Markdown>{text}</Markdown>
+              <div className="annotation-content scale-60">
+                <Markdown>{text}</Markdown>
+              </div>
             ) : (
-              <span className="text-disabled italic">Nothing to preview</span>
+              <span className="text-disabled italic p-2">Nothing to preview</span>
             )}
           </div>
         </div>
@@ -103,7 +94,7 @@ export default function AnnotationEditDialog({
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-1.5 bg-accent hover:bg-accent/80 text-white rounded cursor-pointer text-sm"
+            className="px-4 py-1.5 bg-blue-700 hover:bg-blue-500 text-white rounded cursor-pointer text-sm"
           >
             Save
           </button>

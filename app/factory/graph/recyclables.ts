@@ -5,6 +5,15 @@ export const recyclablesProductId = ProductId('Product_Recyclables');
 
 export type RecyclablesMaterial = 'copper' | 'gold' | 'aluminium' | 'glass' | 'iron';
 
+/** Maps each RecyclablesMaterial to the actual scrap product name in game data */
+export const recyclablesMaterialToProductName: Record<RecyclablesMaterial, string> = {
+  iron: 'Iron scrap',
+  copper: 'Copper scrap',
+  gold: 'Gold scrap',
+  aluminium: 'Aluminum scrap',
+  glass: 'Broken glass',
+};
+
 export type RecyclablesMaterialSplit = Partial<Record<RecyclablesMaterial, Big>>;
 
 /** Per-unit recyclable material breakdown for each product that contributes recyclables.

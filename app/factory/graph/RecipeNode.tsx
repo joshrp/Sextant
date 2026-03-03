@@ -36,10 +36,11 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
   if (props.data.ltr === undefined) props.data.ltr = true; // Default to left-to-right layout
   
   // Select all stable actions in a single subscription
-  const { removeNode, setNodeData, onNodesChange, setSettlementOptions } = useFactoryStore(
+  const { removeNode, setNodeData, setRecipeNodeOptions, onNodesChange, setSettlementOptions } = useFactoryStore(
     useShallow(state => ({
       removeNode: state.removeNode,
       setNodeData: state.setNodeData,
+      setRecipeNodeOptions: state.setRecipeNodeOptions,
       onNodesChange: state.onNodesChange,
       setSettlementOptions: state.setSettlementOptions,
     }))
@@ -276,7 +277,11 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
         solution={props.data.solution}
         highlight={highlight}
         nodeId={props.id}
-
+        nodeOptions={props.data.type === 'recipe' ? props.data.options : undefined}
+        setOptions={opts => {
+          setRecipeNodeOptions(props.id, opts);
+          updateNodeInternals(props.id);
+        }}
       />;
     }
     return contents;

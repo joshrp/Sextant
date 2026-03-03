@@ -62,6 +62,7 @@ export interface GraphStoreActions {
   setHighlight: (highlight: DeepPartial<GraphStore['highlight']>) => void;
   getProductsInGraph: () => Set<ProductId> | undefined;
   setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => void;
+  setRecipeNodeOptions: (nodeId: string, options: RecipeNodeData["options"]) => void;
 }
 
 export type HighlightNone = {
@@ -310,6 +311,10 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           },
           setNodeData: (nodeId: string, data: Partial<RecipeNodeData | BalancerNodeData | SettlementNodeData>) => {
             set(state => reducers.updateNodeData(state, nodeId, data), false, "setNodeData");
+          },
+          setRecipeNodeOptions: (nodeId: string, options: RecipeNodeData["options"]) => {
+            set(state => reducers.updateRecipeNodeOptions(state, nodeId, options), false, "setRecipeNodeOptions");
+            get().graphUpdateAction();
           },
           setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => {
             set(state => reducers.updateSettlementOptions(state, nodeId, options), false, "setSettlementOptions");

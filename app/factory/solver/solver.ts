@@ -7,7 +7,7 @@ import type { CustomNodeType } from '../graph/nodeTypes';
 import { type Constraint, type FactoryGoal, type GraphModel, type GraphScoringMethod, type ManifoldOptions, type NodeConnections, type Solution } from "./types";
 import { buildNodeConnections, filterAndSortSolutions, findOptionalTerms, getEquality, getInfrastructureWeight, infraMatcher, inputMatcher, makeVertexId, outputMatcher, parseHighsSolution, shouldSkipConstraint } from "./solverUtils";
 import { solveWithHighs } from "./solverClient";
-import { SettlementCalculator } from "../graph/recipeNodeLogic";
+import { RecipeNodeCalculator, SettlementCalculator } from "../graph/recipeNodeLogic";
 
 const recipeData = loadData().recipes;
 
@@ -321,6 +321,9 @@ export default class Solver {
     let qty = recipeItem.quantity;
     if (node.type === "settlement") {
       const Calculator = SettlementCalculator(recipe, node.options, 1);
+      qty = isInput ? Calculator.productInput(productId) : Calculator.productOutput(productId);
+    } else if (node.type === "recipe") {
+      const Calculator = RecipeNodeCalculator(recipe, node.options, 1);
       qty = isInput ? Calculator.productInput(productId) : Calculator.productOutput(productId);
     }
 

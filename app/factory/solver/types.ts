@@ -13,6 +13,9 @@ export type NodeConnectionBase = {
 
 export type NodeConnectionRecipe = NodeConnectionBase & {
   type: "recipe";
+  options?: {
+    useRecycling?: boolean;
+  };
 };
 
 export type NodeConnectionBalancer = NodeConnectionBase & {

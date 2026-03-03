@@ -1,5 +1,6 @@
 import { parseData, type GameData, type ProductId, type RecipeId } from "~/factory/graph/loadJsonData";
 import { getDataFromRaw, writeRawData } from "./reformat";
+import { recyclablesSourceMaterialSplit } from "~/factory/graph/recyclables";
 
 import { beforeAll, describe, expect, test } from 'vitest';
 
@@ -157,6 +158,41 @@ describe("Check parsed data", () => {
       if (recipe.outputs.find(o => o.product.id === "Product_Recyclables" as ProductId && o.optional)) {
         console.log(`Recyclables found in recipe ${recipe.id} (${recipe.name})`);
         recyclables.push(recipe);
+      }
+    });
+  });
+
+  test("Recipes with non-zero Recyclables output should have material breakdown outputs", () => {
+    const { recipes } = loadedData;
+    const scrapProductIds = new Set([
+      "Product_IronScrap", "Product_CopperScrap", "Product_GoldScrap",
+      "Product_AluminumScrap", "Product_BrokenGlass",
+    ] as ProductId[]);
+
+    recipes.forEach((recipe) => {
+      const recyclablesOut = recipe.outputs.find(o => o.product.id === "Product_Recyclables" as ProductId);
+      if (!recyclablesOut || recyclablesOut.quantity === 0) return;
+      if (recipe.type === "settlement") return; // Settlements use dynamic calculation
+
+      // Only expect breakdown outputs if at least one input has a known material split
+      const inputsWithBreakdown = recipe.inputs.filter(i => recyclablesSourceMaterialSplit[i.product.id]);
+      if (inputsWithBreakdown.length === 0) return;
+
+      // Every such recipe must have at least one scrap output
+      const breakdownOutputs = recipe.outputs.filter(o => o.product.isScrap && scrapProductIds.has(o.product.id));
+      expect(
+        breakdownOutputs.length,
+        `Recipe ${recipe.id} (${recipe.name}) has inputs with known breakdown but no material breakdown outputs`
+      ).toBeGreaterThan(0);
+
+      // All breakdown outputs should have isScrap on their product and be known scrap products with positive quantities
+      for (const output of breakdownOutputs) {
+        expect(output.product.isScrap, `Product ${output.product.id} should be marked isScrap`).toBe(true);
+        expect(
+          scrapProductIds.has(output.product.id),
+          `Unexpected scrap product ${output.product.id} in ${recipe.id}`
+        ).toBe(true);
+        expect(output.quantity, `Breakdown output ${output.product.id} in ${recipe.id} should have positive quantity`).toBeGreaterThan(0);
       }
     });
   });

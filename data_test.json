@@ -1101,6 +1101,13 @@
         ],
         "output": [
           "ShreddingIronScrap",
+          "MaintenanceT1Recycling",
+          "MaintenanceT2Recycling",
+          "MaintenanceT3Recycling",
+          "ResearchLab21",
+          "ResearchLab31",
+          "ResearchLab41",
+          "ResearchLab51",
           "Balancer_Product_IronScrap"
         ]
       },
@@ -1111,7 +1118,8 @@
         "output": [
           "BalancerLoose"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_IronScrapPressed": {
       "id": "Product_IronScrapPressed",
@@ -1137,7 +1145,8 @@
         "output": [
           "BalancerFlat"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_MoltenIron": {
       "id": "Product_MoltenIron",
@@ -1382,6 +1391,13 @@
         ],
         "output": [
           "ShreddingCopperScrap",
+          "MaintenanceT1Recycling",
+          "MaintenanceT2Recycling",
+          "MaintenanceT3Recycling",
+          "ResearchLab21",
+          "ResearchLab31",
+          "ResearchLab41",
+          "ResearchLab51",
           "Balancer_Product_CopperScrap"
         ]
       },
@@ -1392,7 +1408,8 @@
         "output": [
           "BalancerLoose"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_CopperScrapPressed": {
       "id": "Product_CopperScrapPressed",
@@ -1418,7 +1435,8 @@
         "output": [
           "BalancerFlat"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_MoltenCopper": {
       "id": "Product_MoltenCopper",
@@ -1686,7 +1704,8 @@
         "output": [
           "BalancerLoose"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_AluminumScrapPressed": {
       "id": "Product_AluminumScrapPressed",
@@ -1712,7 +1731,8 @@
         "output": [
           "BalancerFlat"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_MoltenAluminum": {
       "id": "Product_MoltenAluminum",
@@ -2171,6 +2191,8 @@
         ],
         "output": [
           "ShreddingGoldScrap",
+          "MaintenanceT3Recycling",
+          "ResearchLab51",
           "Balancer_Product_GoldScrap"
         ]
       },
@@ -2181,7 +2203,8 @@
         "output": [
           "BalancerLoose"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_GoldScrapPressed": {
       "id": "Product_GoldScrapPressed",
@@ -2207,7 +2230,8 @@
         "output": [
           "BalancerFlat"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_Sand": {
       "id": "Product_Sand",
@@ -2309,6 +2333,11 @@
         ],
         "output": [
           "GlassCastingT1",
+          "MaintenanceT2Recycling",
+          "MaintenanceT3Recycling",
+          "ResearchLab31",
+          "ResearchLab41",
+          "ResearchLab51",
           "Balancer_Product_BrokenGlass"
         ]
       },
@@ -2319,7 +2348,8 @@
         "output": [
           "BalancerLoose"
         ]
-      }
+      },
+      "isScrap": true
     },
     "Product_Glass": {
       "id": "Product_Glass",
@@ -26557,6 +26587,14 @@
           "id": "Product_Recyclables",
           "quantity": 18,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 14.4
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 7.2
         }
       ]
     },
@@ -26610,6 +26648,18 @@
           "id": "Product_Recyclables",
           "quantity": 24,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 10.8
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 16.2
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 3.6
         }
       ]
     },
@@ -26639,6 +26689,22 @@
           "id": "Product_Recyclables",
           "quantity": 24,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 5.4
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 18.6
+        },
+        {
+          "id": "Product_GoldScrap",
+          "quantity": 2.4
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 3.6
         }
       ]
     },
@@ -28377,6 +28443,14 @@
           "id": "Product_Recyclables",
           "quantity": 6,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 2.4
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 1.2
         }
       ]
     },
@@ -28398,6 +28472,18 @@
           "id": "Product_Recyclables",
           "quantity": 12,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 4.8
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 2.4
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 2.4
         }
       ]
     },
@@ -28419,6 +28505,18 @@
           "id": "Product_Recyclables",
           "quantity": 24,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 9.6
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 10.2
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 6
         }
       ]
     },
@@ -28440,6 +28538,22 @@
           "id": "Product_Recyclables",
           "quantity": 48,
           "optional": true
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 19.2
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 39
+        },
+        {
+          "id": "Product_GoldScrap",
+          "quantity": 2.4
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 15.6
         }
       ]
     },

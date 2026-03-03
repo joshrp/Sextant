@@ -7,7 +7,7 @@ import type { GraphSolutionState, GraphStore } from "~/factory/store";
 import type { ProductionZoneStoreData } from "~/context/ZoneStore";
 import type { GraphScoringMethod, ManifoldOptions, GraphModel } from "~/factory/solver/types";
 import type { solve } from "~/factory/solver/solver";
-import type { NodeDataTypes, SettlementNodeData } from "~/factory/graph/recipeNodeLogic";
+import type { NodeDataTypes, RecipeNodeData, SettlementNodeData } from "~/factory/graph/recipeNodeLogic";
 import { isRecipeNode } from "~/factory/graph/nodeTypes";
 
 /**
@@ -42,6 +42,27 @@ export function updateSettlementOptions(
     nodes: state.nodes.map(node =>
       node.id === nodeId && isRecipeNode(node) && node.data.type === "settlement"
         ? { ...node, data: { ...node.data, options: { ...node.data.options, ...options } } }
+        : node
+    ),
+  };
+}
+
+export function updateRecipeNodeOptions(
+  state: GraphSolutionState,
+  nodeId: string,
+  options?: Partial<RecipeNodeData["options"]>  
+): GraphSolutionState {
+  return {
+    ...state,
+    nodes: state.nodes.map(node =>
+      node.id === nodeId && isRecipeNode(node) && node.data.type === "recipe"
+        ? {
+          ...node,
+          data: {
+            ...node.data,
+            options: { ...node.data.options, ...options },
+          },
+        }
         : node
     ),
   };

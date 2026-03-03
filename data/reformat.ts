@@ -1,12 +1,12 @@
 
-
 import Big from "big.js";
 import * as ColorThief from "colorthief";
 import assert from "node:assert";
 import { createHash } from "node:crypto";
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import type { Machine, MachineId, MachineSerialized, Product, ProductId, ProductSerialized, Recipe, RecipeId, RecipeSerialized } from "../app/factory/graph/loadJsonData";
+import type { Machine, MachineId, MachineSerialized, Product, ProductId, ProductSerialized, Recipe, RecipeId, RecipeSerialized, RecipeProductSerialized } from "../app/factory/graph/loadJsonData";
+import { recyclablesMaterialToProductName, recyclablesProductId, recyclablesSourceMaterialSplit, type RecyclablesMaterial, type RecyclablesMaterialSplit } from "../app/factory/graph/recyclables";
 
 type RawProduct = {
   id: string;
@@ -253,6 +253,15 @@ export async function formatProductData(rawProducts: RawProduct[]) {
     machines: { input: [], output: ['Housing', 'HousingT2', 'HousingT3', 'HousingT4'] },
   });
 
+  // Mark scrap products (and their pressed variants) with isScrap flag
+  const scrapProductNames = new Set(Object.values(recyclablesMaterialToProductName));
+  for (const product of productData.values()) {
+    if (scrapProductNames.has(product.name) || 
+        [...scrapProductNames].some(name => product.name === `${name} pressed`)) {
+      product.isScrap = true;
+    }
+  }
+
   return productData;
 }
 
@@ -387,24 +396,6 @@ function modifyMachineData(rawMachine: RawMachine): RawMachine {
   return rawMachine;
 }
 
-const modifyRecipeData = (rawRecipe: RawRecipe, machine: Partial<MachineSerialized>): RawRecipe => {
-  // Find any recyclables outputs and add the appropriate inputs based on the machine's category and the recipe's inputs
-  const recyclingOutput = rawRecipe.outputs.find(o => o.name === "Recyclables");
-  // if (recyclingOutput) {
-  //   // Find the recycling breakdown for each of the inputs
-  //   const materialSplit = rawRecipe.inputs.reduce((split, input) => {
-  //     const inputSplit = recyclablesSourceMaterialSplit[ProductId(input.name)];
-  //     if (inputSplit) {
-  //       Object.entries(inputSplit).forEach(([mat, qty]) => {
-  //         split[mat] = (split[mat] ?? Big(0)).plus(qty);
-  //       });
-  //     }
-  //     return split;
-  //   }, {} as RecyclablesMaterialSplit);
-
-  // }
-  return rawRecipe;
-}
 
 export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMachine[], products: Awaited<ReturnType<typeof formatProductData>>) {
   const machineData = new Map<MachineId, MachineSerialized>();
@@ -510,7 +501,7 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
           newRecipeId = `${newRecipeId}_1` as Recipe["id"];
       }
 
-      const inputs = rawRecipe.inputs.map(input => {
+      const inputs: RecipeProductSerialized[] = rawRecipe.inputs.map(input => {
         const existingProduct = products.get(input.name);
         assert(existingProduct, `Product ${input.name} not found in product data.`);
         existingProduct!.recipes.input.push(newRecipeId);
@@ -520,7 +511,7 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
         }
       });
 
-      const outputs = rawRecipe.outputs.map(output => {
+      const outputs: RecipeProductSerialized[] = rawRecipe.outputs.map(output => {
         const existingProduct = products.get(output.name);
         assert(existingProduct, `Product ${output.name} not found in product data.`);
         existingProduct!.recipes.output.push(newRecipeId);
@@ -530,6 +521,38 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
           ...(output.optional ? { optional: true } : {}),
         }
       });
+
+      // Add recyclables material breakdown outputs for any recipe that
+      // produces Recyclables with a non-zero quantity.
+      // Settlements have dynamic recyclables dependent on enabled inputs, 
+      // so the values here are overriden at runtime.
+      const hasRecyclablesOutput = outputs.find(o => o.id === recyclablesProductId)?.quantity ?? 0 > 0;
+      if (hasRecyclablesOutput) {
+        const totalMaterialSplit: RecyclablesMaterialSplit = {};
+        for (const input of inputs) {
+          const inputSplit = recyclablesSourceMaterialSplit[input.id as ProductId];
+          if (!inputSplit) continue;
+          for (const [material, qtyPerUnit] of Object.entries(inputSplit) as [RecyclablesMaterial, Big][]) {
+            if (!qtyPerUnit) continue;
+            const scrapQty = qtyPerUnit.mul(input.quantity);
+            totalMaterialSplit[material as RecyclablesMaterial] = (totalMaterialSplit[material as RecyclablesMaterial] ?? Big(0)).plus(scrapQty);
+          }
+        }
+        for (const [material, scrapQty] of Object.entries(totalMaterialSplit) as [RecyclablesMaterial, Big][]) {
+          if (!scrapQty || scrapQty.eq(0)) continue;
+          const productName = recyclablesMaterialToProductName[material as RecyclablesMaterial];
+          const scrapProduct = products.get(productName);
+          if (!scrapProduct) {
+            console.warn(`Scrap product "${productName}" not found in product data, skipping recyclables breakdown for material "${material}"`);
+            continue;
+          }
+          scrapProduct.recipes.output.push(newRecipeId);
+          outputs.push({
+            id: scrapProduct.id,
+            quantity: scrapQty.toNumber(),
+          });
+        }
+      }
 
       let tierId = undefined as string | undefined;
       const dedupKey = makeRecipeDeduplicationKey(inputs, outputs);
