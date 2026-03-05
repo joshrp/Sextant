@@ -12,7 +12,14 @@ import "./app.css";
 import { PlannerProvider } from "./context/PlannerProvider";
 
 // eslint-disable-next-line react-refresh/only-export-components
+export const meta: Route.MetaFunction = () => [
+  { title: "Sextant" },
+  { name: "description", content: "Production planning calculator for Captain of Industry" },
+];
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: `${import.meta.env.BASE_URL}favicon.svg`, type: "image/svg+xml" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",

@@ -59,7 +59,7 @@ export const helpTopics: HelpTopic[] = [
   {
     id: 'introduction',
     title: 'Introduction',
-    description: 'Get started with the COI Calculator',
+    description: 'Get started with Sextant',
     contentKey: 'introduction',
     category: 'getting-started',
     order: 1,

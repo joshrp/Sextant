@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Telescope sight housing at top -->
+  <circle cx="12" cy="4" r="2.5" 
+          stroke="currentColor" 
+          stroke-width="1.2" 
+          fill="none"/>
+  <circle cx="12" cy="4" r="1.2" fill="currentColor"/>
+  <circle cx="12" cy="4" r="0.6" fill="none" stroke="currentColor" stroke-width="0.5"/>
+  
+  <!-- Telescope extension tube -->
+  <rect x="10.5" y="4" width="3" height="2" 
+        stroke="currentColor" 
+        stroke-width="1" 
+        fill="none"/>
+  <line x1="11" y1="4" x2="11" y2="6" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+  <line x1="13" y1="4" x2="13" y2="6" stroke="currentColor" stroke-width="0.4" opacity="0.5"/>
+  
+  <!-- Dual vertical support arms -->
+  <line x1="10.8" y1="6" x2="10.8" y2="16" 
+        stroke="currentColor" 
+        stroke-width="1" 
+        stroke-linecap="square"/>
+  <line x1="13.2" y1="6" x2="13.2" y2="16" 
+        stroke="currentColor" 
+        stroke-width="1" 
+        stroke-linecap="square"/>
+  
+  <!-- Bottom arc frame (outer) -->
+  <path d="M 3.5 18 A 10 10 0 0 1 20.5 18" 
+        stroke="currentColor" 
+        stroke-width="1.8" 
+        stroke-linecap="square" 
+        fill="none"/>
+  
+  <!-- Bottom arc frame (inner) -->
+  <path d="M 4.2 17.5 A 9.2 9.2 0 0 1 19.8 17.5" 
+        stroke="currentColor" 
+        stroke-width="0.5" 
+        stroke-linecap="square" 
+        fill="none"/>
+  
+  <!-- Arc degree markings (major) -->
+  <line x1="4" y1="17.5" x2="5" y2="16.5" stroke="currentColor" stroke-width="1"/>
+  <line x1="6.5" y1="14" x2="7.5" y2="13.2" stroke="currentColor" stroke-width="1"/>
+  <line x1="10" y1="10.5" x2="10.8" y2="10" stroke="currentColor" stroke-width="1"/>
+  <line x1="12" y1="9" x2="12" y2="8" stroke="currentColor" stroke-width="1"/>
+  <line x1="14" y1="10.5" x2="13.2" y2="10" stroke="currentColor" stroke-width="1"/>
+  <line x1="17.5" y1="14" x2="16.5" y2="13.2" stroke="currentColor" stroke-width="1"/>
+  <line x1="20" y1="17.5" x2="19" y2="16.5" stroke="currentColor" stroke-width="1"/>
+  
+  <!-- Arc degree markings (minor) -->
+  <line x1="5.2" y1="15.8" x2="6" y2="15" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+  <line x1="8.2" y1="12" x2="8.8" y2="11.5" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+  <line x1="15.8" y1="12" x2="15.2" y2="11.5" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+  <line x1="18.8" y1="15.8" x2="18" y2="15" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
+  
+  <!-- Left arc handle -->
+  <rect x="2.5" y="16.5" width="2" height="3" 
+        rx="0.5" 
+        stroke="currentColor" 
+        stroke-width="1" 
+        fill="none"/>
+  <line x1="3" y1="17" x2="3" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  <line x1="3.5" y1="17" x2="3.5" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  <line x1="4" y1="17" x2="4" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  
+  <!-- Right arc handle -->
+  <rect x="19.5" y="16.5" width="2" height="3" 
+        rx="0.5" 
+        stroke="currentColor" 
+        stroke-width="1" 
+        fill="none"/>
+  <line x1="20" y1="17" x2="20" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  <line x1="20.5" y1="17" x2="20.5" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  <line x1="21" y1="17" x2="21" y2="19.5" stroke="currentColor" stroke-width="0.3" opacity="0.5"/>
+  
+  <!-- Curved arm from telescope to arc (left) -->
+  <path d="M 10.8 7 Q 6 10 5 15.5" 
+        stroke="currentColor" 
+        stroke-width="1.2" 
+        fill="none"/>
+  <path d="M 11.2 7.5 Q 6.8 10.5 5.8 15" 
+        stroke="currentColor" 
+        stroke-width="0.5" 
+        fill="none" 
+        opacity="0.5"/>
+  
+  <!-- Curved arm from telescope to arc (right) -->
+  <path d="M 13.2 7 Q 18 10 19 15.5" 
+        stroke="currentColor" 
+        stroke-width="1.2" 
+        fill="none"/>
+  <path d="M 12.8 7.5 Q 17.2 10.5 18.2 15" 
+        stroke="currentColor" 
+        stroke-width="0.5" 
+        fill="none" 
+        opacity="0.5"/>
+  
+  <!-- Center bottom viewfinder/mirror housing -->
+  <circle cx="12" cy="18" r="2.2" 
+          stroke="currentColor" 
+          stroke-width="1.2" 
+          fill="none"/>
+  <circle cx="12" cy="18" r="1.4" 
+          fill="currentColor" opacity="0.2"/>
+  <circle cx="12" cy="18" r="0.8" 
+          stroke="currentColor" 
+          stroke-width="0.5" 
+          fill="none"/>
+  <circle cx="11.6" cy="17.6" r="0.4" fill="currentColor" opacity="0.5"/>
+  
+  <!-- Support base -->
+  <rect x="10.2" y="19.5" width="3.6" height="1.5" 
+        rx="0.3" 
+        stroke="currentColor" 
+        stroke-width="0.8" 
+        fill="none"/>
+  <line x1="9" y1="21" x2="15" y2="21" stroke="currentColor" stroke-width="1.2" stroke-linecap="square"/>
+</svg>

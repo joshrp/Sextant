@@ -1,9 +1,9 @@
 {
-  "name": "coi-calc",
+  "name": "sextant",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "react-router build && cp build/client/index.html build/client/404.html",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "preview": "vite preview --port 4173",

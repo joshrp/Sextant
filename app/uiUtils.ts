@@ -77,10 +77,12 @@ export function formatSignedInfra(net: number, unit: string): { text: string, co
   }
 }
 
-export const productIcon = (icon: string) => `/assets/products/${icon}`;
+const base = () => import.meta.env.BASE_URL.replace(/\/$/, '');
+export const productIcon = (icon: string) => `${base()}/assets/products/${icon}`;
 
-export const machineIcon = (machine: Machine) => `/assets/buildings/${machine.id}.png`;
-export const uiIcon = (icon: string) => `/assets/ui/${icon}.png`;
+export const machineIcon = (machine: Machine) => `${base()}/assets/buildings/${machine.id}.png`;
+export const uiIcon = (icon: string) => `${base()}/assets/ui/${icon}.png`;
+export const uiIconSvg = (icon: string) => `${base()}/assets/ui/${icon}.svg`;
 export const productBackground = (product: Product) => {
   return "hsl(from " + product.color + " h s calc(l*0.75))";
 }

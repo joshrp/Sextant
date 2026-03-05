@@ -53,7 +53,7 @@ export default {
   'Long markdown': () =>
     wrap(
       createNodeProps(
-        `## Welcome to COI Calculator\n\nThis factory shows a simple **power and construction** production chain.\n\n### How to use\n1. Read the annotations next to each node\n2. Click **Solve** to see how many machines you need\n3. Add your own recipes from the **Goals** sidebar\n4. Create a new factory tab for your own production plan\n\n> Double-click any annotation to edit its text.`,
+        `## Welcome to Sextant\n\nThis factory shows a simple **power and construction** production chain.\n\n### How to use\n1. Read the annotations next to each node\n2. Click **Solve** to see how many machines you need\n3. Add your own recipes from the **Goals** sidebar\n4. Create a new factory tab for your own production plan\n\n> Double-click any annotation to edit its text.`,
       ),
     ),
 

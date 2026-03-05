@@ -56,13 +56,18 @@ export default function ZoneHeader({ selectedZone }: { selectedZone?: string }) 
   };
 
   return (<>
-    <h1 className="shrink-1 border-r-2 border-gray-400 pr-8">Factory Planner</h1>
+    <h1 className="shrink-1 border-r-2 border-gray-400 pr-8">
+      <img src='/sextant-white.svg' alt="Sextant Logo" className="w-10 inline-block mr-2" />
+      Sextant - COI Planner
+    </h1>
     <h2 className="shrink-1 ml-6">Zone:</h2>
     <Menu>
-      <MenuButton className="text-white items-middle flex-row flex h-full px-2 shrink-1 rounded-sm bg-gray-700 cursor-pointer texture-embossed">
-        {zone?.icon && <img src={zone.icon} alt="" className="flex-1 block mr-2" />}
+      <MenuButton className="flex-row flex justify-between
+                              px-2 py-1 min-w-30 items-middle  
+                            text-white rounded-sm bg-gray-700 cursor-pointer 
+        ">{zone?.icon && <img src={zone.icon} alt="" className="flex-1 block mr-2" />}
         <span>{zone?.name}</span>
-        <ChevronDownIcon className="w-6 flex-1 h-full inline-block ml-2 mb-1" />
+        <ChevronDownIcon className="w-6 shrink inline-block ml-2" />
       </MenuButton>
       <MenuItems anchor={"bottom start"}
         className="border-2 border-gray-400 shadow-2xl absolute rounded z-10 bg-gray-700  text-white">
@@ -89,7 +94,7 @@ export default function ZoneHeader({ selectedZone }: { selectedZone?: string }) 
         )}
       </MenuItems>
     </Menu>
-    <Button className="shrink-1 -mt-1 cursor-pointer hover:text-gray-700 text-white"
+    <Button className="shrink -mt-1 cursor-pointer hover:text-white text-gray-500 "
       title="Create New Zone"
       onClick={() => setIsCreatingNew(true)} >
       <PlusIcon className="w-5 h-full inline-block" />
@@ -97,7 +102,7 @@ export default function ZoneHeader({ selectedZone }: { selectedZone?: string }) 
     <div className="flex-1" />
     <Link
       to="help?topic=introduction"
-      className="shrink-1 cursor-pointer hover:text-white text-gray-400 flex items-center gap-2"
+      className="shrink cursor-pointer hover:text-white text-gray-400 flex items-center gap-2"
       title="Help"
     >
       <InformationCircleIcon className="w-6 h-6" />

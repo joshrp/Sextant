@@ -14,6 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const setupDir = resolve(__dirname, "app/test/setup");
 
 export default defineConfig({
+  base: process.env.GITHUB_PAGES ? "/sextant/" : "/",
   plugins: [
     tailwindcss(), 
     !process.env.VITEST && mdx({
