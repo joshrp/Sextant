@@ -16,15 +16,21 @@ export default function Zone() {
   const zoneId = useProductionZone().id;
   const store = useProductionZone().store;
 
-  if (selectedFactoryId === "") {
-    if (factories.length === 0)
-      selectedFactoryId = store.getState().newFactory("Default Factory");
-    else
-      selectedFactoryId = store.getState().lastFactory || factories[0]?.id;
+  if (selectedFactoryId === "" && factories.length > 0) {
+    selectedFactoryId = store.getState().lastFactory || factories[0]?.id;
     history.replaceState({}, "", `/zones/${zoneId}/${selectedFactoryId}`);
   }
 
-  const selectedFactory = factories.find(f => f.id === selectedFactoryId);
+  let selectedFactory = factories.find(f => f.id === selectedFactoryId);
+
+  // If the selected factory no longer exists (e.g. the onboarding placeholder was removed)
+  // but other factories are available, redirect to the first available one.
+  if (!selectedFactory && factories.length > 0 && selectedFactoryId !== "") {
+    selectedFactoryId = store.getState().lastFactory ?? factories[0].id;
+    selectedFactory = factories.find(f => f.id === selectedFactoryId);
+    history.replaceState({}, "", `/zones/${zoneId}/${selectedFactoryId}`);
+  }
+
   store.getState().setLastFactory(selectedFactoryId);
   const idb = useProductionZone().idb;
 

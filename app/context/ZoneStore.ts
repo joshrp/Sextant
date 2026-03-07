@@ -43,11 +43,8 @@ function buildZoneStore(idb: IDB, { id, name }: { id: string, name: string }) {
         devtools(
           (set, get) => ({
             id, name,
-            factories: [{
-              id: "default-factory",
-              name: "Default Factory",
-              order: 0,
-            }],
+            factories: [],
+
             weights: {
               base: 1,
               products: new Map<ProductId, number>(),

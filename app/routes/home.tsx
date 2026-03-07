@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 import { usePlannerStore } from "~/context/PlannerContext";
 import { ProductionZoneProvider } from "~/context/ZoneProvider";
@@ -64,6 +65,11 @@ export default function Home() {
         <div className="flex-1 flex flex-col justify-center-safe items-center-safe bg-zinc-950">
           <h2 className="text-2xl mb-4">Zone Not Found</h2>
           <p>The selected zone &quot;{selectedZone}&quot; was not found.</p>
+          <Link
+            to={zones.length > 0 ? `/zones/${zones[0].id}` : "/zones/main"}
+            className="mt-4 text-blue-400 hover:text-blue-300 underline">
+            {zones.length > 0 ? `Go to ${zones[0].name}` : "Go to main zone"}
+          </Link>
         </div>
       }
       {images.map((img, idx) => (
