@@ -63,6 +63,7 @@ export interface GraphStoreActions {
   getProductsInGraph: () => Set<ProductId> | undefined;
   setSettlementOptions: (nodeId: string, options: SettlementNodeData["options"]) => void;
   setRecipeNodeOptions: (nodeId: string, options: RecipeNodeData["options"]) => void;
+  clearAll: () => void;
 }
 
 export type HighlightNone = {
@@ -322,6 +323,9 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps) => {
           },
           setEdgeData: (edgeId: string, data: Partial<ButtonEdgeData>) => {
             set(state => reducers.updateEdgeData(state, edgeId, data), false, "setEdgeData");
+          },
+          clearAll: () => {
+            set({ nodes: [], edges: [], graph: undefined, solution: undefined, solutionStatus: undefined }, false, "clearAll");
           },
           // Sometimes ReactFlow just needs a kick
           forceSetNodesEdges: () => {

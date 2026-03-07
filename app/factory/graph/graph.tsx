@@ -1,5 +1,6 @@
 import {
   Background,
+  ControlButton,
   Controls,
   ReactFlow,
   useReactFlow,
@@ -8,11 +9,13 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
-import { type MutableRefObject, useCallback, useEffect, useRef } from "react";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import { type MutableRefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/shallow";
+import ConfirmDialog from "~/components/ConfirmDialog";
 import type { AddRecipeNode } from "../factory";
-import useFactory from "../FactoryContext";
+import useFactory, { useFactoryStore } from "../FactoryContext";
 import { type GraphStore } from "../store";
 import { edgeTypes, type CustomEdgeType } from "./edges";
 import { loadData, type ProductId, type RecipeId } from "./loadJsonData";
@@ -54,6 +57,8 @@ type props = {
 // 6. Mock React Flow context for component testing
 export default function Graph({ addNewRecipe, smartPositionRef }: props) {
   const store = useFactory().store;
+  const [clearConfirmOpen, setClearConfirmOpen] = useState(false);
+  const clearAll = useFactoryStore(state => state.clearAll);
 
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore(
     store,
@@ -204,7 +209,27 @@ export default function Graph({ addNewRecipe, smartPositionRef }: props) {
     // snapToGrid={true}
     >
       <Background />
-      <Controls/>
+      <Controls>
+        <ControlButton
+          onClick={() => setClearConfirmOpen(true)}
+          title="Clear all nodes"
+          disabled={nodes.length === 0}
+        >
+          <TrashIcon />
+        </ControlButton>
+      </Controls>
+      <ConfirmDialog
+        isOpen={clearConfirmOpen}
+        onConfirm={() => { clearAll(); setClearConfirmOpen(false); }}
+        onCancel={() => setClearConfirmOpen(false)}
+        title="Clear all nodes"
+        confirmText="Clear all"
+        isDestructive
+      >
+        This will remove all nodes from the canvas. This cannot be undone.
+
+        Use export if you want to save your work before clearing.
+      </ConfirmDialog>
     </ReactFlow>
   );
 }
