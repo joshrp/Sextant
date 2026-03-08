@@ -48,12 +48,13 @@ const createFixture = (recipeIdStart: string, width: number, propsOverrides?: Pa
   const connectedInputs = new Array(10).fill(false).map((_, i) => useFixtureInput(`Input ${i + 1} Connected`, false)[0]);
   const connectedOutputs = new Array(10).fill(false).map((_, i) => useFixtureInput(`Output ${i + 1} Connected`, false)[0]);
 
-  const connectedProducts = new Map<ProductId, boolean>();
+  const inputEdges = new Map<ProductId, boolean>();
+  const outputEdges = new Map<ProductId, boolean>();
   for (const [i, {product}] of recipe.inputs.entries()) {
-    connectedProducts.set(product.id, connectedInputs[i]);
+    inputEdges.set(product.id, connectedInputs[i]);
   }
   for (const [i, {product}] of recipe.outputs.entries()) {
-    connectedProducts.set(product.id, connectedOutputs[i]);
+    outputEdges.set(product.id, connectedOutputs[i]);
   }
 
   return <ReactFlowProvider>
@@ -65,7 +66,8 @@ const createFixture = (recipeIdStart: string, width: number, propsOverrides?: Pa
       {removed && <h2>Removed</h2>}      
       <RecipeNodeView {...{
           recipe,
-          productEdges: connectedProducts,
+          inputEdges,
+          outputEdges,
           solution: { solved: propsOverrides?.solution?.solved ?? true, runCount },
           
           ltr: !flipped,

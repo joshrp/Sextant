@@ -43,12 +43,13 @@ const createFixture = (propsOverrides?: Partial<SettlementNodeViewProps>) => {
     return <div>Settlement recipe not found</div>;
   }
 
-  const connectedProducts = new Map<ProductId, boolean>();
+  const inputEdges = new Map<ProductId, boolean>();
+  const outputEdges = new Map<ProductId, boolean>();
   for (const { product } of settlementRecipe.inputs) {
-    connectedProducts.set(product.id, false);
+    inputEdges.set(product.id, false);
   }
   for (const { product } of settlementRecipe.outputs) {
-    connectedProducts.set(product.id, false);
+    outputEdges.set(product.id, false);
   }
 
   return (
@@ -68,7 +69,8 @@ const createFixture = (propsOverrides?: Partial<SettlementNodeViewProps>) => {
           recipe={settlementRecipe}
           settlementOptions={options}
           setOptions={setOptions}
-          productEdges={connectedProducts}
+          inputEdges={inputEdges}
+          outputEdges={outputEdges}
           solution={{ solved: propsOverrides?.solution?.solved ?? true, runCount }}
           ltr={!flipped}
           zoomLevel={zoomLevel}

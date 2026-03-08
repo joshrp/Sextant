@@ -7,14 +7,10 @@
 
 import * as IntroductionContent from './content/introduction.mdx';
 import * as RecyclingContent from './content/recycling.mdx';
-import * as PlaceholderContent from './content/placeholder.mdx';
-
 import * as GoalsContent from './content/goals.mdx';
 import * as BalancerContent from './content/balancer.mdx';
 import * as ScoringContent from './content/scoring.mdx';
 import * as ManifoldsContent from './content/manifolds.mdx';
-import * as ComparingChainsContent from './content/comparing-chains.mdx';
-import * as AdvancedBalancersContent from './content/advanced-balancers.mdx';
 import * as SettlementsContent from './content/settlements.mdx';
 
 
@@ -24,13 +20,10 @@ import * as SettlementsContent from './content/settlements.mdx';
 export const contentMap = {
   introduction: IntroductionContent.default,
   recycling: RecyclingContent.default,
-  placeholder: PlaceholderContent.default,
   goals: GoalsContent.default,
   balancer: BalancerContent.default,
   scoring: ScoringContent.default,
   manifolds: ManifoldsContent.default,
-  'comparing-chains': ComparingChainsContent.default,
-  'advanced-balancers': AdvancedBalancersContent.default,
   settlements: SettlementsContent.default,
 } as const;
 
@@ -39,5 +32,5 @@ export const contentMap = {
  * Returns the placeholder if the topic doesn't have content yet
  */
 export function loadContent(topicId: keyof typeof contentMap) {
-  return contentMap[topicId] || PlaceholderContent.default;
+  return contentMap[topicId];
 }

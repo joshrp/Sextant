@@ -48,7 +48,7 @@ const mdxComponents = {
     <ol className="list-decimal list-inside mb-4 space-y-2 text-zinc-700 dark:text-zinc-300" {...props} />
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className="ml-4 p-2" {...props} />
+    <li className="ml-4 p-2 list-disc" {...props} />
   ),
 
   // Links

@@ -42,16 +42,10 @@ export const helpCategories: HelpCategory[] = [
     order: 2,
   },
   {
-    id: 'advanced-usage',
-    title: 'Advanced Usage',
-    description: 'Master advanced techniques and workflows',
-    order: 3,
-  },
-  {
     id: 'reference',
     title: 'Reference',
     description: 'Technical reference and details',
-    order: 4,
+    order: 3,
   },
 ];
 
@@ -112,22 +106,6 @@ export const helpTopics: HelpTopic[] = [
     contentKey: 'scoring',
     category: 'advanced',
     order: 1,
-  },
-  {
-    id: 'comparing-chains',
-    title: 'Comparing Production Chains',
-    description: 'Techniques for comparing different production approaches',
-    contentKey: 'comparing-chains',
-    category: 'advanced-usage',
-    order: 1,
-  },
-  {
-    id: 'advanced-balancers',
-    title: 'Advanced Balancers',
-    description: 'Advanced balancer techniques and patterns',
-    contentKey: 'advanced-balancers',
-    category: 'advanced-usage',
-    order: 2,
   },
 ];
 

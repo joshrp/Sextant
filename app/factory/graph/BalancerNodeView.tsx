@@ -96,7 +96,7 @@ export default function BalancerNodeView({
               <ProductHandle
                 key={prod.product.id}
                 product={prod.product}
-                quantity={prod.quantity}
+                quantity={prod.quantity * displayRunCount}
                 hideQuantity={isConnected}
                 optional={prod.optional}
                 position={Position.Left}
@@ -130,7 +130,7 @@ export default function BalancerNodeView({
               <ProductHandle
                 key={prod.product.id}
                 product={prod.product}
-                quantity={prod.quantity}
+                quantity={prod.quantity * displayRunCount}
                 hideQuantity={isConnected}
                 optional={prod.optional}
                 position={Position.Right}

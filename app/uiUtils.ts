@@ -86,6 +86,7 @@ export const uiIconSvg = (icon: string) => `${base()}/assets/ui/${icon}.svg`;
 export const productBackground = (product: Product) => {
   return "hsl(from " + product.color + " h s calc(l*0.75))";
 }
+export const helpImage = (image: string) => `${base()}/assets/help/${image}`;
 
 export const maintenanceIcon = (machine_or_product_id: Machine | ProductId) => {
   let productId = machine_or_product_id;
