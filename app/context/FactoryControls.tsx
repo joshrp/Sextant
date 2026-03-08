@@ -1,16 +1,16 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import { ArrowPathRoundedSquareIcon, ExclamationTriangleIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowPathRoundedSquareIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowsPointingOutIcon, CheckCircleIcon, ChevronDownIcon, Cog8ToothIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 
 import React from "react";
 import { Link } from "react-router";
 import { useShallow } from "zustand/shallow";
-import InfrastructurePopover, { type InfrastructurePopoverProps } from "~/components/InfrastructurePopover";
 import HelpLink from "~/components/HelpLink";
-import { formatNumber, maintenanceIcon, productIcon, uiIcon } from "~/uiUtils";
-import { useFactoryStore } from "./FactoryContext";
-import { loadData, type ProductId } from "../factory/graph/loadJsonData";
+import InfrastructurePopover, { type InfrastructurePopoverProps } from "~/components/InfrastructurePopover";
 import type { AddRecipeNode } from "~/factory/factory";
+import { formatNumber, maintenanceIcon, productIcon, uiIcon } from "~/uiUtils";
+import { loadData, type ProductId } from "../factory/graph/loadJsonData";
+import { useFactoryStore } from "./FactoryContext";
 
 const productData = loadData()?.products;
 
@@ -215,7 +215,7 @@ export default function FactoryControls({
           </div>
         </MenuItem>
         <MenuItem key="divider" as="div" className="border-b-2 border-gray-500 my-1" />
-        <MenuItem key="outputs" as="div"
+        {/* <MenuItem key="outputs" as="div"
           onClick={() => (scoringMethod != "outputs" ? setScoreMethod("outputs") : null)}
           data-disabled={hasInputGoal == false || null} data-enabled={hasInputGoal == true || null}
           className="group flex flex-row p-1 pb-2 pr-2 gap-2 w-full text-left 
@@ -246,7 +246,7 @@ export default function FactoryControls({
             </div>
             <div className="block text-center text-red-400"><ExclamationTriangleIcon className="w-4 inline-block stroke-red-400 " /> Unavailable without an Input based goal</div>
           </div>
-        </MenuItem>
+        </MenuItem> */}
       </MenuItems>
     </Menu >
 
