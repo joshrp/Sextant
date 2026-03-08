@@ -12,6 +12,7 @@ import usePlanner, { usePlannerStore } from '~/context/PlannerContext';
 import { zoneIdFromName } from '~/context/utils';
 import { decompressBulk, type BulkImportData } from '~/factory/importexport/importexport';
 import type { GraphImportData } from '~/factory/store';
+import { DEFAULT_ZONE_MODIFIERS, MODIFIER_META, type ZoneModifiers } from '~/context/zoneModifiers';
 
 /**
  * Import configuration for a single factory
@@ -43,6 +44,10 @@ interface ZoneImportConfig {
   createNew: boolean;
   /** Whether the zone is expanded in UI */
   expanded: boolean;
+  /** Modifiers from export envelope, present only when the export included them */
+  availableModifiers?: ZoneModifiers;
+  /** Whether to apply availableModifiers on import */
+  importModifiers: boolean;
 }
 
 /**
@@ -52,6 +57,7 @@ interface ExistingZoneInfo {
   id: string;
   name: string;
   factoryNames: string[];
+  modifiers?: ZoneModifiers;
 }
 
 export default function ImportPane() {
@@ -70,6 +76,9 @@ export default function ImportPane() {
   const [singleZoneTarget, setSingleZoneTarget] = useState<string>('');
   const [newZoneName, setNewZoneName] = useState<string>('');
   const [createNewZone, setCreateNewZone] = useState(false);
+  // Modifier opt-in for single-zone mode
+  const [singleZoneAvailableModifiers, setSingleZoneAvailableModifiers] = useState<ZoneModifiers | undefined>(undefined);
+  const [singleZoneImportModifiers, setSingleZoneImportModifiers] = useState(false);
 
   // Drag state
   const [draggedFactoryIndex, setDraggedFactoryIndex] = useState<number | null>(null);
@@ -95,6 +104,7 @@ export default function ImportPane() {
           id: z.id,
           name: z.name,
           factoryNames: z.factories.map(f => f.name),
+          modifiers: z.modifiers,
         }));
         setExistingZoneInfos(infos);
       } catch (err) {
@@ -161,11 +171,16 @@ export default function ImportPane() {
           
           const zoneConfigsArray: ZoneImportConfig[] = [];
           data.zoneGroups.forEach((_, zoneName) => {
+            const isNew = !currentExistingZoneNames.includes(zoneName);
+            const availableModifiers = data.zoneModifiers?.get(zoneName);
             zoneConfigsArray.push({
               originalName: zoneName,
               targetName: zoneName,
-              createNew: !currentExistingZoneNames.includes(zoneName),
+              createNew: isNew,
               expanded: true,
+              availableModifiers,
+              // Default on for new zones, off for existing
+              importModifiers: availableModifiers !== undefined ? isNew : false,
             });
           });
           setZoneConfigs(zoneConfigsArray);
@@ -174,15 +189,22 @@ export default function ImportPane() {
           // Set default single zone target
           if (data.isSingleZone) {
             const firstZoneName = data.factories[0]?.zoneName || '';
+            const availableModifiers = data.zoneModifiers?.get(firstZoneName);
+            setSingleZoneAvailableModifiers(availableModifiers);
             if (currentExistingZones.some(z => z.name === firstZoneName)) {
               setSingleZoneTarget(firstZoneName);
               setCreateNewZone(false);
+              // Default off when mapping to existing zone
+              setSingleZoneImportModifiers(false);
             } else if (currentExistingZones.length > 0) {
               setSingleZoneTarget(currentExistingZones[0].name);
               setCreateNewZone(false);
+              setSingleZoneImportModifiers(false);
             } else {
               setCreateNewZone(true);
               setNewZoneName(firstZoneName || 'Imported Zone');
+              // Default on for new zones
+              setSingleZoneImportModifiers(availableModifiers !== undefined);
             }
           }
         })
@@ -300,6 +322,7 @@ export default function ImportPane() {
         targetName: newZoneName,
         createNew: true,
         expanded: true,
+        importModifiers: false,
       },
     ]);
     setNewZoneCounter(c => c + 1);
@@ -331,6 +354,8 @@ export default function ImportPane() {
         targetName: originalZoneName,
         createNew: !existingZoneNames.includes(originalZoneName),
         expanded: true,
+        availableModifiers: undefined,
+        importModifiers: false,
       };
       return {
         ...zoneConfig,
@@ -359,11 +384,17 @@ export default function ImportPane() {
           ? '' // Will be created
           : existingZones.find(z => z.name === singleZoneTarget)?.id || '';
 
+        const modifiersToApply =
+          singleZoneImportModifiers && singleZoneAvailableModifiers
+            ? singleZoneAvailableModifiers
+            : undefined;
+
         await planner.bulkImport(
           selectedFactories.map(c => ({
             data: { ...c.data, name: c.name },
             targetZoneId,
             newZoneName: createNewZone ? newZoneName : undefined,
+            importModifiers: modifiersToApply,
           }))
         );
       } else {
@@ -372,6 +403,7 @@ export default function ImportPane() {
           data: GraphImportData;
           targetZoneId: string;
           newZoneName?: string;
+          importModifiers?: ZoneModifiers;
         }> = [];
 
         for (const config of selectedFactories) {
@@ -387,10 +419,16 @@ export default function ImportPane() {
             z => z.name === zoneConfig.targetName
           );
 
+          const modifiersToApply =
+            zoneConfig.importModifiers && zoneConfig.availableModifiers
+              ? zoneConfig.availableModifiers
+              : undefined;
+
           importItems.push({
             data: { ...config.data, name: config.name },
             targetZoneId: existingZone?.id || '',
             newZoneName: zoneConfig.createNew ? zoneConfig.targetName : undefined,
+            importModifiers: modifiersToApply,
           });
         }
 
@@ -595,6 +633,17 @@ export default function ImportPane() {
                     A zone with this name already exists
                   </div>
                 )}
+
+                {/* Zone modifier opt-in */}
+                {singleZoneAvailableModifiers && (
+                  <ModifierImportSection
+                    availableModifiers={singleZoneAvailableModifiers}
+                    importModifiers={singleZoneImportModifiers}
+                    existingZone={!createNewZone}
+                    currentModifiers={!createNewZone ? existingZoneInfos.find(z => z.name === singleZoneTarget)?.modifiers : undefined}
+                    onToggle={() => setSingleZoneImportModifiers(v => !v)}
+                  />
+                )}
               </div>
             </div>
           )}
@@ -714,6 +763,27 @@ export default function ImportPane() {
                             Zone exists. Select it from dropdown or rename.
                           </div>
                         )}
+
+                      {/* Zone modifier opt-in */}
+                      {zoneInfo.availableModifiers && (
+                        <div className="px-2 py-1 border-t border-gray-600">
+                          <ModifierImportSection
+                            availableModifiers={zoneInfo.availableModifiers}
+                            importModifiers={zoneInfo.importModifiers}
+                            existingZone={!zoneInfo.createNew}
+                            currentModifiers={!zoneInfo.createNew ? existingZoneInfos.find(z => z.name === zoneInfo.targetName)?.modifiers : undefined}
+                            onToggle={() => {
+                              setZoneConfigs(prev =>
+                                prev.map(z =>
+                                  z.originalName === zoneInfo.originalName
+                                    ? { ...z, importModifiers: !z.importModifiers }
+                                    : z
+                                )
+                              );
+                            }}
+                          />
+                        </div>
+                      )}
 
                       {/* Factories in zone */}
                       {zoneFactories.length > 0 && (
@@ -925,6 +995,108 @@ function ZoneDestinationSelector({
           </select>
           <ChevronDownIcon className="w-3 h-3 absolute right-1.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400" />
         </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Zone modifier import opt-in section.
+ * Shows a checkbox to apply exported modifiers, plus collapsible summaries of
+ * incoming values and (when overwriting) the values currently in the zone.
+ */
+function ModifierImportSection({
+  availableModifiers,
+  importModifiers,
+  existingZone,
+  currentModifiers,
+  onToggle,
+}: {
+  availableModifiers: ZoneModifiers;
+  importModifiers: boolean;
+  /** True when importing into an existing zone */
+  existingZone: boolean;
+  /** Current modifiers of the target zone, present when overwriting an existing zone */
+  currentModifiers?: ZoneModifiers;
+  onToggle: () => void;
+}) {
+  const nonDefaultIncoming = (Object.keys(availableModifiers) as Array<keyof ZoneModifiers>).filter(
+    k => availableModifiers[k] !== DEFAULT_ZONE_MODIFIERS[k]
+  );
+  const nonDefaultCurrent = currentModifiers
+    ? (Object.keys(currentModifiers) as Array<keyof ZoneModifiers>).filter(
+        k => currentModifiers[k] !== DEFAULT_ZONE_MODIFIERS[k]
+      )
+    : [];
+
+  const formatVal = (key: keyof ZoneModifiers, val: number) => {
+    const meta = MODIFIER_META[key];
+    return meta.isAbsolute ? `${Math.round(val * 100)}%` : `×${val.toFixed(2)}`;
+  };
+
+  return (
+    <div className="flex flex-col gap-1 mt-1">
+      {/* Checkbox row */}
+      <label
+        className="flex items-center gap-2 text-xs cursor-pointer"
+        title={existingZone ? 'Will overwrite current zone modifiers' : undefined}
+      >
+        <input
+          type="checkbox"
+          checked={importModifiers}
+          onChange={onToggle}
+          className="w-3.5 h-3.5"
+        />
+        <span>Import zone modifiers</span>
+        {existingZone && (
+          <span className="text-yellow-400">(will overwrite current modifiers)</span>
+        )}
+      </label>
+
+      {/* Incoming modifier summary */}
+      <details className="ml-5">
+        <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-300 select-none">
+          Importing:{' '}
+          {nonDefaultIncoming.length === 0
+            ? 'all default values'
+            : `${nonDefaultIncoming.length} non-default`}
+        </summary>
+        {nonDefaultIncoming.length > 0 ? (
+          <div className="mt-1 space-y-0.5 pl-2 border-l border-gray-600">
+            {nonDefaultIncoming.map(key => (
+              <div key={key} className="flex justify-between text-xs text-yellow-300 gap-4">
+                <span>{MODIFIER_META[key].label}</span>
+                <span className="font-mono">{formatVal(key, availableModifiers[key])}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-1 pl-2 text-xs text-gray-500 italic">All modifiers are default values</div>
+        )}
+      </details>
+
+      {/* Current zone modifier summary (only shown when overwriting an existing zone) */}
+      {existingZone && currentModifiers && (
+        <details className="ml-5">
+          <summary className="text-xs text-gray-400 cursor-pointer hover:text-gray-300 select-none">
+            Current zone:{' '}
+            {nonDefaultCurrent.length === 0
+              ? 'all default values'
+              : `${nonDefaultCurrent.length} non-default`}
+          </summary>
+          {nonDefaultCurrent.length > 0 ? (
+            <div className="mt-1 space-y-0.5 pl-2 border-l border-gray-500">
+              {nonDefaultCurrent.map(key => (
+                <div key={key} className="flex justify-between text-xs text-gray-300 gap-4">
+                  <span>{MODIFIER_META[key].label}</span>
+                  <span className="font-mono">{formatVal(key, currentModifiers[key])}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="mt-1 pl-2 text-xs text-gray-500 italic">All modifiers are default values</div>
+          )}
+        </details>
       )}
     </div>
   );

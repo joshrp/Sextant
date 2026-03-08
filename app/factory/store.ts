@@ -19,6 +19,7 @@ import { minify } from "./importexport/importexport";
 import type { IDB } from "~/context/idb";
 import type { FactoryFixture } from "./fixtures";
 import type { ZoneModifiers } from "~/context/zoneModifiers";
+import { DEFAULT_ZONE_MODIFIERS } from "~/context/zoneModifiers";
 
 export type GetZoneModifiers = () => ZoneModifiers;
 
@@ -254,6 +255,7 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
           },
           graphUpdateAction: async () => {
             try {
+              console.log('Using zone modifiers', getZoneModifiers());
               set({
                 graph: createGraphModel(get().nodes, get().edges, getZoneModifiers()),
               }, false, "graphUpdateAction");
@@ -458,12 +460,19 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
             // Use minify to get the factory data in the same format as import/export
             const minifiedFactory = minify(state, "test-zone");
 
+            // Include zone modifiers only when they differ from defaults
+            const modifiers = getZoneModifiers();
+            const hasNonDefaultModifiers = (Object.keys(modifiers) as Array<keyof ZoneModifiers>).some(
+              k => modifiers[k] !== DEFAULT_ZONE_MODIFIERS[k]
+            );
+
             // Gather additional test inputs
             const testData: FactoryFixture = {
               factory: minifiedFactory,
               manifoldOptions: state.manifoldOptions,
               scoringMethod: state.scoringMethod,
               previousSolutionObjectiveValue: state.solution?.ObjectiveValue,
+              ...(hasNonDefaultModifiers ? { zoneModifiers: modifiers } : {}),
               expected: state.solution ? {
                 objectiveValue: state.solution.ObjectiveValue,
                 nodeCounts: state.solution.nodeCounts,

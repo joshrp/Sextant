@@ -26,6 +26,8 @@ export interface FactoryFixture {
   scoringMethod: GraphScoringMethod;
   /** Objective value of previous solution for autosolving */
   previousSolutionObjectiveValue?: number;
+  /** Zone modifiers to use when running this fixture. Defaults to DEFAULT_ZONE_MODIFIERS when absent. */
+  zoneModifiers?: ZoneModifiers;
   /** Expected solution outputs */
   expected?: {
     objectiveValue: number;
@@ -52,7 +54,7 @@ export const fixtures: { [name: string]: FactoryFixture } = {
  * @param fixture JSON Loaded test fixture
  * @returns A tuple of the store to use immediately, and a promise that resolves when import is complete
  */
-export function getTestStoreRunner(id: string, fixture: FactoryFixture, getZoneModifiers?: () => ZoneModifiers) {
+export function getTestStoreRunner(id: string, fixture: FactoryFixture) {
   const mockIDB = getIdb(id);
   if (!mockIDB) {
     throw new Error("Failed to create mock IndexedDB for testing");
@@ -63,7 +65,7 @@ export function getTestStoreRunner(id: string, fixture: FactoryFixture, getZoneM
   // Unminify the factory data
   const factoryData = unminify(fixture.factory);
   // Create a new store instance
-  const store = Store(mockIDB, { id, name: factoryData.name }, getZoneModifiers ?? (() => DEFAULT_ZONE_MODIFIERS));
+  const store = Store(mockIDB, { id, name: factoryData.name }, () => fixture.zoneModifiers ?? DEFAULT_ZONE_MODIFIERS);
   
   store.Graph.setState({
     scoringMethod: fixture.scoringMethod,

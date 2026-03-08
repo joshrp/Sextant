@@ -1,15 +1,15 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { Position } from '@xyflow/react';
+import type { HTMLAttributes } from 'react';
+import { type ZoneModifiers } from '~/context/zoneModifiers';
+import { calculateComputingNet, calculateElectricityNet } from '~/factory/infrastructure/calculations';
 import { formatNumber, formatSignedInfra, machineIcon, maintenanceIcon, maintenanceName, productBackground, uiIcon } from '~/uiUtils';
-import { calculateElectricityNet, calculateComputingNet } from '~/factory/infrastructure/calculations';
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
 import type { ProductId, Recipe } from './loadJsonData';
-import { getQuantityDisplay, RecipeNodeCalculator } from './recipeNodeLogic';
 import type { RecipeNodeOptions } from './recipeNodeLogic';
-import type { HTMLAttributes } from 'react';
-import { DEFAULT_ZONE_MODIFIERS, type ZoneModifiers } from '~/context/zoneModifiers';
+import { getQuantityDisplay, RecipeNodeCalculator } from './recipeNodeLogic';
 
 type ProductEdges = Map<ProductId, boolean | null>;
 

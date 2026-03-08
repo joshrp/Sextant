@@ -237,11 +237,7 @@ async function zoomOut(page: Page, scrolls = 5) {
 test.describe('Smart Node Placement from Sidebar', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
-    // Wait for auto-redirect to a zone/factory
-    await page.waitForURL(/\/zones\//, { timeout: 5000 });
-    // Wait for the sidebar to be visible
-    await expect(page.getByTestId('sidebar-goals-list')).toBeVisible();
+    await page.goto('/zones/main/my-factory', { waitUntil: 'domcontentloaded' });
   });
 
   test('multiple nodes added sequentially from sidebar do not overlap', async ({ page }) => {

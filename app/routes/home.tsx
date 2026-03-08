@@ -8,13 +8,6 @@ import { useStableParam } from "~/routes";
 import { machineIcon, productIcon, uiIcon } from "~/uiUtils";
 import { Zone, ZoneHeader } from "./zone";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export function meta() {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
 
 const { products, machines } = loadData();
 
@@ -42,15 +35,15 @@ export default function Home() {
       setLastZone(selectedZone);
     }
   }, [selectedZone, zone, setLastZone]);
-
+  const headerHeightSteps = 12;
   return <>
-    <main className="h-[100vh] w-[100vw] overflow-hidden bg-gray-800">
-      <div className="max-w-[100vw] h-12 p-2 flex flex-row gap-2 items-center text-gray-300 texture-panel">
+    <main className="h-screen w-screen overflow-hidden bg-gray-800">
+      <div className={`max-w-screen h-${headerHeightSteps} p-2 flex flex-row gap-2 items-center text-gray-300 texture-panel`}>
         <ZoneHeader selectedZone={selectedZone} />
       </div>
       {zone && (
         <ProductionZoneProvider zoneId={selectedZone} zoneName={zone.name}>
-          <div className="h-[calc(100vh-calc(10*var(--spacing)))] flex flex-row">
+          <div className={`h-[calc(100vh-calc(${headerHeightSteps}*var(--spacing)))] flex flex-row`}>
             <Zone />
           </div>
         </ProductionZoneProvider>

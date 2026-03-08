@@ -1,4 +1,5 @@
 import type { GraphCoreData, GraphImportData } from "~/factory/store";
+import type { ZoneModifiers } from "~/context/zoneModifiers";
 
 /**
  * Factory data for export selection
@@ -25,6 +26,8 @@ export interface ExportableZone {
   name: string;
   icon?: string;
   factories: ExportableFactory[];
+  /** Modifiers for this zone — absent when all values are default */
+  modifiers?: ZoneModifiers;
 }
 
 /**
@@ -36,4 +39,6 @@ export interface BulkImportItem {
   targetZoneId: string;
   /** New zone name if creating a new zone */
   newZoneName?: string;
+  /** Zone modifiers to apply after import (from export envelope) */
+  importModifiers?: ZoneModifiers;
 }

@@ -134,9 +134,18 @@ export default function ExportPane() {
       icon: f.icon,
     }));
 
-    const minified = minifyBulk(exportData);
-    
-    compressBulk(minified)
+    // Gather zone modifiers for all zones that have at least one selected factory
+    const selectedZoneIds = new Set(selectedFactories.map(f => f.zoneId));
+    const zoneModifiers: Record<string, NonNullable<ExportableZone['modifiers']>> = {};
+    for (const zone of exportableZones) {
+      if (selectedZoneIds.has(zone.id) && zone.modifiers) {
+        zoneModifiers[zone.name] = zone.modifiers;
+      }
+    }
+
+    const bulkData = minifyBulk(exportData, zoneModifiers);
+
+    compressBulk(bulkData)
       .then(compressed => {
         setExportString(compressed);
         setIsExporting(false);

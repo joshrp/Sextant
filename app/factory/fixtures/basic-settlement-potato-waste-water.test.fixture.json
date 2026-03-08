@@ -35,8 +35,8 @@
       [
         "n",
         "HouseholdAppliancesAssemblyT3_1772874812855",
-        -2921.532988210118,
-        -250.08269614382897,
+        -2945.9767248545745,
+        -91.19840795486245,
         "HouseholdAppliancesAssemblyT3",
         true,
         "r"
@@ -44,17 +44,17 @@
       [
         "n",
         "WaterTreatmentT2_1772874823115",
-        -1984.186102235059,
-        -1076.1630726383432,
+        -1922.375096754106,
+        -937.2213848505116,
         "WaterTreatmentT2",
         false,
         "r"
       ],
       [
         "n",
-        "Balancer_Product_Water_1772874835115",
-        -2700.6882387756345,
-        -761.6572564259063,
+        "Balancer_Product_Water_1772898322304",
+        -2745.6902579425027,
+        -566.6572099241714,
         "Balancer_Product_Water",
         true,
         "b"
@@ -94,7 +94,7 @@
       [
         "b",
         "Product_Water",
-        "Balancer_Product_Water_1772874835115",
+        "Balancer_Product_Water_1772898322304",
         "Housing_Workers_1772661097983"
       ]
     ],
@@ -110,6 +110,20 @@
   "manifoldOptions": [],
   "scoringMethod": "infra",
   "previousSolutionObjectiveValue": 275.4959913793103,
+  "zoneModifiers": {
+    "recyclingEfficiency": 0.5,
+    "maintenanceConsumption": 1.3,
+    "maintenanceOutput": 1,
+    "farmYield": 1,
+    "farmWater": 1,
+    "foodConsumption": 1,
+    "settlementWater": 1,
+    "householdGoods": 1,
+    "householdAppliances": 1,
+    "consumerElectronics": 1,
+    "solarOutput": 1,
+    "contractProfitability": 1
+  },
   "expected": {
     "objectiveValue": 275.4959913793103,
     "nodeCounts": [
@@ -154,11 +168,11 @@
         "count": 12.5
       },
       {
-        "nodeId": "Balancer_Product_Water_1772874835115",
+        "nodeId": "Balancer_Product_Water_1772898322304",
         "count": 18
       },
       {
-        "nodeId": "Balancer_Product_Water_1772874835115",
+        "nodeId": "Balancer_Product_Water_1772898322304",
         "count": 18
       }
     ],
@@ -304,7 +318,7 @@
         },
         {
           "productId": "Product_Recyclables",
-          "amount": 26.64
+          "amount": 22.2
         },
         {
           "productId": "Product_Brine",
@@ -352,7 +366,7 @@
       "c5": 0,
       "o_Product_Waste": 29.3,
       "o_Product_Biomass": 0,
-      "o_Product_Recyclables": 26.64,
+      "o_Product_Recyclables": 22.2,
       "c6": 0,
       "i_Product_FertilizerOrganic": -19.01,
       "i_Product_Seawater": -97.7586,

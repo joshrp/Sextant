@@ -2,13 +2,13 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { Position } from '@xyflow/react';
 import HelpLink from '~/components/HelpLink';
+import { type ZoneModifiers } from '~/context/zoneModifiers';
 import { formatNumber, machineIcon, productBackground } from '~/uiUtils';
 import type { HighlightModes } from '../store';
 import { HandleList, ProductHandle } from './handles';
 import type { ProductId, Recipe, RecipeProduct } from './loadJsonData';
 import { SettlementCalculator, isOptionEnabled, type SettlementNodeData } from './recipeNodeLogic';
-import { groupProductsByCategory, CATEGORY_INFO, isFoodCategory } from './settlementCategories';
-import { DEFAULT_ZONE_MODIFIERS, type ZoneModifiers } from '~/context/zoneModifiers';
+import { CATEGORY_INFO, groupProductsByCategory, isFoodCategory } from './settlementCategories';
 
 type ProductEdges = Map<ProductId, boolean | null>;
 

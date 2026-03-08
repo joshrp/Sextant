@@ -3,6 +3,7 @@ import { getRouterWrapper, getZoneWrapper } from '~/test/helpers/renderHelpers';
 import { useProductionZoneStore } from '~/context/ZoneContext';
 import ZoneModifiersPane from './ZoneModifiersPane';
 
+// eslint-disable-next-line react-refresh/only-export-components
 function SetModifiersHelper() {
   const setModifier = useProductionZoneStore(s => s.setModifier);
   useEffect(() => {
@@ -15,6 +16,7 @@ function SetModifiersHelper() {
   return null;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 function ModifiedWrapper() {
   return (
     <>

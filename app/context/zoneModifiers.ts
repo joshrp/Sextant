@@ -20,7 +20,7 @@ export interface ZoneModifiers {
 }
 
 export const DEFAULT_ZONE_MODIFIERS: ZoneModifiers = {
-  recyclingEfficiency: 0.60,
+  recyclingEfficiency: 0.20,
   maintenanceConsumption: 1.0,
   maintenanceOutput: 1.0,
   farmYield: 1.0,

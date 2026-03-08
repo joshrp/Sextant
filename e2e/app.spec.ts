@@ -18,7 +18,7 @@ test.describe('Factory Planner App', () => {
     await page.waitForURL(/\/zones\//, { timeout: 1000 });
 
     // Verify the main header title is visible
-    await expect(page.getByRole('heading', { name: 'Factory Planner' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Sextant - COI Planner' })).toBeVisible();
     
     // Verify the zone selector is present
     // The zone selector shows "Zone:" label followed by the current zone name
@@ -46,7 +46,7 @@ test.describe('Factory Planner App', () => {
     await expect(sidebar).toBeVisible();
     
     // Verify there are list items in the sidebar (factory tabs)
-    await expect(sidebar.locator('li')).toHaveCount(3, { timeout: 1000 });
+    await expect(sidebar.locator('li')).toHaveCount(4, { timeout: 1000 });
     
     // Find and click the expand button (last button in sidebar)
     const expandButton = sidebar.locator('button').last();

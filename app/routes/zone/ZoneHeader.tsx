@@ -58,27 +58,26 @@ export default function ZoneHeader({ selectedZone }: { selectedZone?: string }) 
   return (<>
     <h1 className="shrink-1 border-r-2 border-gray-400 pr-8">
       <img src='/sextant-white.svg' alt="Sextant Logo" className="w-10 inline-block mr-2" />
-      Sextant - COI Planner
+      Sextant - CoI Planner
     </h1>
     <h2 className="shrink-1 ml-6">Zone:</h2>
     <Menu>
       <MenuButton className="flex-row flex justify-between
-                              px-2 py-1 min-w-30 items-middle  
+                              px-2 py-1 min-w-30 items-middle h-full
                             text-white rounded-sm bg-gray-700 cursor-pointer 
-        ">{zone?.icon && <img src={zone.icon} alt="" className="flex-1 block mr-2" />}
+        ">{zone?.icon && <img src={zone.icon} alt="" className="flex-1 block mr-2 h-full" />}
         <span>{zone?.name}</span>
         <ChevronDownIcon className="w-6 shrink inline-block ml-2" />
       </MenuButton>
       <MenuItems anchor={"bottom start"}
-        className="border-2 border-gray-400 shadow-2xl absolute rounded z-10 bg-gray-700  text-white">
+        className="border border-gray-400 shadow-2xl absolute rounded z-10 bg-gray-700 text-white">
         {zones.map(z => (
           <MenuItem key={z.id}>
-            <div className="flex flex-row items-center-safe justify-between not-last:border-b-2  border-gray-400">
-              <Link className="flex-6 border-0 block px-2 py-1 hover:bg-gray-600 items-center gap-2" to={`/zones/${z.id}`}>
-                {z.icon && <img src={z.icon} alt="" className="w-6 " />}
-                {z.name}
+            <div className="flex flex-row items-center items-center-safe h-12 justify-between not-last:border-b-2  border-gray-400">
+              <Link className="flex flex-6 align-middle border-0 p-2 h-full hover:bg-gray-600 items-center gap-2" to={`/zones/${z.id}`}>
+                {z.icon && <img src={z.icon} alt="" className="h-full inline mr-1" />}{z.name}
               </Link>
-              <div className="actions p-2 inline-block shrink-1 border-l-2 border-gray-400">
+              <div className="actions p-2 inline-block shrink border-l-2 border-gray-400">
                 <Button className="h-full cursor-pointer hover:text-gray-400 block" title="Edit Zone"
                   onClick={() => setEditingZoneId(z.id)}>
                   <PencilIcon className="w-4 h-full" />

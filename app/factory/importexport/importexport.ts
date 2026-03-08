@@ -2,6 +2,7 @@ import { loadData, type ProductId, type RecipeId } from "../graph/loadJsonData";
 import { isRecipeNode, isAnnotationNode } from "../graph/nodeTypes";
 import type { GraphCoreData, GraphImportData, GraphImportRecipeNode } from "../store";
 import { getRecipeInputs, getRecipeOutputs } from "~/gameData/utils";
+import { DEFAULT_ZONE_MODIFIERS, type ZoneModifiers } from "~/context/zoneModifiers";
 
 import hydration from "~/hydration";
 
@@ -492,9 +493,18 @@ export type MinifiedStateV1 = [
 ]
 
 /**
- * Bulk export format: flat array of V4 minified factories
+ * Bulk export format.
+ * Detection in unminifyBulk: bare array → legacy single/multi factory; object with `factories` key → this format.
  */
-export type BulkExportData = MinifiedStateV4[];
+export interface BulkExportData {
+  factories: MinifiedStateV4[];
+  /** Per-zone data keyed by zone name. Only zones with non-default modifiers are included. */
+  zones?: {
+    [zoneName: string]: {
+      modifiers?: ZoneModifiers;
+    };
+  };
+}
 
 /**
  * Result of parsing a bulk import - contains all factories and grouped by zone
@@ -505,61 +515,116 @@ export interface BulkImportData {
   zoneGroups: Map<string, number[]>;
   /** Whether all factories belong to a single zone */
   isSingleZone: boolean;
+  /** Zone modifiers from export envelope, keyed by zone name. Absent for legacy exports. */
+  zoneModifiers?: Map<string, ZoneModifiers>;
 }
 
 /**
- * Minify multiple factories for bulk export
- * Returns a flat array of V4 minified factories
+ * Minify multiple factories for bulk export.
+ * Pass `zoneModifiers` to include per-zone modifier data; zones where all values
+ * are default are silently omitted from the output.
  */
 export function minifyBulk(
-  factories: Array<{ state: GraphCoreData; zoneName: string; icon?: string }>
+  factories: Array<{ state: GraphCoreData; zoneName: string; icon?: string }>,
+  zoneModifiers?: Record<string, ZoneModifiers>,
 ): BulkExportData {
-  return factories.map(f => minify(f.state, f.zoneName, f.icon));
+  const minifiedFactories = factories.map(f => minify(f.state, f.zoneName, f.icon));
+
+  if (!zoneModifiers || Object.keys(zoneModifiers).length === 0) {
+    return { factories: minifiedFactories };
+  }
+
+  const zones: BulkExportData['zones'] = {};
+  let hasNonDefault = false;
+  for (const [zoneName, modifiers] of Object.entries(zoneModifiers)) {
+    const isAllDefault = (Object.keys(modifiers) as Array<keyof ZoneModifiers>).every(
+      k => modifiers[k] === DEFAULT_ZONE_MODIFIERS[k]
+    );
+    if (!isAllDefault) {
+      zones[zoneName] = { modifiers };
+      hasNonDefault = true;
+    }
+  }
+
+  return hasNonDefault ? { factories: minifiedFactories, zones } : { factories: minifiedFactories };
 }
 
 /**
- * Unminify bulk import data (array of factories)
- * Supports both single factory (backward compatible) and array of factories
+ * Unminify bulk import data.
+ * Handles:
+ * - BulkExportData object ({ factories: [...], zones?: {...} })
+ * - Legacy bare array of MinifiedStateV4[]
+ * - Single factory (legacy v1/v2 bare tuple)
  */
 export function unminifyBulk(data: unknown): BulkImportData {
-  // Detect if this is a single factory (v1 or v2) or an array of factories
-  if (Array.isArray(data) && data.length > 0) {
-    // If first element is a number, it's a single factory (version number)
-    if (typeof data[0] === 'number') {
-      const factory = unminify(data);
-      return {
-        factories: [factory],
-        zoneGroups: new Map([[factory.zoneName || '', [0]]]),
-        isSingleZone: true,
-      };
+  // Detect BulkExportData: non-null, non-array object with a `factories` key
+  if (data !== null && typeof data === 'object' && !Array.isArray(data) && 'factories' in data) {
+    const exportData = data as BulkExportData;
+    const result = unminifyFactoriesArray(exportData.factories);
+
+    if (exportData.zones) {
+      const zoneModifiers = new Map<string, ZoneModifiers>();
+      for (const [zoneName, zoneData] of Object.entries(exportData.zones)) {
+        if (zoneData.modifiers) {
+          // Merge with defaults to handle partial/future modifier additions
+          zoneModifiers.set(zoneName, { ...DEFAULT_ZONE_MODIFIERS, ...zoneData.modifiers });
+        }
+      }
+      if (zoneModifiers.size > 0) {
+        result.zoneModifiers = zoneModifiers;
+      }
     }
 
-    // Otherwise, it's an array of factories
-    const factories: GraphImportData[] = [];
-    const zoneGroups = new Map<string, number[]>();
+    return result;
+  }
 
-    for (let i = 0; i < data.length; i++) {
-      const factory = unminify(data[i]);
-      factories.push(factory);
+  // Legacy: bare array (single factory tuple or flat MinifiedStateV4[])
+  if (Array.isArray(data)) {
+    return unminifyFactoriesArray(data);
+  }
 
-      const zoneName = factory.zoneName || '';
-      const indices = zoneGroups.get(zoneName) || [];
-      indices.push(i);
-      zoneGroups.set(zoneName, indices);
-    }
+  throw new Error(`Invalid bulk import data: expected a bulk export object or legacy array. Received: ${typeof data}`);
+}
 
+/** Parse a raw factories array (bare MinifiedStateV4[] or single-factory tuple) */
+function unminifyFactoriesArray(data: unknown[]): BulkImportData {
+  if (data.length === 0) {
+    throw new Error('Invalid bulk import data: empty array');
+  }
+
+  // If first element is a number, it's a single factory (version number at position 0)
+  if (typeof data[0] === 'number') {
+    const factory = unminify(data);
     return {
-      factories,
-      zoneGroups,
-      isSingleZone: zoneGroups.size === 1,
+      factories: [factory],
+      zoneGroups: new Map([[factory.zoneName || '', [0]]]),
+      isSingleZone: true,
     };
   }
 
-  throw new Error(`Invalid bulk import data: expected an array of factory objects or a single factory object. Received: ${typeof data}${Array.isArray(data) ? ' (empty array)' : ''}`);
+  // Otherwise, it's an array of factories
+  const factories: GraphImportData[] = [];
+  const zoneGroups = new Map<string, number[]>();
+
+  for (let i = 0; i < data.length; i++) {
+    const factory = unminify(data[i]);
+    factories.push(factory);
+
+    const zoneName = factory.zoneName || '';
+    const indices = zoneGroups.get(zoneName) || [];
+    indices.push(i);
+    zoneGroups.set(zoneName, indices);
+  }
+
+  return {
+    factories,
+    zoneGroups,
+    isSingleZone: zoneGroups.size === 1,
+  };
 }
 
 /**
- * Compress multiple factories for export
+ * Compress a BulkExportData object for sharing/storage.
  */
 export async function compressBulk(data: BulkExportData): Promise<string> {
   return compress(data);

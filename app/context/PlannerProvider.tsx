@@ -78,6 +78,14 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
         setCachedZoneStore(zoneId, zoneStore, zoneIdb);
       }
 
+      // Apply zone modifiers from import envelope if any item carries them.
+      // All items for the same zone share the same modifiers, so check the first one found.
+      const modifiersToApply = zoneItems.find(i => i.importModifiers)?.importModifiers;
+      if (modifiersToApply) {
+        zoneStore.setState(s => ({ ...s, modifiers: modifiersToApply }));
+        await waitForStorePersist();
+      }
+
       // Import each factory into the zone without solving
       for (const item of zoneItems) {
         const factoryName = item.data.name;
@@ -144,6 +152,21 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
         }
       }
 
+      // Read zone modifiers (from cache or IDB)
+      let zoneModifiers = cached?.store?.getState().modifiers ?? null;
+      if (!zoneModifiers) {
+        try {
+          const db = await zoneIdb;
+          const zoneData = await db.get(zoneObjectStore, 'current-state');
+          if (zoneData) {
+            const parsed = JSON.parse(zoneData, hydration.reviver);
+            zoneModifiers = parsed.state?.modifiers ?? null;
+          }
+        } catch {
+          // Non-fatal: modifiers just won't be included for this zone
+        }
+      }
+
       // Get factory data for each factory
       const exportableFactories: ExportableFactory[] = [];
       
@@ -184,6 +207,7 @@ export const PlannerProvider = ({ children }: { children: ReactNode }) => {
         name: zone.name,
         icon: zone.icon,
         factories: exportableFactories,
+        modifiers: zoneModifiers ?? undefined,
       });
     }
 

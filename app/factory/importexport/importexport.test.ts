@@ -184,7 +184,7 @@ describe("Import Export", () => {
   });
 
   describe('Bulk Export/Import', () => {
-    test('minifyBulk creates array of minified factories', () => {
+    test('minifyBulk creates bulk export data with factories', () => {
       const factory1: GraphCoreData = {
         name: "Factory 1",
         nodes: [],
@@ -203,13 +203,13 @@ describe("Import Export", () => {
         { state: factory2, zoneName: "Zone B" }
       ]);
 
-      expect(bulk).toHaveLength(2);
-      expect(bulk[0][1]).toBe("Factory 1");
-      expect(bulk[0][2]).toBe("Zone A");
-      expect(bulk[0][3]).toBe("/icon1.png");
-      expect(bulk[1][1]).toBe("Factory 2");
-      expect(bulk[1][2]).toBe("Zone B");
-      expect(bulk[1][3]).toBe("");
+      expect(bulk.factories).toHaveLength(2);
+      expect(bulk.factories[0][1]).toBe("Factory 1");
+      expect(bulk.factories[0][2]).toBe("Zone A");
+      expect(bulk.factories[0][3]).toBe("/icon1.png");
+      expect(bulk.factories[1][1]).toBe("Factory 2");
+      expect(bulk.factories[1][2]).toBe("Zone B");
+      expect(bulk.factories[1][3]).toBe("");
     });
 
     test('unminifyBulk handles single factory (backward compatible)', () => {
@@ -353,6 +353,68 @@ describe("Import Export", () => {
       expect(result.isSingleZone).toBe(true);
       // The steam-large export has a zone name already (it's v2 format despite being in version-1 folder)
       expect(result.factories[0].zoneName).toBe("zone-power-generation-steam");
+    });
+
+    test('round-trip with zone modifiers: preserves modifiers through compress/decompress', async () => {
+      const factory: GraphCoreData = { name: 'Modifier Test', nodes: [], edges: [], goals: [] };
+      const customModifiers = { ...DEFAULT_ZONE_MODIFIERS, recyclingEfficiency: 0.75, farmYield: 1.5 };
+      const bulk = imex.minifyBulk([{ state: factory, zoneName: 'Steel Zone' }], { 'Steel Zone': customModifiers });
+
+      const compressed = await imex.compressBulk(bulk);
+
+      const result = await imex.decompressBulk(compressed);
+      expect(result.factories).toHaveLength(1);
+      expect(result.zoneModifiers).toBeDefined();
+      expect(result.zoneModifiers?.get('Steel Zone')).toEqual(customModifiers);
+    });
+
+    test('all-default modifiers: zones field omitted, zoneModifiers undefined after round-trip', async () => {
+      const factory: GraphCoreData = { name: 'Default Mods', nodes: [], edges: [], goals: [] };
+      const bulk = imex.minifyBulk([{ state: factory, zoneName: 'Zone A' }], { 'Zone A': DEFAULT_ZONE_MODIFIERS });
+
+      // All-default: zones field should be absent from the export object
+      expect(bulk.zones).toBeUndefined();
+
+      const compressed = await imex.compressBulk(bulk);
+      const result = await imex.decompressBulk(compressed);
+      expect(result.zoneModifiers).toBeUndefined();
+    });
+
+    test('no modifiers: zoneModifiers is undefined after round-trip', async () => {
+      const factory: GraphCoreData = { name: 'No Mods', nodes: [], edges: [], goals: [] };
+      const bulk = imex.minifyBulk([{ state: factory, zoneName: 'Old Zone' }]);
+      const compressed = await imex.compressBulk(bulk);
+
+      const result = await imex.decompressBulk(compressed);
+      expect(result.zoneModifiers).toBeUndefined();
+    });
+
+    test('export object without zones field: no modifiers applied', async () => {
+      const factory: GraphCoreData = { name: 'No Zones Field', nodes: [], edges: [], goals: [] };
+      // Manually construct an export object without a zones field
+      const exportObj = { factories: imex.minifyBulk([{ state: factory, zoneName: 'Zone B' }]).factories };
+      const raw = await imex.compress(exportObj);
+      const result = imex.unminifyBulk(await imex.decompress(raw));
+
+      expect(result.factories).toHaveLength(1);
+      expect(result.zoneModifiers).toBeUndefined();
+    });
+
+    test('partial ZoneModifiers: missing keys filled from defaults', async () => {
+      const factory: GraphCoreData = { name: 'Partial Mods', nodes: [], edges: [], goals: [] };
+
+      // Manually build export object with partial modifiers (simulates future schema additions)
+      const partialModifiers = { recyclingEfficiency: 0.60 }; // only one key
+      const exportObj = {
+        factories: imex.minifyBulk([{ state: factory, zoneName: 'Zone C' }]).factories,
+        zones: { 'Zone C': { modifiers: partialModifiers as import('~/context/zoneModifiers').ZoneModifiers } },
+      };
+      const raw = await imex.compress(exportObj);
+      const result = imex.unminifyBulk(await imex.decompress(raw));
+
+      expect(result.zoneModifiers?.get('Zone C')?.recyclingEfficiency).toBe(0.60);
+      // Missing keys should fall back to defaults
+      expect(result.zoneModifiers?.get('Zone C')?.farmYield).toBe(DEFAULT_ZONE_MODIFIERS.farmYield);
     });
   });
 });

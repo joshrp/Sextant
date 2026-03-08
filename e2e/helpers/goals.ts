@@ -55,9 +55,10 @@ export async function addProducerFromGoal(page: Page, goalIndex: number) {
   // Click the goal to open its popover menu
   const goals = page.getByTestId('sidebar-goals-list').locator('.output-goal');
   await goals.nth(goalIndex).click();
+  
 
-  // Click "Add Producer"
-  const menuItem = page.getByRole('button', { name: 'Add Producer' });
+  // Click "Add Producer" — use locator('button') to exclude div[role="button"] annotation nodes
+  const menuItem = page.locator('button', { hasText: 'Add Producer' });
   await menuItem.waitFor({ state: 'visible' });
   await menuItem.click();
 }

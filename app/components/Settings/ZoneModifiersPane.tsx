@@ -42,7 +42,7 @@ function Header() {
         , and{' '}
         <WikiLink href="https://wiki.coigame.com/Research">research</WikiLink>
         {' '}for this zone. You can enter any value to model custom scenarios.
-        Changes only affect this zone's calculations.
+        Changes only affect this zone&apos;s calculations.
       </p>
     </div>
   );
