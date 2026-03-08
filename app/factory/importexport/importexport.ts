@@ -1,6 +1,7 @@
 import { loadData, type ProductId, type RecipeId } from "../graph/loadJsonData";
 import { isRecipeNode, isAnnotationNode } from "../graph/nodeTypes";
 import type { GraphCoreData, GraphImportData, GraphImportRecipeNode } from "../store";
+import type { NodeDataTypes } from "../graph/recipeNodeLogic";
 import { getRecipeInputs, getRecipeOutputs } from "~/gameData/utils";
 import { DEFAULT_ZONE_MODIFIERS, type ZoneModifiers } from "~/context/zoneModifiers";
 
@@ -147,20 +148,87 @@ export type MinifiedStateV4 = [
   ][],
 ]
 
-const currentVersion = 4;
+/**
+ * V5 extends V4 to include optional node options as an 8th element on recipe node tuples.
+ * Settlement: options = [inputsMap, outputsMap]
+ * Recipe: options = boolean (useRecycling value, only when explicitly set)
+ * Balancer: options omitted
+ */
+export type MinifiedRecipeNodeV5 = [
+  string, // nodeType ("n")
+  string, // id
+  number, // x
+  number, // y
+  string, // recipeId
+  boolean, // ltr
+  string, // dataType (recipe, balancer, settlement)
+  ...unknown[] // optional: node options at index 7
+];
+
+export type MinifiedAnnotationNodeV5 = MinifiedAnnotationNodeV4;
+
+export type MinifiedStateV5 = [
+  number, // version (5)
+  string, // name
+  string, // zone
+  string, // icon (optional)
+  (MinifiedRecipeNodeV5 | MinifiedAnnotationNodeV5)[], // nodes
+  [ // edges
+    string, // type
+    string, // productId
+    string, // source
+    string, // target
+  ][],
+  [ // goals
+    string, // productId
+    number, // qty
+    "eq" | "lt" | "gt", // type
+    boolean, // isOutput
+  ][],
+];
+
+const currentVersion = 5;
+/**
+ * Encode node options for minification as a short-keyed object.
+ * Returns undefined if there are no options worth encoding.
+ *
+ * Settlement keys: i = inputs, o = outputs
+ * Recipe keys:     r = useRecycling
+ *
+ * Using an object keeps the format open for future options without a version bump.
+ */
+function minifyNodeOptions(data: NodeDataTypes): Record<string, unknown> | undefined {
+  switch (data.type) {
+    case "settlement": {
+      const obj: Record<string, unknown> = {};
+      if (Object.keys(data.options.inputs).length > 0) obj.i = data.options.inputs;
+      if (Object.keys(data.options.outputs).length > 0) obj.o = data.options.outputs;
+      return Object.keys(obj).length > 0 ? obj : undefined;
+    }
+    case "recipe": {
+      if (data.options?.useRecycling !== undefined) {
+        return { r: data.options.useRecycling };
+      }
+      return undefined;
+    }
+    default:
+      return undefined;
+  }
+}
+
 /**
  * Take Graph Store data and strip it to the basics needed to import
  * Strips out all keys in favor of an array with strict positions.
  * Any change to the data here needs to be versioned. 
  * Increase the currentVersion and make a migration for the old one in unminifyVersion
  */
-export function minify<T extends GraphCoreData>(state: T, zone: string, icon?: string): MinifiedStateV4 {
+export function minify<T extends GraphCoreData>(state: T, zone: string, icon?: string): MinifiedStateV5 {
   return [
     currentVersion,
     state.name,
     zone,
     icon || "",
-    Object.values(state.nodes).map((n): MinifiedRecipeNodeV4 | MinifiedAnnotationNodeV4 => {
+    Object.values(state.nodes).map((n): MinifiedRecipeNodeV5 | MinifiedAnnotationNodeV5 => {
       if (isAnnotationNode(n)) {
         return [
           NodeTypes.get(n.type) as string,
@@ -171,7 +239,7 @@ export function minify<T extends GraphCoreData>(state: T, zone: string, icon?: s
         ];
       }
       if (isRecipeNode(n)) {
-        return [
+        const tuple: MinifiedRecipeNodeV5 = [
           NodeTypes.get(n.type) as string,
           n.id,
           n.position.x,
@@ -180,6 +248,11 @@ export function minify<T extends GraphCoreData>(state: T, zone: string, icon?: s
           n.data.ltr ?? true,
           DataTypes.get(n.data.type),
         ];
+        const opts = minifyNodeOptions(n.data);
+        if (opts !== undefined) {
+          tuple.push(opts);
+        }
+        return tuple;
       }
       // Unreachable for known node types
       throw new Error(`Unknown node type: ${(n as { type: string }).type}`);
@@ -217,6 +290,7 @@ class Unminify {
     2: this.two.bind(this),
     3: this.three.bind(this),
     4: this.four.bind(this),
+    5: this.five.bind(this),
   };
 
   constructor() { }
@@ -393,6 +467,39 @@ class Unminify {
       }))
     };
   }
+
+  // V5 extends V4 with optional node options (settlement inputs/outputs, recipe useRecycling)
+  five(data: MinifiedStateBase): GraphImportData {
+    const min = data as MinifiedStateV5;
+    const v4 = this.four(data);
+
+    // Layer V5 node options onto the V4 result
+    v4.nodes = v4.nodes.map((node, i) => {
+      if (node.type !== "recipe-node") return node;
+
+      const raw = min[4][i];
+      if (raw.length <= 7 || raw[7] === undefined) return node;
+
+      const opts = raw[7] as Record<string, unknown> | undefined;
+      if (!opts || typeof opts !== "object") return node;
+
+      const dataType = node.data.type;
+      if (dataType === "settlement") {
+        node.data.options = {
+          inputs: (opts.i ?? {}) as Record<ProductId, boolean>,
+          outputs: (opts.o ?? {}) as Record<ProductId, boolean>,
+        };
+      } else if (dataType === "recipe") {
+        if (typeof opts.r === "boolean") {
+          node.data.options = { useRecycling: opts.r };
+        }
+      }
+
+      return node;
+    });
+
+    return v4;
+  }
 }
 
 /**
@@ -497,7 +604,7 @@ export type MinifiedStateV1 = [
  * Detection in unminifyBulk: bare array → legacy single/multi factory; object with `factories` key → this format.
  */
 export interface BulkExportData {
-  factories: MinifiedStateV4[];
+  factories: MinifiedStateV5[];
   /** Per-zone data keyed by zone name. Only zones with non-default modifiers are included. */
   zones?: {
     [zoneName: string]: {
@@ -641,7 +748,7 @@ export async function decompressBulk(b64: string): Promise<BulkImportData> {
 /**
  * Extract metadata from minified factory data without fully unminifying
  */
-export function getFactoryMetadataFromMinified(min: MinifiedStateV2 | MinifiedStateV3 | MinifiedStateV4): FactoryExportMetadata {
+export function getFactoryMetadataFromMinified(min: MinifiedStateV2 | MinifiedStateV3 | MinifiedStateV4 | MinifiedStateV5): FactoryExportMetadata {
   return {
     id: '', // ID is not stored in export, will be assigned on import
     name: min[1],

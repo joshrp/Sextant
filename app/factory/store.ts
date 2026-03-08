@@ -386,7 +386,9 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
                   type: "settlement",
                   recipeId: n.data.recipeId,
                   ltr: n.data.ltr,
-                  options: n.data.options ?? EMPTY_SETTLEMENT_OPTIONS,
+                  options: n.data.options
+                    ? { inputs: n.data.options.inputs ?? {}, outputs: n.data.options.outputs ?? {} }
+                    : EMPTY_SETTLEMENT_OPTIONS,
                 };
               } else if (nodeType === "balancer") {
                 nodeData = {
@@ -399,6 +401,9 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
                   type: "recipe",
                   recipeId: n.data.recipeId,
                   ltr: n.data.ltr,
+                  ...(n.data.options?.useRecycling !== undefined && {
+                    options: { useRecycling: n.data.options.useRecycling }
+                  }),
                 };
               }
               
@@ -559,7 +564,11 @@ export type GraphImportRecipeNode = {
     type?: "recipe" | "balancer" | "settlement";
     recipeId: RecipeId;
     ltr?: boolean;
-    options?: { inputs: Record<ProductId, boolean>; outputs: Record<ProductId, boolean>; };
+    options?: {
+      inputs?: Record<ProductId, boolean>;
+      outputs?: Record<ProductId, boolean>;
+      useRecycling?: boolean;
+    };
   };
 };
 

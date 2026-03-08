@@ -1,6 +1,6 @@
 {
   "factory": [
-    4,
+    5,
     "sadfsadfsadf",
     "test-zone",
     "",
@@ -9,10 +9,42 @@
         "n",
         "Housing_Workers_1772661097983",
         -2095.086494318349,
-        -420.9389269465047,
+        -425.5020409074839,
         "Housing_Workers",
         true,
-        "s"
+        "s",
+        {
+          "i": {
+            "Product_Water": true,
+            "Product_HouseholdGoods": true,
+            "Product_HouseholdAppliances": true,
+            "Product_Virtual_Electricity": true,
+            "Product_Virtual_Computing": true,
+            "Product_LuxuryGoods": true,
+            "Product_ConsumerElectronics": true,
+            "Product_MedicalSupplies": true,
+            "Product_MedicalSupplies2": true,
+            "Product_MedicalSupplies3": true,
+            "Product_Potato": true,
+            "Product_Corn": false,
+            "Product_Bread": false,
+            "Product_Meat": false,
+            "Product_Eggs": false,
+            "Product_Tofu": false,
+            "Product_Sausage": false,
+            "Product_Vegetables": false,
+            "Product_Fruit": false,
+            "Product_Snack": false,
+            "Product_Cake": false
+          },
+          "o": {
+            "Product_Virtual_Workers": true,
+            "Product_WasteWater": true,
+            "Product_Waste": true,
+            "Product_Biomass": true,
+            "Product_Recyclables": true
+          }
+        }
       ],
       [
         "n",
@@ -110,20 +142,6 @@
   "manifoldOptions": [],
   "scoringMethod": "infra",
   "previousSolutionObjectiveValue": 275.4959913793103,
-  "zoneModifiers": {
-    "recyclingEfficiency": 0.5,
-    "maintenanceConsumption": 1.3,
-    "maintenanceOutput": 1,
-    "farmYield": 1,
-    "farmWater": 1,
-    "foodConsumption": 1,
-    "settlementWater": 1,
-    "householdGoods": 1,
-    "householdAppliances": 1,
-    "consumerElectronics": 1,
-    "solarOutput": 1,
-    "contractProfitability": 1
-  },
   "expected": {
     "objectiveValue": 275.4959913793103,
     "nodeCounts": [
@@ -318,7 +336,7 @@
         },
         {
           "productId": "Product_Recyclables",
-          "amount": 22.2
+          "amount": 8.88
         },
         {
           "productId": "Product_Brine",
@@ -366,7 +384,7 @@
       "c5": 0,
       "o_Product_Waste": 29.3,
       "o_Product_Biomass": 0,
-      "o_Product_Recyclables": 22.2,
+      "o_Product_Recyclables": 8.88,
       "c6": 0,
       "i_Product_FertilizerOrganic": -19.01,
       "i_Product_Seawater": -97.7586,

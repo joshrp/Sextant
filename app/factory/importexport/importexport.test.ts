@@ -8,7 +8,7 @@ import testExports from "./testExports.json";
 import { default as FactoryStore, type GraphCoreData } from '../store';
 import { openDB } from 'idb';
 import {setDebugSolver} from '../solver/solver';
-import type { RecipeId } from '../graph/loadJsonData';
+import type { RecipeId, ProductId } from '../graph/loadJsonData';
 import { DEFAULT_ZONE_MODIFIERS } from '~/context/zoneModifiers';
 
 describe("Import Export", () => {
@@ -54,8 +54,8 @@ describe("Import Export", () => {
 
       expect(store.Graph.getState().solution?.ObjectiveValue).toBeCloseTo(10375.7, 1);
       const newExport = imex.minify(store.Graph.getState(), "zone-power-generation-steam");
-      // Exported format should be V4 now (with annotation node support)
-      expect(newExport[0]).toBe(4);
+      // Exported format should be V5 now (with node options support)
+      expect(newExport[0]).toBe(5);
       
       // Verify round-trip: compress, decompress, unminify should preserve data
       const recompressed = await imex.compress(newExport);
@@ -64,6 +64,27 @@ describe("Import Export", () => {
       
     });
 
+    test('parse version 5 with settlement options correctly set', async () => {
+      setDebugSolver(false);
+
+      const exportStr = testExports['version-5']['settlement-options'];
+      const decompressed = await imex.decompress(exportStr) as imex.MinifiedStateV5;
+      const data = imex.unminifyBulk(decompressed);
+      const idb = getIdb();
+      const store = FactoryStore(idb, {id: "test-settlement", name: "Test Settlement Factory" }, () => DEFAULT_ZONE_MODIFIERS);
+      
+      await (store.Graph.getState().importData(data.factories[0]));
+
+      const settlementNode = store.Graph.getState().nodes.find(n => n.type === "recipe-node" && n.data.type === "settlement");
+      expect(settlementNode).toBeDefined();
+      if (settlementNode && settlementNode.type === "recipe-node" && settlementNode.data.type === "settlement") {
+        expect(settlementNode.data.options).toBeDefined();
+        expect(settlementNode.data.options!.inputs["Product_Water" as ProductId]).toBe(true);
+        expect(settlementNode.data.options!.inputs["Product_Potato" as ProductId]).toBe(true);
+        expect(settlementNode.data.options!.inputs["Product_Snack" as ProductId]).toBe(false);
+        expect(settlementNode.data.options!.outputs["Product_WasteWater" as ProductId]).toBe(true);
+      }
+    });
   });
 
   describe('Icon Export/Import', () => {
@@ -136,7 +157,7 @@ describe("Import Export", () => {
       };
 
       const minified = imex.minify(testData, "test-zone");
-      expect(minified[0]).toBe(4); // V4 format
+      expect(minified[0]).toBe(5); // V5 format
       expect(minified[4]).toHaveLength(2);
 
       // Compress, decompress, unminify
@@ -180,6 +201,239 @@ describe("Import Export", () => {
       expect(imported.nodes).toHaveLength(1);
       expect(imported.nodes[0].type).toBe("annotation-node");
       expect(imported.nodes[0].data).toEqual({ text: "First note" });
+    });
+  });
+
+  describe('Node Options Export/Import', () => {
+    test('settlement node options round-trip', async () => {
+      const testData: GraphCoreData = {
+        name: "Settlement Options Test",
+        nodes: [
+          {
+            id: "s1",
+            type: "recipe-node",
+            position: { x: 100, y: 200 },
+            data: {
+              type: "settlement",
+              recipeId: "DesalinationFromDepleted" as RecipeId,
+              ltr: true,
+              options: {
+                inputs: {
+                  ["Product_Water" as ProductId]: true,
+                  ["Product_Electricity" as ProductId]: false,
+                },
+                outputs: {
+                  ["Product_Hydrogen" as ProductId]: false,
+                },
+              },
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "test-zone");
+      expect(minified[0]).toBe(5);
+
+      // The 8th element of the recipe node tuple should be the options
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple).toHaveLength(8);
+
+      // Compress, decompress, unminify
+      const compressed = await imex.compress(minified);
+      const decompressed = await imex.decompress(compressed);
+      const imported = imex.unminify(decompressed);
+
+      expect(imported.nodes).toHaveLength(1);
+      const node = imported.nodes[0];
+      expect(node.type).toBe("recipe-node");
+      if (node.type === "recipe-node") {
+        expect(node.data.type).toBe("settlement");
+        expect(node.data.options).toBeDefined();
+        expect(node.data.options!.inputs).toEqual({
+          ["Product_Water"]: true,
+          ["Product_Electricity"]: false,
+        });
+        expect(node.data.options!.outputs).toEqual({
+          ["Product_Hydrogen"]: false,
+        });
+      }
+    });
+
+    test('recipe node useRecycling=false round-trip', async () => {
+      const testData: GraphCoreData = {
+        name: "Recipe Options Test",
+        nodes: [
+          {
+            id: "r1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "recipe",
+              recipeId: "PowerGeneratorT2" as RecipeId,
+              ltr: true,
+              options: { useRecycling: false },
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      expect(minified[0]).toBe(5);
+
+      // The 8th element should be an options object
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple).toHaveLength(8);
+      expect(nodeTuple[7]).toEqual({ r: false });
+
+      const compressed = await imex.compress(minified);
+      const imported = imex.unminify(await imex.decompress(compressed));
+
+      expect(imported.nodes).toHaveLength(1);
+      const node = imported.nodes[0];
+      if (node.type === "recipe-node") {
+        expect(node.data.options).toEqual({ useRecycling: false });
+      }
+    });
+
+    test('recipe node without options has no 8th element', () => {
+      const testData: GraphCoreData = {
+        name: "No Options Test",
+        nodes: [
+          {
+            id: "r1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "recipe",
+              recipeId: "PowerGeneratorT2" as RecipeId,
+              ltr: true,
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple).toHaveLength(7); // No 8th element
+    });
+
+    test('balancer node has no options element', () => {
+      const testData: GraphCoreData = {
+        name: "Balancer Test",
+        nodes: [
+          {
+            id: "b1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "balancer",
+              recipeId: "DesalinationFromDepleted" as RecipeId,
+              ltr: false,
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple).toHaveLength(7); // No 8th element
+    });
+
+    test('mixed nodes with options: settlement + recipe + balancer + annotation', async () => {
+      const testData: GraphCoreData = {
+        name: "Mixed Options",
+        nodes: [
+          {
+            id: "s1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "settlement",
+              recipeId: "DesalinationFromDepleted" as RecipeId,
+              ltr: true,
+              options: {
+                inputs: { ["Product_Water" as ProductId]: false },
+                outputs: {},
+              },
+            },
+          },
+          {
+            id: "r1",
+            type: "recipe-node",
+            position: { x: 100, y: 0 },
+            data: {
+              type: "recipe",
+              recipeId: "PowerGeneratorT2" as RecipeId,
+              ltr: true,
+              options: { useRecycling: false },
+            },
+          },
+          {
+            id: "b1",
+            type: "recipe-node",
+            position: { x: 200, y: 0 },
+            data: {
+              type: "balancer",
+              recipeId: "DesalinationFromDepleted" as RecipeId,
+              ltr: false,
+            },
+          },
+          {
+            id: "a1",
+            type: "annotation-node",
+            position: { x: 300, y: 0 },
+            data: { text: "A note" },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      const compressed = await imex.compress(minified);
+      const imported = imex.unminify(await imex.decompress(compressed));
+
+      expect(imported.nodes).toHaveLength(4);
+
+      // Settlement with options
+      const settlement = imported.nodes[0];
+      expect(settlement.type).toBe("recipe-node");
+      if (settlement.type === "recipe-node") {
+        expect(settlement.data.type).toBe("settlement");
+        expect(settlement.data.options).toEqual({
+          inputs: { Product_Water: false },
+          outputs: {},
+        });
+      }
+
+      // Recipe with useRecycling=false
+      const recipe = imported.nodes[1];
+      if (recipe.type === "recipe-node") {
+        expect(recipe.data.type).toBe("recipe");
+        expect(recipe.data.options).toEqual({ useRecycling: false });
+      }
+
+      // Balancer - no options
+      const balancer = imported.nodes[2];
+      if (balancer.type === "recipe-node") {
+        expect(balancer.data.type).toBe("balancer");
+        expect(balancer.data.options).toBeUndefined();
+      }
+
+      // Annotation
+      const annotation = imported.nodes[3];
+      expect(annotation.type).toBe("annotation-node");
+      if (annotation.type === "annotation-node") {
+        expect(annotation.data).toEqual({ text: "A note" });
+      }
     });
   });
 
