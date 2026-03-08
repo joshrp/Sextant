@@ -1108,6 +1108,7 @@
           "ResearchLab31",
           "ResearchLab41",
           "ResearchLab51",
+          "Housing_Workers",
           "Balancer_Product_IronScrap"
         ]
       },
@@ -1398,6 +1399,7 @@
           "ResearchLab31",
           "ResearchLab41",
           "ResearchLab51",
+          "Housing_Workers",
           "Balancer_Product_CopperScrap"
         ]
       },
@@ -1694,6 +1696,7 @@
         ],
         "output": [
           "ShreddingAluminumScrap",
+          "Housing_Workers",
           "Balancer_Product_AluminumScrap"
         ]
       },
@@ -2193,6 +2196,7 @@
           "ShreddingGoldScrap",
           "MaintenanceT3Recycling",
           "ResearchLab51",
+          "Housing_Workers",
           "Balancer_Product_GoldScrap"
         ]
       },
@@ -2338,6 +2342,7 @@
           "ResearchLab31",
           "ResearchLab41",
           "ResearchLab51",
+          "Housing_Workers",
           "Balancer_Product_BrokenGlass"
         ]
       },
@@ -31002,6 +31007,26 @@
         {
           "id": "Product_Recyclables",
           "quantity": 0
+        },
+        {
+          "id": "Product_IronScrap",
+          "quantity": 0.806
+        },
+        {
+          "id": "Product_BrokenGlass",
+          "quantity": 0.3836
+        },
+        {
+          "id": "Product_CopperScrap",
+          "quantity": 0.7736
+        },
+        {
+          "id": "Product_GoldScrap",
+          "quantity": 0.0816
+        },
+        {
+          "id": "Product_AluminumScrap",
+          "quantity": 0.0864
         }
       ],
       "isMaintenance": false,

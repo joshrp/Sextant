@@ -537,10 +537,9 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
       });
 
       // Add recyclables material breakdown outputs for any recipe that
-      // produces Recyclables with a non-zero quantity.
-      // Settlements have dynamic recyclables dependent on enabled inputs, 
-      // so the values here are overriden at runtime.
-      const hasRecyclablesOutput = outputs.find(o => o.id === recyclablesProductId)?.quantity ?? 0 > 0;
+      // produces Recyclables. For settlements this gives the "all inputs
+      // enabled" breakdown; the SettlementCalculator overrides at runtime.
+      const hasRecyclablesOutput = outputs.some(o => o.id === recyclablesProductId);
       if (hasRecyclablesOutput) {
         const totalMaterialSplit: RecyclablesMaterialSplit = {};
         for (const input of inputs) {

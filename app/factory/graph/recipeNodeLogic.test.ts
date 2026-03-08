@@ -16,7 +16,7 @@ import { DEFAULT_ZONE_MODIFIERS } from '~/context/zoneModifiers';
 
 function makeRecipe(params: {
   inputs: Array<{ id: string; quantity: number }>;
-  outputs: Array<{ id: string; quantity: number }>;
+  outputs: Array<{ id: string; quantity: number; isScrap?: boolean; name?: string }>;
 }): Recipe {
   return {
     inputs: params.inputs.map(input => ({
@@ -24,7 +24,7 @@ function makeRecipe(params: {
       quantity: input.quantity,
     })),
     outputs: params.outputs.map(output => ({
-      product: { id: ProductId(output.id) },
+      product: { id: ProductId(output.id), isScrap: output.isScrap, name: output.name },
       quantity: output.quantity,
     })),
   } as Recipe;
@@ -162,6 +162,84 @@ describe('recipeNodeLogic', () => {
       }, 1, DEFAULT_ZONE_MODIFIERS);
 
       expect(calculator.productOutput(ProductId('Product_Recyclables'))).toBeCloseTo(17.666666, 4);
+    });
+
+    it('computes per-material scrap breakdown from enabled inputs', () => {
+      const recipe = makeRecipe({
+        inputs: [
+          { id: 'Product_ConsumerElectronics', quantity: 30 },
+          { id: 'Product_HouseholdGoods', quantity: 3 },
+          { id: 'Product_HouseholdAppliances', quantity: 4 },
+        ],
+        outputs: [
+          { id: 'Product_Recyclables', quantity: 0 },
+          { id: 'Product_CopperScrap', quantity: 0, isScrap: true, name: 'Copper scrap' },
+          { id: 'Product_GoldScrap', quantity: 0, isScrap: true, name: 'Gold scrap' },
+          { id: 'Product_AluminumScrap', quantity: 0, isScrap: true, name: 'Aluminum scrap' },
+          { id: 'Product_BrokenGlass', quantity: 0, isScrap: true, name: 'Broken glass' },
+          { id: 'Product_IronScrap', quantity: 0, isScrap: true, name: 'Iron scrap' },
+        ],
+      });
+
+      const calculator = SettlementCalculator(recipe, {
+        inputs: {
+          [ProductId('Product_ConsumerElectronics')]: true,
+          [ProductId('Product_HouseholdGoods')]: true,
+          [ProductId('Product_HouseholdAppliances')]: true,
+        },
+        outputs: {
+          [ProductId('Product_Recyclables')]: true,
+          [ProductId('Product_CopperScrap')]: true,
+          [ProductId('Product_GoldScrap')]: true,
+          [ProductId('Product_AluminumScrap')]: true,
+          [ProductId('Product_BrokenGlass')]: true,
+          [ProductId('Product_IronScrap')]: true,
+        },
+      }, 1, DEFAULT_ZONE_MODIFIERS);
+
+      // Copper: ConsumerElectronics(30 * ~1.033) + HouseholdAppliances(4 * 0.85) = ~34.4
+      expect(calculator.productOutput(ProductId('Product_CopperScrap'))).toBeGreaterThan(0);
+      // Iron: HouseholdGoods(3 * 0.15) + HouseholdAppliances(4 * 0.4) = 2.05
+      expect(calculator.productOutput(ProductId('Product_IronScrap'))).toBeGreaterThan(0);
+      // Glass: multiple sources
+      expect(calculator.productOutput(ProductId('Product_BrokenGlass'))).toBeGreaterThan(0);
+      // Gold: ConsumerElectronics only
+      expect(calculator.productOutput(ProductId('Product_GoldScrap'))).toBeGreaterThan(0);
+      // Aluminium: ConsumerElectronics only
+      expect(calculator.productOutput(ProductId('Product_AluminumScrap'))).toBeGreaterThan(0);
+    });
+
+    it('zeros scrap breakdown when commodity input is disabled', () => {
+      const recipe = makeRecipe({
+        inputs: [
+          { id: 'Product_ConsumerElectronics', quantity: 30 },
+        ],
+        outputs: [
+          { id: 'Product_Recyclables', quantity: 0 },
+          { id: 'Product_CopperScrap', quantity: 0, isScrap: true, name: 'Copper scrap' },
+          { id: 'Product_GoldScrap', quantity: 0, isScrap: true, name: 'Gold scrap' },
+          { id: 'Product_AluminumScrap', quantity: 0, isScrap: true, name: 'Aluminum scrap' },
+          { id: 'Product_BrokenGlass', quantity: 0, isScrap: true, name: 'Broken glass' },
+        ],
+      });
+
+      const calculator = SettlementCalculator(recipe, {
+        inputs: {
+          [ProductId('Product_ConsumerElectronics')]: false,
+        },
+        outputs: {
+          [ProductId('Product_Recyclables')]: true,
+          [ProductId('Product_CopperScrap')]: true,
+          [ProductId('Product_GoldScrap')]: true,
+          [ProductId('Product_AluminumScrap')]: true,
+          [ProductId('Product_BrokenGlass')]: true,
+        },
+      }, 1, DEFAULT_ZONE_MODIFIERS);
+
+      expect(calculator.productOutput(ProductId('Product_CopperScrap'))).toBe(0);
+      expect(calculator.productOutput(ProductId('Product_GoldScrap'))).toBe(0);
+      expect(calculator.productOutput(ProductId('Product_AluminumScrap'))).toBe(0);
+      expect(calculator.productOutput(ProductId('Product_BrokenGlass'))).toBe(0);
     });
 
     it('does not consume food when no food options are explicitly enabled', () => {

@@ -16,17 +16,17 @@
         {
           "i": {
             "Product_Water": true,
-            "Product_HouseholdGoods": true,
+            "Product_HouseholdGoods": false,
             "Product_HouseholdAppliances": true,
             "Product_Virtual_Electricity": true,
             "Product_Virtual_Computing": true,
             "Product_LuxuryGoods": true,
             "Product_ConsumerElectronics": true,
-            "Product_MedicalSupplies": true,
-            "Product_MedicalSupplies2": true,
-            "Product_MedicalSupplies3": true,
+            "Product_MedicalSupplies": false,
+            "Product_MedicalSupplies2": false,
+            "Product_MedicalSupplies3": false,
             "Product_Potato": true,
-            "Product_Corn": false,
+            "Product_Corn": true,
             "Product_Bread": false,
             "Product_Meat": false,
             "Product_Eggs": false,
@@ -141,17 +141,17 @@
   ],
   "manifoldOptions": [],
   "scoringMethod": "infra",
-  "previousSolutionObjectiveValue": 275.4959913793103,
+  "previousSolutionObjectiveValue": 221.9773706896552,
   "expected": {
-    "objectiveValue": 275.4959913793103,
+    "objectiveValue": 221.9773706896552,
     "nodeCounts": [
       {
         "nodeId": "Crop_Potato_Product_FertilizerOrganic_1772874493525",
-        "count": 1.44828
+        "count": 0.724138
       },
       {
         "nodeId": "DesalinationFromSP_1772874519347",
-        "count": 0.905172
+        "count": 0.452586
       },
       {
         "nodeId": "WaterTreatmentT2_1772874823115",
@@ -159,7 +159,7 @@
       },
       {
         "nodeId": "DesalinationFromSP_1772874519347",
-        "count": 0.905172
+        "count": 0.452586
       },
       {
         "nodeId": "HouseholdAppliancesAssemblyT3_1772874812855",
@@ -171,7 +171,7 @@
       },
       {
         "nodeId": "Crop_Potato_Product_FertilizerOrganic_1772874493525",
-        "count": 1.44828
+        "count": 0.724138
       },
       {
         "nodeId": "Housing_Workers_1772661097983",
@@ -195,26 +195,26 @@
       }
     ],
     "infrastructure": {
-      "workers": 70,
-      "electricity": 570.402,
+      "workers": 50,
+      "electricity": 389.368,
       "computing": 0.875,
-      "maintenance_1": 15.8966,
+      "maintenance_1": 9.19828,
       "maintenance_2": 0,
       "maintenance_3": 0.583333,
-      "footprint": 15472,
+      "footprint": 12971,
       "workers_generated": 0,
       "electricity_generated": 0,
       "computing_generated": 0,
       "maintenance_1_generated": 0,
       "maintenance_2_generated": 0,
       "maintenance_3_generated": 0,
-      "frastructure_total": 120.776
+      "frastructure_total": 92.2674
     },
     "products": {
       "inputs": [
         {
           "productId": "Product_HouseholdGoods",
-          "amount": -10
+          "amount": 0
         },
         {
           "productId": "Product_Virtual_Electricity",
@@ -234,19 +234,19 @@
         },
         {
           "productId": "Product_MedicalSupplies",
-          "amount": -5
+          "amount": 0
         },
         {
           "productId": "Product_MedicalSupplies2",
-          "amount": -5
+          "amount": 0
         },
         {
           "productId": "Product_MedicalSupplies3",
-          "amount": -5
+          "amount": 0
         },
         {
           "productId": "Product_Corn",
-          "amount": 0
+          "amount": -15
         },
         {
           "productId": "Product_Bread",
@@ -286,15 +286,15 @@
         },
         {
           "productId": "Product_FertilizerOrganic",
-          "amount": -19.01
+          "amount": -9.50502
         },
         {
           "productId": "Product_Seawater",
-          "amount": -97.7586
+          "amount": -48.8793
         },
         {
           "productId": "Product_SteamSp",
-          "amount": -5.43103
+          "amount": -2.71552
         },
         {
           "productId": "Product_Electronics",
@@ -336,11 +336,31 @@
         },
         {
           "productId": "Product_Recyclables",
-          "amount": 8.88
+          "amount": 5.33
+        },
+        {
+          "productId": "Product_IronScrap",
+          "amount": 0.933333
+        },
+        {
+          "productId": "Product_BrokenGlass",
+          "amount": 0.473333
+        },
+        {
+          "productId": "Product_CopperScrap",
+          "amount": 3.22333
+        },
+        {
+          "productId": "Product_GoldScrap",
+          "amount": 0.34
+        },
+        {
+          "productId": "Product_AluminumScrap",
+          "amount": 0.36
         },
         {
           "productId": "Product_Brine",
-          "amount": 38.0172
+          "amount": 19.0086
         },
         {
           "productId": "Product_Sludge",
@@ -349,28 +369,28 @@
       ]
     },
     "manifolds": {
-      "in_frastructure_total": 120.776,
-      "in_footprint": 15472,
-      "in_workers": 70,
-      "in_electricity": 570.402,
+      "in_frastructure_total": 92.2674,
+      "in_footprint": 12971,
+      "in_workers": 50,
+      "in_electricity": 389.368,
       "in_computing": 0.875,
-      "in_maintenance_1": 15.8966,
+      "in_maintenance_1": 9.19828,
       "in_maintenance_2": 0,
       "in_maintenance_3": 0.583333,
       "c0": 0,
       "c1": 0,
       "c2": 0,
-      "i_Product_HouseholdGoods": -10,
+      "i_Product_HouseholdGoods": 0,
       "c3": 0,
       "i_Product_Virtual_Electricity": -1100,
       "i_Product_Virtual_Computing": -57.6,
       "i_Product_LuxuryGoods": -3.6,
       "i_Product_ConsumerElectronics": -3.6,
-      "i_Product_MedicalSupplies": -5,
-      "i_Product_MedicalSupplies2": -5,
-      "i_Product_MedicalSupplies3": -5,
+      "i_Product_MedicalSupplies": 0,
+      "i_Product_MedicalSupplies2": 0,
+      "i_Product_MedicalSupplies3": 0,
       "c4": 0,
-      "i_Product_Corn": 0,
+      "i_Product_Corn": -15,
       "i_Product_Bread": 0,
       "i_Product_Meat": 0,
       "i_Product_Eggs": 0,
@@ -384,12 +404,17 @@
       "c5": 0,
       "o_Product_Waste": 29.3,
       "o_Product_Biomass": 0,
-      "o_Product_Recyclables": 8.88,
+      "o_Product_Recyclables": 5.33,
+      "o_Product_IronScrap": 0.933333,
+      "o_Product_BrokenGlass": 0.473333,
+      "o_Product_CopperScrap": 3.22333,
+      "o_Product_GoldScrap": 0.34,
+      "o_Product_AluminumScrap": 0.36,
       "c6": 0,
-      "i_Product_FertilizerOrganic": -19.01,
-      "i_Product_Seawater": -97.7586,
-      "i_Product_SteamSp": -5.43103,
-      "o_Product_Brine": 38.0172,
+      "i_Product_FertilizerOrganic": -9.50502,
+      "i_Product_Seawater": -48.8793,
+      "i_Product_SteamSp": -2.71552,
+      "o_Product_Brine": 19.0086,
       "i_Product_Electronics": -4.66667,
       "i_Product_Electronics2": -2.33333,
       "i_Product_Steel": -2.33333,

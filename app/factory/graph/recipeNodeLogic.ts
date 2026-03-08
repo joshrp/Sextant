@@ -6,7 +6,7 @@ import type { Node } from '@xyflow/react';
 import { formatNumber } from '~/uiUtils';
 import { ProductId, type Recipe, type RecipeId } from './loadJsonData';
 import { getProductCategory, isFoodCategory, type SettlementCategory } from './settlementCategories';
-import { recyclablesProductId, totalRecyclablesOutput } from './recyclables';
+import { recyclablesProductId, totalRecyclablesOutput, materialSplitForProduct, type RecyclablesMaterialSplit, recyclablesMaterialToProductName } from './recyclables';
 import Big from "big.js"
 import type { ZoneModifiers } from '~/context/zoneModifiers';
 
@@ -146,6 +146,25 @@ export const SettlementCalculator = (
     inputRatios[input.product.id] = baseQty;
   });
 
+  // Compute per-material scrap breakdown from enabled inputs
+  const totalScrapSplit: RecyclablesMaterialSplit = {};
+  for (const [productId, rate] of Object.entries(inputRatios) as [ProductId, Big][]) {
+    if (!rate || rate.eq(0)) continue;
+    const split = materialSplitForProduct(productId, rate);
+    for (const [mat, qty] of Object.entries(split) as [keyof RecyclablesMaterialSplit, Big][]) {
+      if (!qty) continue;
+      totalScrapSplit[mat] = (totalScrapSplit[mat] ?? Big(0)).plus(qty);
+    }
+  }
+
+  // Build a lookup from scrap product name → ProductId for matching
+  const scrapNameToProductId = new Map<string, ProductId>();
+  for (const output of recipe.outputs) {
+    if (output.product.isScrap) {
+      scrapNameToProductId.set(output.product.name, output.product.id);
+    }
+  }
+
   recipe.outputs.forEach(output => {
     let baseQty = Big(output.quantity);
     if (!isOptionEnabled(options.outputs, output.product.id)) {
@@ -155,6 +174,17 @@ export const SettlementCalculator = (
 
     if (output.product.id === recyclablesProductId) {
       baseQty = baseQty.plus(totalRecyclablesOutput(inputRatios).mul(modifiers.recyclingEfficiency / 0.60));
+    }
+
+    // Override scrap breakdown outputs with dynamic values from enabled inputs
+    if (output.product.isScrap) {
+      const material = Object.entries(recyclablesMaterialToProductName)
+        .find(([, name]) => name === output.product.name)?.[0] as keyof RecyclablesMaterialSplit | undefined;
+      if (material && totalScrapSplit[material]) {
+        baseQty = totalScrapSplit[material]!.mul(modifiers.recyclingEfficiency / 0.60);
+      } else {
+        baseQty = Big(0);
+      }
     }
 
     outputRatios[output.product.id] = baseQty;

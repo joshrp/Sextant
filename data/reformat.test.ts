@@ -172,7 +172,6 @@ describe("Check parsed data", () => {
     recipes.forEach((recipe) => {
       const recyclablesOut = recipe.outputs.find(o => o.product.id === "Product_Recyclables" as ProductId);
       if (!recyclablesOut || recyclablesOut.quantity === 0) return;
-      if (recipe.type === "settlement") return; // Settlements use dynamic calculation
 
       // Only expect breakdown outputs if at least one input has a known material split
       const inputsWithBreakdown = recipe.inputs.filter(i => recyclablesSourceMaterialSplit[i.product.id]);
@@ -192,6 +191,35 @@ describe("Check parsed data", () => {
           scrapProductIds.has(output.product.id),
           `Unexpected scrap product ${output.product.id} in ${recipe.id}`
         ).toBe(true);
+        expect(output.quantity, `Breakdown output ${output.product.id} in ${recipe.id} should have positive quantity`).toBeGreaterThan(0);
+      }
+    });
+  });
+
+  test("Settlement recipes should have material breakdown outputs for recyclables", () => {
+    const { recipes } = loadedData;
+    const scrapProductIds = new Set([
+      "Product_IronScrap", "Product_CopperScrap", "Product_GoldScrap",
+      "Product_AluminumScrap", "Product_BrokenGlass",
+    ]);
+
+    recipes.forEach((recipe) => {
+      if (recipe.type !== "settlement") return;
+      const recyclablesOut = recipe.outputs.find(o => o.product.id === "Product_Recyclables" as ProductId);
+      if (!recyclablesOut) return;
+
+      // Settlements should have scrap breakdown outputs if any input has a known material split
+      const inputsWithBreakdown = recipe.inputs.filter(i => recyclablesSourceMaterialSplit[i.product.id]);
+      if (inputsWithBreakdown.length === 0) return;
+
+      const breakdownOutputs = recipe.outputs.filter(o => o.product.isScrap && scrapProductIds.has(o.product.id));
+      expect(
+        breakdownOutputs.length,
+        `Settlement recipe ${recipe.id} (${recipe.name}) should have material breakdown outputs`
+      ).toBeGreaterThan(0);
+
+      for (const output of breakdownOutputs) {
+        expect(output.product.isScrap, `Product ${output.product.id} should be marked isScrap`).toBe(true);
         expect(output.quantity, `Breakdown output ${output.product.id} in ${recipe.id} should have positive quantity`).toBeGreaterThan(0);
       }
     });
