@@ -72,7 +72,6 @@ function RecipeNode(props: NodeProps<RecipeNode>) {
     let attempts = 0;
 
     const tryAlign = () => {
-      console.log(`Attempting to align node ${props.id} to drop position (attempt ${attempts + 1}) with alignToDrop:`, alignToDrop);
       // Short-circuit work when this alignment request is no longer valid.
       if (cancelled || !alignToDrop) return;
 

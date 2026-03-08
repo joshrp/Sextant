@@ -129,7 +129,7 @@ export type RecipeProductSerialized = {
 export type RecipeBase = {
   id: RecipeId;
   name: string;
-  type: "recipe" | "settlement" | "balancer";
+  type: "recipe" | "settlement" | "balancer" | "contract";
   tiersLink?: string;
   duration: number;
   origDuration: number;

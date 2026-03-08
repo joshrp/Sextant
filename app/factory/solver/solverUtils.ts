@@ -204,7 +204,7 @@ export function buildNodeConnections(
         options: node.data.options,
         type: "settlement",
       }
-    } else if (node.data.type === "recipe") {
+    } else if (node.data.type === "recipe" || node.data.type === "contract") {
       nodeConnections[node.id] = {
         ...nodeData,
         type: "recipe",

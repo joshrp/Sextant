@@ -281,18 +281,23 @@
           "CpAssemblyT1",
           "CharcoalBurning",
           "ShreddingWood",
-          "Balancer_Product_Wood"
+          "Balancer_Product_Wood",
+          "Contract_Product_Corn_For_Product_Wood"
         ],
         "output": [
-          "Balancer_Product_Wood"
+          "Balancer_Product_Wood",
+          "Contract_Product_Wood_For_Product_Rubber",
+          "Contract_Product_Wood_For_Product_HouseholdAppliances"
         ]
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ]
       }
     },
@@ -423,7 +428,9 @@
           "Crop_Soybeans_Product_Fertilizer2_1",
           "Crop_Vegetables_Product_Fertilizer2_1",
           "Crop_Canola_Product_Fertilizer2_1",
-          "Balancer_Product_Fertilizer2"
+          "Balancer_Product_Fertilizer2",
+          "Contract_Product_Wheat_For_Product_Fertilizer2",
+          "Contract_Product_SugarCane_For_Product_Fertilizer2"
         ],
         "output": [
           "Fertilizer2ProductionT2",
@@ -433,7 +440,8 @@
       },
       "machines": {
         "input": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ],
         "output": [
           "BalancerPipe"
@@ -578,20 +586,24 @@
         "input": [
           "OrganicFertilizerProductionDirtT2",
           "OrganicFertilizerProductionDirt",
-          "Balancer_Product_Dirt"
+          "Balancer_Product_Dirt",
+          "Contract_Product_FuelGas_For_Product_Dirt"
         ],
         "output": [
           "DirtMixingT2",
           "DirtMixing",
-          "Balancer_Product_Dirt"
+          "Balancer_Product_Dirt",
+          "Contract_Product_Dirt_For_Product_ManufacturedSand"
         ]
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -658,7 +670,9 @@
         "output": [
           "WaterTreatment",
           "WaterTreatmentT2",
-          "Balancer_Product_Sludge"
+          "Balancer_Product_Sludge",
+          "Contract_Product_Sludge_For_Product_Slag",
+          "Contract_Product_Sludge_For_Product_Sulfur"
         ]
       },
       "machines": {
@@ -666,7 +680,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -703,7 +718,10 @@
           "Balancer_Product_Limestone"
         ],
         "output": [
-          "Balancer_Product_Limestone"
+          "Balancer_Product_Limestone",
+          "Contract_Product_Limestone_For_Product_ConstructionParts2",
+          "Contract_Product_Limestone_For_Product_CompositeCore",
+          "Contract_Product_Limestone_For_Product_IronOre"
         ]
       },
       "machines": {
@@ -711,7 +729,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -727,7 +746,8 @@
           "FluorideLeaching",
           "RockCrushing",
           "RockCrushingT2",
-          "Balancer_Product_Rock"
+          "Balancer_Product_Rock",
+          "Contract_Product_FuelGas_For_Product_Rock"
         ],
         "output": [
           "Balancer_Product_Rock"
@@ -735,7 +755,8 @@
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
           "BalancerLoose"
@@ -799,7 +820,8 @@
           "ConcreteMixingSlagM",
           "FilterMediaMixingMT2",
           "FilterMediaMixingM",
-          "Balancer_Product_ManufacturedSand"
+          "Balancer_Product_ManufacturedSand",
+          "Contract_Product_Dirt_For_Product_ManufacturedSand"
         ],
         "output": [
           "GravelCrushing",
@@ -809,7 +831,8 @@
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
           "BalancerLoose"
@@ -882,19 +905,27 @@
           "GraphiteProductionT1",
           "RubberProductionNaphthaAlt",
           "RubberProductionDieselWithCoal",
-          "Balancer_Product_Coal"
+          "Balancer_Product_Coal",
+          "Contract_Product_Quartz_For_Product_Coal"
         ],
         "output": [
           "CharcoalBurning",
-          "Balancer_Product_Coal"
+          "Balancer_Product_Coal",
+          "Contract_Product_Coal_For_Product_Cement",
+          "Contract_Product_Coal_For_Product_HouseholdGoods",
+          "Contract_Product_Coal_For_Product_Sulfur",
+          "Contract_Product_Coal_For_Product_LabEquipment3",
+          "Contract_Product_Coal_For_Product_VehicleParts3"
         ]
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -957,7 +988,10 @@
         "input": [
           "SlagCrushing",
           "SlagCrushingT2",
-          "Balancer_Product_Slag"
+          "Balancer_Product_Slag",
+          "Contract_Product_Waste_For_Product_Slag",
+          "Contract_Product_SourWater_For_Product_Slag",
+          "Contract_Product_Sludge_For_Product_Slag"
         ],
         "output": [
           "FluorideLeaching",
@@ -987,7 +1021,8 @@
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
           "BalancerLoose"
@@ -1038,18 +1073,27 @@
           "IronOreCrushing",
           "IronOreCrushingT2",
           "IronSmeltingT1Coal",
-          "Balancer_Product_IronOre"
+          "Balancer_Product_IronOre",
+          "Contract_Product_UraniumOre_For_Product_IronOre",
+          "Contract_Product_Limestone_For_Product_IronOre",
+          "Contract_Product_Bauxite_For_Product_IronOre",
+          "Contract_Product_CopperOre_For_Product_IronOre"
         ],
         "output": [
-          "Balancer_Product_IronOre"
+          "Balancer_Product_IronOre",
+          "Contract_Product_IronOre_For_Product_VehicleParts2",
+          "Contract_Product_IronOre_For_Product_Server",
+          "Contract_Product_IronOre_For_Product_CopperOre"
         ]
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -1330,18 +1374,25 @@
           "CopperOreCrushing",
           "CopperOreCrushingT2",
           "CopperSmeltingT1",
-          "Balancer_Product_CopperOre"
+          "Balancer_Product_CopperOre",
+          "Contract_Product_IronOre_For_Product_CopperOre"
         ],
         "output": [
-          "Balancer_Product_CopperOre"
+          "Balancer_Product_CopperOre",
+          "Contract_Product_CopperOre_For_Product_LabEquipment2",
+          "Contract_Product_CopperOre_For_Product_HouseholdAppliances",
+          "Contract_Product_CopperOre_For_Product_MedicalSupplies3",
+          "Contract_Product_CopperOre_For_Product_IronOre"
         ]
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -1558,7 +1609,12 @@
           "Balancer_Product_Bauxite"
         ],
         "output": [
-          "Balancer_Product_Bauxite"
+          "Balancer_Product_Bauxite",
+          "Contract_Product_Bauxite_For_Product_Gold",
+          "Contract_Product_Bauxite_For_Product_HouseholdAppliances",
+          "Contract_Product_Bauxite_For_Product_ConstructionParts4",
+          "Contract_Product_Bauxite_For_Product_CompositeCore",
+          "Contract_Product_Bauxite_For_Product_IronOre"
         ]
       },
       "machines": {
@@ -1566,7 +1622,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -1813,7 +1870,9 @@
           "Balancer_Product_TitaniumOre"
         ],
         "output": [
-          "Balancer_Product_TitaniumOre"
+          "Balancer_Product_TitaniumOre",
+          "Contract_Product_TitaniumOre_For_Product_Server",
+          "Contract_Product_TitaniumOre_For_Product_ConstructionParts4"
         ]
       },
       "machines": {
@@ -1821,7 +1880,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -2049,7 +2109,8 @@
           "Balancer_Product_GoldOre"
         ],
         "output": [
-          "Balancer_Product_GoldOre"
+          "Balancer_Product_GoldOre",
+          "Contract_Product_GoldOre_For_Product_Server"
         ]
       },
       "machines": {
@@ -2057,7 +2118,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -2162,20 +2224,26 @@
           "MicrochipMachine_MicrochipProdStage3B",
           "MicrochipMachine_MicrochipProdStage3C",
           "MicrochipMachine_MicrochipProdFinalStage",
-          "Balancer_Product_Gold"
+          "Balancer_Product_Gold",
+          "Contract_Product_Bauxite_For_Product_Gold",
+          "Contract_Product_CrudeOil_For_Product_Gold",
+          "Contract_Product_UraniumOre_For_Product_Gold"
         ],
         "output": [
           "GoldSmelting",
           "GoldScrapSmelting",
-          "Balancer_Product_Gold"
+          "Balancer_Product_Gold",
+          "Contract_Product_Gold_For_Product_Diesel"
         ]
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ]
       }
     },
@@ -2446,7 +2514,11 @@
           "Balancer_Product_UraniumOre"
         ],
         "output": [
-          "Balancer_Product_UraniumOre"
+          "Balancer_Product_UraniumOre",
+          "Contract_Product_UraniumOre_For_Product_FoodPack",
+          "Contract_Product_UraniumOre_For_Product_Gold",
+          "Contract_Product_UraniumOre_For_Product_IronOre",
+          "Contract_Product_UraniumOre_For_Product_LabEquipment4"
         ]
       },
       "machines": {
@@ -2454,7 +2526,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -2957,7 +3030,11 @@
           "Balancer_Product_Quartz"
         ],
         "output": [
-          "Balancer_Product_Quartz"
+          "Balancer_Product_Quartz",
+          "Contract_Product_Quartz_For_Product_Coal",
+          "Contract_Product_Quartz_For_Product_VehicleParts2",
+          "Contract_Product_Quartz_For_Product_SolarCell",
+          "Contract_Product_Quartz_For_Product_ConsumerElectronics"
         ]
       },
       "machines": {
@@ -2965,7 +3042,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -3952,7 +4030,11 @@
         ],
         "output": [
           "OilGroundPumping",
-          "Balancer_Product_CrudeOil"
+          "Balancer_Product_CrudeOil",
+          "Contract_Product_CrudeOil_For_Product_FoodPack",
+          "Contract_Product_CrudeOil_For_Product_VehicleParts2",
+          "Contract_Product_CrudeOil_For_Product_Gold",
+          "Contract_Product_CrudeOil_For_Product_ConsumerElectronics"
         ]
       },
       "machines": {
@@ -3960,7 +4042,8 @@
           "BalancerPipe"
         ],
         "output": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ]
       }
     },
@@ -3979,7 +4062,8 @@
           "RubberProductionDieselWithCoal",
           "DieselReforming",
           "FlareDiesel",
-          "Balancer_Product_Diesel"
+          "Balancer_Product_Diesel",
+          "Contract_Product_Gold_For_Product_Diesel"
         ],
         "output": [
           "DieselDistillationBasic",
@@ -3994,7 +4078,8 @@
       },
       "machines": {
         "input": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ],
         "output": [
           "BalancerPipe"
@@ -4074,7 +4159,10 @@
           "SugarCaneDigestion",
           "MeatTrimmingsDigestion",
           "EggsDigestion",
-          "Balancer_Product_FuelGas"
+          "Balancer_Product_FuelGas",
+          "Contract_Product_FuelGas_For_Product_CompositeCore",
+          "Contract_Product_FuelGas_For_Product_Dirt",
+          "Contract_Product_FuelGas_For_Product_Rock"
         ]
       },
       "machines": {
@@ -4082,7 +4170,8 @@
           "BalancerPipe"
         ],
         "output": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ]
       }
     },
@@ -4106,7 +4195,9 @@
           "RubberProductionEthanol",
           "RubberProductionDiesel",
           "SulfurBurning",
-          "Balancer_Product_Sulfur"
+          "Balancer_Product_Sulfur",
+          "Contract_Product_Sludge_For_Product_Sulfur",
+          "Contract_Product_Coal_For_Product_Sulfur"
         ],
         "output": [
           "SourWaterStripping",
@@ -4117,7 +4208,8 @@
       },
       "machines": {
         "input": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ],
         "output": [
           "BalancerLoose"
@@ -4141,7 +4233,8 @@
           "GraphiteProductionT2",
           "GraphiteProductionT1",
           "CrudeOilRefiningT1",
-          "Balancer_Product_SourWater"
+          "Balancer_Product_SourWater",
+          "Contract_Product_SourWater_For_Product_Slag"
         ]
       },
       "machines": {
@@ -4149,7 +4242,8 @@
           "BalancerPipe"
         ],
         "output": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ]
       }
     },
@@ -4178,7 +4272,8 @@
           "AmmoniaSynthesisT2",
           "AmmoniaSynthesis",
           "SourWaterStripping",
-          "Balancer_Product_Ammonia"
+          "Balancer_Product_Ammonia",
+          "Contract_Product_Ammonia_For_Product_FoodPack"
         ]
       },
       "machines": {
@@ -4186,7 +4281,8 @@
           "BalancerPipe"
         ],
         "output": [
-          "BalancerPipe"
+          "BalancerPipe",
+          "Contract"
         ]
       }
     },
@@ -4387,7 +4483,8 @@
           "ElectronicsAssemblyT3",
           "ElectronicsAssemblyT2",
           "ElectronicsAssemblyT1",
-          "Balancer_Product_Rubber"
+          "Balancer_Product_Rubber",
+          "Contract_Product_Wood_For_Product_Rubber"
         ],
         "output": [
           "RubberProductionNaphtha",
@@ -4400,7 +4497,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -4628,7 +4726,9 @@
           "Crop_Corn_Product_Fertilizer2_1",
           "Crop_Corn_Product_FertilizerOrganic_1",
           "Crop_Corn",
-          "Balancer_Product_Corn"
+          "Balancer_Product_Corn",
+          "Contract_Product_Corn_For_Product_Wood",
+          "Contract_Product_Corn_For_Product_Snack"
         ]
       },
       "machines": {
@@ -4636,7 +4736,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -4666,7 +4767,9 @@
           "Crop_Wheat_Product_Fertilizer2_1",
           "Crop_Wheat_Product_FertilizerOrganic_1",
           "Crop_Wheat",
-          "Balancer_Product_Wheat"
+          "Balancer_Product_Wheat",
+          "Contract_Product_Wheat_For_Product_Fertilizer2",
+          "Contract_Product_Wheat_For_Product_Sausage"
         ]
       },
       "machines": {
@@ -4674,7 +4777,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -4737,7 +4841,8 @@
           "Crop_SugarCane_Product_Fertilizer_1",
           "Crop_SugarCane_Product_Fertilizer2_1",
           "Crop_SugarCane_Product_FertilizerOrganic_1",
-          "Balancer_Product_SugarCane"
+          "Balancer_Product_SugarCane",
+          "Contract_Product_SugarCane_For_Product_Fertilizer2"
         ]
       },
       "machines": {
@@ -4745,7 +4850,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -4812,7 +4918,8 @@
           "Crop_Vegetables_Product_Fertilizer2_1",
           "Crop_Vegetables_Product_FertilizerOrganic_1",
           "Crop_Vegetables",
-          "Balancer_Product_Vegetables"
+          "Balancer_Product_Vegetables",
+          "Contract_Product_Vegetables_For_Product_Meat"
         ]
       },
       "machines": {
@@ -4820,7 +4927,8 @@
           "BalancerFlat"
         ],
         "output": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ]
       }
     },
@@ -5129,7 +5237,8 @@
           "FoodPackAssemblyMeatT2",
           "FoodPackAssemblyMeat",
           "Housing_Workers",
-          "Balancer_Product_Meat"
+          "Balancer_Product_Meat",
+          "Contract_Product_Vegetables_For_Product_Meat"
         ],
         "output": [
           "MeatProcessing",
@@ -5138,7 +5247,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5155,7 +5265,8 @@
       "recipes": {
         "input": [
           "Housing_Workers",
-          "Balancer_Product_Sausage"
+          "Balancer_Product_Sausage",
+          "Contract_Product_Wheat_For_Product_Sausage"
         ],
         "output": [
           "SausageProduction",
@@ -5164,7 +5275,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5181,7 +5293,8 @@
       "recipes": {
         "input": [
           "Housing_Workers",
-          "Balancer_Product_Snack"
+          "Balancer_Product_Snack",
+          "Contract_Product_Corn_For_Product_Snack"
         ],
         "output": [
           "SnackProductionPotato",
@@ -5191,7 +5304,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5236,7 +5350,10 @@
           "CrewSuppliesAssemblyT3",
           "CrewSuppliesAssemblyT2",
           "CrewSuppliesAssemblyT1",
-          "Balancer_Product_FoodPack"
+          "Balancer_Product_FoodPack",
+          "Contract_Product_CrudeOil_For_Product_FoodPack",
+          "Contract_Product_Ammonia_For_Product_FoodPack",
+          "Contract_Product_UraniumOre_For_Product_FoodPack"
         ],
         "output": [
           "FoodPackAssemblyMeatT3",
@@ -5253,7 +5370,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5324,7 +5442,8 @@
         ],
         "output": [
           "ChickenFarm",
-          "Balancer_Product_ChickenCarcass"
+          "Balancer_Product_ChickenCarcass",
+          "Contract_Product_ChickenCarcass_For_Product_ConsumerElectronics"
         ]
       },
       "machines": {
@@ -5332,7 +5451,8 @@
           "BalancerFlat"
         ],
         "output": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ]
       }
     },
@@ -5434,7 +5554,8 @@
           "OfficeSuppliesAssemblyT2",
           "OfficeSuppliesAssemblyT1",
           "Housing_Workers",
-          "Balancer_Product_HouseholdGoods"
+          "Balancer_Product_HouseholdGoods",
+          "Contract_Product_Coal_For_Product_HouseholdGoods"
         ],
         "output": [
           "HouseholdGoodsAssemblyT4",
@@ -5446,7 +5567,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5463,7 +5585,10 @@
       "recipes": {
         "input": [
           "Housing_Workers",
-          "Balancer_Product_HouseholdAppliances"
+          "Balancer_Product_HouseholdAppliances",
+          "Contract_Product_Wood_For_Product_HouseholdAppliances",
+          "Contract_Product_CopperOre_For_Product_HouseholdAppliances",
+          "Contract_Product_Bauxite_For_Product_HouseholdAppliances"
         ],
         "output": [
           "HouseholdAppliancesAssemblyT3",
@@ -5474,7 +5599,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5491,7 +5617,10 @@
       "recipes": {
         "input": [
           "Housing_Workers",
-          "Balancer_Product_ConsumerElectronics"
+          "Balancer_Product_ConsumerElectronics",
+          "Contract_Product_ChickenCarcass_For_Product_ConsumerElectronics",
+          "Contract_Product_CrudeOil_For_Product_ConsumerElectronics",
+          "Contract_Product_Quartz_For_Product_ConsumerElectronics"
         ],
         "output": [
           "ConsumerElectronicsAssemblyT1",
@@ -5500,7 +5629,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5550,7 +5680,9 @@
           "Balancer_Product_ImportedGoods"
         ],
         "output": [
-          "Balancer_Product_ImportedGoods"
+          "Balancer_Product_ImportedGoods",
+          "Contract_Product_ImportedGoods_For_Product_VehicleParts2",
+          "Contract_Product_ImportedGoods_For_Product_Diamond"
         ]
       },
       "machines": {
@@ -5558,7 +5690,8 @@
           "BalancerFlat"
         ],
         "output": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ]
       }
     },
@@ -5780,7 +5913,8 @@
       "recipes": {
         "input": [
           "Housing_Workers",
-          "Balancer_Product_MedicalSupplies3"
+          "Balancer_Product_MedicalSupplies3",
+          "Contract_Product_CopperOre_For_Product_MedicalSupplies3"
         ],
         "output": [
           "MedicalSupplies3AssemblyT3",
@@ -5791,7 +5925,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5819,7 +5954,8 @@
           "ConcreteMixingGravel",
           "ConcreteMixingGravelM",
           "ConcreteMixingSlagM",
-          "Balancer_Product_Cement"
+          "Balancer_Product_Cement",
+          "Contract_Product_Coal_For_Product_Cement"
         ],
         "output": [
           "CementProductionGas",
@@ -5830,7 +5966,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -5959,7 +6096,8 @@
           "Cp3AssemblyT3",
           "Cp3AssemblyT2",
           "Cp3AssemblyT1",
-          "Balancer_Product_ConstructionParts2"
+          "Balancer_Product_ConstructionParts2",
+          "Contract_Product_Limestone_For_Product_ConstructionParts2"
         ],
         "output": [
           "Cp2AssemblyT5",
@@ -5972,7 +6110,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6019,7 +6158,9 @@
       "unit": "",
       "recipes": {
         "input": [
-          "Balancer_Product_ConstructionParts4"
+          "Balancer_Product_ConstructionParts4",
+          "Contract_Product_Bauxite_For_Product_ConstructionParts4",
+          "Contract_Product_TitaniumOre_For_Product_ConstructionParts4"
         ],
         "output": [
           "Cp4AssemblyRoboticT2",
@@ -6030,7 +6171,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6126,7 +6268,11 @@
           "VehicleParts3AssemblyT3",
           "VehicleParts3AssemblyT2",
           "VehicleParts3AssemblyT1",
-          "Balancer_Product_VehicleParts2"
+          "Balancer_Product_VehicleParts2",
+          "Contract_Product_ImportedGoods_For_Product_VehicleParts2",
+          "Contract_Product_IronOre_For_Product_VehicleParts2",
+          "Contract_Product_Quartz_For_Product_VehicleParts2",
+          "Contract_Product_CrudeOil_For_Product_VehicleParts2"
         ],
         "output": [
           "VehicleParts2AssemblyT3",
@@ -6137,7 +6283,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6153,7 +6300,8 @@
       "unit": "",
       "recipes": {
         "input": [
-          "Balancer_Product_VehicleParts3"
+          "Balancer_Product_VehicleParts3",
+          "Contract_Product_Coal_For_Product_VehicleParts3"
         ],
         "output": [
           "VehicleParts3AssemblyT3",
@@ -6164,7 +6312,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6216,7 +6365,8 @@
           "LabEquipment3AssemblyT2",
           "LabEquipment3AssemblyT1",
           "ResearchLab31",
-          "Balancer_Product_LabEquipment2"
+          "Balancer_Product_LabEquipment2",
+          "Contract_Product_CopperOre_For_Product_LabEquipment2"
         ],
         "output": [
           "LabEquipment2AssemblyT4",
@@ -6227,7 +6377,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6246,7 +6397,8 @@
           "LabEquipment4AssemblyT3",
           "LabEquipment4AssemblyT2",
           "ResearchLab41",
-          "Balancer_Product_LabEquipment3"
+          "Balancer_Product_LabEquipment3",
+          "Contract_Product_Coal_For_Product_LabEquipment3"
         ],
         "output": [
           "LabEquipment3AssemblyT3",
@@ -6257,7 +6409,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6274,7 +6427,8 @@
       "recipes": {
         "input": [
           "ResearchLab51",
-          "Balancer_Product_LabEquipment4"
+          "Balancer_Product_LabEquipment4",
+          "Contract_Product_UraniumOre_For_Product_LabEquipment4"
         ],
         "output": [
           "LabEquipment4AssemblyT3",
@@ -6284,7 +6438,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6544,7 +6699,10 @@
       "unit": "",
       "recipes": {
         "input": [
-          "Balancer_Product_Server"
+          "Balancer_Product_Server",
+          "Contract_Product_IronOre_For_Product_Server",
+          "Contract_Product_GoldOre_For_Product_Server",
+          "Contract_Product_TitaniumOre_For_Product_Server"
         ],
         "output": [
           "ServerAssemblyT2",
@@ -6554,7 +6712,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -6910,7 +7069,8 @@
           "AsteroidBoosterPartsAssembly",
           "DiamondPasteFromCookingOil",
           "DiamondPasteFromHeavyOil",
-          "Balancer_Product_Diamond"
+          "Balancer_Product_Diamond",
+          "Contract_Product_ImportedGoods_For_Product_Diamond"
         ],
         "output": [
           "DiamondSynthesis",
@@ -6919,7 +7079,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -7018,7 +7179,8 @@
           "StationPartsBasicAssemblyT2",
           "StationPartsBasicAssemblyT1",
           "ShreddingPolyCells",
-          "Balancer_Product_SolarCell"
+          "Balancer_Product_SolarCell",
+          "Contract_Product_Quartz_For_Product_SolarCell"
         ],
         "output": [
           "SolarCellAssemblyT3",
@@ -7029,7 +7191,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -7135,7 +7298,10 @@
           "StationPartsAssembly",
           "ProbePartsAssembly",
           "AsteroidBoosterPartsAssembly",
-          "Balancer_Product_CompositeCore"
+          "Balancer_Product_CompositeCore",
+          "Contract_Product_Bauxite_For_Product_CompositeCore",
+          "Contract_Product_Limestone_For_Product_CompositeCore",
+          "Contract_Product_FuelGas_For_Product_CompositeCore"
         ],
         "output": [
           "CompositeCoreAssembly",
@@ -7144,7 +7310,8 @@
       },
       "machines": {
         "input": [
-          "BalancerFlat"
+          "BalancerFlat",
+          "Contract"
         ],
         "output": [
           "BalancerFlat"
@@ -7422,7 +7589,8 @@
         "output": [
           "ShreddingWaste",
           "Housing_Workers",
-          "Balancer_Product_Waste"
+          "Balancer_Product_Waste",
+          "Contract_Product_Waste_For_Product_Slag"
         ]
       },
       "machines": {
@@ -7430,7 +7598,8 @@
           "BalancerLoose"
         ],
         "output": [
-          "BalancerLoose"
+          "BalancerLoose",
+          "Contract"
         ]
       }
     },
@@ -13727,6 +13896,81 @@
         0,
         0
       ]
+    },
+    "Contract": {
+      "id": "Contract",
+      "name": "Contract",
+      "category_id": "Contract",
+      "workers": 0,
+      "workers_generated": 0,
+      "recipes": [
+        "Contract_Product_Coal_For_Product_Cement",
+        "Contract_Product_Coal_For_Product_HouseholdGoods",
+        "Contract_Product_Wood_For_Product_Rubber",
+        "Contract_Product_Wood_For_Product_HouseholdAppliances",
+        "Contract_Product_CopperOre_For_Product_LabEquipment2",
+        "Contract_Product_ImportedGoods_For_Product_VehicleParts2",
+        "Contract_Product_ImportedGoods_For_Product_Diamond",
+        "Contract_Product_Wheat_For_Product_Fertilizer2",
+        "Contract_Product_SugarCane_For_Product_Fertilizer2",
+        "Contract_Product_Corn_For_Product_Wood",
+        "Contract_Product_Corn_For_Product_Snack",
+        "Contract_Product_Wheat_For_Product_Sausage",
+        "Contract_Product_Vegetables_For_Product_Meat",
+        "Contract_Product_ChickenCarcass_For_Product_ConsumerElectronics",
+        "Contract_Product_Limestone_For_Product_ConstructionParts2",
+        "Contract_Product_IronOre_For_Product_VehicleParts2",
+        "Contract_Product_CopperOre_For_Product_HouseholdAppliances",
+        "Contract_Product_Waste_For_Product_Slag",
+        "Contract_Product_SourWater_For_Product_Slag",
+        "Contract_Product_Sludge_For_Product_Slag",
+        "Contract_Product_Gold_For_Product_Diesel",
+        "Contract_Product_Quartz_For_Product_Coal",
+        "Contract_Product_Quartz_For_Product_VehicleParts2",
+        "Contract_Product_Bauxite_For_Product_Gold",
+        "Contract_Product_Bauxite_For_Product_HouseholdAppliances",
+        "Contract_Product_Bauxite_For_Product_ConstructionParts4",
+        "Contract_Product_Bauxite_For_Product_CompositeCore",
+        "Contract_Product_Limestone_For_Product_CompositeCore",
+        "Contract_Product_Sludge_For_Product_Sulfur",
+        "Contract_Product_Coal_For_Product_Sulfur",
+        "Contract_Product_Dirt_For_Product_ManufacturedSand",
+        "Contract_Product_CrudeOil_For_Product_FoodPack",
+        "Contract_Product_Ammonia_For_Product_FoodPack",
+        "Contract_Product_CrudeOil_For_Product_VehicleParts2",
+        "Contract_Product_CrudeOil_For_Product_Gold",
+        "Contract_Product_CrudeOil_For_Product_ConsumerElectronics",
+        "Contract_Product_FuelGas_For_Product_CompositeCore",
+        "Contract_Product_FuelGas_For_Product_Dirt",
+        "Contract_Product_FuelGas_For_Product_Rock",
+        "Contract_Product_UraniumOre_For_Product_FoodPack",
+        "Contract_Product_UraniumOre_For_Product_Gold",
+        "Contract_Product_UraniumOre_For_Product_IronOre",
+        "Contract_Product_UraniumOre_For_Product_LabEquipment4",
+        "Contract_Product_IronOre_For_Product_Server",
+        "Contract_Product_CopperOre_For_Product_MedicalSupplies3",
+        "Contract_Product_Coal_For_Product_LabEquipment3",
+        "Contract_Product_Coal_For_Product_VehicleParts3",
+        "Contract_Product_Quartz_For_Product_SolarCell",
+        "Contract_Product_Quartz_For_Product_ConsumerElectronics",
+        "Contract_Product_GoldOre_For_Product_Server",
+        "Contract_Product_TitaniumOre_For_Product_Server",
+        "Contract_Product_TitaniumOre_For_Product_ConstructionParts4",
+        "Contract_Product_Limestone_For_Product_IronOre",
+        "Contract_Product_Bauxite_For_Product_IronOre",
+        "Contract_Product_CopperOre_For_Product_IronOre",
+        "Contract_Product_IronOre_For_Product_CopperOre"
+      ],
+      "buildCosts": [],
+      "isBalancer": false,
+      "isFarm": false,
+      "electricity_consumed": 0,
+      "electricity_generated": 0,
+      "computing_consumed": 0,
+      "computing_generated": 0,
+      "storage_capacity": 0,
+      "unity_cost": 0,
+      "research_speed": 0
     }
   },
   "recipes": {
@@ -36906,6 +37150,1350 @@
       "outputs": [
         {
           "id": "Product_Virtual_ResearchPoints",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Coal_For_Product_Cement": {
+      "id": "Contract_Product_Coal_For_Product_Cement",
+      "name": "Coal for Cement",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Cement",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 5.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Coal_For_Product_HouseholdGoods": {
+      "id": "Contract_Product_Coal_For_Product_HouseholdGoods",
+      "name": "Coal for Household goods",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_HouseholdGoods",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 4
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Wood_For_Product_Rubber": {
+      "id": "Contract_Product_Wood_For_Product_Rubber",
+      "name": "Wood for Rubber",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Rubber",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wood",
+          "quantity": 0.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Wood_For_Product_HouseholdAppliances": {
+      "id": "Contract_Product_Wood_For_Product_HouseholdAppliances",
+      "name": "Wood for Household appliances",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wood",
+          "quantity": 9
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CopperOre_For_Product_LabEquipment2": {
+      "id": "Contract_Product_CopperOre_For_Product_LabEquipment2",
+      "name": "Copper ore for Lab Equipment II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 2.6666666666666665
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_ImportedGoods_For_Product_VehicleParts2": {
+      "id": "Contract_Product_ImportedGoods_For_Product_VehicleParts2",
+      "name": "Imported goods for Vehicle Parts II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ImportedGoods",
+          "quantity": 7.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_ImportedGoods_For_Product_Diamond": {
+      "id": "Contract_Product_ImportedGoods_For_Product_Diamond",
+      "name": "Imported goods for Diamond",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Diamond",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ImportedGoods",
+          "quantity": 11
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Wheat_For_Product_Fertilizer2": {
+      "id": "Contract_Product_Wheat_For_Product_Fertilizer2",
+      "name": "Wheat for Fertilizer II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Fertilizer2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wheat",
+          "quantity": 0.3333333333333333
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_SugarCane_For_Product_Fertilizer2": {
+      "id": "Contract_Product_SugarCane_For_Product_Fertilizer2",
+      "name": "Sugar cane for Fertilizer II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Fertilizer2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SugarCane",
+          "quantity": 0.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Corn_For_Product_Wood": {
+      "id": "Contract_Product_Corn_For_Product_Wood",
+      "name": "Corn for Wood",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Wood",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Corn",
+          "quantity": 3
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Corn_For_Product_Snack": {
+      "id": "Contract_Product_Corn_For_Product_Snack",
+      "name": "Corn for Snack",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Snack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Corn",
+          "quantity": 1.8
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Wheat_For_Product_Sausage": {
+      "id": "Contract_Product_Wheat_For_Product_Sausage",
+      "name": "Wheat for Sausage",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Sausage",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Wheat",
+          "quantity": 1.6
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Vegetables_For_Product_Meat": {
+      "id": "Contract_Product_Vegetables_For_Product_Meat",
+      "name": "Vegetables for Meat",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Meat",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Vegetables",
+          "quantity": 4
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_ChickenCarcass_For_Product_ConsumerElectronics": {
+      "id": "Contract_Product_ChickenCarcass_For_Product_ConsumerElectronics",
+      "name": "Chicken carcass for Consumer electronics",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_ChickenCarcass",
+          "quantity": 5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Limestone_For_Product_ConstructionParts2": {
+      "id": "Contract_Product_Limestone_For_Product_ConstructionParts2",
+      "name": "Limestone for Construction Parts II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Limestone",
+          "quantity": 10
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_IronOre_For_Product_VehicleParts2": {
+      "id": "Contract_Product_IronOre_For_Product_VehicleParts2",
+      "name": "Iron ore for Vehicle Parts II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 14
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CopperOre_For_Product_HouseholdAppliances": {
+      "id": "Contract_Product_CopperOre_For_Product_HouseholdAppliances",
+      "name": "Copper ore for Household appliances",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 6.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Waste_For_Product_Slag": {
+      "id": "Contract_Product_Waste_For_Product_Slag",
+      "name": "Waste for Slag",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Slag",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Waste",
+          "quantity": 0.6666666666666666
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_SourWater_For_Product_Slag": {
+      "id": "Contract_Product_SourWater_For_Product_Slag",
+      "name": "Sour water for Slag",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Slag",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_SourWater",
+          "quantity": 0.4
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Sludge_For_Product_Slag": {
+      "id": "Contract_Product_Sludge_For_Product_Slag",
+      "name": "Sludge for Slag",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Slag",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sludge",
+          "quantity": 0.4
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Gold_For_Product_Diesel": {
+      "id": "Contract_Product_Gold_For_Product_Diesel",
+      "name": "Gold for Diesel",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Diesel",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 0.08
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Quartz_For_Product_Coal": {
+      "id": "Contract_Product_Quartz_For_Product_Coal",
+      "name": "Quartz for Coal",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 2
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Quartz_For_Product_VehicleParts2": {
+      "id": "Contract_Product_Quartz_For_Product_VehicleParts2",
+      "name": "Quartz for Vehicle Parts II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 13
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Bauxite_For_Product_Gold": {
+      "id": "Contract_Product_Bauxite_For_Product_Gold",
+      "name": "Bauxite for Gold",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 13
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Bauxite_For_Product_HouseholdAppliances": {
+      "id": "Contract_Product_Bauxite_For_Product_HouseholdAppliances",
+      "name": "Bauxite for Household appliances",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_HouseholdAppliances",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 7.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Bauxite_For_Product_ConstructionParts4": {
+      "id": "Contract_Product_Bauxite_For_Product_ConstructionParts4",
+      "name": "Bauxite for Construction Parts IV",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 85
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Bauxite_For_Product_CompositeCore": {
+      "id": "Contract_Product_Bauxite_For_Product_CompositeCore",
+      "name": "Bauxite for Composite core",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_CompositeCore",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 55
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Limestone_For_Product_CompositeCore": {
+      "id": "Contract_Product_Limestone_For_Product_CompositeCore",
+      "name": "Limestone for Composite core",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_CompositeCore",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Limestone",
+          "quantity": 46
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Sludge_For_Product_Sulfur": {
+      "id": "Contract_Product_Sludge_For_Product_Sulfur",
+      "name": "Sludge for Sulfur",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Sulfur",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Sludge",
+          "quantity": 3
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Coal_For_Product_Sulfur": {
+      "id": "Contract_Product_Coal_For_Product_Sulfur",
+      "name": "Coal for Sulfur",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Sulfur",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Dirt_For_Product_ManufacturedSand": {
+      "id": "Contract_Product_Dirt_For_Product_ManufacturedSand",
+      "name": "Dirt for Manufactured sand",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ManufacturedSand",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Dirt",
+          "quantity": 0.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CrudeOil_For_Product_FoodPack": {
+      "id": "Contract_Product_CrudeOil_For_Product_FoodPack",
+      "name": "Crude oil for Food pack",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_FoodPack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 5.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Ammonia_For_Product_FoodPack": {
+      "id": "Contract_Product_Ammonia_For_Product_FoodPack",
+      "name": "Ammonia for Food pack",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_FoodPack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Ammonia",
+          "quantity": 6
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CrudeOil_For_Product_VehicleParts2": {
+      "id": "Contract_Product_CrudeOil_For_Product_VehicleParts2",
+      "name": "Crude oil for Vehicle Parts II",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts2",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 28
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CrudeOil_For_Product_Gold": {
+      "id": "Contract_Product_CrudeOil_For_Product_Gold",
+      "name": "Crude oil for Gold",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 19
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CrudeOil_For_Product_ConsumerElectronics": {
+      "id": "Contract_Product_CrudeOil_For_Product_ConsumerElectronics",
+      "name": "Crude oil for Consumer electronics",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CrudeOil",
+          "quantity": 37
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_FuelGas_For_Product_CompositeCore": {
+      "id": "Contract_Product_FuelGas_For_Product_CompositeCore",
+      "name": "Fuel gas for Composite core",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_CompositeCore",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FuelGas",
+          "quantity": 150
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_FuelGas_For_Product_Dirt": {
+      "id": "Contract_Product_FuelGas_For_Product_Dirt",
+      "name": "Fuel gas for Dirt",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Dirt",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FuelGas",
+          "quantity": 2
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_FuelGas_For_Product_Rock": {
+      "id": "Contract_Product_FuelGas_For_Product_Rock",
+      "name": "Fuel gas for Rock",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Rock",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_FuelGas",
+          "quantity": 0.25
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_UraniumOre_For_Product_FoodPack": {
+      "id": "Contract_Product_UraniumOre_For_Product_FoodPack",
+      "name": "Uranium ore for Food pack",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_FoodPack",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 1.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_UraniumOre_For_Product_Gold": {
+      "id": "Contract_Product_UraniumOre_For_Product_Gold",
+      "name": "Uranium ore for Gold",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Gold",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 3.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_UraniumOre_For_Product_IronOre": {
+      "id": "Contract_Product_UraniumOre_For_Product_IronOre",
+      "name": "Uranium ore for Iron ore",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_UraniumOre_For_Product_LabEquipment4": {
+      "id": "Contract_Product_UraniumOre_For_Product_LabEquipment4",
+      "name": "Uranium ore for Lab Equipment IV",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_UraniumOre",
+          "quantity": 5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_IronOre_For_Product_Server": {
+      "id": "Contract_Product_IronOre_For_Product_Server",
+      "name": "Iron ore for Server",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Server",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 92
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CopperOre_For_Product_MedicalSupplies3": {
+      "id": "Contract_Product_CopperOre_For_Product_MedicalSupplies3",
+      "name": "Copper ore for Medical Supplies III",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_MedicalSupplies3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 6.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Coal_For_Product_LabEquipment3": {
+      "id": "Contract_Product_Coal_For_Product_LabEquipment3",
+      "name": "Coal for Lab Equipment III",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_LabEquipment3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 8
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Coal_For_Product_VehicleParts3": {
+      "id": "Contract_Product_Coal_For_Product_VehicleParts3",
+      "name": "Coal for Vehicle Parts III",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_VehicleParts3",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Coal",
+          "quantity": 54
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Quartz_For_Product_SolarCell": {
+      "id": "Contract_Product_Quartz_For_Product_SolarCell",
+      "name": "Quartz for Solar cell",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_SolarCell",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 7.5
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Quartz_For_Product_ConsumerElectronics": {
+      "id": "Contract_Product_Quartz_For_Product_ConsumerElectronics",
+      "name": "Quartz for Consumer electronics",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConsumerElectronics",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Quartz",
+          "quantity": 25
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_GoldOre_For_Product_Server": {
+      "id": "Contract_Product_GoldOre_For_Product_Server",
+      "name": "Gold ore for Server",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Server",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_GoldOre",
+          "quantity": 90
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_TitaniumOre_For_Product_Server": {
+      "id": "Contract_Product_TitaniumOre_For_Product_Server",
+      "name": "Titanium ore for Server",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_Server",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumOre",
+          "quantity": 90
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_TitaniumOre_For_Product_ConstructionParts4": {
+      "id": "Contract_Product_TitaniumOre_For_Product_ConstructionParts4",
+      "name": "Titanium ore for Construction Parts IV",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_ConstructionParts4",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_TitaniumOre",
+          "quantity": 76
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Limestone_For_Product_IronOre": {
+      "id": "Contract_Product_Limestone_For_Product_IronOre",
+      "name": "Limestone for Iron ore",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Limestone",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_Bauxite_For_Product_IronOre": {
+      "id": "Contract_Product_Bauxite_For_Product_IronOre",
+      "name": "Bauxite for Iron ore",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_Bauxite",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_CopperOre_For_Product_IronOre": {
+      "id": "Contract_Product_CopperOre_For_Product_IronOre",
+      "name": "Copper ore for Iron ore",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_IronOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 1
+        }
+      ],
+      "isMaintenance": false,
+      "isMaintenanceProducer": false,
+      "isFarm": false,
+      "usesSolarPower": false
+    },
+    "Contract_Product_IronOre_For_Product_CopperOre": {
+      "id": "Contract_Product_IronOre_For_Product_CopperOre",
+      "name": "Iron ore for Copper ore",
+      "duration": 60,
+      "origDuration": 60,
+      "type": "contract",
+      "machine": "Contract",
+      "inputs": [
+        {
+          "id": "Product_CopperOre",
+          "quantity": 1
+        }
+      ],
+      "outputs": [
+        {
+          "id": "Product_IronOre",
           "quantity": 1
         }
       ],

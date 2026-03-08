@@ -2,6 +2,7 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 import { ArrowsRightLeftIcon } from '@heroicons/react/24/solid';
 import { Position } from '@xyflow/react';
 import type { HTMLAttributes } from 'react';
+import HelpLink from '~/components/HelpLink';
 import { type ZoneModifiers } from '~/context/zoneModifiers';
 import { calculateComputingNet, calculateElectricityNet } from '~/factory/infrastructure/calculations';
 import { formatNumber, formatSignedInfra, machineIcon, maintenanceIcon, maintenanceName, productBackground, uiIcon } from '~/uiUtils';
@@ -83,6 +84,7 @@ export default function RecipeNodeView({
         </div>
         <div className="flex-10 text-center text-xl flex items-center justify-center gap-2">
           <span>{recipe.machine.name}</span>
+          {recipe.type === 'contract' && <HelpLink topic="contracts" title="Learn about Contracts" iconSize="w-5 h-5" />}
         </div>
         <div className="flex-1 justify-end-safe text-right ">
           <button
@@ -126,7 +128,7 @@ export default function RecipeNodeView({
             className="inline-block w-20 min-w-8 p-1 pointer-events-none
         bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
         " data-flipped={ltr == false || null} />
-          <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>
+          {recipe.type !== 'contract' && <div className="w-full my-1 text-2xl">{formatNumber(runCount, "", runCount < 10 ? 3 : 1)}</div>}
           {hasRecyclingOutputs && setOptions && (
             <button
               title={recyclingEnabled ? 'Disable recycling breakdown' : 'Enable recycling breakdown'}
@@ -171,7 +173,7 @@ export default function RecipeNodeView({
         </HandleList>
       </div>
 
-      <div className="recipe-node-infra-bar flex justify-start align-start gap-2 border-white/20 pt-4 mb-1 pb-0 border-t-2">
+      <div className="recipe-node-infra-bar mt-2 flex justify-start align-start gap-2 border-white/20 pt-4 mb-1 pb-0 border-t-2">
         <InfrastructureIcon name="Electricity" icon={uiIcon("Electricity")}
           net={calculateElectricityNet(recipe.machine, runCount).net}
           unit="kW" />

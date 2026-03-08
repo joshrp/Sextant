@@ -37,7 +37,7 @@ export const helpCategories: HelpCategory[] = [
   },
   {
     id: 'advanced',
-    title: 'Advanced Topics',
+    title: 'Advanced',
     description: 'Deep dives into specific features',
     order: 2,
   },
@@ -72,7 +72,7 @@ export const helpTopics: HelpTopic[] = [
     title: 'Manifolds',
     description: 'Understanding manifolds and how to use them',
     contentKey: 'manifolds',
-    category: 'reference',
+    category: 'advanced',
     order: 2,
   },
   {
@@ -88,7 +88,7 @@ export const helpTopics: HelpTopic[] = [
     title: 'Balancers',
     description: 'Using balancers for imports, exports, and resource management',
     contentKey: 'balancer',
-    category: 'reference',
+    category: 'advanced',
     order: 3,
   },
   {
@@ -122,6 +122,14 @@ export const helpTopics: HelpTopic[] = [
     contentKey: 'your-data',
     category: 'reference',
     order: 5,
+  },
+  {
+    id: 'contracts',
+    title: 'Contracts',
+    description: 'Trading resources with the outside world via contracts',
+    contentKey: 'contracts',
+    category: 'advanced',
+    order: 6,
   },
 ];
 

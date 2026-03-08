@@ -86,6 +86,18 @@ type RawMachine = {
   footprint?: [number, number]; // [width, height] in game tiles
 };
 
+type RawContract = {
+  id: string;
+  product_to_buy_name: string;
+  product_to_buy_quantity: number;
+  product_to_pay_with_name: string;
+  product_to_pay_with_quantity: number;
+  unity_per_month: number;
+  unity_per_100_bought: number;
+  unity_to_establish: number;
+  min_reputation_required: number;
+};
+
 type SerializedData = {
   products: Map<ProductId, ProductSerialized>;
   machines: Map<MachineId, MachineSerialized>;
@@ -107,8 +119,11 @@ export async function reformatRawData(): Promise<void> {
 export async function getDataFromRaw(rawPath = "./data/raw"): Promise<SerializedData> {
   const machinesAndBuildings = readFileSync(path.join(rawPath, "machines_and_buildings.json"), { encoding: "utf-8" });
   const products = readFileSync(path.join(rawPath, "products.json"), { encoding: "utf-8" });
+  const contractsFile = readFileSync(path.join(rawPath, "contracts.json"), { encoding: "utf-8" });
   const productData = await formatProductData(JSON.parse(products).products as RawProduct[]);
   const machineData = await initialMachineAndRecipeData(JSON.parse(machinesAndBuildings).machines_and_buildings, productData);
+  const contracts = JSON.parse(contractsFile).contracts as RawContract[];
+  addContractRecipes(contracts, machineData.products, machineData.machines, machineData.recipes);
 
   return {
     products: machineData.products,
@@ -711,6 +726,95 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
     recipes: recipeData,
     products: productsById,
   };
+}
+
+/**
+ * Add contract recipes to the game data.
+ * Contracts are simple buy/sell trades: you pay with one product and receive another.
+ * Scaled to 1 input item per 60s, with output quantity = buy_qty / pay_qty.
+ */
+function addContractRecipes(
+  contracts: RawContract[],
+  productsById: Map<ProductId, ProductSerialized>,
+  machineData: Map<MachineId, MachineSerialized>,
+  recipeData: Map<RecipeId, RecipeSerialized>,
+) {
+  // Create a name→product lookup from productsById (which is keyed by ID)
+  const productsByName = new Map<string, ProductSerialized>();
+  for (const product of productsById.values()) {
+    productsByName.set(product.name, product);
+  }
+
+  // Create a single "Contract" machine to hold all contract recipes
+  const contractMachineId = "Contract" as MachineId;
+  const contractMachine: MachineSerialized = {
+    id: contractMachineId,
+    name: "Contract",
+    category_id: "Contract" as Machine["category_id"],
+    workers: 0,
+    workers_generated: 0,
+    recipes: [],
+    buildCosts: [],
+    isBalancer: false,
+    isFarm: false,
+    electricity_consumed: 0,
+    electricity_generated: 0,
+    computing_consumed: 0,
+    computing_generated: 0,
+    storage_capacity: 0,
+    unity_cost: 0,
+    research_speed: 0,
+  };
+  machineData.set(contractMachineId, contractMachine);
+
+  for (const contract of contracts) {
+    const payProduct = productsByName.get(contract.product_to_pay_with_name);
+    const buyProduct = productsByName.get(contract.product_to_buy_name);
+
+    if (!payProduct) {
+      console.warn(`Contract ${contract.id}: pay product "${contract.product_to_pay_with_name}" not found, skipping.`);
+      continue;
+    }
+    if (!buyProduct) {
+      console.warn(`Contract ${contract.id}: buy product "${contract.product_to_buy_name}" not found, skipping.`);
+      continue;
+    }
+
+    const recipeId = contract.id as RecipeId;
+
+    // Scale to 1 input per 60s: output = buy_qty / pay_qty
+    const outputQuantity = contract.product_to_buy_quantity / contract.product_to_pay_with_quantity;
+
+    const recipe: RecipeSerialized = {
+      id: recipeId,
+      name: `${buyProduct.name} for ${payProduct.name}`,
+      duration: 60,
+      origDuration: 60,
+      type: "contract",
+      machine: contractMachineId,
+      inputs: [{ id: payProduct.id, quantity: 1 }],
+      outputs: [{ id: buyProduct.id, quantity: outputQuantity }],
+      isMaintenance: false,
+      isMaintenanceProducer: false,
+      isFarm: false,
+      usesSolarPower: false,
+    };
+
+    recipeData.set(recipeId, recipe);
+    contractMachine.recipes.push(recipeId);
+
+    // Link products to this recipe and machine
+    payProduct.recipes.input.push(recipeId);
+    buyProduct.recipes.output.push(recipeId);
+    if (!payProduct.machines.input.includes(contractMachineId)) {
+      payProduct.machines.input.push(contractMachineId);
+    }
+    if (!buyProduct.machines.output.includes(contractMachineId)) {
+      buyProduct.machines.output.push(contractMachineId);
+    }
+  }
+
+  console.log(`Added ${contractMachine.recipes.length} contract recipes.`);
 }
 
 /**

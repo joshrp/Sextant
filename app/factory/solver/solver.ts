@@ -325,7 +325,7 @@ export default class Solver {
     if (node.type === "settlement") {
       const Calculator = SettlementCalculator(recipe, node.options, 1, this.zoneModifiers);
       qty = isInput ? Calculator.productInput(productId) : Calculator.productOutput(productId);
-    } else if (node.type === "recipe") {
+    } else if (node.type === "recipe" || node.type === "contract") {
       const Calculator = RecipeNodeCalculator(recipe, node.options, 1, this.zoneModifiers);
       qty = isInput ? Calculator.productInput(productId) : Calculator.productOutput(productId);
     }

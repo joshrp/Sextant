@@ -180,7 +180,7 @@ export async function solutionUpdateAction<T extends SolutionUpdateStateInputs>(
 
   resp.solution = result.solution;
   resp.solutionStatus = status;
-
+  console.log('Got solver status:', resp.solutionStatus, 'with manifolds:', manifoldOptions.length, 'and solution value:', resp.solution?.ObjectiveValue);
   if (result.manifolds) {
     resp.manifoldOptions = result.manifolds;
   }

@@ -5,6 +5,7 @@ import { loadData, type ProductId, type Recipe, type RecipeId } from "./graph/lo
 import { getRecipesByProduct } from "~/gameData/utils";
 import { prepareRecipesForSearch, searchRecipes, groupRecipesByTier, createMatchedTermsMap } from "./recipeSearch";
 import HelpLink from "~/components/HelpLink";
+import { useProductionZoneStore } from '~/context/ZoneContext';
 
 const { products } = loadData();
 
@@ -19,6 +20,7 @@ export default function RecipePicker({
 }) {
   const [tiersOpen, setTiersOpen] = useState<{ [key: string]: boolean }>({});
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const contractProfitability = useProductionZoneStore(state => state.modifiers.contractProfitability);
 
   const product = products.get(productId);
   if (!product) {
@@ -106,14 +108,16 @@ export default function RecipePicker({
             maxInputCells={maxInputCells} maxOutputCells={maxOutputCells}
             selectRecipe={selectRecipe} setOpen={setOpen}
             matchedTerms={matchedTermsMap.get(parentMatch.recipe.id)} hasActiveSearch={hasActiveSearch}
-            isParent={true} isOpen={isOpen} groupCount={recipeGroup.length} />
+            isParent={true} isOpen={isOpen} groupCount={recipeGroup.length}
+            contractProfitability={contractProfitability} />
 
           {isOpen && recipeGroup.slice(1).map(match => (
             <RecipeRow key={match.recipe.id} recipe={match.recipe}
               maxInputCells={maxInputCells} maxOutputCells={maxOutputCells}
               selectRecipe={selectRecipe} setOpen={setOpen}
               matchedTerms={matchedTermsMap.get(match.recipe.id)} hasActiveSearch={hasActiveSearch}
-              isParent={false} groupCount={recipeGroup.length} />
+              isParent={false} groupCount={recipeGroup.length}
+              contractProfitability={contractProfitability} />
           ))}
         </>);
       })}
@@ -130,14 +134,16 @@ export default function RecipePicker({
               maxInputCells={maxInputCells} maxOutputCells={maxOutputCells}
               selectRecipe={selectRecipe} setOpen={setOpen}
               matchedTerms={undefined} hasActiveSearch={hasActiveSearch}
-              isParent={true} isOpen={isOpen} groupCount={recipeGroup.length} />
+              isParent={true} isOpen={isOpen} groupCount={recipeGroup.length}
+              contractProfitability={contractProfitability} />
 
             {isOpen && recipeGroup.slice(1).map(match => (
               <RecipeRow key={match.recipe.id} recipe={match.recipe}
                 maxInputCells={maxInputCells} maxOutputCells={maxOutputCells}
                 selectRecipe={selectRecipe} setOpen={setOpen}
                 matchedTerms={undefined} hasActiveSearch={hasActiveSearch}
-                isParent={false} groupCount={recipeGroup.length} />
+                isParent={false} groupCount={recipeGroup.length}
+                contractProfitability={contractProfitability} />
             ))}
           </>);
         })}
@@ -155,11 +161,12 @@ type RecipeRowProps = {
   groupCount: number,
   matchedTerms?: Set<string>;
   hasActiveSearch: boolean;
+  contractProfitability: number;
   setOpen: (linkId: string, isOpen: boolean) => void;
   selectRecipe: (recipeId: RecipeId, isBalancer: boolean) => void;
 };
 
-function RecipeRow({ recipe, maxInputCells, maxOutputCells, selectRecipe, groupCount, isOpen, isParent, setOpen, matchedTerms, hasActiveSearch }: RecipeRowProps) {
+function RecipeRow({ recipe, maxInputCells, maxOutputCells, selectRecipe, groupCount, isOpen, isParent, setOpen, matchedTerms, hasActiveSearch, contractProfitability }: RecipeRowProps) {
   const outputCells = Math.max((recipe.outputs.length * 2) - 1, 0);
   const inputCells = Math.max((recipe.inputs.length * 2) - 1, 0);
   const prefixInputCells = Array(maxInputCells - inputCells).fill(<td />);
@@ -184,6 +191,7 @@ function RecipeRow({ recipe, maxInputCells, maxOutputCells, selectRecipe, groupC
   // append the outputs with empty divs to fill the grid
   const outputs = recipe.outputs.map((output, index) => {
     const matched = isMatch(output.product.name);
+    const outputQty = recipe.type === 'contract' ? output.quantity * contractProfitability : output.quantity;
     return (<>
       {index !== 0 && <td className="w-6"><PlusIcon /></td>}
 
@@ -196,7 +204,7 @@ function RecipeRow({ recipe, maxInputCells, maxOutputCells, selectRecipe, groupC
         </span>
         <img src={productIcon(output.product.icon)} alt={output.product.name}
           className="block mx-auto mb-2 max-w-10 group-data-optional:border-2 border-dashed border-gray-500 transition-opacity data-[matched=false]:opacity-30" data-matched={matched} />
-        {formatNumber(output.quantity, output.product.unit)}
+        {formatNumber(outputQty, output.product.unit)}
       </td>
     </>);
   }).concat(suffixOutputCells);

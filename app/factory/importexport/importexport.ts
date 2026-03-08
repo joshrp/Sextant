@@ -70,9 +70,10 @@ const DataTypes = {
   "recipe": "r",
   "balancer": "b",
   "settlement": "s",
+  "contract": "c",
   get: function (id?: string): string { return this[(id ?? "recipe") as keyof typeof DataTypes] as string || "r" },
-  find: function (val: string | undefined): "recipe" | "balancer" | "settlement" {
-    const found = Object.entries(this).find(([, v]) => v === val)?.[0] as "recipe" | "balancer" | "settlement" | undefined;
+  find: function (val: string | undefined): "recipe" | "balancer" | "settlement" | "contract" {
+    const found = Object.entries(this).find(([, v]) => v === val)?.[0] as "recipe" | "balancer" | "settlement" | "contract" | undefined;
     return found ?? "recipe";
   }
 }

@@ -85,6 +85,21 @@ describe("Import Export", () => {
         expect(settlementNode.data.options!.outputs["Product_WasteWater" as ProductId]).toBe(true);
       }
     });
+
+    test('parse version 5 with contract node correctly set', async () => {
+      setDebugSolver(false);
+      const exportStr = testExports['version-5']['contracts'];
+      const decompressed = await imex.decompress(exportStr) as imex.MinifiedStateV5;
+      const data = imex.unminifyBulk(decompressed);
+      const idb = getIdb();
+      const store = FactoryStore(idb, {id: "test-contract", name: "Test Contract Factory" }, () => DEFAULT_ZONE_MODIFIERS);
+      
+      await (store.Graph.getState().importData(data.factories[0]));
+
+      const contractNode = store.Graph.getState().nodes.find(n => n.type === "recipe-node" && n.data.type === "contract");
+      console.log("Contract Node:", store.Graph.getState().nodes); // --- IGNORE ---
+      expect(contractNode).toBeDefined();
+    });
   });
 
   describe('Icon Export/Import', () => {

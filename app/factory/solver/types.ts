@@ -27,7 +27,12 @@ export type NodeConnectionSettlement = NodeConnectionBase & {
   options: SettlementNodeData["options"];
 };
 
-export type NodeConnection = NodeConnectionRecipe | NodeConnectionBalancer | NodeConnectionSettlement;
+export type NodeConnectionContract = NodeConnectionBase & {
+  type: "contract";
+  options: undefined;
+};
+
+export type NodeConnection = NodeConnectionContract | NodeConnectionRecipe | NodeConnectionBalancer | NodeConnectionSettlement;
 
 export type EqualityTypes = "eq" | "gt" | "lt";
 

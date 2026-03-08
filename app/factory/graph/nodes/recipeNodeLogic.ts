@@ -22,7 +22,7 @@ export type HandleDropAlignment = {
 export type NodeBaseData = {
   ltr?: boolean; // Left to right layout
   // Type of the node, rendering and calculations may differ based on type. Default is "recipe".
-  type?: "recipe" | "settlement" | "balancer";
+  type?: "recipe" | "settlement" | "balancer" | "contract";
   alignToDrop?: HandleDropAlignment;
   solution?: {
     solved: true,
@@ -58,10 +58,16 @@ export type SettlementNodeData = NodeBaseData & {
   }
 };
 
-export type NodeDataTypes = RecipeNodeData | BalancerNodeData | SettlementNodeData;
+export type ContractNodeData = NodeBaseData & {
+  type: "contract";
+  recipeId: RecipeId; // Unique identifier for the contract recipe
+  options?: undefined;
+};
+
+export type NodeDataTypes = RecipeNodeData | BalancerNodeData | SettlementNodeData | ContractNodeData;
 
 /**
- * React Flow node type for recipe/balancer/settlement nodes.
+ * React Flow node type for recipe/balancer/settlement/contract nodes.
  * Lives here (not in RecipeNode.tsx) so it can be imported by non-component code.
  */
 export type RecipeNodeType = Node<NodeDataTypes>;
@@ -220,7 +226,7 @@ export type RecipeNodeOptions = RecipeNodeData['options'];
 
 export const RecipeNodeCalculator = (
   recipe: Recipe,
-  nodeOptions: RecipeNodeOptions,
+  nodeOptions: RecipeNodeOptions | undefined,
   runCount: number,
   modifiers: ZoneModifiers
 ) => {
@@ -243,6 +249,7 @@ export const RecipeNodeCalculator = (
       if (recipe.isMaintenanceProducer) qty *= modifiers.maintenanceOutput;
       if (recipe.isFarm) qty *= modifiers.farmYield;
       if (recipe.usesSolarPower) qty *= modifiers.solarOutput;
+      if (recipe.type === 'contract') qty *= modifiers.contractProfitability;
       return qty * runCount;
     },
   };

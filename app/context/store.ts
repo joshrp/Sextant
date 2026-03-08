@@ -255,7 +255,6 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
           },
           graphUpdateAction: async () => {
             try {
-              console.log('Using zone modifiers', getZoneModifiers());
               set({
                 graph: createGraphModel(get().nodes, get().edges, getZoneModifiers()),
               }, false, "graphUpdateAction");
@@ -395,6 +394,11 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
                   type: "balancer",
                   recipeId: n.data.recipeId,
                   ltr: n.data.ltr,
+                };
+              } else if (nodeType === "contract") {
+                nodeData = {
+                  type: "contract",
+                  recipeId: n.data.recipeId,
                 };
               } else {
                 nodeData = {
@@ -561,7 +565,7 @@ export type GraphImportRecipeNode = {
   type: "recipe-node";
   position: { x: number; y: number; };
   data: {
-    type?: "recipe" | "balancer" | "settlement";
+    type?: "recipe" | "balancer" | "settlement" | "contract";
     recipeId: RecipeId;
     ltr?: boolean;
     options?: {

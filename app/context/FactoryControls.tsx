@@ -116,9 +116,10 @@ export default function FactoryControls({
     }
   }];
 
-  const showScore = (solutionStatus == "Solved" || solutionStatus == "Partial") && solution;
-
-  const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
+  const isSolved = solutionStatus == "Solved";
+  const isPartial = solutionStatus == "Partial";
+  const showScore = (isSolved || isPartial) && solution;
+  // const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
   const isEmpty = useFactoryStore(state => state.nodes.length === 0 && state.goals.length === 0);
   return (<div className="factoryControls px-2 flex justify-stretch w-full">
     <button
@@ -135,8 +136,10 @@ export default function FactoryControls({
           data-solved={solutionStatus == "Solved" || null}
           data-blocked={["Infeasible", "Error"].includes(solutionStatus ?? '') || null}
           data-running={solutionStatus == "Running" || null}
+          data-partial={solutionStatus == "Partial" || null}
           className="pl-12 text-bold text-md text-center h-full
         border-zinc-400 border-2 rounded  content-center-safe
+        data-partial:border-amber-500 data-partial:bg-amber-900/10
         data-running:border-blue-500
         data-solved:border-green-700 data-blocked:bg-red-700
         ">

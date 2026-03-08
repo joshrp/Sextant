@@ -14,6 +14,7 @@ import * as ManifoldsContent from './content/manifolds.mdx';
 import * as SettlementsContent from './content/settlements.mdx';
 import * as ImportExportContent from './content/import-export.mdx';
 import * as YourDataContent from './content/your-data.mdx';
+import * as ContractsContent from './content/contracts.mdx';
 
 
 // Map topic IDs to their content components
@@ -29,6 +30,7 @@ export const contentMap = {
   settlements: SettlementsContent.default,
   'import-export': ImportExportContent.default,
   'your-data': YourDataContent.default,
+  contracts: ContractsContent.default,
 } as const;
 
 /**

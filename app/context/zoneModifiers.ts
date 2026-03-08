@@ -16,7 +16,7 @@ export interface ZoneModifiers {
   householdAppliances: number;    // multiplier, default 1.0
   consumerElectronics: number;    // multiplier, default 1.0
   solarOutput: number;            // multiplier, default 1.0
-  contractProfitability: number;  // multiplier, default 1.0 (reserved, not yet used in calculations)
+  contractProfitability: number;  // multiplier, default 1.0, scales contract output quantities
 }
 
 export const DEFAULT_ZONE_MODIFIERS: ZoneModifiers = {
@@ -157,7 +157,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
   },
   contractProfitability: {
     label: 'Contract Profitability',
-    tooltip: 'Not yet applied to calculations. Set this to model changes to contracts contract profitability in your game.',
+    tooltip: 'Scales contract output quantities. Increase to model higher trade profitability from edicts/research.',
     unbounded: true,
     step: 0.05,
     default: 1.0,
