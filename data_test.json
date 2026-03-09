@@ -15795,23 +15795,23 @@
       "name": "Vehicle parts assembly (T5)",
       "tiersLink": "b57f31899c845601b8b134d1419dab8acaa739a78cd2d2e855bd83542d0484f0",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_MechanicalParts",
-          "quantity": 102.85714285714286
+          "quantity": 96
         },
         {
           "id": "Product_Electronics",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "outputs": [
         {
           "id": "Product_VehicleParts",
-          "quantity": 68.57142857142857
+          "quantity": 64
         }
       ],
       "isMaintenance": false,
@@ -15824,27 +15824,27 @@
       "name": "Vehicle parts 2 assembly (T3)",
       "tiersLink": "a19e0be21a1fca6ef6954079bebf96aa7e46542b1e4ca012ffa4e28e984446d3",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_VehicleParts",
-          "quantity": 34.285714285714285
+          "quantity": 32
         },
         {
           "id": "Product_Steel",
-          "quantity": 17.142857142857142
+          "quantity": 16
         },
         {
           "id": "Product_Glass",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_VehicleParts2",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "isMaintenance": false,
@@ -15857,23 +15857,23 @@
       "name": "Vehicle parts 3 assembly (T3)",
       "tiersLink": "e7e98a383707c360b5403cde9e772140abd9afb297420489cd7356a54ce13164",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_VehicleParts2",
-          "quantity": 34.285714285714285
+          "quantity": 32
         },
         {
           "id": "Product_Electronics2",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_VehicleParts3",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "isMaintenance": false,
@@ -15886,23 +15886,23 @@
       "name": "Lab equipment 1 assembly (T4)",
       "tiersLink": "7d9aa9329f2a03e6ed816553039b6eceed7e3155ca47732133564e945e0a512a",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_MechanicalParts",
-          "quantity": 68.57142857142857
+          "quantity": 64
         },
         {
           "id": "Product_Electronics",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "outputs": [
         {
           "id": "Product_LabEquipment",
-          "quantity": 102.85714285714286
+          "quantity": 96
         }
       ],
       "isMaintenance": false,
@@ -15915,27 +15915,27 @@
       "name": "Lab equipment 2 assembly (T2)",
       "tiersLink": "98eac6858b0eaf5a8db01cf6e844bcbe4d8c792ea8144bed152e296afaf292cd",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_LabEquipment",
-          "quantity": 51.42857142857143
+          "quantity": 48
         },
         {
           "id": "Product_Paper",
-          "quantity": 17.142857142857142
+          "quantity": 16
         },
         {
           "id": "Product_Glass",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "outputs": [
         {
           "id": "Product_LabEquipment2",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "isMaintenance": false,
@@ -15948,23 +15948,23 @@
       "name": "Lab equipment 3 assembly (T2)",
       "tiersLink": "eda4270e6b295ec254181d22ea2d14bb68bc34998e33cf87954cffd2793c77d6",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_LabEquipment2",
-          "quantity": 51.42857142857143
+          "quantity": 48
         },
         {
           "id": "Product_Electronics2",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_LabEquipment3",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "isMaintenance": false,
@@ -16035,27 +16035,27 @@
       "name": "Household goods assembly (T4)",
       "tiersLink": "1a91b3f5f50b1d500f6a8ef3a4f492b85e645b1d0def9e4fe0ededd4c7bfec34",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Glass",
-          "quantity": 34.285714285714285
+          "quantity": 32
         },
         {
           "id": "Product_Steel",
-          "quantity": 17.142857142857142
+          "quantity": 16
         },
         {
           "id": "Product_Wood",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "outputs": [
         {
           "id": "Product_HouseholdGoods",
-          "quantity": 68.57142857142857
+          "quantity": 64
         }
       ],
       "isMaintenance": false,
@@ -16561,23 +16561,23 @@
       "name": "Food pack assembly (meat)",
       "tiersLink": "b111e3e9cc938c56ead49bda06d0a641fcbcdb7b09f223672fa367d56981ade6",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Meat",
-          "quantity": 25.714285714285715
+          "quantity": 24
         },
         {
           "id": "Product_Bread",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "outputs": [
         {
           "id": "Product_FoodPack",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "isMaintenance": false,
@@ -16590,23 +16590,23 @@
       "name": "Food pack assembly (eggs)",
       "tiersLink": "59a659df876d6bd85e6bb37ae7618277f85797ba8331d99fa1a9689cadbf3e45",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Eggs",
-          "quantity": 25.714285714285715
+          "quantity": 24
         },
         {
           "id": "Product_Bread",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "outputs": [
         {
           "id": "Product_FoodPack",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "isMaintenance": false,
@@ -16619,23 +16619,23 @@
       "name": "Food pack assembly (tofu)",
       "tiersLink": "eb036c5f3ab2559043e4b88908d00ebc8e94268e4e81f025f1cb7c10280ee01e",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Tofu",
-          "quantity": 51.42857142857143
+          "quantity": 48
         },
         {
           "id": "Product_Vegetables",
-          "quantity": 68.57142857142857
+          "quantity": 64
         }
       ],
       "outputs": [
         {
           "id": "Product_FoodPack",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "isMaintenance": false,
@@ -16648,27 +16648,27 @@
       "name": "Office supplies assembly",
       "tiersLink": "e4a8df025539243cde0f3039f6db46edaeb21290dc457244c807cad528ca92e3",
       "machine": "AssemblyRoboticT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Paper",
-          "quantity": 25.714285714285715
+          "quantity": 24
         },
         {
           "id": "Product_HouseholdGoods",
-          "quantity": 17.142857142857142
+          "quantity": 16
         },
         {
           "id": "Product_Electronics2",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_OfficeSupplies",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "isMaintenance": false,
@@ -17176,23 +17176,23 @@
       "name": "Vehicle parts assembly (T4)",
       "tiersLink": "b57f31899c845601b8b134d1419dab8acaa739a78cd2d2e855bd83542d0484f0",
       "machine": "AssemblyRoboticT1",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_MechanicalParts",
-          "quantity": 51.42857142857143
+          "quantity": 48
         },
         {
           "id": "Product_Electronics",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "outputs": [
         {
           "id": "Product_VehicleParts",
-          "quantity": 34.285714285714285
+          "quantity": 32
         }
       ],
       "isMaintenance": false,
@@ -17267,23 +17267,23 @@
       "name": "Lab equipment 1 assembly (T3)",
       "tiersLink": "7d9aa9329f2a03e6ed816553039b6eceed7e3155ca47732133564e945e0a512a",
       "machine": "AssemblyRoboticT1",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_MechanicalParts",
-          "quantity": 34.285714285714285
+          "quantity": 32
         },
         {
           "id": "Product_Electronics",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "outputs": [
         {
           "id": "Product_LabEquipment",
-          "quantity": 51.42857142857143
+          "quantity": 48
         }
       ],
       "isMaintenance": false,
@@ -18329,23 +18329,23 @@
       "name": "Vehicle parts assembly (T3)",
       "tiersLink": "b57f31899c845601b8b134d1419dab8acaa739a78cd2d2e855bd83542d0484f0",
       "machine": "AssemblyElectrifiedT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_MechanicalParts",
-          "quantity": 25.714285714285715
+          "quantity": 24
         },
         {
           "id": "Product_Electronics",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_VehicleParts",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "isMaintenance": false,
@@ -20990,23 +20990,23 @@
       "name": "Water electrolysis",
       "tiersLink": "7d939d18d8d8fdcf84860e285271f3ae2892eeaa438b987418d143e44efe0704",
       "machine": "ElectrolyzerT2",
-      "origDuration": 7,
+      "origDuration": 7.5,
       "type": "recipe",
       "duration": 60,
       "inputs": [
         {
           "id": "Product_Water",
-          "quantity": 8.571428571428571
+          "quantity": 8
         }
       ],
       "outputs": [
         {
           "id": "Product_Oxygen",
-          "quantity": 34.285714285714285
+          "quantity": 32
         },
         {
           "id": "Product_Hydrogen",
-          "quantity": 17.142857142857142
+          "quantity": 16
         }
       ],
       "isMaintenance": false,
