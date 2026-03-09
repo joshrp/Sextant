@@ -91,8 +91,6 @@ export default function ButtonEdge({
   });
 
   if (getSmartEdgeResponse instanceof Error) {
-    console.error('Error finding Smart Edge Path for', id, getSmartEdgeResponse);
-
     const bezier = getSimpleBezierPath({
       sourceX,
       sourceY,
