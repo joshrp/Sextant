@@ -2,7 +2,7 @@
 
 A production planning calculator for [Captain of Industry](https://www.captain-of-industry.com/). Build factory graphs, define production goals, and let a linear programming solver tell you exactly how many machines you need.
 
-**[https://joshrp.github.io/Sextant/](https://joshrp.github.io/Sextant/)**
+**[https://joshrp.github.io/sextant/](https://joshrp.github.io/sextant/)**
 
 ![Sextant UI](https://github.com/joshrp/sextant/blob/main/public/assets/help/sextant-ui.png?raw=true)
 
