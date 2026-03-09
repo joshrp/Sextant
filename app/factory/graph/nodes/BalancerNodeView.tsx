@@ -52,6 +52,7 @@ export default function BalancerNodeView({
   // If only outputs are connected, it's importer. If only inputs are connected, it's exporter.
   const allInputsConnected = recipe.inputs.every(input => inputEdges.get(input.product.id));
   const allOutputsConnected = recipe.outputs.every(output => outputEdges.get(output.product.id));
+  const allConnected = allInputsConnected && allOutputsConnected;
   if (allInputsConnected && !allOutputsConnected) {
     BalancerTitle = "Exporter";
   } else if (!allInputsConnected && allOutputsConnected) {
@@ -116,6 +117,9 @@ export default function BalancerNodeView({
             className="inline-block w-20 min-w-8 p-1 pointer-events-none
                   bg-gray-400/10 shadow-md/20 rounded-lg data-flipped:scale-x-[-1]
                   " data-flipped={ltr == false || null} />
+          {allConnected && <div className='flex-1 mt-2'>
+            {rightProducts[0].quantity * displayRunCount}
+          </div>}
         </div>
         <HandleList
           pos={Position.Right}

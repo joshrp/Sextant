@@ -234,7 +234,13 @@ const Store = (idb: IDB, { id, name }: GraphStoreProps, getZoneModifiers: GetZon
               }
             }
 
-            if (changes.filter(change => change.type === "remove").length > 0) {
+            const removedEdges = changes.filter(change => change.type === "remove");
+            if (removedEdges.length > 0) {
+              // Clear highlight if the highlighted edge was removed
+              const currentHighlight = get().highlight;
+              if (currentHighlight.mode === "edge" && removedEdges.some(change => change.id === currentHighlight.edgeId)) {
+                get().setHighlight({ mode: "none" });
+              }
               get().graphUpdateAction();
             }
           },
