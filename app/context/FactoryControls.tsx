@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ArrowPathRoundedSquareIcon, MinusCircleIcon } from "@heroicons/react/24/outline";
-import { ArrowsPointingOutIcon, CheckCircleIcon, ChevronDownIcon, Cog8ToothIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
+import { ArrowsPointingOutIcon, CheckCircleIcon, ChevronDownIcon, Cog8ToothIcon, ExclamationTriangleIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 
 import React from "react";
 import { Link } from "react-router";
@@ -120,7 +120,7 @@ export default function FactoryControls({
   const isSolved = solutionStatus == "Solved";
   const isPartial = solutionStatus == "Partial";
   const showScore = (isSolved || isPartial) && solution;
-  // const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
+  const hasInputGoal = useFactoryStore(state => state.goals.some(g => g.qty < 0 && g.type != "gt"));
   const isEmpty = useFactoryStore(state => state.nodes.length === 0 && state.goals.length === 0);
   return (<div className="factoryControls px-2 flex justify-stretch w-full">
     <button
@@ -148,11 +148,14 @@ export default function FactoryControls({
             <span className="font-bold">Unsolvable</span>
           </>) : (solutionStatus == "Running") ? (<>
             <span className="font-bold">Solving...</span>
-          </>) : (solutionStatus == "Error") ? (<>
-            <span className="font-bold">Solver Error</span>
+          </>) : (solutionStatus == "Unbounded" && scoringMethod == 'outputs') ? (<>
+            <span className="font-bold"><ExclamationTriangleIcon className="w-6 mx-1 inline text-amber-500" title="Infinite loop found, not enough input constraints" /> Unbounded</span>
           </>) : showScore ? (<>
+            {isPartial && <ExclamationTriangleIcon className="w-6 mx-1 inline text-amber-500" title="Auto Solver has freed a manifold, see below" />}
             <span className="font-bold">Score: </span>
             <span className="">{formatNumber(solution.ObjectiveValue, "")}</span>
+          </>) : (solutionStatus == "Error") ? (<>
+            <span className="font-bold">Error</span>
           </>) : (<>
             <span className="font-bold">No Solution</span>
           </>)}
@@ -169,7 +172,7 @@ export default function FactoryControls({
         <MenuItem key="inputs" as="div"
           onClick={() => (scoringMethod != "inputs" ? setScoreMethod("inputs") : null)}
 
-          className="flex flex-row p-1 pb-2 pr-2  gap-2 w-full text-left border-b-1 border-gray-500 border-dotted cursor-pointer data-focus:bg-blue-900">
+          className="flex flex-row p-1 pb-2 pr-2  gap-2 w-full text-left border-b border-gray-500 border-dotted cursor-pointer data-focus:bg-blue-900">
           <div className="w-6 content-center">
             <span className="font-bold">
               {scoringMethod == "inputs" ? <CheckCircleIcon className="fill-green-600 w-5 inline-block" /> : <MinusCircleIcon className="w-5 inline-block" />}
@@ -246,7 +249,7 @@ export default function FactoryControls({
           </div>
         </MenuItem>
         <MenuItem key="divider" as="div" className="border-b-2 border-gray-500 my-1" />
-        {/* <MenuItem key="outputs" as="div"
+        <MenuItem key="outputs" as="div"
           onClick={() => (scoringMethod != "outputs" ? setScoreMethod("outputs") : null)}
           data-disabled={hasInputGoal == false || null} data-enabled={hasInputGoal == true || null}
           className="group flex flex-row p-1 pb-2 pr-2 gap-2 w-full text-left 
@@ -277,11 +280,11 @@ export default function FactoryControls({
             </div>
             <div className="block text-center text-red-400"><ExclamationTriangleIcon className="w-4 inline-block stroke-red-400 " /> Unavailable without an Input based goal</div>
           </div>
-        </MenuItem> */}
+        </MenuItem>
       </MenuItems>
     </Menu >
 
-    <div className="costs pl-4 mt-0.5 align-middle flex-1 h-full flex flex-row py-0.5 gap-1 justify-start content-start max-w-md">
+    <div className="costs pl-4 mt-0.5 align-middle flex-1 h-full flex flex-row py-0.5 gap-4 justify-start content-start max-w-md">
       {solution ? (<>
         {infraScores.map((i) => {
           return (

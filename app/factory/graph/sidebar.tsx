@@ -49,6 +49,7 @@ function SideBar({ addNewRecipe }: props) {
   const model = useFactoryStore(useShallow(state => state.graph));
   const solutionUpdateAction = useFactoryStore(useShallow(state => state.solutionUpdateAction));
   const setHighlight = useFactoryStore(useShallow(state => state.setHighlight));
+  const manifoldOptions = useFactoryStore(useShallow(state => state.manifoldOptions));
   const [editGoal, setEditGoal] = useState<FactoryGoal | null>(null);
 
   const addGoal = useCallback((goal: FactoryGoal): void => {
@@ -77,6 +78,11 @@ function SideBar({ addNewRecipe }: props) {
       .map(id => model.constraints[id])
       .filter(c => !c.parent && !c.unconnected)
       .map(c => c.id)
+      .sort((a, b) => {
+        const aFreed = manifoldOptions.some(m => m.constraintId === a && m.free);
+        const bFreed = manifoldOptions.some(m => m.constraintId === b && m.free);
+        return (bFreed ? 1 : 0) - (aFreed ? 1 : 0);
+      })
     : [];
 
   const [selectProductDialog, setSelectProductDialog] = useState(false);

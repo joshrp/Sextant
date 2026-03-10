@@ -194,7 +194,7 @@ export async function solve(
   scoreMethod: GraphScoringMethod,
   autoSolve: boolean,
   previousSolution: number | null = null):
-  Promise<{ solution: Solution, manifolds?: ManifoldOptions[] } | "Error" | "Infeasible"> {
+  Promise<{ solution: Solution, manifolds?: ManifoldOptions[] } | "Error" | "Infeasible" | "Unbounded"> {
   const freeConstraints = new Set(manifolds.map(m => m.free ? m.constraintId : null).filter(x => x !== null));
   const res = await getHighsSolution(graph, goals, freeConstraints, scoreMethod);
 
@@ -211,7 +211,7 @@ export async function solve(
   if (res.Status == "Time limit reached") {
     console.warn("Highs time limit reached, returning error");
     // TODO:: Let them know it's likely Unbounded
-    return "Error";
+    return "Unbounded";
   }
 
   else if (autoSolve) {

@@ -198,7 +198,7 @@ export async function solutionUpdateAction<T extends SolutionUpdateStateInputs>(
   // Validate goals against the graph before solving
   const goalErrors = validateGoals(state.graph, state.goals);
   if (goalErrors.length > 0) {
-    return { solutionStatus: "Error", goalErrors, solution: undefined };
+    return { solutionStatus: "Unbounded", goalErrors, solution: undefined };
   }
 
   const resp: SolutionUpdateStateOutputs = { solutionStatus: "Running", goalErrors: [] };
@@ -209,17 +209,16 @@ export async function solutionUpdateAction<T extends SolutionUpdateStateInputs>(
     previousSolutionValue = state.solution.ObjectiveValue;
   }
   const result = await solver(state.graph, state.goals, manifoldOptions, state.scoringMethod, autoSolve, previousSolutionValue);
-  if (result === "Error" || result === "Infeasible") {
+  if (result === "Error" || result === "Infeasible" || result === "Unbounded") {
     return { solutionStatus: result };
   }
 
   let status: GraphSolutionState["solutionStatus"] = "Solved";
-  if (manifoldOptions.length > 0)
+  if (result.manifolds && result.manifolds.length > 0)
     status = "Partial";
 
   resp.solution = result.solution;
   resp.solutionStatus = status;
-  console.log('Got solver status:', resp.solutionStatus, 'with manifolds:', manifoldOptions.length, 'and solution value:', resp.solution?.ObjectiveValue);
   if (result.manifolds) {
     resp.manifoldOptions = result.manifolds;
   }

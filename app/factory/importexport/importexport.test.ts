@@ -109,7 +109,7 @@ describe("Import Export", () => {
       const idb = getIdb();
       const store = FactoryStore(idb, {id: "test-goal-input", name: "Test Goal Input Factory" }, () => DEFAULT_ZONE_MODIFIERS);
       await (store.Graph.getState().importData(data.factories[0]));
-      expect(store.Graph.getState().solutionStatus).toEqual('Error');
+      expect(store.Graph.getState().solutionStatus).toEqual('Unbounded');
     });
   });
 

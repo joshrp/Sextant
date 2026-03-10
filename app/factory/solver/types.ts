@@ -75,7 +75,7 @@ export type Constraint = {
 };
 
 export type GraphScoringMethod = "infra" | "inputs" | "footprint" | "outputs";
-export type SolutionStatus = "Solved" | "Running" | "Partial" | "Error" | "Infeasible";
+export type SolutionStatus = "Solved" | "Running" | "Partial" | "Error" | "Infeasible" | "Unbounded";
 
 export interface Solution {
   goals: {

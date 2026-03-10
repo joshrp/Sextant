@@ -398,17 +398,16 @@ describe('GraphStore Reducers', () => {
     });
 
     test('returns Partial status when manifolds exist', async () => {
-      const mockSolverResult = { solution: mockSolution };
-      const mockSolver = vi.fn().mockResolvedValue(mockSolverResult);
-      const stateWithManifolds = {
-        ...minimalState,
-        manifoldOptions: [
-          {
+      const manifolds = [{
             constraintId: 'c1',
             edges: { e1: true },
             free: false,
-          },
-        ],
+          }];
+      const mockSolverResult = { solution: mockSolution, manifolds };
+      const mockSolver = vi.fn().mockResolvedValue(mockSolverResult);
+      const stateWithManifolds = {
+        ...minimalState,
+        manifoldOptions: manifolds,
       };
 
       const result = await solutionUpdateAction({
@@ -420,6 +419,7 @@ describe('GraphStore Reducers', () => {
         solutionStatus: 'Partial',
         solution: mockSolution,
         goalErrors: [],
+        manifoldOptions: manifolds,
       });
     });
 
@@ -443,7 +443,7 @@ describe('GraphStore Reducers', () => {
       });
 
       expect(result.manifoldOptions).toBe(newManifolds);
-      expect(result.solutionStatus).toBe('Solved');
+      expect(result.solutionStatus).toBe('Partial');
       expect(result.solution).toBe(mockSolution);
     });
 
@@ -708,14 +708,14 @@ describe('GraphStore Reducers', () => {
       });
 
       expect(result.manifoldOptions).toHaveLength(2);
-      
+
       // First should be unchanged
       expect(result.manifoldOptions[0]).toEqual({
         constraintId: 'c1',
         edges: { 'e1': true, 'e2': true },
         free: true,
       });
-      
+
       // Second should have updated constraintId
       expect(result.manifoldOptions[1]).toEqual({
         constraintId: 'c2',
