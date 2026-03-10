@@ -10,9 +10,6 @@ import {
 } from '~/context/zoneModifiers';
 import { uiIcon } from '~/uiUtils';
 
-/** Step used by the +/− buttons — always 5% regardless of meta.step. */
-const BUTTON_STEP = 0.05;
-
 // ─── Header ───────────────────────────────────────────────────────────────────
 
 function WikiLink({ href, children }: { href: string; children: React.ReactNode }) {
@@ -58,23 +55,23 @@ function ModifierRow({ modKey }: { modKey: keyof ZoneModifiers }) {
   const isDefault = value === meta.default;
 
   // Display as percentage with up to 1 decimal place
-  const displayValue = Math.round(value * 1000) / 10;
+  const displayValue = meta.isAbsolute ? value : (Math.round(value * 1000) / 10);
 
   const handleDecrement = () => {
-    const next = Math.round((value - BUTTON_STEP) * 1e6) / 1e6;
+    const next = Math.round((value - meta.step) * 1e6) / 1e6;
     setModifier(modKey, next);
   };
 
   const handleIncrement = () => {
-    const next = Math.round((value + BUTTON_STEP) * 1e6) / 1e6;
+    const next = Math.round((value + meta.step) * 1e6) / 1e6;
     setModifier(modKey, next);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const pct = parseFloat(e.target.value);
     if (isNaN(pct)) return;
-    const decimal = Math.round((pct / 100) * 1e6) / 1e6;
-    setModifier(modKey, decimal);
+    const next = meta.isAbsolute ? pct : pct / 100;
+    setModifier(modKey, next);
   };
 
   const handleReset = () => setModifier(modKey, meta.default);
@@ -98,7 +95,7 @@ function ModifierRow({ modKey }: { modKey: keyof ZoneModifiers }) {
         </div>
         {!isDefault && (
           <div className="text-xs text-gray-500 mt-0.5">
-            default: {Math.round(meta.default * 100)}%
+            default: {meta.isAbsolute ? meta.default : Math.round(meta.default * 100)+'%'}
           </div>
         )}
       </td>
@@ -108,7 +105,7 @@ function ModifierRow({ modKey }: { modKey: keyof ZoneModifiers }) {
         <div className="flex items-center gap-2">
           <button
             onClick={handleDecrement}
-            aria-label="Decrease by 5%"
+            aria-label={`Decrease by ${meta.step * 100}${meta.isAbsolute ? '' : '%'}`}
             className="w-7 h-7 flex items-center justify-center text-base text-gray-400 hover:text-white cursor-pointer rounded hover:bg-gray-600 transition-colors select-none"
           >
             −
@@ -117,14 +114,14 @@ function ModifierRow({ modKey }: { modKey: keyof ZoneModifiers }) {
             type="number"
             value={displayValue}
             onChange={handleChange}
-            step={5}
+            step={meta.step * 100}
             aria-label={`${meta.label} (%)`}
             className="w-20 text-right text-sm bg-gray-900 border border-gray-600 rounded px-2 py-1 text-white focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400/30"
           />
-          <span className="text-gray-400 text-sm select-none">%</span>
+          <span className="text-gray-400 text-sm select-none">{meta.isAbsolute ? '' : '%'}</span>
           <button
             onClick={handleIncrement}
-            aria-label="Increase by 5%"
+            aria-label={`Increase by ${meta.step * 100}${meta.isAbsolute ? '' : '%'}`}
             className="w-7 h-7 flex items-center justify-center text-base text-gray-400 hover:text-white cursor-pointer rounded hover:bg-gray-600 transition-colors select-none"
           >
             +

@@ -556,6 +556,8 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
       }
     }
 
+    
+
     for (const rawRecipe of rawMachine.recipes) {
       let newRecipeId = rawRecipe.id as Recipe["id"];
       const duration = rawRecipe.duration || 60; // Default to 60 seconds if no duration is specified
@@ -653,6 +655,7 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
         isMaintenanceProducer: outputs.some(o => MAINTENANCE_PRODUCT_IDS.has(o.id)),
         isFarm: rawMachine.id.includes('Farm'),
         usesSolarPower: SOLAR_PANEL_MACHINE_IDS.has(rawMachine.id),
+        isRainWaterHarvester: rawMachine.id === "RainwaterHarvester",
       };
 
       recipeData.set(newRecipeId, recipe);
@@ -713,6 +716,7 @@ export async function initialMachineAndRecipeData(rawMachinesAndBuildings: RawMa
       isMaintenanceProducer: false,
       isFarm: false,
       usesSolarPower: false,
+      isRainWaterHarvester: false,
     };
     recipeData.set(BalancerRecipe.id, BalancerRecipe);
     machine.recipes.push(BalancerRecipe.id);
@@ -799,6 +803,7 @@ function addContractRecipes(
       isMaintenanceProducer: false,
       isFarm: false,
       usesSolarPower: false,
+      isRainWaterHarvester: false,
     };
 
     recipeData.set(recipeId, recipe);
@@ -895,6 +900,7 @@ function addThermalStorageRecipes(
       isMaintenanceProducer: false,
       isFarm: false,
       usesSolarPower: false,
+      isRainWaterHarvester: false,
     };
 
     recipeData.set(recipeId, recipe);

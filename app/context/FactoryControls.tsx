@@ -127,9 +127,9 @@ export default function FactoryControls({
       className="p-1 block cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
       onClick={graphUpdateAction}
       disabled={isEmpty}
-      title={isEmpty ? "Add goals and recipes first" : "Solve / update"}
+      title={isEmpty ? "Add goals and recipes first" : "Re-run solver"}
       data-testid="factory-controls-graph-update-button"
-    ><ArrowPathRoundedSquareIcon className="mx-auto h-full" /></button>
+    ><ArrowPathRoundedSquareIcon className="mx-auto w-6" /></button>
 
     <Menu key="factory-menu" as="div" className="relative">
       <MenuButton className="cursor-pointer h-full" data-testid="factory-controls-solution-method-menu-button">

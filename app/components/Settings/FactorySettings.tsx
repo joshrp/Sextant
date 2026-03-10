@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router";
 
 import { ChevronDownIcon, ClipboardIcon, InformationCircleIcon } from "@heroicons/react/24/outline";
@@ -36,6 +36,11 @@ export default function FactorySettings() {
 
   const plannerStore = usePlanner().store;
   const lastTab = plannerStore.getState().lastSettingsTab;
+
+  const zoneStore = useProductionMatrix().store;
+  const factoryStore = useFactory().store;
+  // Snapshot modifiers when settings opens so we can detect changes on close
+  const initialModifiers = useRef(zoneStore.getState().modifiers);
 
   let tabId = `${tabParam}`;
   // If there's no tab, or the tab isn't valid. Go to the last tab, if that's not valid go to weights
@@ -75,7 +80,14 @@ export default function FactorySettings() {
       content = <div>Unknown tab</div>;
   }
   return (
-    <SelectorDialog isOpen={true} setIsOpen={() => { navigate('../'); }} title="Settings"
+    <SelectorDialog isOpen={true} setIsOpen={() => {
+      const currentModifiers = zoneStore.getState().modifiers;
+      const changed = Object.keys(currentModifiers).some(
+        k => currentModifiers[k as keyof typeof currentModifiers] !== initialModifiers.current[k as keyof typeof initialModifiers.current]
+      );
+      if (changed) factoryStore.getState().graphUpdateAction();
+      navigate('../');
+    }} title="Settings"
       heightClassName="h-[90vh]"
       widthClassName="w-7/8"
     >

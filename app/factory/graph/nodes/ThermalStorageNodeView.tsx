@@ -133,7 +133,7 @@ export default function ThermalStorageNodeView({
               type="range"
               min={0}
               max={100}
-              step={5}
+              step={1}
               value={loss}
               onChange={e => setDraftLoss(Number(e.target.value))}
               onMouseDown={e => e.stopPropagation()}

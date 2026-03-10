@@ -141,13 +141,12 @@ export type RecipeBase = {
   isFarm: boolean;
   /** Pre-computed at reformat time: recipe's machine is a solar panel variant */
   usesSolarPower: boolean;
+  isRainWaterHarvester: boolean;
 }
 export type Recipe = RecipeBase & {
   machine: Machine;
   inputs: RecipeProduct[];
   outputs: RecipeProduct[];
-  /** Computed at parse time: recipe's machine is a rainwater harvester */
-  isRainwaterHarvester: boolean;
 }
 
 export type RecipeSerialized = RecipeBase & {
@@ -250,7 +249,6 @@ export function parseData(unparsedData = gameData) {
         machine: machine,
         inputs: [],
         outputs: [],
-        isRainwaterHarvester: machine.id === 'RainwaterHarvester',
       });
       const newRecipe = newData.recipes.get(recipeId)!;
       machine.recipes.push(newRecipe);

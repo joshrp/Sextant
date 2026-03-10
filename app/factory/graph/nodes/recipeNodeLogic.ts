@@ -259,7 +259,7 @@ export const RecipeNodeCalculator = (
       if (recipe.isMaintenanceProducer) qty *= modifiers.maintenanceOutput;
       if (recipe.isFarm) qty *= modifiers.farmYield;
       if (recipe.usesSolarPower) qty *= modifiers.solarOutput;
-      if (recipe.isRainwaterHarvester) qty *= modifiers.rainwaterOutput;
+      if (recipe.isRainWaterHarvester) qty = modifiers.rainwaterOutput;
       if (recipe.type === 'contract') qty *= modifiers.contractProfitability;
       return qty * runCount;
     },

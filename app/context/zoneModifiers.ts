@@ -41,13 +41,14 @@ export type ModifierGroup =
   | 'maintenance'
   | 'farming'
   | 'settlements'
-  | 'energy'
+  | 'infrastructure'
   | 'contracts';
 
 export interface ModifierMeta {
   label: string;
   tooltip: string;     // edict/research source description shown in ⓘ tooltip
-  isAbsolute?: boolean; // true only for recyclingEfficiency
+  isMultiplier?: boolean; // if true it's used a multiplier on recipes
+  isAbsolute?: boolean; // if true it's used as an absolute value (e.g. rainwater harvester output in m³/s)
   unbounded?: boolean; // true only for contractProfitability; omits min/max
   min?: number;        // decimal (e.g. 0.5 = 50%); absent when unbounded
   max?: number;        // decimal (e.g. 4.0 = 400%); absent when unbounded
@@ -60,16 +61,18 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
   recyclingEfficiency: {
     label: 'Recycling Efficiency',
     tooltip: 'Base 60%. Recycling Increase I–IV each add +20%, +15%, +10%, +10% (hard cap 75%).',
-    isAbsolute: true,
     min: 0.01,
     max: 1,
     step: 0.05,
     default: 0.20,
     group: 'recycling',
+    isMultiplier: false,
+
   },
   maintenanceConsumption: {
     label: 'Maintenance Consumption',
     tooltip: 'Maintenance Cost adjustment',
+    isMultiplier: true,
     min: 0.01,
     max: 10,
     step: 0.05,
@@ -79,6 +82,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
   maintenanceOutput: {
     label: 'Maintenance Yield',
     tooltip: 'Maintenance output adjustment',
+    isMultiplier: true,
     min: 0.01,
     max: 10,
     step: 0.05,
@@ -89,6 +93,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     label: 'Crop Yield',
     tooltip: 'Crop yield adjustment for farms',
     min: 0.01,
+    isMultiplier: true,
     max: 10,
     step: 0.05,
     default: 1.0,
@@ -101,6 +106,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'farming',
   },
   foodConsumption: {
@@ -110,6 +116,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'settlements',
   },
   settlementWater: {
@@ -119,6 +126,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'settlements',
   },
   householdGoods: {
@@ -128,6 +136,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'settlements',
   },
   householdAppliances: {
@@ -137,6 +146,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'settlements',
   },
   consumerElectronics: {
@@ -146,6 +156,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'settlements',
   },
   solarOutput: {
@@ -155,16 +166,19 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     max: 10,
     step: 0.05,
     default: 1.0,
-    group: 'energy',
+    isMultiplier: true,
+    group: 'infrastructure',
   },
   rainwaterOutput: {
-    label: 'Rainwater Yield',
-    tooltip: 'Water output multiplier for rainwater harvesters',
-    min: 0.01,
-    max: 10,
-    step: 0.05,
-    default: 1.0,
-    group: 'energy',
+    label: 'Rainwater Harvester Output',
+    tooltip: 'Absolute value of Rainwater harvester output',
+    min: 0.1,
+    max: 1000,
+    step: 0.1,
+    default: 4.1,
+    group: 'infrastructure',
+    isMultiplier: false,
+    isAbsolute: true
   },
   contractProfitability: {
     label: 'Contract Profitability',
@@ -172,6 +186,7 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
     unbounded: true,
     step: 0.05,
     default: 1.0,
+    isMultiplier: true,
     group: 'contracts',
   },
 };
@@ -182,7 +197,7 @@ export const MODIFIER_GROUP_ORDER: ModifierGroup[] = [
   'maintenance',
   'farming',
   'settlements',
-  'energy',
+  'infrastructure',
   'contracts',
 ];
 
@@ -191,6 +206,6 @@ export const MODIFIER_GROUP_LABELS: Record<ModifierGroup, string> = {
   maintenance: 'Maintenance',
   farming: 'Farming',
   settlements: 'Settlements',
-  energy: 'Energy',
+  infrastructure: 'Infrastructure',
   contracts: 'Contracts',
 };
