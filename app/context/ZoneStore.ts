@@ -144,7 +144,7 @@ function buildZoneStore(idb: IDB, { id, name }: { id: string, name: string }) {
               return (await idb).delete(zoneObjectStore, name);
             }
           },
-          version: 3,
+          version: 4,
           migrate: (persistedState: unknown, currentVersion: number) => {
             if (!persistedState || !('factories' in (persistedState as ProductionZoneStoreData))) {
               console.log("No persisted state found, or invalid, something is weird in migrate.");
@@ -164,6 +164,11 @@ function buildZoneStore(idb: IDB, { id, name }: { id: string, name: string }) {
             if (currentVersion <= 2) {
               newState.modifiers = DEFAULT_ZONE_MODIFIERS;
               console.log("Migrated ProductionZone_settings to version 3: added modifiers", newState);
+            }
+
+            if (currentVersion <= 3) {
+              newState.modifiers = { ...DEFAULT_ZONE_MODIFIERS, ...newState.modifiers };
+              console.log("Migrated ProductionZone_settings to version 4: filled missing modifier defaults", newState);
             }
 
             return newState;

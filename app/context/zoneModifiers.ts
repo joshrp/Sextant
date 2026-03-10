@@ -16,6 +16,7 @@ export interface ZoneModifiers {
   householdAppliances: number;    // multiplier, default 1.0
   consumerElectronics: number;    // multiplier, default 1.0
   solarOutput: number;            // multiplier, default 1.0
+  rainwaterOutput: number;        // multiplier, default 1.0
   contractProfitability: number;  // multiplier, default 1.0, scales contract output quantities
 }
 
@@ -31,6 +32,7 @@ export const DEFAULT_ZONE_MODIFIERS: ZoneModifiers = {
   householdAppliances: 1.0,
   consumerElectronics: 1.0,
   solarOutput: 1.0,
+  rainwaterOutput: 1.0,
   contractProfitability: 1.0,
 };
 
@@ -149,6 +151,15 @@ export const MODIFIER_META: Record<keyof ZoneModifiers, ModifierMeta> = {
   solarOutput: {
     label: 'Solar Output',
     tooltip: 'Solar panel output adjustment',
+    min: 0.01,
+    max: 10,
+    step: 0.05,
+    default: 1.0,
+    group: 'energy',
+  },
+  rainwaterOutput: {
+    label: 'Rainwater Yield',
+    tooltip: 'Water output multiplier for rainwater harvesters',
     min: 0.01,
     max: 10,
     step: 0.05,
