@@ -1,0 +1,3 @@
+[submodule "data/data-extractor"]
+	path = data/data-extractor
+	url = git@github.com:joshrp/captain-of-data.git
