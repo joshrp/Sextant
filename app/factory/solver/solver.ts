@@ -12,7 +12,7 @@ import type { ZoneModifiers } from "~/context/zoneModifiers";
 
 const recipeData = loadData().recipes;
 
-const highsOptions: HighsOptions = { time_limit: 2, small_matrix_value: 1e-4 };
+const highsOptions: HighsOptions = { time_limit: 2, small_matrix_value: 1e-8 };
 /** 
  * Some terms:
  * Node - A box on the graph, almost always a Recipe Node (others planned)

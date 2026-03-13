@@ -71,9 +71,10 @@ const DataTypes = {
   "balancer": "b",
   "settlement": "s",
   "contract": "c",
+  "thermal-storage": "t",
   get: function (id?: string): string { return this[(id ?? "recipe") as keyof typeof DataTypes] as string || "r" },
-  find: function (val: string | undefined): "recipe" | "balancer" | "settlement" | "contract" {
-    const found = Object.entries(this).find(([, v]) => v === val)?.[0] as "recipe" | "balancer" | "settlement" | "contract" | undefined;
+  find: function (val: string | undefined): "recipe" | "balancer" | "settlement" | "contract" | "thermal-storage" {
+    const found = Object.entries(this).find(([, v]) => v === val)?.[0] as "recipe" | "balancer" | "settlement" | "contract" | "thermal-storage" | undefined;
     return found ?? "recipe";
   }
 }
@@ -210,6 +211,9 @@ function minifyNodeOptions(data: NodeDataTypes): Record<string, unknown> | undef
         return { r: data.options.useRecycling };
       }
       return undefined;
+    }
+    case "thermal-storage": {
+      return { l: data.options.loss };
     }
     default:
       return undefined;
@@ -491,6 +495,10 @@ class Unminify {
       } else if (dataType === "recipe") {
         if (typeof opts.r === "boolean") {
           node.data.options = { useRecycling: opts.r };
+        }
+      } else if (dataType === "thermal-storage") {
+        if (typeof opts.l === "number") {
+          node.data.options = { loss: opts.l };
         }
       }
 

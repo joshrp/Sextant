@@ -111,6 +111,23 @@ describe("Import Export", () => {
       await (store.Graph.getState().importData(data.factories[0]));
       expect(store.Graph.getState().solutionStatus).toEqual('Unbounded');
     });
+
+    test('Should solve thermal storage node with loss and preserve loss on export', async () => {
+      setDebugSolver(true);
+      const exportStr = testExports['version-5']['thermal-storage'];
+      const decompressed = await imex.decompress(exportStr) as imex.MinifiedStateV5;
+      const data = imex.unminifyBulk(decompressed);
+      const idb = getIdb();
+      const store = FactoryStore(idb, {id: "test-thermal-storage", name: "Test Thermal Storage Factory" }, () => DEFAULT_ZONE_MODIFIERS);
+      await (store.Graph.getState().importData(data.factories[0]));
+      expect(store.Graph.getState().solutionStatus).toEqual('Solved');
+      const thermalNode = store.Graph.getState().nodes.find(n => n.type === "recipe-node" && n.data.type === "thermal-storage");
+      expect(thermalNode).toBeDefined();
+      if (thermalNode && thermalNode.type === "recipe-node" && thermalNode.data.type === "thermal-storage") {
+        expect(thermalNode.data.options).toBeDefined();
+        expect(thermalNode.data.options!.loss).toBe(20);
+      }
+    });
   });
 
   describe('Icon Export/Import', () => {
@@ -371,6 +388,85 @@ describe("Import Export", () => {
       const minified = imex.minify(testData, "zone");
       const nodeTuple = minified[4][0];
       expect(nodeTuple).toHaveLength(7); // No 8th element
+    });
+
+    test('thermal-storage node loss round-trip', async () => {
+      const testData: GraphCoreData = {
+        name: "Thermal Storage Test",
+        nodes: [
+          {
+            id: "ts1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "thermal-storage",
+              recipeId: "ThermalStorage_Product_SteamLP" as RecipeId,
+              ltr: true,
+              options: { loss: 35 },
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      expect(minified[0]).toBe(5);
+
+      // Data type code should be "t" for thermal-storage (not "r" for recipe)
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple[6]).toBe("t");
+
+      // The 8th element should encode loss as { l: 35 }
+      expect(nodeTuple).toHaveLength(8);
+      expect(nodeTuple[7]).toEqual({ l: 35 });
+
+      // Round-trip: compress → decompress → unminify
+      const compressed = await imex.compress(minified);
+      const imported = imex.unminify(await imex.decompress(compressed));
+
+      expect(imported.nodes).toHaveLength(1);
+      const node = imported.nodes[0];
+      expect(node.type).toBe("recipe-node");
+      if (node.type === "recipe-node") {
+        expect(node.data.type).toBe("thermal-storage");
+        expect(node.data.options).toBeDefined();
+        expect(node.data.options!.loss).toBe(35);
+      }
+    });
+
+    test('thermal-storage node default loss (10%) round-trip', async () => {
+      const testData: GraphCoreData = {
+        name: "Thermal Storage Default Loss Test",
+        nodes: [
+          {
+            id: "ts1",
+            type: "recipe-node",
+            position: { x: 0, y: 0 },
+            data: {
+              type: "thermal-storage",
+              recipeId: "ThermalStorage_Product_SteamLP" as RecipeId,
+              ltr: false,
+              options: { loss: 10 },
+            },
+          },
+        ],
+        edges: [],
+        goals: [],
+      };
+
+      const minified = imex.minify(testData, "zone");
+      const nodeTuple = minified[4][0];
+      expect(nodeTuple[6]).toBe("t");
+      expect(nodeTuple[7]).toEqual({ l: 10 });
+
+      const imported = imex.unminify(await imex.decompress(await imex.compress(minified)));
+      const node = imported.nodes[0];
+      if (node.type === "recipe-node") {
+        expect(node.data.type).toBe("thermal-storage");
+        expect(node.data.options!.loss).toBe(10);
+        expect(node.data.ltr).toBe(false);
+      }
     });
 
     test('mixed nodes with options: settlement + recipe + balancer + annotation', async () => {
