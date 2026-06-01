@@ -7,6 +7,9 @@
     "url": "https://github.com/joshrp/sextant"
   },
   "scripts": {
+    "syncHighsWasm": "tsx scripts/syncHighsWasm.ts",
+    "prebuild": "npm run syncHighsWasm",
+    "predev": "npm run syncHighsWasm",
     "build": "react-router build && cp build/client/index.html build/client/404.html",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",

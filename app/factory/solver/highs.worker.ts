@@ -5,9 +5,15 @@
 
 import highsLoader, { type Highs, type HighsOptions, type HighsSolution } from "highs";
 
-// Load HiGHS in worker context - always use CDN in service worker
-const highsProm: Promise<Highs> = highsLoader({ 
-  locateFile: (file: string) => "https://lovasoa.github.io/highs-js/" + file 
+// Load the wasm from our own public/ folder rather than a CDN, so the JS glue
+// and the wasm stay pinned to the same version. The file is fetched into public/
+// at build time by scripts/syncHighsWasm.ts, versioned to match the `highs`
+// dependency in package.json (__HIGHS_WASM_VERSION__ is injected by Vite from
+// that same version). BASE_URL keeps the path correct under the GitHub Pages
+// base ("/sextant/").
+const wasmUrl = `${import.meta.env.BASE_URL}highs-${__HIGHS_WASM_VERSION__}.wasm`;
+const highsProm: Promise<Highs> = highsLoader({
+  locateFile: () => wasmUrl,
 });
 
 export interface SolverRequest {
