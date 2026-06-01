@@ -18,7 +18,7 @@ test('import factory from compressed export string', async ({ page }) => {
   const importLink = page.getByTestId('import-factory-link');
   await importLink.waitFor();
   await importLink.click();
-  
+
   // Switch to Import tab
   await page.getByTestId('settings-tab-import').click();
 
@@ -44,14 +44,14 @@ test('import factory from compressed export string', async ({ page }) => {
     - img
     - text: "7.7"
     - img
-    - text: "0.4"
+    - text: "0.41"
     - img
-    - text: "0.4"
+    - text: "0.41"
     - img
     - text: "27.8"
     - img
     - text: "48.1"
     - img
-    - text: "0.1"
+    - text: "0.05"
   `);
 });
