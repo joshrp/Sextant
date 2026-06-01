@@ -1469,7 +1469,7 @@
       },
       {
         "nodeId": "Balancer_Product_Compost_1777708533695",
-        "count": 0.0001
+        "count": 0.00001
       },
       {
         "nodeId": "Balancer_Product_Compost_1777708512410",
@@ -1513,7 +1513,7 @@
       },
       {
         "nodeId": "Balancer_Product_Compost_1777708533695",
-        "count": 0.000059
+        "count": 0.00001
       },
       {
         "nodeId": "Balancer_Product_Compost_1777708512410",
@@ -1616,7 +1616,7 @@
         },
         {
           "productId": "Product_Compost",
-          "amount": -0.000059
+          "amount": -0.00001
         },
         {
           "productId": "Product_FuelGas",
@@ -1837,7 +1837,7 @@
       "i_Product_Fertilizer2": -88.6027,
       "o_Product_Fertilizer2": 0.00001,
       "o_Product_Compost": 112.008,
-      "i_Product_Compost": -0.000059,
+      "i_Product_Compost": -0.00001,
       "c91": 0,
       "c92": 0,
       "i_Product_FuelGas": -16.7534,

@@ -16,6 +16,7 @@
     "preview": "vite preview --port 4173",
     "typecheck": "react-router typegen && tsc",
     "test:unit": "vitest --run",
+    "update:fixtures": "UPDATE_FIXTURES=1 vitest --run app/factory/fixtures/updateFixtures.test.ts",
     "test:component": "vitest --run --config vitest.component.config.ts",
     "test:e2e": "playwright test",
     "test": "npm run test:unit && npm run test:component",
